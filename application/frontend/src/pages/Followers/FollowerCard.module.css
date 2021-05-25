@@ -1,0 +1,20 @@
+.follower-card {
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    align-items: center;
+  }
+  
+  .follower-card-pic {
+    width: 75px;
+    height: 75px;
+    border-radius: 7.5px;
+  }
+  
+  .follower-card-name {
+    padding-left: 15px;
+    font-size: var(--h2);
+    font-family: var(--ff-primary);
+  }

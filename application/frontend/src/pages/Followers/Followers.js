@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {useParams, useHistory, Link} from "react-router-dom";
-import Tab from "../../components/UI/Tab/Tab.js"
+
 
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 import styles from "./Followers.module.css";
 
-// Import Components Here
+//Import Components Here
+import FollowerCard from "./FollowerCard.js"
+import Tab from "../../components/UI/Tab/Tab.js"
+import { es } from "date-fns/locale";
+
 function Followers() {
 
   const {profileID} = useParams();
@@ -37,15 +41,6 @@ function Followers() {
 
   let history = useHistory();
 
-  const FollowerCard = ({ title, src, key }) => {
-    return (
-      <div className={styles["follower-card"]}>
-        <img src={src} className={styles["follower-card-pic"]} />
-        <div className={styles["follower-card-name"]}>{title}</div>
-      </div>
-    );
-  };
-
   const [selectedTab, setSelectedTab] = useState(0);
 
   const onTabClicked = (value) => {
@@ -62,6 +57,15 @@ function Followers() {
       clicked={onTabClicked}
     />));
 
+  let fList = []
+
+  //Set List to display based on selectedTab
+  if(selectedTab === 0){
+    fList = followers
+  }
+  else if(selectedTab === 1){
+    fList = following
+  }
 
   return (
     <div>
@@ -80,57 +84,18 @@ function Followers() {
               </p>
             </div>
           </div>
-          {selectedTab === 0 && (
             <div>
               <div className={styles["followers-listing"]}>
                 {" "}
-                {followers.map((item) => (
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    key={item.profile_id}
-                    to={"/Profile/" + item.profile_id}
-                  >
-                    <div
-                      style={{
-                        padding: " 10px 0px",
-                      }}
-                    >
-                      <FollowerCard
-                        title={item.display_name}
-                        src={item.profile_pic_link}
-                      />
+                {fList.map((item) => (
+                  <Link style={{ textDecoration: "none" }} key={item.profile_id} to={"/Profile/" + item.profile_id}>
+                    <div style={{padding: " 10px 0px"}}>
+                      <FollowerCard key={item.profile_id} title={item.display_name} src={item.profile_pic_link}/>
                     </div>
                   </Link>
                 ))}
               </div>
             </div>
-          )}
-
-          {selectedTab === 1 && (
-            <div>
-              <div className={styles["followers-listing"]}>
-                {" "}
-                {following.map((item) => (
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    key={item.profile_id}
-                    to={"/Profile/" + item.profile_id}
-                  >
-                    <div
-                      style={{
-                        padding: " 10px 0px",
-                      }}
-                    >
-                      <FollowerCard
-                        title={item.display_name}
-                        src={item.profile_pic_link}
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>}
     </div>
