@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {useParams} from "react-router-dom";
-import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
+import {useParams, useHistory, Link} from "react-router-dom";
+import Tab from "../../components/UI/Tab/Tab.js"
 
 import Spinner from '../../components/UI/Spinner/Spinner';
+
+import styles from "./Followers.module.css";
 
 // Import Components Here
 function Followers() {
@@ -33,10 +35,104 @@ function Followers() {
     })
   },[profileID])
 
+  let history = useHistory();
+
+  const FollowerCard = ({ title, src, key }) => {
+    return (
+      <div className={styles["follower-card"]}>
+        <img src={src} className={styles["follower-card-pic"]} />
+        <div className={styles["follower-card-name"]}>{title}</div>
+      </div>
+    );
+  };
+
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const onTabClicked = (value) => {
+    setSelectedTab(value);
+  };
+
+  let tabs = ["Followers", "Following"].map((tab, index) => (
+    <Tab
+      key={tab}
+      id={index}
+      section={tab}
+      selected={selectedTab}
+      length={index === 0 ? followers.length : following.length}
+      clicked={onTabClicked}
+    />));
+
 
   return (
     <div>
-      {loading ? <Spinner /> : <UserProfileCard followersList={followers} followingList={following}/>}
+      {loading ? <Spinner /> : 
+      <div className={`${styles["followers-container"]} ${"container"}`}>
+        <div className={styles["tabContainer"]}>
+          <div className={styles.Tabs}>
+            <div style={{ display: "flex", width: "100%" }}>{tabs}</div>
+            <div style={{ cursor: "pointer" }}>
+              {/* <button>filter</button> */}
+              <p
+                className={styles["tab-container-link"]}
+                onClick={() => history.goBack()}
+              >
+                Back to Profile
+              </p>
+            </div>
+          </div>
+          {selectedTab === 0 && (
+            <div>
+              <div className={styles["followers-listing"]}>
+                {" "}
+                {followers.map((item) => (
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    key={item.profile_id}
+                    to={"/Profile/" + item.profile_id}
+                  >
+                    <div
+                      style={{
+                        padding: " 10px 0px",
+                      }}
+                    >
+                      <FollowerCard
+                        title={item.display_name}
+                        src={item.profile_pic_link}
+                      />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {selectedTab === 1 && (
+            <div>
+              <div className={styles["followers-listing"]}>
+                {" "}
+                {following.map((item) => (
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    key={item.profile_id}
+                    to={"/Profile/" + item.profile_id}
+                  >
+                    <div
+                      style={{
+                        padding: " 10px 0px",
+                      }}
+                    >
+                      <FollowerCard
+                        title={item.display_name}
+                        src={item.profile_pic_link}
+                      />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>}
     </div>
   );
 }
