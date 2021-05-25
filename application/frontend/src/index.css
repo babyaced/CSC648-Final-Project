@@ -10,7 +10,6 @@ html,body {
 } */
 
 *, *::before, *::after{
-
   box-sizing: border-box;
 }
 
@@ -92,6 +91,18 @@ h2{
 
 h3{
   font-family: var(--ff-primary) !important;
+}
+
+.container{
+  max-width: 800px;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.wide-container{
+  max-width: 1200px;
+  width: 85%;
+  margin: 0 auto;
 }
 
 

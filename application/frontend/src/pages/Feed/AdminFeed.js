@@ -102,7 +102,7 @@ function AdminFeed({appUser}) {
 
     return (
         <>
-            <div className={styles["follower-feed-container"]}>
+            <div className={`${styles["follower-feed-container"]} ${"container"}`}>
                 <div className={styles["follower-feed-header"]}></div>
 
                 {feedPosts.length == 0 &&                     

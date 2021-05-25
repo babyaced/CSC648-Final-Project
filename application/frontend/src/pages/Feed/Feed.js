@@ -300,7 +300,7 @@ function Feed({appUser}) {
     }
 
     let displayFeed = (
-        <div className={styles["follower-feed-container"]}>
+        <div className={`${styles["follower-feed-container"]} ${"container"}`}>
                 <div className={styles["follower-feed-header"]}></div>
                 <form className={styles["follower-feed-new-post"]} onSubmit={submitPost}>
                     <img className={styles["follower-feed-new-post-pic"]} src={createPostProfilePic} />

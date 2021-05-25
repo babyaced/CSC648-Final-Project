@@ -42,7 +42,7 @@ function UserProfileCard({ followersList, followingList }) {
   ));
 
   return (
-    <div className={styles["followers-container"]}>
+    <div className={`${styles["followers-container"]} ${"container"}`}>
       <div className={styles["tabContainer"]}>
         <div className={styles.Tabs}>
           <div style={{ display: "flex", width: "100%" }}>{tabs}</div>

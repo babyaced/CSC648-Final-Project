@@ -128,7 +128,7 @@ function Profile({appUser}) {
     }
 
     return (
-        <div className={styles.Profile} >
+        <div className={`${styles["Profile"]} ${"wide-container"}`} >
             {displayProfile}
         </div>
     )

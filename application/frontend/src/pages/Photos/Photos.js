@@ -57,7 +57,7 @@ function Photos() {
     }
 
     let displayEditing = (
-        <div className={styles.PhotosContainer} >
+        <div className={`${styles["photos-container"]} ${"wide-container"}`} >
             {photos.map((photoPost, index) => (
                 <div key={photoPost.post_id} className={styles.PhotoDiv} onClick={() =>presentPostModal(photoPost)}>
                  {/* <div onClick={() => deletePhoto(photo.pet_id)}> */}
@@ -68,7 +68,7 @@ function Photos() {
     )
 
     let displayPhotos = (
-        <div className={styles.Photo} >
+        <div className={`${"wide-container"}`} >
         <div className={styles.NameDiv} >
             <div className={styles.NameDivLeft} >
                 <h1>{name + '\'s Photos'}</h1>

@@ -6,7 +6,7 @@ import {matchSorter} from 'match-sorter'
 
 import { useLoadScript} from '@react-google-maps/api';
 
-import styles from '../Nav/NavBar.module.css'
+import styles from './SearchBar.module.css'
 
 import usePlacesAutocomplete,{
   getGeocode,

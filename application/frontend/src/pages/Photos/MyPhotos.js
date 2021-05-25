@@ -76,7 +76,7 @@ function MyPhotos() {
 
     return (
         <>
-            <div className={styles.Photo} >
+            <div className={styles.Photos} >
                 <div className={styles.NameDiv} >
                     <div className={styles.NameDivLeft} >
                         <h1>{name + '\'s Photos'}</h1>

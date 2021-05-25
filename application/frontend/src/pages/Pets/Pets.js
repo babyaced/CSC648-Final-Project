@@ -32,7 +32,7 @@ function Pets() {
     return (
         <>
         {loading && <Spinner/>}
-        {!loading && <div className={styles['my-pets-container']}>
+        {!loading && <div className={`${styles['my-pets-container']} ${"container"}`}>
             <div className={styles['my-pets-header']}>
                 Pets
                 <span onClick={() => history.goBack()} >Back to Profile</span>

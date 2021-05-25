@@ -194,7 +194,7 @@ function Messages() {
 
   return (
     <>
-      <div className={styles["messages-container"]}>
+      <div className={`${styles["messages-container"]} ${"container"}`}>
         <div className={styles["tabs-container"]}>
           <div className={styles["tabs"]}>
             <div className={styles["messages-header"]}>Messages</div>
