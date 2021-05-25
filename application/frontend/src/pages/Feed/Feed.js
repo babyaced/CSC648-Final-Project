@@ -1,24 +1,25 @@
+//Import Libraries
 import { useState, useEffect, useCallback, useContext, useRef } from 'react'
 import {Link, useHistory } from "react-router-dom";
 import {useDropzone} from 'react-dropzone'
 import axios from 'axios';
 import Select from 'react-select';  
 
+//import CSS
 import styles from './Feed.module.css'
 
-import PostModal from '../../components/Modals/PostModal'
+//Import UI Components
+import PostCard from '../../components/PostCard/PostCard'
+
 import Spinner from '../../components/UI/Spinner/Spinner';
 import ButtonLoader from '../../components/UI/Spinner/ButtonLoader';
 
+//Import 
 import useFeed from './useFeed'
-
 import { RedirectPathContext } from '../../context/redirect-path';
 
 import LikeIcon from '../../images/Third Party Icons/icons8-thumbs-up-48.png'
 import FlagIcon from '../../images/Third Party Icons/icons8-empty-flag.png'
-
-
-// import ClipLoader from "react-spinners/ClipLoader";
 
 //make this into environment variable before deploying!
 const apiGatewayURL = 'https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL';
@@ -29,15 +30,13 @@ function Feed({appUser}) {
         history.push('/AdminFeed')
     }
 
-    const [postModalDisplay, setPostModalDisplay] = useState(false);
-
     //creating a post display
     const [createPostDisplayName, setCreatePostDisplayName] = useState('');
     const [createPostProfilePic, setCreatePostProfilePic] = useState('');
     const [createdPostBody, setCreatedPostBody] = useState();
 
-    //selectedPost to pass to post modal
-    const [selectedPost, setSelectedPost] = useState({});
+    
+    
 
     //storing the pets available to tag in the dropdown menu
     const [taggablePets, setTaggablePets] = useState([]);
@@ -119,20 +118,6 @@ function Feed({appUser}) {
         })
     }, [])
 
-    // //runs whenever the user creates a post
-    // useEffect(()=>{
-    //     axios.get('/api/posts')
-    //     .then(response =>{
-    //         setFeedPosts(response.data);
-    //     })
-    // },[])
-
-
-
-
-
-    
-
     useEffect(() => () => {
         //revoke the data urls to avoid memory leaks
         myFiles.forEach(file => URL.revokeObjectURL(file.preview));
@@ -174,31 +159,6 @@ function Feed({appUser}) {
             }
         })
         .catch((err)=>{
-            console.log(err);
-        })
-    }
-    function flagPost(event,feedPostID){
-        if (!event) var event = window.event;
-        event.cancelBubble = true;
-        if (event.stopPropagation) event.stopPropagation();
-        axios.post("/api/flag-unflag",{
-            postToFlag: feedPostID
-        })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    }
-
-    function getPosts(){
-        axios.get('/api/posts')
-        .then(response =>{
-            // setFeedPosts(response.data);
-        })
-        .catch(err =>{
-            console.log("Error: ");
             console.log(err);
         })
     }
@@ -274,30 +234,10 @@ function Feed({appUser}) {
 
     }
 
-    function openPostModal(event,feedPost) {
-        if (!event) var event = window.event;
-        event.cancelBubble = true;
-        if (event.stopPropagation) event.stopPropagation();
-        setSelectedPost(feedPost);
-        setPostModalDisplay(true);
-        return
-    }
 
-    function goToProfile(event,profileID){
-        //stop from opening post modal
-        if (!event) var event = window.event;
-        event.cancelBubble = true;
-        if (event.stopPropagation) event.stopPropagation();
 
-        const location = {
-            pathname: "/Profile/" + profileID,
-          }
-          history.push(location);
-    }
 
-    function closePostModal() {
-        setPostModalDisplay(false);
-    }
+
 
     let displayFeed = (
         <div className={`${styles["follower-feed-container"]} ${"container"}`}>
@@ -344,36 +284,12 @@ function Feed({appUser}) {
                 {feedPosts && feedPosts.map((feedPost, index) => {
                     if(feedPosts.length === index + 1){
                         return (
-                            <div ref={lastPostElementRef} key={feedPost.post_id} className={styles["follower-feed-post"]} onClick={(event) => openPostModal(event,feedPost)} >
-                                <img className={styles["follower-feed-post-prof_pic"]} src={feedPost.profile_pic_link} onClick={(event) => goToProfile(event,feedPost.profile_id)}/>
-                                <div className={styles["follower-feed-post-name"]} onClick={(event) => goToProfile(event,feedPost.profile_id)}>{feedPost.display_name}</div>
-                                <div className={styles["follower-feed-post-timestamp"]}>{new Date(feedPost.timestamp).toLocaleString()}</div>
-                                {/* <div className={styles["follower-feed-post-admin-flags"]}>
-                                    <span className={styles["follower-feed-post-like-count"]}>{feedPost.like_count}</span>
-                                    <img className={styles["follower-feed-post-like-icon"]} src={LikeIcon} onClick={(event) => likePost(event,feedPost.post_id,index)}/>
-                                </div> */}
-                                <span className={styles['follower-feed-post-flag']} onClick={(event) => flagPost(event,feedPost.post_id)}>Flag</span>
-                                {/* <div className={styles["follower-feed-post-comments"]}>10 comments</div> */}
-                                <div className={styles["follower-feed-post-body"]}>{feedPost.body}</div>
-                                {feedPost.link && <img className={styles["follower-feed-post-pic"]} src={feedPost.link} />}
-                            </div>
+                            <PostCard innerRef={lastPostElementRef} key={feedPost.post_id} post={feedPost}/>
                         )
                     }
                     else{
                         return (
-                            <div key={feedPost.post_id} className={styles["follower-feed-post"]} onClick={(event) => openPostModal(event,feedPost)} >
-                                <img className={styles["follower-feed-post-prof_pic"]} src={feedPost.profile_pic_link} onClick={(event) => goToProfile(event,feedPost.profile_id)}/>
-                                <div className={styles["follower-feed-post-name"]} onClick={(event) => goToProfile(event,feedPost.profile_id)}>{feedPost.display_name}</div>
-                                <div className={styles["follower-feed-post-timestamp"]}>{new Date(feedPost.timestamp).toLocaleString()}</div>
-                                {/* <div className={styles["follower-feed-post-admin-flags"]}>
-                                    <span className={styles["follower-feed-post-like-count"]}>{feedPost.like_count}</span>
-                                    <img className={styles["follower-feed-post-like-icon"]} src={LikeIcon} onClick={(event) => likePost(event,feedPost.post_id,index)}/>
-                                </div> */}
-                                <span className={styles['follower-feed-post-flag']} onClick={(event) => flagPost(event,feedPost.post_id)}>Flag</span>
-                                {/* <div className={styles["follower-feed-post-comments"]}>10 comments</div> */}
-                                <div className={styles["follower-feed-post-body"]}>{feedPost.body}</div>
-                                {feedPost.link && <img className={styles["follower-feed-post-pic"]} src={feedPost.link} />}
-                            </div>
+                            <PostCard key={feedPost.post_id} post={feedPost}/>
                         )
                     }
                 })}
@@ -387,7 +303,6 @@ function Feed({appUser}) {
     return (
         <>
             {displayFeed}
-            <PostModal display={postModalDisplay} onClose={closePostModal} selectedPost={selectedPost} />
         </>
     )
 }

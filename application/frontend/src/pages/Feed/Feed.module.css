@@ -37,52 +37,11 @@
   font-weight: 600;
 }
 
-.follower-feed-post {
-  display: grid;
-  padding: 15px;
-  width: 100%;
-  grid-template-areas:
-    "post-prof-pic post-name      post-likes-flags"
-    "post-prof-pic .............. ................"
-    "post-prof-pic post-timestamp post-flag-delete"
-    "post-body        post-body          post-body"
-    "post-pic         post-pic           post-pic ";
-  grid-template-columns: 100px auto 50px;
-  grid-template-rows: repeat(3, 34px) repeat(2, auto);
-  box-shadow: var(--elevation-2);
-  border-radius: 7.5px;
-  margin-bottom: 15px;
-  cursor: pointer;
-}
 
-.follower-feed-post-prof_pic {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  grid-area: post-prof-pic;
-  border-radius: 7.5px;
-}
 
-.follower-feed-post-name {
-  margin-left: 15px;
-  grid-area: post-name;
-  font-size: var(--h2);
-  font-family: var(--ff-primary);
-  font-weight: 600;
-  transition: 0.15s ease-in-out;
-  line-height: 34px;
-}
 
-.follower-feed-post-name:hover {
-  opacity: 0.75;
-}
 
-.follower-feed-post-timestamp {
-  align-self: flex-end;
-  margin-left: 15px;
-  grid-area: post-timestamp;
-  font-family: var(--ff-primary);
-}
+
 
 .follower-feed-post-flags {
   grid-area: 2 / 3 / span 1 / span 1;
@@ -107,44 +66,19 @@
   width: 34px;
 }
 
-.follower-feed-post-flag,
-.follower-feed-post-admin-delete {
-  grid-area: post-flag-delete;
-  align-self: flex-end;
-  color: var(--inactive-txt-clr);
-}
 
-.follower-feed-post-flag:hover,
-.follower-feed-post-admin-delete:hover {
-  color: var(--cancel-delete-exit-color);
-}
+
+
 
 .follower-feed-post-like:hover {
   opacity: 0.75;
 }
 
-/* .follower-feed-post-comments{
-    grid-area: 3 /  3 / span 1 / span 1;
-} */
 
-.follower-feed-post-body {
-  margin-top: 10px;
-  grid-area: post-body;
-  font-family: var(--ff-primary);
-}
 
-.follower-feed-post-pic {
-  margin-top: 15px;
-  width: 100%;
-  height: calc(100%-15px);
-  object-fit: cover;
-  grid-area: 5 / 1 / span 1 / span 3;
-  border-radius: 7.5px;
-}
 
-.follower-feed-post-prof_pic:hover {
-  opacity: 0.75;
-}
+
+
 
 .follower-feed-new-post {
   /* position: sticky;
