@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Tab from "./Tab/Tab";
+import Tab from "../UI/Tab/Tab";
 import styles from "./UserProfileCard.module.css";
 
 /****************************************************************************
