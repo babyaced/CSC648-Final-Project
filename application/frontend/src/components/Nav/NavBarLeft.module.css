@@ -1,0 +1,19 @@
+.navbar-left{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-img{
+    height: 50px;
+    transition: .15s ease-in-out;
+}
+
+.logo-img:hover{
+    opacity: .75;
+}
+
+.logo-img-inactive{
+    height: 50px;
+    cursor: default;
+}

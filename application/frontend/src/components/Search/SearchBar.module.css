@@ -1,117 +1,103 @@
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+  
+.search-category-dropdown select{
+  background-color: var(--reversed-txt-clr);
+  border: none;
+  border-radius:7.5px;
+  font-size: var(--h2);
+  padding-left:10px;
+  padding-right: 25px;
+  background: url("../../images/Created\ Icons/Dropdown.svg") no-repeat right;
+  cursor: pointer;
+  font-family: var(--ff-tertiary);
+}
+  
+.searchbar{
+  display:flex;
+  flex-direction: row;
+  max-width: 800px;
+  width: 85%;
+  box-shadow: var(--elevation-2);
+  border-radius: 7.5px;
+  align-items: center;
+  font-family: var(--ff-secondary);
+  flex-shrink: 2;
+  background-color: white;
+  margin: 0 auto;
+}
     
-  }
-  
-  .search-category-dropdown select{
-    background-color: var(--reversed-txt-clr);
-    border: none;
-    border-radius:7.5px;
-    font-size: var(--h2);
-    padding-left:10px;
-    padding-right: 25px;
-    background: url("../../images/Created\ Icons/Dropdown.svg") no-repeat right;
-    cursor: pointer;
-    font-family: var(--ff-tertiary);
-  }
-  
-  .searchbar{
-      display:flex;
-      flex-direction: row;
-      max-width: 1000px;
-      width: 85%;
-      box-shadow: var(--elevation-2);
-      border-radius: 7.5px;
-      text-align: center;
-      align-items: center;
-      font-family: var(--ff-secondary);
-      flex-shrink: 2;
-      background-color: white;
-      /* grid-column: 3 /span 1; */
-      margin: 0 auto;
-      width: 75%;
-  
-    }
-    
-    .searchbar input{
-      /* border: none; */
-      border-left: none;
-      border-bottom: none;
-      border-top: none;
-      border-color: var(--nav-bar-color);
-      /* flex-grow:2; */
-      font-size: var(--h3);
-      text-overflow: ellipsis;
-      width: 100%;
-      margin:0;
-      /* margin-left:15px;
-      margin-top: 5px; */
-    }
+.searchbar input{
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  border-color: var(--nav-bar-color);
+  font-size: var(--h3);
+  text-overflow: ellipsis;
+  width: 100%;
+  margin:0;
+}
 
-    .searchbar-term-input{
-        font-size: var(--h3);
-    }
+.searchbar-term-input{
+  font-size: var(--h3);
+}
   
   /* Searchbar button */
-  .searchbar-search {  
-    width: 100px;
-    height: 50px;
-    float: right;
-    display:inline-flex;
-    border: none;
-    padding: 0;
-  /* padding-left: 20%;
-  padding-bottom: 10%; */
-    /* background-size: 100%; */
-    background: url("../../images/Created\ Icons/Search.svg") 50% no-repeat;
-    
-    /* margin-left:100px; */
-    transition: .15s ease-in-out;
-  }
-  .div-term-searchbar-input, .div-map-searchbar-input {
-      /* background-color: black; */
-      width: 75%;
-      padding: 0;
-      margin: 0;
-  }
+.searchbar-search {  
+  width: 100px;
+  height: 50px;
+  float: right;
+  display:inline-flex;
+  border: none;
+  padding: 0;
+  background: url("../../images/Created\ Icons/Search.svg") 50% no-repeat;
+  transition: .15s ease-in-out;
+}
+
+.div-term-searchbar-input, .div-map-searchbar-input {
+  /* background-color: black; */
+  width: 75%;
+  padding: 0;
+  margin: 0;
+}
   
   
-  .searchbar-search:hover{
-      opacity:.75;
-  }
+.searchbar-search:hover{
+  opacity:.75;
+}
   
   
-  .combobox-popover{
-      background-color: white;
-      padding: 5px;
-      
-      box-shadow: var(--elevation-1);
-      font-family: var(--ff-primary);
-      z-index: 1;
-      border-radius: 7.5px;
-      position: relative;
-  }
+.combobox-popover{
+  background-color: white;
+  padding: 5px;
+  box-shadow: var(--elevation-1);
+  font-family: var(--ff-primary);
+  z-index: 1;
+  border-radius: 7.5px;
+  position: relative;
+}
   
-  .combobox-list{
-      list-style: none;
-  }
+.combobox-list{
+    list-style: none;
+}
   
-  .combobox-list li{
-      cursor:pointer;
-      padding:5px;
-      border-bottom: 1px solid rgba(0,0,0,0.10);
-  }
+.combobox-list li{
+  cursor:pointer;
+  padding:5px;
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+}
   
-  .combobox-popover li:hover{
-      color: var(--primary-clr)
-  }
+.combobox-popover li:hover{
+  color: var(--primary-clr)
+}
   
-  .current{
-      cursor: default;
-  }
+.current{
+  cursor: default;
+}
   
-  .current img:hover{
-      opacity:1;
-  }
+.current img:hover{
+  opacity:1;
+}

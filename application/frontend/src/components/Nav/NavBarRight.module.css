@@ -1,0 +1,104 @@
+.login-link{
+    font-family: var(--ff-tertiary);
+    text-decoration: none;
+    font-size: var(--h2);
+    text-align: center;
+    grid-column: 5 / span 1;
+    color: var(--reversed-txt-clr);
+    background: var(--primary-clr);
+    border: none;
+    border-radius: 15px;
+    transition: 0.5s ease;
+    cursor:pointer;
+}
+
+.login-link:hover{
+    background-color:var(--primary-clr);
+    color: var(--reversed-txt-clr);
+    font-weight: 600;
+}
+
+
+.messages-menu{
+    border:none;
+    background-color: transparent;
+    font-size: var(--h2);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    cursor:pointer;
+    text-decoration: none;
+    width: 110px;
+    height: 75px;
+    background-size: 50px 50px;
+    line-height: 75px;
+    color: var(--reversed-txt-clr);
+    transition: .15s ease-in-out;
+}
+
+.messages-menu:hover{
+    color: var(--primary-clr);
+}
+
+.account-menu-dropdown{
+    width: 120px;
+    height: 75px;
+    overflow: hidden;
+}
+.account-menu-dropdown-button{
+    border: none;
+    background-color: transparent;
+    font-size: var(--h2);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    cursor:pointer;
+    color: var(--reversed-txt-clr);
+    line-height: 75px;
+    transition: .15s ease-in-out;
+    display: flex;
+}
+
+.account-menu-dropdown-button:hover{
+    color: var(--primary-clr);
+}
+
+
+.account-menu-dropdown-content{
+    margin-top: 0px;
+    list-style: none;
+    border-radius: 7.5px;
+    position:absolute;
+    right: 20px;
+    top: 65px;
+    background-color: white;
+    box-shadow: var(--elevation-1);
+    z-index: 1;
+}
+
+.account-menu-dropdown-link{
+    padding-right:10px;
+    float:none;
+    text-align: right;
+    text-decoration: none;
+    font-size:var(--h2);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-family: var(--ff-tertiary);
+
+}
+
+.account-menu-dropdown-link:hover{
+    color: var(--primary-clr);
+}
+
+.account-menu-dropdown-arrow{
+    align-self: center;
+    transform: rotate(180deg);
+    margin-left: 10px;
+}
+
+.options-loggedIn{
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
