@@ -1,28 +1,25 @@
 //Import Libraries
 import { useState, useEffect, useCallback, useContext, useRef } from 'react'
 import {Link, useHistory } from "react-router-dom";
-import {useDropzone} from 'react-dropzone'
+
 import axios from 'axios';
-import Select from 'react-select';  
+
 
 //import CSS
 import styles from './Feed.module.css'
 
 //Import UI Components
 import PostCard from '../../components/PostCard/PostCard'
-
+import CreatePostCard from '../../components/PostCard/CreatePostCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import ButtonLoader from '../../components/UI/Spinner/ButtonLoader';
+
 
 //Import 
 import useFeed from './useFeed'
 import { RedirectPathContext } from '../../context/redirect-path';
 
-import LikeIcon from '../../images/Third Party Icons/icons8-thumbs-up-48.png'
-import FlagIcon from '../../images/Third Party Icons/icons8-empty-flag.png'
-
 //make this into environment variable before deploying!
-const apiGatewayURL = 'https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL';
+
 
 function Feed({appUser}) {
     const history = useHistory()
@@ -30,32 +27,20 @@ function Feed({appUser}) {
         history.push('/AdminFeed')
     }
 
-    //creating a post display
-    const [createPostDisplayName, setCreatePostDisplayName] = useState('');
-    const [createPostProfilePic, setCreatePostProfilePic] = useState('');
-    const [createdPostBody, setCreatedPostBody] = useState();
-
-    
-    
-
-    //storing the pets available to tag in the dropdown menu
-    const [taggablePets, setTaggablePets] = useState([]);
-
-    //storing the pets that are tagged in each post to send to db
-    const [taggedPets, setTaggedPets] = useState([]);
-
-    //image upload array
-    const [myFiles, setMyFiles] = useState([])
-
     //loading UI
     const [loading, setLoading] = useState(false);
 
     const redirectContext = useContext(RedirectPathContext);
 
-
     const [offset, setOffset] = useState(0)
     const {feedPosts, hasMore, postsLoading,error} = useFeed(offset, false); //custom hook for loading posts
     const [posts, setPosts] = useState([...feedPosts])
+
+    const [createPostDisplayName, setCreatePostDisplayName] = useState('');
+    const [createPostProfilePic, setCreatePostProfilePic] = useState('');
+
+        //storing the pets available to tag in the dropdown menu
+        const [taggablePets, setTaggablePets] = useState([]);
 
     const observer = useRef()
 
@@ -69,26 +54,6 @@ function Feed({appUser}) {
         })
         if(node) observer.current.observe(node)
     }, [postsLoading, hasMore])
-
-    function customTheme(theme) { //move this a separate file and import maybe?
-        return {
-            ...theme,
-            colors: {
-                ...theme.colors,
-                primary25: '#B3B3B3',
-                primary: '#1CB48F',
-            }
-        }
-    }
-
-    const customStyles = {
-        control: (base, state) => ({
-          ...base,
-          height: '54.5px',
-          'min-height': '54.5px',
-          'border-radius': '7.5px',
-        }),
-    };
 
 
     //runs on refresh
@@ -118,27 +83,7 @@ function Feed({appUser}) {
         })
     }, [])
 
-    useEffect(() => () => {
-        //revoke the data urls to avoid memory leaks
-        myFiles.forEach(file => URL.revokeObjectURL(file.preview));
-      }, [myFiles]);
 
-    const onDrop = useCallback(acceptedFiles => {
-        setMyFiles(acceptedFiles.map(file => Object.assign(file, {
-            preview: URL.createObjectURL(file)
-        })))
-    }, [myFiles])
-    
-    const removeAll = () => {
-        setMyFiles([])
-    }
-    
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop,
-        maxSize: 5242880, 
-        accept: "image/jpeg",
-        multiple: false
-    })
 
     function likePost(event,feedPostID,index){
         if (!event) var event = window.event;
@@ -163,146 +108,38 @@ function Feed({appUser}) {
         })
     }
 
-    function submitPost(event){
-        event.preventDefault();
-        let config = {
-            headers: {
-                'Content-type': 'image/jpeg'  //configure headers for put request to s3 bucket
-            }
-        }
-
-        setLoading(true)
-        if(myFiles.length !== 0){
-            //try to upload photo first
-            axios.get(apiGatewayURL)  //first get the presigned s3 url
-            .then((response) =>{
-                let presignedFileURL =  'https://csc648groupproject.s3-us-west-2.amazonaws.com/' + response.data.photoFilename;  //save this url to add to database later
-                axios.put(response.data.uploadURL, myFiles[0],config).then((response) =>{  //upload the file to s3
-                    axios.post('/api/upload-post',{
-                        postBody: createdPostBody,
-                        photoLink: presignedFileURL,
-                        taggedPets: taggedPets
-                    }).then((response) =>{
-                        removeAll();
-                        setCreatedPostBody('');
-                        setTaggedPets([]);
-                        setLoading(false);
-                        setTimeout(() => {
-                            history.push('/');
-                        }, 1000)
-                    })
-                    .catch((err) =>{
-                        setLoading(false);
-                    })
-                })
-                .catch((err) =>{
-                    setLoading(false);
-                    if(err.response.status == 403){
-                        //display error message to user
-                    }
-                    //break out of this function //presigned s3 url will automatically expire so no harm done
-                })
-            })
-            .catch((err) =>{
-                setLoading(false);
-            })
-
-            //refresh feed after posting
-            // getPosts();
-            // setFeedPosts([...feedPosts, ])
-
-        }
-        else{
-            axios.post('/api/upload-post',{
-                postBody: createdPostBody,
-                taggedPets: taggedPets
-            }).then((response) =>{
-                setCreatedPostBody('');
-                setTaggedPets([]);
-                setLoading(false);
-                setTimeout(() => {
-                    history.push('/');
-                }, 2000)
-            })
-            .catch((err) =>{
-                setLoading(false);
-            })
-
-            //refresh feed after posting
-            //getPosts();
-        }
-
-    }
-
-
-
-
-
-
-    let displayFeed = (
-        <div className={`${styles["follower-feed-container"]} ${"container"}`}>
-                <div className={styles["follower-feed-header"]}></div>
-                <form className={styles["follower-feed-new-post"]} onSubmit={submitPost}>
-                    <img className={styles["follower-feed-new-post-pic"]} src={createPostProfilePic} />
-                    <div className={styles["follower-feed-new-post-name"]}>{createPostDisplayName}</div>
-                    <textarea value={createdPostBody} maxLength="255" required className={styles["follower-feed-new-post-body"]} placeholder="Update your followers on what's going on with you and your pets"  onChange={e => setCreatedPostBody(e.target.value)}/>
-                    <div className={styles['follower-feed-new-post-tag-dropdown']}>
-                        <Select
-                            onChange={setTaggedPets}
-                            options={taggablePets}
-                            placeholder="Tag a Pet in your Post"
-                            theme={customTheme}
-                            styles={customStyles}
-                            isSearchable
-                            isMulti
-                            value={taggedPets}
-                            noOptionsMessage={() => 'Add a Pet to Your Account on the My Pets Page'}
-                        />
-                    </div>
-                    <section className={styles["follower-feed-new-post-attach-image"]}>
-                        <div className={styles["follower-feed-new-post-attach-image-container"]}  {...getRootProps()}>
-                            <input  {...getInputProps()} />
-                            {myFiles.length === 0 && <div className={styles["follower-feed-new-post-attach-image-info"]}>Drag and Drop or Click to Select Image</div>}
-                            {myFiles.length > 0 && <>
-                                <img className={styles["follower-feed-new-post-attach-image-preview"]} src={myFiles[0].preview} onClick={removeAll}/>
-                                <button className={styles["follower-feed-new-post-attach-image-container-button"]} onClick={removeAll} >remove</button>
-                            </>}
-                        </div>
-                    </section>
-                    <button className={styles["follower-feed-new-post-submit"]} type='submit'>{loading ? <ButtonLoader /> : 'Submit'}</button>
-                    {/* <button className={styles["follower-feed-new-post-expand-collapse"]} /> onClick={createPostOverlayToggle} */}
-                </form>
-                {feedPosts.length == 0 &&
-                    <>
-                    <div className={styles['follower-feed-no-posts-placeholder-header']}>
-                        No Feed Posts to show :(
-                    </div>
-                    <div className={styles['follower-feed-no-posts-placeholder-detail']}>
-                        Search for a User and Follow them to see their posts here
-                    </div>
-                    </>}
-                {feedPosts && feedPosts.map((feedPost, index) => {
-                    if(feedPosts.length === index + 1){
-                        return (
-                            <PostCard innerRef={lastPostElementRef} key={feedPost.post_id} post={feedPost}/>
-                        )
-                    }
-                    else{
-                        return (
-                            <PostCard key={feedPost.post_id} post={feedPost}/>
-                        )
-                    }
-                })}
-            </div>
-    )
-
-    if (redirectContext.loading) {
-        displayFeed = <Spinner />
-    }
+    
 
     return (
         <>
-            {displayFeed}
+            {redirectContext.loading ? 
+                <Spinner /> :
+                <div className={`${styles["follower-feed-container"]} ${"container"}`}>
+                    <div className={styles["follower-feed-header"]}/>
+                    <CreatePostCard displayName={createPostDisplayName} profilePic={createPostProfilePic} tagOptions={taggablePets}/>
+                    {feedPosts.length == 0 &&
+                        <>
+                        <div className={styles['follower-feed-no-posts-placeholder-header']}>
+                            No Feed Posts to show :(
+                        </div>
+                        <div className={styles['follower-feed-no-posts-placeholder-detail']}>
+                            Search for a User and Follow them to see their posts here
+                        </div>
+                        </>}
+                    {feedPosts && feedPosts.map((feedPost, index) => {
+                        if(feedPosts.length === index + 1){
+                            return (
+                                <PostCard innerRef={lastPostElementRef} key={feedPost.post_id} post={feedPost}/>
+                            )
+                        }
+                        else{
+                            return (
+                                <PostCard key={feedPost.post_id} post={feedPost}/>
+                            )
+                        }
+                    })}
+                </div>
+            }
         </>
     )
 }

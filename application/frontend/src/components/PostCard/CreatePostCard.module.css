@@ -1,0 +1,120 @@
+.follower-feed-new-post {
+/* position: sticky;
+    position: -webkit-sticky;  */
+    margin: auto;
+    width: 100%;
+    box-shadow: var(--elevation-1);
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 7.5px;
+    display: grid;
+    grid-template-areas:
+        "pic  user ........ submit"
+        "pic  .... dropdown dropdown"
+        "body body image    image";
+    grid-template-columns: 100px auto 150px 150px;
+    grid-gap: 15px;
+    grid-template-rows: 50px 50px 200px;
+    font-family: var(--ff-primary);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.follower-feed-new-post-prof_pic {
+    transition: 0.15s ease-in-out;
+}
+
+.follower-feed-new-post-pic {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    grid-area: pic;
+    border-radius: 7.5px;
+    }
+
+.follower-feed-new-post-name {
+    font-size: var(--h2);
+    font-family: var(--ff-primary);
+    font-weight: 600;
+    grid-area: user;
+}
+
+.follower-feed-new-post-body {
+    border: 1px solid var(--inactive-txt-clr);
+    border-radius: 7.5px;
+    padding: 10px;
+    grid-area: body;
+    resize: none;
+    font-family: var(--ff-primary);
+}
+
+.follower-feed-new-post-attach-image {
+    grid-area: image;
+    border-radius: 7.5px;
+    border: 2px var(--primary-clr) dashed;
+    font-family: var(--ff-primary);
+    font-size: var(--h3);
+    font-weight: 400;
+    /* margin: 10px; */
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+}
+
+.follower-feed-new-post-attach-image-container {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.follower-feed-new-post-attach-image-info {
+    font-size: var(--h4);
+    color: var(--inactive-txt-clr);
+    width: 50%;
+    text-align: center;
+}
+
+.follower-feed-new-post-attach-image-preview {
+    width: 315px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.follower-feed-new-post-attach-image-container-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    white-space: nowrap;
+    background-color: rgb(221, 220, 220);
+}
+
+.follower-feed-new-post-attach-image-container-button:hover {
+    background-color: #ccc;
+}
+
+.follower-feed-new-post-submit {
+    grid-area: submit;
+    background-color: var(--primary-clr);
+    color: var(--reversed-txt-clr);
+    box-shadow: var(--elevation-1);
+    border: none;
+    border-radius: 7.5px;
+    font-family: var(--ff-primary);
+    font-size: var(--h3);
+    font-weight: 600;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+}
+
+.follower-feed-new-post-submit:hover {
+    opacity: 0.75;
+}
+
+.follower-feed-new-post-tag-dropdown {
+    grid-area: dropdown;
+}
