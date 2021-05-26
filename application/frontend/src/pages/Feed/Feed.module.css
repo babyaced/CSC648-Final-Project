@@ -83,6 +83,7 @@
     margin: 25% auto;
     width: 95%;
   }
+  
   .follower-feed-new-post {
     display: flex;
     flex-direction: column;

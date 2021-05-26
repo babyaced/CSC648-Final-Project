@@ -39,8 +39,8 @@ function Feed({appUser}) {
     const [createPostDisplayName, setCreatePostDisplayName] = useState('');
     const [createPostProfilePic, setCreatePostProfilePic] = useState('');
 
-        //storing the pets available to tag in the dropdown menu
-        const [taggablePets, setTaggablePets] = useState([]);
+    //storing the pets available to tag in the dropdown menu
+    const [taggablePets, setTaggablePets] = useState([]);
 
     const observer = useRef()
 
@@ -82,33 +82,6 @@ function Feed({appUser}) {
             //display error message to the user
         })
     }, [])
-
-
-
-    function likePost(event,feedPostID,index){
-        if (!event) var event = window.event;
-        event.cancelBubble = true;
-        if (event.stopPropagation) event.stopPropagation();
-        axios.post("/api/like-unlike",{
-            postToLike: feedPostID
-        })
-        .then((response) => {
-            let updatedPosts = [...feedPosts];
-            if (response.data === 'like') {
-            updatedPosts[index].like_count++;
-            setPosts(updatedPosts);
-            }
-            else {
-                updatedPosts[index].like_count--;
-                setPosts(updatedPosts);
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    }
-
-    
 
     return (
         <>

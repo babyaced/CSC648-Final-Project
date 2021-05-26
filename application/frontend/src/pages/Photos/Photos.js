@@ -75,7 +75,6 @@ function Photos() {
             </div>
             <div className={styles.NameDivRight} >
                 {/* <button>filter</button> */}
-                <p onClick={() => history.goBack()} >Back to Profile</p>
             </div>
         </div>
         {displayEditing}

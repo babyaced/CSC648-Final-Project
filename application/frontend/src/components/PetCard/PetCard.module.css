@@ -1,0 +1,39 @@
+.my-pets-container-add-pet,
+.my-pets-container-pet{
+    position: relative;
+    margin: 10px;
+    display:flex;
+    box-shadow: var(--elevation-1);
+    width: calc(50% - 20px);
+    min-width: 200px;
+    height: 100px;
+    border-radius: 7.5px;
+    align-items: center;
+    /* padding-left: 15px; */
+    cursor: pointer;
+    
+    transition: .15s ease-in-out;
+    font-family: var(--ff-primary);
+}
+
+.my-pets-container-pet-pic{
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 7.5px;
+}
+
+.my-pets-container-add-pet-text,
+.my-pets-container-pet-name{
+    margin-left: 15px;
+    font-size:var(--h2);
+    cursor:pointer;
+}
+
+.LinkDiv {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+    padding-left: 15px;
+}

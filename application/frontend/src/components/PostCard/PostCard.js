@@ -31,6 +31,29 @@ function PostCard({post, innerRef}) {
         setPostModalDisplay(false);
     }
 
+    // function likePost(event,feedPostID,index){
+    //     if (!event) var event = window.event;
+    //     event.cancelBubble = true;
+    //     if (event.stopPropagation) event.stopPropagation();
+    //     axios.post("/api/like-unlike",{
+    //         postToLike: feedPostID
+    //     })
+    //     .then((response) => {
+    //         let updatedPosts = [...feedPosts];
+    //         if (response.data === 'like') {
+    //         updatedPosts[index].like_count++;
+    //         setPosts(updatedPosts);
+    //         }
+    //         else {
+    //             updatedPosts[index].like_count--;
+    //             setPosts(updatedPosts);
+    //         }
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err);
+    //     })
+    // }
+
     function flagPost(event,feedPostID){
         if (!event) var event = window.event;
         event.cancelBubble = true;

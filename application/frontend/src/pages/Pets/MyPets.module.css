@@ -16,12 +16,6 @@
     
 }
 
-@media only screen and (max-width: 600px) { 
-    .my-pets-header span { 
-      display: none; 
-    } 
-  }
-
 .my-pets-header span:hover{
     color:rgb(20, 160, 160);
 }
@@ -124,7 +118,3 @@
     height: 100%;
     padding-left: 15px;
 }
-
-/* .my-pets-container-profile-link{
-    display: inline-block;
-} */
