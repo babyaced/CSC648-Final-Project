@@ -11,6 +11,8 @@ import Account from '../../images/Created Icons/Account.svg';
 
 //Import UI Components
 import useWindowDimensions from '../ProfileContent/ImageContainer/useWindowDimensions';
+import useWindowSize from '../Hooks/useWindowSize'
+
 
 //Import CSS
 import styles from './NavBarRight.module.css'
@@ -42,7 +44,7 @@ function NavBarRight({appUser, updateLoginState}) {
   const history = useHistory();
 
   const [accountMenuDisplay, setAccountMenuDisplay] = useState({display: 'none'});
-  const { width } = useWindowDimensions();
+  const { width } = useWindowSize();
 
   function logoutHandler(){
     axios.post("/api/logout", {withCredentials: true}).then((response) =>{
