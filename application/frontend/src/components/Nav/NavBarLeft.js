@@ -23,8 +23,8 @@ function NavBarLeft({appUser}) {
       {appUser && 
       
       <NavLink to="/Feed" activeClassName={styles["current"]}>
-        {windowSize.width > 1440 ?
-        <img className={styles["logo-img"]} src={LogoScript}/> :
+        {windowSize.width > 1470 ?
+        <img className={styles["logo-img-script"]} src={LogoScript}/> :
         <img className={styles["logo-img"]} src={Logo}/>}
         
       </NavLink>

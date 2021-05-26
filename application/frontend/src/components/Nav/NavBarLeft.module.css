@@ -4,7 +4,8 @@
     justify-content: center;
 }
 
-.logo-img{
+.logo-img,
+.logo-img-script{
     height: 50px;
     transition: .15s ease-in-out;
 }
@@ -16,4 +17,21 @@
 .logo-img-inactive{
     height: 50px;
     cursor: default;
+}
+
+@media (max-width: 1470px){
+    .logo-img{
+        height: auto;
+        width: 50px;
+    }
+
+    .navbar-left{
+        width: 150px;
+    }
+}
+
+@media (max-width: 1170px){
+    .navbar-left{
+        width: 50px;
+    }
 }
