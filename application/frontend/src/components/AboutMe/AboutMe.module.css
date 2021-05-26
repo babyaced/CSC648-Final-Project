@@ -110,9 +110,3 @@
 
 .hours-table-cell{
 }
-
-@media (max-width: 800px) {
-    .AboutMe {
-        display: none;
-    }
-}

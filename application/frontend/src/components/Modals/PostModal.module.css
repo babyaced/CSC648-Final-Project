@@ -189,21 +189,6 @@
     font-weight: 600;
 }
 
-/* @media only screen and (max-width: 1300px){
-    .post-container {
-        display: flex;
-        flex-direction: column;
-        
-    }
-    .post-comment {
-        height: 100px;
-    }
-    .post-comments {
-        height: 100%;
-        font-size: var(--h5);
-    }
-} */
-
 .post-container-no-image{
     width: 100%;
 }

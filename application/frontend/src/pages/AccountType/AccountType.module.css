@@ -60,9 +60,3 @@
     background-color: var(--reversed-txt-clr);
     color: var(--accent-color-2);
 }
-
-@media only screen and (max-width: 1024px) {
-    .account-type-container {   
-        flex-direction: column;
-    }
-}

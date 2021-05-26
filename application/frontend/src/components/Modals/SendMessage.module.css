@@ -67,24 +67,3 @@
 .option-recipient-name {
   margin-left: 10px;
 }
-
-@media only screen and (max-width: 1024px) {
-  .send-a-message-container {
-    width: auto;
-  }
-}
-
-@media only screen and (max-width: 515px) {
-  .send-a-message-container {
-    width: auto;
-    max-height: auto;
-  }
-  .sendAMessage-body {
-    min-height: 200px;
-
-  
-  }
-  .sendAMessage-sendButton {
-    text-align: center;
-  }
-}

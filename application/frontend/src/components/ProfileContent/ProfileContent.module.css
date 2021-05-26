@@ -30,19 +30,3 @@
     flex-direction: column;
 }
 
-@media (max-width: 800px) {
-    .ImageContainerBusiness {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .Reviews {
-        align-content: center;
-        flex-wrap: wrap;
-    }
-
-    .ProfileContent {
-        min-width: none;
-    }
-}
-

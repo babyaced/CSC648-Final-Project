@@ -39,16 +39,3 @@
     background-color: var(--accent-color-2);
     color: var(--reversed-txt-clr)
 }
-
-@media only screen and (max-width: 1024px){
-    .account-required-container {
-        width: auto;
-    }
-}
-
-@media only screen and (max-width: 515px){
-    .account-required-container {
-        width: auto;
-        font-size: var(--h5);
-    }
-}

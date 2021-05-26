@@ -17,14 +17,6 @@
   font-family: var(--ff-primary);
 }
 
-
-
-/* @media all and (max-width: 876px){
-    .messages-container-message{
-        width: 90%;
-    }
-} */
-
 .tabs {
   display: flex;
   justify-content: space-between;
