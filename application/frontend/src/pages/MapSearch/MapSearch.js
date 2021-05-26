@@ -1,30 +1,23 @@
+//Import Libraries
 import {useRef,useCallback, useEffect, useState} from 'react'
-
 import {Link,useLocation,useHistory} from "react-router-dom"
-
 import Axios from "axios";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import {GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
 
+//Import CSS
 import styles from './MapSearch.module.css'
 
+//Import Images
 import DropdownIcon from '../../images/Created Icons/Dropdown.svg'
 
-import Marker1  from '../../images/Third Party Icons/marker1.png'
-import Marker2  from '../../images/Third Party Icons/marker2.png'
-import Marker3  from '../../images/Third Party Icons/marker3.png'
-import Marker4  from '../../images/Third Party Icons/marker4.png'
-import Marker5  from '../../images/Third Party Icons/marker5.png'
-import Marker6  from '../../images/Third Party Icons/marker6.png'
-import Marker7  from '../../images/Third Party Icons/marker7.png'
-import Marker8  from '../../images/Third Party Icons/marker8.png'
-import Marker9  from '../../images/Third Party Icons/marker9.png'
-import Marker10 from '../../images/Third Party Icons/marker10.png'
-
-import Select from 'react-select';
-
-import makeAnimated from 'react-select/animated';
-
-import {GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
+//Import UI Components
 import Spinner from '../../components/UI/Spinner/Spinner';
+import PetOwnerSearchResultCard from '../../components/Cards/SearchResultCard/PetOwnerSearchResultCard';
+import ShelterSearchResultCard from '../../components/Cards/SearchResultCard/ShelterSearchResultCard';
+import BusinessSearchResultCard from '../../components/Cards/SearchResultCard/BusinessSearchResultCard';
+import PetSearchResultCard from '../../components/Cards/SearchResultCard/PetSearchResultCard';
 
 const mapContainerStyle = {
     width: '100%',
@@ -434,29 +427,29 @@ function search(){
                      <>
                          <div className={styles['map-search-header']}>
                              <span><span className={styles['map-search-header-text']}>Results</span><button className={styles['map-search-results-header-action']} onClick={displayFilterOverlay}>Filter</button></span>
-                             <div className={styles['sort-dropdown']}>
-                                 {/* <span className={styles['sort-dropdown-label']}>Sort By:</span> */}
+                             {/* <div className={styles['sort-dropdown']}>
+                                 <span className={styles['sort-dropdown-label']}>Sort By:</span>
                                  <select className={styles['sort-dropdown-select']}  name="search-category" id="search-category" onChange= {e => setResultsSortOption(e.target.value)}>
                                      <option value="Account Age">Newly Added</option>
                                      <option value="Distance">Distance</option>
                                  </select>
                                  <img src={DropdownIcon}/>
-                             </div>                
+                             </div>                 */}
                          </div>
                          <div className={styles['map-search-results-text-list']}>
                              <ul>
                                  {recievedSearchResults.length == 0 && <li className={styles['no-results']}>No {searchCategory} that Match your Search.</li>}
                                  {recievedSearchResults.length != 0 && searchCategory == 'Pets' && recievedSearchResults.map((searchResult,index) => (
-                                     <PetSearchResult searchResult={searchResult} index={index} panTo={panTo}/>
+                                     <PetSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index} panTo={panTo}/>
                                  ))}
                                  {recievedSearchResults.length != 0 && searchCategory == 'Businesses' && recievedSearchResults.map((searchResult, index) => (
-                                    <BusinessSearchResult searchResult={searchResult} index={index} panTo={panTo}/>
+                                    <BusinessSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index} panTo={panTo}/>
                                  ))}
                                  {recievedSearchResults.length != 0 && searchCategory == 'Shelters' && recievedSearchResults.map((searchResult, index) => (
-                                     <ShelterSearchResult searchResult={searchResult} index={index} panTo={panTo}/>
+                                     <ShelterSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index} panTo={panTo}/>
                                  ))}
                                  {recievedSearchResults.length != 0 && searchCategory == 'Pet Owners' && recievedSearchResults.map((searchResult, index) => (
-                                     <PetOwnerSearchResult searchResult={searchResult} index={index}/>
+                                     <PetOwnerSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index}/>
                                  ))}
  
                              </ul>
@@ -611,64 +604,6 @@ function search(){
             </div>
             </>     
     );
-}
-
-function BusinessSearchResult({searchResult,panTo, index}){
-    return (
-        <li className={styles['search-result']} key={searchResult.reg_business_id}>
-            <img className={styles['search-result-pic']} src={searchResult.profile_pic_link}/>
-            <Link className={styles['profile-link']} to={"/Profile/" + searchResult.profile_id}>
-                <div className={styles['search-result-name-address']}>
-                    <div className={styles['search-result-name']}>{searchResult.name}</div>
-                    <div className={styles['search-result-address']}>{searchResult.address}</div>
-                </div>
-            </Link>
-            <img className={styles['search-result-marker']} src={`https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${index+1}.png`} onClick={() => {panTo({lat: parseFloat(searchResult.latitude), lng:parseFloat(searchResult.longitude)})}}/>
-        </li>
-    )
-}
-
-function ShelterSearchResult({searchResult,panTo, index}){
-    return (
-        <li className={styles['search-result']} key={searchResult.reg_shelter_id} >
-            <img className={styles['search-result-pic']} src={searchResult.profile_pic_link}/>
-            <Link className={styles['profile-link']} to={"/Profile/" + searchResult.profile_id}>
-                <div className={styles['search-result-name-address']}>
-                    <div className={styles['search-result-name']}>{searchResult.name}</div>
-                    <div className={styles['search-result-address']}>{searchResult.address}</div>
-                </div>
-            </Link>
-            <img className={styles['search-result-marker']} src={`https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${index+1}.png`} onClick={() => {panTo({lat: parseFloat(searchResult.latitude), lng:parseFloat(searchResult.longitude)})}}/>
-        </li>
-    )
-
-}
-
-function PetSearchResult({searchResult, panTo, index}){
-    return (
-        <li className={styles['search-result']} key={searchResult.pet_id} onClick={() => {panTo({lat: parseFloat(searchResult.latitude), lng:parseFloat(searchResult.longitude)})}}>
-            <img className={styles['search-result-pic']} src={searchResult.profile_pic_link}/>
-            <Link className={styles['profile-link']} to={"/Profile/" + searchResult.profile_id}>
-                <div className={styles['search-result-name-address']}>
-                    <div className={styles['search-result-name']}>{searchResult.name}</div>
-                    <div className={styles['search-result-address']}>{searchResult.address}</div>
-                </div>
-            </Link>
-            <img className={styles['search-result-marker']} src={`https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${index+1}.png`} onClick={() => {panTo({lat: parseFloat(searchResult.latitude), lng:parseFloat(searchResult.longitude)})}}/>
-            
-        </li>
-    )
-}
-
-function PetOwnerSearchResult({searchResult}){
-    return (
-        <li className={styles['search-result']} key={searchResult.reg_user_id}>
-            <img className={styles['search-result-pic']} src={searchResult.profile_pic_link}/>
-            <Link className={styles['profile-link']} to={"/Profile/" + searchResult.profile_id}>
-                <span className={styles['search-result-name']}>{searchResult.display_name}</span>
-            </Link>
-        </li>
-    )
 }
 
 export default MapSearch;

@@ -75,51 +75,11 @@
     flex-direction: column;
 }
 
-.search-result{
-    list-style: none;
-    display: flex;
-    box-shadow: var(--elevation-1);
-    width: 95%;
-    margin-bottom: 25px;
-    padding: 10px 0 10px 10px;
-    border-radius:7.5px;
-    align-items: center;
-  }
-  
-  .search-result-pic{
-    width: 100px;
-    height:100px;
-    object-fit: cover;
-    display: inline-block;
-    margin-right: 10px;
-    border-radius: 7.5px;
-  
-  }
-
-  .search-result-marker{
-      width: 50px;
-      height: 50px;
-      margin-left: auto;
-      margin-right: 10px;
-      cursor:pointer;
-  }
-
-  .profile-link{
-      text-decoration: none;
-  }
 
 
 
-  .search-result-name-address{
-    font-family: var(--ff-primary);
-    margin-left:10px;
-  }
-  .search-result-name{
-    font-size: var(--h2);
-}
-.search-result-address{
-    font-size: var(--h4);
-}
+
+
 
   
   /* .map-search-results-text {
