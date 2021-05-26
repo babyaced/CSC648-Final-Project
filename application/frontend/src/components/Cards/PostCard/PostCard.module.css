@@ -73,7 +73,7 @@
     width: 100%;
     height: calc(100%-15px);
     object-fit: cover;
-    grid-area: 5 / 1 / span 1 / span 3;
+    grid-area: post-pic;
     border-radius: 7.5px;
 }
 

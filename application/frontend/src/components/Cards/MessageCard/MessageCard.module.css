@@ -2,9 +2,9 @@
     display: grid;
     padding: 15px;
     width: 100%;
-    /* grid-template-areas:  'pic subject ........ timestamp'
-                            'pic sender ........ reply-icon'
-                            'pic ....... ........ ..........'; */
+    grid-template-areas:  'pic subject . timestamp'
+                          'pic sender  . .........'
+                          'pic ....... . .........';
     grid-template-columns: 120px auto auto 175px;
     grid-template-rows: 34px 34px 34px;
     transition: 0.15s ease-in-out;
@@ -23,25 +23,25 @@
     width: 100px;
     height: 100px;
     object-fit: cover;
-    grid-area: 1 / 1 / span 3 / span 1;
+    grid-area: pic;
     border-radius: 7.5px;
 }
 
 .messages-container-message-subject {
     margin-left: 15px;
-    grid-area: 1 / 2 / span 1 / span 1;
+    grid-area: subject;
     font-size: var(--h3);
     font-family: var(--ff-primary);
     font-weight: 600;
 }
 
 .messages-container-message-timestamp {
-    grid-area: 1 / 4 / span 1 / span 1;
+    grid-area: timestamp;
     font-family: var(--ff-primary);
 }
 
 .messages-container-message-sender {
-    grid-area: 2 / 2 / span 1 / span 1;
+    grid-area: sender;
     margin-left: 15px;
     font-family: var(--ff-primary);
 }

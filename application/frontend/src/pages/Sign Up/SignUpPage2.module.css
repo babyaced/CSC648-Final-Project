@@ -20,8 +20,8 @@
     padding-top: 50px;
     display: grid;
     grid-template-columns: 2;
-    /* grid-template-areas: 'name    phone-num'
-                            'address animals;*/
+    grid-template-areas: 'name    phone-num'
+                         'address animals';
     grid-template-rows: 2;
     gap: 50px;
     justify-content: center;
@@ -29,20 +29,20 @@
 }
 
 .name-input-container{
-    grid-area: 1/ 1/ span 1;
+    grid-area: name;
 }
 
 .phone-number-input-container{
-    grid-area: 1/ 2/ span 1;
+    grid-area: phone-num;
 }
 
 .address-input-container{
-    grid-area: 2/ 1/ span 1;
+    grid-area: address;
 }
 
 
 .types-input-container{
-    grid-area: 2/ 2/ span 1;
+    grid-area: animals;
 }
 
 
