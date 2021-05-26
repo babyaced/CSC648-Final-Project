@@ -7,29 +7,10 @@ import axios from 'axios';
 import styles from './PostCard.module.css'
 
 //Import UI Components
-import PostModal from '../Modals/PostModal'
 
-function PostCard({post, innerRef}) {
+function PostCard({post, innerRef,openPostModal}) {
     console.log('innerRef: ', innerRef)
     const history = useHistory()
-
-    //selectedPost to pass to post modal
-    const [selectedPost, setSelectedPost] = useState({});
-
-    const [postModalDisplay, setPostModalDisplay] = useState(false);
-
-    function openPostModal(event,feedPost) {
-        if (!event) var event = window.event;
-        event.cancelBubble = true;
-        if (event.stopPropagation) event.stopPropagation();
-        setSelectedPost(feedPost);
-        setPostModalDisplay(true);
-        return
-    }
-
-    function closePostModal() {
-        setPostModalDisplay(false);
-    }
 
     // function likePost(event,feedPostID,index){
     //     if (!event) var event = window.event;
@@ -110,7 +91,6 @@ function PostCard({post, innerRef}) {
             <div className={styles["follower-feed-post-body"]}>{post.body}</div>
             {post.link && <img className={styles["follower-feed-post-photo"]} src={post.link} />}
         </div>}
-        <PostModal display={postModalDisplay} onClose={closePostModal} selectedPost={selectedPost} />
         </>
     )
 }

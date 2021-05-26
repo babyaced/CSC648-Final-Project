@@ -9,9 +9,10 @@ import axios from 'axios';
 import styles from './Feed.module.css'
 
 //Import UI Components
-import PostCard from '../../components/PostCard/PostCard'
-import CreatePostCard from '../../components/PostCard/CreatePostCard';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import PostCard from '../../components/Cards/PostCard/PostCard'
+import CreatePostCard from '../../components/Cards/PostCard/CreatePostCard'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import PostModal from '../../components/Modals/PostModal'
 
 
 //Import 
@@ -41,6 +42,11 @@ function Feed({appUser}) {
 
     //storing the pets available to tag in the dropdown menu
     const [taggablePets, setTaggablePets] = useState([]);
+
+    //selectedPost to pass to post modal
+    const [selectedPost, setSelectedPost] = useState({});
+
+    const [postModalDisplay, setPostModalDisplay] = useState(false);
 
     const observer = useRef()
 
@@ -83,6 +89,19 @@ function Feed({appUser}) {
         })
     }, [])
 
+    function openPostModal(event,feedPost) {
+        if (!event) var event = window.event;
+        event.cancelBubble = true;
+        if (event.stopPropagation) event.stopPropagation();
+        setSelectedPost(feedPost);
+        setPostModalDisplay(true);
+        return
+    }
+
+    function closePostModal() {
+        setPostModalDisplay(false);
+    }
+
     return (
         <>
             {redirectContext.loading ? 
@@ -102,17 +121,18 @@ function Feed({appUser}) {
                     {feedPosts && feedPosts.map((feedPost, index) => {
                         if(feedPosts.length === index + 1){
                             return (
-                                <PostCard innerRef={lastPostElementRef} key={feedPost.post_id} post={feedPost}/>
+                                <PostCard innerRef={lastPostElementRef} key={feedPost.post_id} post={feedPost} openPostModal={openPostModal}/>
                             )
                         }
                         else{
                             return (
-                                <PostCard key={feedPost.post_id} post={feedPost}/>
+                                <PostCard key={feedPost.post_id} post={feedPost} openPostModal={openPostModal}/>
                             )
                         }
                     })}
                 </div>
             }
+            <PostModal display={postModalDisplay} onClose={closePostModal} selectedPost={selectedPost} />
         </>
     )
 }

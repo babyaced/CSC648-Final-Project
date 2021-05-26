@@ -9,10 +9,10 @@ import {useDropzone} from 'react-dropzone'
 import styles from './CreatePostCard.module.css'
 
 //Import UI Components
-import ButtonLoader from '../../components/UI/Spinner/ButtonLoader';
+import ButtonLoader from '../../UI/Spinner/ButtonLoader';
 
 //Import Mods
-import SelectCustomTheme from '../../mods/SelectCustomTheme'
+import SelectCustomTheme from '../../../mods/SelectCustomTheme'
 
 
 const apiGatewayURL = 'https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL';
