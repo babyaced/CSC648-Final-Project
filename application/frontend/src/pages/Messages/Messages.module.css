@@ -17,53 +17,7 @@
   font-family: var(--ff-primary);
 }
 
-.messages-container-message {
-  display: grid;
-  padding: 15px;
-  width: 100%;
-  /* grid-template-areas:  'pic subject ........ timestamp'
-                          'pic sender ........ reply-icon'
-                          'pic ....... ........ ..........'; */
-  grid-template-columns: 120px auto auto 175px;
-  grid-template-rows: 34px 34px 34px;
-  transition: 0.15s ease-in-out;
 
-  box-shadow: var(--elevation-1);
-  border-radius: 7.5px;
-  margin-bottom: 15px;
-  cursor: pointer;
-}
-
-.messages-container-message:hover {
-  color: var(--primary-clr);
-}
-
-.messages-container-message-pic {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  grid-area: 1 / 1 / span 3 / span 1;
-  border-radius: 7.5px;
-}
-
-.messages-container-message-subject {
-  margin-left: 15px;
-  grid-area: 1 / 2 / span 1 / span 1;
-  font-size: var(--h3);
-  font-family: var(--ff-primary);
-  font-weight: 600;
-}
-
-.messages-container-message-timestamp {
-  grid-area: 1 / 4 / span 1 / span 1;
-  font-family: var(--ff-primary);
-}
-
-.messages-container-message-sender {
-  grid-area: 2 / 2 / span 1 / span 1;
-  margin-left: 15px;
-  font-family: var(--ff-primary);
-}
 
 /* @media all and (max-width: 876px){
     .messages-container-message{
@@ -112,30 +66,4 @@
 
 .new-message-text {
   margin-left: 10px;
-}
-
-@media only screen and (min-width: 414px) and (max-width: 1024px) {
-  .messages-container {
-    width: 90%;
-  }
-}
-
-@media only screen and (max-width: 414px) {
-  .messages-container {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /*The tab container would not wrap, added some white space so it can wrap*/
-  .messages-header:after {
-    content: "     ";
-    white-space: pre;
-  }
-
-  .tabs {
-    align-items: flex-start;
-    white-space: wrap;
-    flex-wrap: wrap;
-  }
 }

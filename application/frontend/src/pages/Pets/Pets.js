@@ -1,13 +1,15 @@
+//Import Libraries
 import {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 import styles from './MyPets.module.css'  //same style as my pets without add pet button
 
 //Import UI Components
-import PetCard from '../../components/PetCard/PetCard'
+import PetCard from '../../components/Cards/PetCard/PetCard'
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-import axios from 'axios'
+
 function Pets() {
 
     const {profileID} = useParams(); 
