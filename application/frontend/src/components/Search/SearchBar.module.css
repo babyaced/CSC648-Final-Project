@@ -15,7 +15,8 @@ select {
   cursor: pointer;
   font-family: var(--ff-tertiary);
 }
-  
+
+.searchbar-mobile,
 .searchbar{
   display:flex;
   flex-direction: row;
@@ -29,7 +30,7 @@ select {
   background-color: white;
   margin: 0 auto;
 }
-    
+.searchbar-mobile input,
 .searchbar input{
   border-left: none;
   border-bottom: none;
@@ -97,6 +98,7 @@ select {
 }
 
 @media (max-width: 768px){
+  .searchbar-mobile,
   .searchbar{
     display: grid;
     grid-template-areas: 'term     category'
@@ -116,6 +118,7 @@ select {
     line-height: 40px;
   }
 
+  .searchbar-mobile input,
   .searchbar input{
     border-right: none;
     font-size: var(--h4);
@@ -147,5 +150,15 @@ select {
 
   .search-category-dropdown select{
     font-size: var(--h4);
+  }
+}
+
+@media (max-width: 450px){
+  .searchbar{
+    visibility: hidden;
+  }
+
+  .searchbar-mobile{
+    width: 100%;
   }
 }

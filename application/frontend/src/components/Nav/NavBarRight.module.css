@@ -148,3 +148,9 @@
         justify-content: flex-end;
     }
 }
+
+@media (max-width: 450px){
+    .menu-icon{
+        margin-left: 10px;
+    }
+}

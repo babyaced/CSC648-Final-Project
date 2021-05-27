@@ -8,6 +8,7 @@ import DropdownArrow from '../../images/Created Icons/Arrow.svg';
 import Messages from '../../images/Created Icons/Messages.svg';
 import Account from '../../images/Created Icons/Account.svg';
 import Menu from '../../images/Created Icons/Menu.svg';
+import Search from '../../images/Created Icons/Search.svg'
 
 
 //Import UI Components
@@ -40,7 +41,7 @@ let useClickOutside = (handler) =>{
   return domNode
 }
 
-function NavBarRight({appUser, updateLoginState}) {
+function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMobileSearchBar}) {
   const history = useHistory();
 
   const [accountMenuDisplay, setAccountMenuDisplay] = useState({display: 'none'});
@@ -83,6 +84,7 @@ function NavBarRight({appUser, updateLoginState}) {
           {!appUser && <button className={styles["login-link"]} onClick={()=>history.push("/login-page")}>Login</button>}
           {appUser &&
             <span className={styles['navbar-right']}>
+              {windowSize.width <= 450 && <img className={styles['search-icon']} src={Search} onClick={displayMobileSearchBar}/> } 
               {windowSize.width <= 1170 && <img className={styles['menu-icon']} src={Menu} onClick={accountMenuToggle}/>}
               {windowSize.width <= 1470 && windowSize.width > 1170 &&
                 <NavLink to="/Messages" className={styles["messages-menu-icon"]}>

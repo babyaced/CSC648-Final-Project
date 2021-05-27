@@ -1,18 +1,17 @@
-import React, {useEffect, useLayoutEffect, useMemo, useState, useRef} from "react";
-import {Link, Switch, Route, Redirect, useHistory} from "react-router-dom";
+import React, {useEffect, useMemo, useState, useRef} from "react";
+import { useHistory} from "react-router-dom";
 import Axios from "axios";
 import {useThrottle} from '@react-hook/throttle'
 import {matchSorter} from 'match-sorter'
-
-import { useLoadScript} from '@react-google-maps/api';
 
 import styles from './SearchBar.module.css'
 
 //Import Icons
 // import Search from  "../../images/Created\ Icons/Search.svg"
 
-//Import Custom Hooks
+//Import Custom Hooks/ Functions
 import useWindowSize from '../Hooks/useWindowSize'
+
 
 import usePlacesAutocomplete,{
   getGeocode,
@@ -49,7 +48,7 @@ let catBreedOptions = [];
 
 
 
-function SearchBar() {
+function SearchBar({cssClass}) {
   const history = useHistory();
   const windowSize = useWindowSize();
 
@@ -78,7 +77,6 @@ function SearchBar() {
   });
 
   function search(){
-    // let prefilterObject = matchPrefilter(selectedPrefilter);
     if(searchLocationLat == null || searchLocationLng == null){
       navigator.geolocation.getCurrentPosition((position)=>{
         const location = {
@@ -148,7 +146,7 @@ function SearchBar() {
 
   return (
   <>
-    <div className={styles["searchbar"]}>
+    <div className={styles[cssClass]}>
       <span className={styles["search-category-dropdown"]}>
         <select name="search-category" id="search-category" onChange= {e => setSearchCategory(e.target.value)}>
           <option value="Pets">Pets</option>
@@ -232,17 +230,14 @@ function SearchBar() {
             </ComboboxList>
           </ComboboxPopover>
         </Combobox>
-          
 
-      
-      {/* </span> */}
-
-      {windowSize.width <= 768 ?
+      {windowSize.width <= 768 && 
         <button className={styles["searchbar-search"]} onClick={search}>
           Search
-        </button> 
-        :
-        <button className={styles["searchbar-search-icon"]}/> 
+        </button>
+      }
+      {windowSize.width > 768 &&
+        <button className={styles["searchbar-search-icon"]}/>
       }
       </div>
   </>
