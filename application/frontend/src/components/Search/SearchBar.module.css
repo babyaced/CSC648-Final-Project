@@ -20,7 +20,7 @@ select {
   display:flex;
   flex-direction: row;
   max-width: 800px;
-  width: 85%;
+  width: 75%;
   box-shadow: var(--elevation-2);
   border-radius: 7.5px;
   align-items: center;
@@ -38,7 +38,6 @@ select {
   font-size: var(--h3);
   text-overflow: ellipsis;
   width: 100%;
-  margin:0;
 }
 
 .searchbar-term-input{
@@ -46,11 +45,9 @@ select {
 }
   
   /* Searchbar button */
-.searchbar-search {  
+.searchbar-search-icon {
   width: 100px;
   height: 50px;
-  float: right;
-  display:inline-flex;
   border: none;
   padding: 0;
   background: url("../../images/Created\ Icons/Search.svg") 50% no-repeat;
@@ -58,10 +55,7 @@ select {
 }
 
 .div-term-searchbar-input, .div-map-searchbar-input {
-  /* background-color: black; */
-  width: 75%;
-  padding: 0;
-  margin: 0;
+  padding: 0 5px;
 }
   
   
@@ -100,4 +94,53 @@ select {
   
 .current img:hover{
   opacity:1;
+}
+
+@media (max-width: 768px){
+  .searchbar{
+    display: grid;
+    grid-template-areas: 'term     category'
+                         'location   search';
+    grid-template-rows: 40px;
+    grid-template-columns: auto 150px;
+    height: 80px;
+  }
+
+  .search-category-dropdown{
+    grid-area: category;
+  }
+
+  .div-term-searchbar-input{
+    grid-area: term;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .div-map-searchbar-input{
+    grid-area: location;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .searchbar-search{
+    grid-area: search;
+    background-color: var(--primary-clr);
+    font-family: var(--ff-tertiary);
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size:var(--h3);
+    border-radius: 0 0 7.5px 0;
+    color: var(--reversed-txt-clr);
+    transition: .15s ease-in-out;
+  }
+
+  .searchbar-search:hover{
+    opacity: .9;
+    cursor: pointer;
+  }
+
+  .search-category-dropdown select{
+    font-size: var(--h3);
+  }
 }

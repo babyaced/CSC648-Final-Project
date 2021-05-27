@@ -8,6 +8,12 @@ import { useLoadScript} from '@react-google-maps/api';
 
 import styles from './SearchBar.module.css'
 
+//Import Icons
+// import Search from  "../../images/Created\ Icons/Search.svg"
+
+//Import Custom Hooks
+import useWindowSize from '../Hooks/useWindowSize'
+
 import usePlacesAutocomplete,{
   getGeocode,
   getLatLng,
@@ -45,6 +51,9 @@ let catBreedOptions = [];
 
 function SearchBar() {
   const history = useHistory();
+  const windowSize = useWindowSize();
+
+
   const [searchTerm, setSearchTerm] = useState('')
   const [searchCategory, setSearchCategory] = useState('Pets');
 
@@ -182,7 +191,6 @@ function SearchBar() {
           </ComboboxPopover>)}
       </Combobox>
       
-      {/* <span className={styles["div-searchbar-input"]}> */}
         <Combobox className={styles['div-map-searchbar-input']}
             onSelect={async (address)=>{
                 setValue(address,false);
@@ -227,11 +235,13 @@ function SearchBar() {
       
       {/* </span> */}
 
-      
-      <button  
-        className={styles["searchbar-search"]}
-        onClick={search}
-      />
+      {windowSize.width < 768 ?
+        <button className={styles["searchbar-search"]} onClick={search}>
+          Search
+        </button> 
+        :
+        <button className={styles["searchbar-search-icon"]}/> 
+      }
       </div>
   </>
   );
