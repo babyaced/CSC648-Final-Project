@@ -8,7 +8,7 @@ import DropdownArrow from '../../images/Created Icons/Arrow.svg';
 import Messages from '../../images/Created Icons/Messages.svg';
 import Account from '../../images/Created Icons/Account.svg';
 import Menu from '../../images/Created Icons/Menu.svg';
-import Search from '../../images/Created Icons/Search.svg'
+import SearchMobile from '../../images/Created Icons/SearchMobile.svg'
 
 
 //Import UI Components
@@ -87,7 +87,7 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
             </span>}
           {appUser &&
             <span className={styles['navbar-right']}>
-              {windowSize.width <= 450 && <img className={styles['search-icon']} src={Search} onClick={displayMobileSearchBar}/> } 
+              {windowSize.width <= 450 && <img className={styles['search-icon']} src={SearchMobile} onClick={displayMobileSearchBar}/> } 
               {windowSize.width <= 1170 && <img className={styles['menu-icon']} src={Menu} onClick={accountMenuToggle}/>}
               {windowSize.width <= 1470 && windowSize.width > 1170 &&
                 <NavLink to="/Messages" className={styles["messages-menu-icon"]}>
