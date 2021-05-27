@@ -118,6 +118,9 @@
 }
 
 @media (max-width: 768px){
+    .my-pets-header{
+        font-size: var(--h1);
+    }
     .my-pets-container-pets{
         display: flex;
         flex-wrap: nowrap;
