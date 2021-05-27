@@ -21,8 +21,6 @@
 }
 
 .my-pets-container{
-    width: 50%;
-    margin: 0 auto;
 }
 
 .my-pets-container-pets{
@@ -37,8 +35,7 @@
     margin: 10px;
     display:flex;
     box-shadow: var(--elevation-1);
-    width: calc(50% - 20px);
-    min-width: 200px;
+    width:calc(50% - 20px);
     height: 100px;
     border-radius: 7.5px;
     align-items: center;
@@ -67,7 +64,7 @@
 .my-pets-container-add-pet-text,
 .my-pets-container-pet-name{
     margin-left: 15px;
-    font-size:var(--h2);
+    font-size:var(--h3);
     cursor:pointer;
 }
 
@@ -99,6 +96,7 @@
 .my-pets-container-pet-delete:hover{
     width: 31px;
     height: 31px;
+    filter: brightness(0) saturate(100%) invert(23%) sepia(86%) saturate(7168%) hue-rotate(355deg) brightness(97%) contrast(90%);
 }
 
 .my-pets-container a {
@@ -111,10 +109,25 @@
     /* flex-grow: 1; */
 }
 
-.LinkDiv {
+.my-pets-container-link{
     display: flex;
     align-items: center;
     flex-grow: 1;
     height: 100%;
     padding-left: 15px;
+}
+
+@media (max-width: 768px){
+    .my-pets-container-pets{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+
+    .my-pets-container-add-pet{
+        width: 100%;
+    }
+    .my-pets-container-pet{
+        width: 100%;
+    }
 }

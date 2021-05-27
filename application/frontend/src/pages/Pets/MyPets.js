@@ -96,7 +96,7 @@ function MyPets() {
              </div>
             {myPets && myPets.map((pet,index) =>(
                     <div key={index} className={styles['my-pets-container-pet']} >  {/*onClick={() => profileClicked('/Profile/' + pet.pet_name)}*/}
-                        <div className={styles.LinkDiv} onClick={() => history.push('/Profile/' + pet.profile_id)}  >
+                        <div className={styles['my-pets-container-link']} onClick={() => history.push('/Profile/' + pet.profile_id)}  >
                             <img className={styles['my-pets-container-pet-pic']} src={pet.profile_pic_link}/>
                             <div className={styles['my-pets-container-pet-name']}>{pet.display_name}</div>
                         </div>
