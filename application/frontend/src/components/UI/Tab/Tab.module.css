@@ -35,3 +35,10 @@
     z-index: 1;
     background-color: var(--primary-clr);
 }
+
+@media (max-width: 470px){
+    .Tab,
+    .ActiveTab{
+        font-size: var(--h4);
+    }
+}

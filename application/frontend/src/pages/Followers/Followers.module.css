@@ -7,36 +7,35 @@
 .followers-listing {
   columns: 2;
   width: 100%;
-  /* height: calc(100vh - 344px); */
+  height: calc(100vh - 200px);
   overflow-y: auto;
   margin: 1px auto;
   box-shadow: var(--elevation-2);
-  border-radius: 0 0 7.5px 7.5px;
+  border-radius: 0 7.5px 7.5px 7.5px;
   padding: 16px;
   display: flex;
   flex-direction: column;
 }
 
 .tabContainer {
-  width: 50%;
+  width: 100%;
   background-color: "white";
   color: "black";
-  height: calc(100vh - 100px);
-}
-
-.cardContainer {
-  width: 100%;
-  margin: 30px auto;
-  font-family: var(--ff-primary);
-  overflow-y: auto;
 }
 
 .Tabs {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   margin: 0 auto;
   align-items: flex-start;
   white-space: nowrap;
   flex-wrap: nowrap;
 }
+
+@media (max-width: 470px){
+    .followers-listing{
+      border-radius: 0 0 7.5px 7.5px;
+    }
+}
+

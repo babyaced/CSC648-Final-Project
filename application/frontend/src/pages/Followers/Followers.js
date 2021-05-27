@@ -73,16 +73,7 @@ function Followers() {
       <div className={`${styles["followers-container"]} ${"container"}`}>
         <div className={styles["tabContainer"]}>
           <div className={styles.Tabs}>
-            <div style={{ display: "flex", width: "100%" }}>{tabs}</div>
-            <div style={{ cursor: "pointer" }}>
-              {/* <button>filter</button> */}
-              <p
-                className={styles["tab-container-link"]}
-                onClick={() => history.goBack()}
-              >
-                Back to Profile
-              </p>
-            </div>
+            {tabs}
           </div>
             <div>
               <div className={styles["followers-listing"]}>
