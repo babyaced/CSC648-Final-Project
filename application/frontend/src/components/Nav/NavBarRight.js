@@ -46,9 +46,6 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
 
   const [accountMenuDisplay, setAccountMenuDisplay] = useState({display: 'none'});
   const windowSize = useWindowSize()
-
-  console.log('windowSize: ',windowSize);
-
   function logoutHandler(){
     axios.post("/api/logout", {withCredentials: true}).then((response) =>{
       updateLoginState(response.data.loggedIn,response.data.user);
@@ -77,6 +74,11 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
   let hamburgerMenu = false
   if(windowSize.width < 1170){
     hamburgerMenu = true
+  }
+
+  if(windowSize.width > 450){
+    console.log("closing mobile search bar")
+    closeMobileSearchBar()
   }
 
   return (
