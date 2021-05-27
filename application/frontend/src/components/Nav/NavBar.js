@@ -31,7 +31,7 @@ function NavBar({appUser, updateLoginState}) {
             {!mobileSearchBarDisplay && <NavBarLeft appUser={appUser}/>}
             {!mobileSearchBarDisplay && <SearchBar cssClass={"searchbar"}/>}
             {!mobileSearchBarDisplay && <NavBarRight appUser={appUser} updateLoginState={updateLoginState} displayMobileSearchBar={displayMobileSearchBar} closeMobileSearchBar={closeMobileSearchBar}/>}
-            {mobileSearchBarDisplay && <SearchBar cssClass={"searchbar-mobile"}/>}
+            {mobileSearchBarDisplay && <SearchBar cssClass={"searchbar-mobile"} closeMobileSearchBar={closeMobileSearchBar}/>}
         </div>
     )
 }

@@ -48,7 +48,7 @@ let catBreedOptions = [];
 
 
 
-function SearchBar({cssClass}) {
+function SearchBar({cssClass, closeMobileSearchBar}) {
   const history = useHistory();
   const windowSize = useWindowSize();
 
@@ -231,13 +231,24 @@ function SearchBar({cssClass}) {
           </ComboboxPopover>
         </Combobox>
 
-      {windowSize.width <= 768 && 
+      {windowSize.width <= 768 && windowSize.width  > 450 &&
         <button className={styles["searchbar-search"]} onClick={search}>
           Search
         </button>
       }
       {windowSize.width > 768 &&
         <button className={styles["searchbar-search-icon"]}/>
+      }
+      {windowSize.width  <= 450 &&
+        <span className={styles['searchbar-multifunc']}>
+          <button className={styles["searchbar-multifunc-cancel"]} onClick={closeMobileSearchBar}>
+            Cancel
+          </button>
+          <button className={styles["searchbar-multifunc-search"]} onClick={search}>
+            Search
+          </button>
+
+        </span>
       }
       </div>
   </>

@@ -104,7 +104,7 @@ select {
     grid-template-areas: 'term     category'
                          'location   search';
     grid-template-rows: 40px;
-    grid-template-columns: auto 150px;
+    grid-template-columns: auto 135px;
     height: 80px;
   }
 
@@ -160,5 +160,38 @@ select {
 
   .searchbar-mobile{
     width: 100%;
+  }
+
+  .searchbar-multifunc{
+    grid-area: search;
+    display: flex;
+    width: 100%;
+  }
+
+  .searchbar-multifunc-search,
+  .searchbar-multifunc-cancel{
+    border: none;
+    font-family: var(--ff-tertiary);
+    color: var(--reversed-txt-clr);
+    height: 40px;
+    width: 50%;
+    font-size: var(--h4);
+    transition: .15s ease-in-out;
+  }
+
+  .searchbar-multifunc-search:hover,
+  .searchbar-multifunc-cancel:hover{
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  .searchbar-multifunc-search{
+    background-color: var(--primary-clr);
+    border-radius: 0 0 7.5px 0;
+  }
+
+  .searchbar-multifunc-cancel{
+    background-color: var(--cancel-delete-exit-color);
+
   }
 }
