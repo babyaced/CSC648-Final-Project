@@ -206,7 +206,9 @@ function SearchBar() {
             }}
         >
           {/* Input Box */}
-          {searchCategory !== "Pet Owners" && <ComboboxInput
+          {searchCategory !== "Pet Owners" && 
+          <ComboboxInput
+            className={styles['searchbar-map-input']}
             value={value}
             placeholder= {searchCategory !== 'Pet Owners' && "Near Current Location"}
             onChange={(e)=> {
@@ -235,7 +237,7 @@ function SearchBar() {
       
       {/* </span> */}
 
-      {windowSize.width < 768 ?
+      {windowSize.width <= 768 ?
         <button className={styles["searchbar-search"]} onClick={search}>
           Search
         </button> 

@@ -46,7 +46,7 @@ select {
   
   /* Searchbar button */
 .searchbar-search-icon {
-  width: 100px;
+  width: 50px;
   height: 50px;
   border: none;
   padding: 0;
@@ -116,6 +116,11 @@ select {
     line-height: 40px;
   }
 
+  .searchbar input{
+    border-right: none;
+    font-size: var(--h4);
+  }
+
   .div-map-searchbar-input{
     grid-area: location;
     height: 40px;
@@ -129,7 +134,7 @@ select {
     height: 100%;
     width: 100%;
     border: none;
-    font-size:var(--h3);
+    font-size:var(--h4);
     border-radius: 0 0 7.5px 0;
     color: var(--reversed-txt-clr);
     transition: .15s ease-in-out;
@@ -141,6 +146,6 @@ select {
   }
 
   .search-category-dropdown select{
-    font-size: var(--h3);
+    font-size: var(--h4);
   }
 }
