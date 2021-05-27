@@ -3,13 +3,13 @@
     text-decoration: none;
     font-size: var(--h2);
     text-align: center;
-    grid-column: 5 / span 1;
     color: var(--reversed-txt-clr);
     background: var(--primary-clr);
     border: none;
     border-radius: 15px;
     transition: 0.5s ease;
     cursor:pointer;
+    justify-self: flex-end;
 }
 
 .login-link:hover{
@@ -99,10 +99,19 @@
     filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(337deg) brightness(103%) contrast(101%);
 }
 
+.navbar-right-login,
 .navbar-right{
     width: 300px;
     display: flex;
+    
+}
+
+.navbar-right{
     justify-content: space-between;
+}
+
+.navbar-right-login{
+    justify-content: end;
 }
 
 

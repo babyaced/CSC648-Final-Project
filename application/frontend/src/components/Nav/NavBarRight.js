@@ -81,7 +81,10 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
 
   return (
         <>
-          {!appUser && <button className={styles["login-link"]} onClick={()=>history.push("/login-page")}>Login</button>}
+          {!appUser && 
+            <span className={styles['navbar-right-login']}>
+              <button className={styles["login-link"]} onClick={()=>history.push("/login-page")}>Login</button>
+            </span>}
           {appUser &&
             <span className={styles['navbar-right']}>
               {windowSize.width <= 450 && <img className={styles['search-icon']} src={Search} onClick={displayMobileSearchBar}/> } 
