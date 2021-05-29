@@ -52,8 +52,10 @@ function LoginPage({appUser, updateLoginState}) {
 
     return (
         <>
-            <form className={styles['login-container']} onSubmit={loginHandler}>
-                <div className={styles['login-header']}>Login</div>
+            <form className={`${styles['login-container']} ${'small-container'}`} onSubmit={loginHandler}>
+                <div className={styles['login-header']}>
+                    <h1>Login</h1>
+                </div>
                 <div className={styles['username-input-container']}>
                     <label className={styles['username-input-label']} for='username'>Username</label>
                     <input
@@ -67,9 +69,7 @@ function LoginPage({appUser, updateLoginState}) {
                 </div>
                 <div className={styles['password-input-container']}>
                     <label className={styles['password-input-label']} for='password'>Password</label>
-                    <span className={styles['forgot-password']}>
-                        <button onClick={() => setForgotPasswordModalDisplay(true)}> Forgot password?</button>
-                    </span>
+                    <button className={styles['forgot-password']} onClick={() => setForgotPasswordModalDisplay(true)}> Forgot password?</button>
                     <input
                         type='password'
                         placeholder='Enter password'
@@ -80,14 +80,10 @@ function LoginPage({appUser, updateLoginState}) {
                     />
                 </div>
 
-                <div className={styles['btn-container']}>
-                    <button type='submit' className={styles['submit-btn']}>Login</button>
-
-
-                </div>
+                <button type='submit' className={styles['submit-btn']}>Login</button>
                 <div className={styles['checkbox']}>
                         <input type='checkbox' name='remember'/> Remember Me
-                    </div>
+                </div>
 
                 <div className={styles['create-account-link']}>
                     Not registered? <a href='/account-type'>Create an account</a>

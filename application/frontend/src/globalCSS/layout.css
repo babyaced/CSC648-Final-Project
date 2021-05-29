@@ -1,0 +1,23 @@
+.small-container,
+.container,
+.wide-container{
+    width: 85%;
+    margin: 0 auto;
+    
+}
+
+.small-container{
+    max-width: 600px;
+    margin-top: 5rem;
+}
+
+.container{
+    max-width: 800px;
+    margin-top: 2.5rem;
+}
+  
+.wide-container{
+    max-width: 1200px;
+    margin-top: 2.5rem;
+}
+  
