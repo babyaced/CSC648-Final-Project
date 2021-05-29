@@ -1,29 +1,23 @@
 .account-type-container {
     display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
-    margin: auto 0;
-    height: 50%;
-    width: 100%;
-    vertical-align: middle;
-    margin: 2% auto 100px;
 }
-
 
 .shelter-button,
 .business-button,
 .signup-button{
-    width: 200px;
-    padding: 15px 0 15px 0;
+    padding: 1rem;
     text-justify: center;
     text-align: center;
     color: white;
     background-color: var(--primary-clr);
-    border-radius: 5px;
+    border-radius: 7.5px;
     box-shadow: var(--elevation-1);
     border: none;
     cursor: pointer;
-    margin: 30px auto;
-    font-size: var(--h4);
+    margin: 1rem;
+    font-size: var(--h5);
     font-weight: 600;
     font-family: var(--ff-primary);
 }
@@ -41,8 +35,8 @@
     flex-direction: column;
     align-items: center;
     border-radius: 7.5px;
-    margin:20px;
-    padding-top: 20px;
+    margin:1rem;
+    padding-top: 1rem;
     box-shadow: var(--elevation-1);
     transition: .5s ease;
 }
@@ -59,4 +53,10 @@
     transform: translateY(-4px);
     background-color: var(--reversed-txt-clr);
     color: var(--accent-color-2);
+}
+
+@media (max-width: 768px) {
+    .account-type-container {
+        flex-flow: column nowrap;
+    }
 }

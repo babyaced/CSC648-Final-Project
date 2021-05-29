@@ -10,7 +10,7 @@ import BusinessImage from '../../images/Third Party Images/undraw_business_shop_
 function AccountTypePage() {
 
     return (
-        <div className={styles['account-type-container']}>
+        <div className={`${styles['account-type-container']} ${'wide-container'}`}>
                     <div className={styles['owner-container']}>
                         <img className={styles['owner-img']} src={OwnerImage} />
                         <NavLink to="/signup-page">
