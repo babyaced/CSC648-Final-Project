@@ -31,9 +31,9 @@ html,body {
   --reversed-txt-clr: #fff;
 
   /*typography*/ 
-  --ff-primary: 'Roboto', sans-serif;
+  --ff-primary: 'Nunito', sans-serif;
   --ff-secondary: 'Roboto', sans-serif;
-  --ff-tertiary: 'Nunito', sans-serif;
+  
 
   /* shadows */
   --elevation-0: none;

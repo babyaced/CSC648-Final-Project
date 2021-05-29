@@ -6,7 +6,7 @@
 
 .messages-header {
   font-size: var(--h0);
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
   font-weight: 600;
 }
 

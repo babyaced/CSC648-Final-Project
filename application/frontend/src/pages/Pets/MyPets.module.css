@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     font-size: var(--h0);
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     font-weight: 600;
     margin: 10px;
 }

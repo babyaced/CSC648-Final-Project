@@ -13,7 +13,7 @@ select {
   padding-right: 25px;
   background: url("../../images/Created\ Icons/Dropdown.svg") no-repeat right;
   cursor: pointer;
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
 }
 
 .searchbar-mobile,
@@ -133,7 +133,7 @@ select {
   .searchbar-search{
     grid-area: search;
     background-color: var(--primary-clr);
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     height: 100%;
     width: 100%;
     border: none;
@@ -171,7 +171,7 @@ select {
   .searchbar-multifunc-search,
   .searchbar-multifunc-cancel{
     border: none;
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     color: var(--reversed-txt-clr);
     height: 40px;
     width: 50%;

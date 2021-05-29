@@ -37,7 +37,7 @@
 } */
 
 .right-side-text {
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     display: block;
     grid-row: 2 / span 1;
     /* color: var(--accent-color-1); */

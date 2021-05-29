@@ -29,7 +29,7 @@
 }
 
 .map-search-header-text{
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     font-weight: 600;
     font-size: var(--h1);
 }
@@ -140,7 +140,7 @@
     text-align: center;
     font-size: var(--h1);
     color: var(--primary-txt-clr);
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     margin-top: calc(50vh - 100px);
     font-weight: 600;
     color: var(--accent-color-1)

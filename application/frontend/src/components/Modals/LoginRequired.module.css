@@ -7,7 +7,7 @@
 }
 
 .account-required-message{
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     font-size:  var(--h1);
 }
 

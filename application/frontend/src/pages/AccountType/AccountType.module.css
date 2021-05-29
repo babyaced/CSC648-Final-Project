@@ -25,7 +25,7 @@
     margin: 30px auto;
     font-size: var(--h4);
     font-weight: 600;
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
 }
 
 .account-type-container img {

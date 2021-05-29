@@ -17,7 +17,9 @@ function NavBarLeft({appUser}) {
     <span  className={styles["navbar-left"]}>
       {!appUser && 
       <NavLink to="/" activeClassName={styles["current"]}>
-        <img className={styles["logo-img"]} src={LogoScript}/>
+        {windowSize.width > 1470 ?
+        <img className={styles["logo-img-script"]} src={LogoScript}/> :
+        <img className={styles["logo-img"]} src={Logo}/>}
       </NavLink>
       }
       {appUser && 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 
-import styles from './Photo.module.css';
+import styles from './Photos.module.css';
 
 import PostModal from '../../components/Modals/PostModal';
 import EditButton from '../../components/Buttons/EditButton';

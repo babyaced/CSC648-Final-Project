@@ -1,27 +1,18 @@
-/* .Photo {
-    max-width: 1440px;
-    margin: 20px auto;
-    font-family: var(--ff-primary);
-} */
-
 .photos-container {
-    /* display: grid; */
     display: flex;
-    flex-wrap: wrap;
-    /* grid-template-columns: repeat(4, 1fr); */
-    column-gap: 25px;
-    row-gap: 20px;
-    padding: 16px;
-    min-height: 719.5px;
+    flex-flow: row wrap;
     box-shadow: var(--elevation-2);
-    /* flex-wrap: wrap;
-    need to make the grid responsive */
-    border-radius: 15px;
+    border-radius: 7.5px;
+    justify-content: space-around;
+    width: 100%;
+    overflow: auto;
+    height: calc(100vh - 300px);
 }
 
 .PhotoDiv {
     cursor: pointer;
     transition: .15s ease-in-out;
+    flex: 0 0  30%;
 }
 
 .PhotoDiv:hover{
@@ -31,7 +22,6 @@
 .EditingPhotoDiv {
     position: relative;
     cursor: pointer;
-    max-height: 332.75px;
 }
 
 .DeleteIcon {
@@ -43,16 +33,13 @@
     top: 166px;
     opacity: 0;
     border-radius: 15px;
-    width: 332.75px;
-    height: 332.75px;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
 }
 
 .Image {
     opacity: 1;
-    width: 332.75px;
-    height: 332.75px;
+    width: 100%;
     border-radius: 15px;
     transition: .5s ease;
     object-fit:cover;
@@ -86,7 +73,7 @@
 }
 
 .NameDivLeft h1{
-    font-family: var(--ff-tertiary) !important;
+    font-family: var(--ff-primary) !important;
 }
 
 .NameDivRight {
@@ -105,4 +92,16 @@
     height: 50%;
     align-self: center;
     margin-right: 20px;
+}
+
+@media (max-width: 768px){
+    .PhotoDiv {
+        flex: 0 0  50%;
+    }
+}
+
+@media (max-width: 450px){
+    .PhotoDiv {
+        flex: 0 0  95%;
+    }
 }

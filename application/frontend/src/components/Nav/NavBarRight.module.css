@@ -1,5 +1,5 @@
 .login-link{
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     text-decoration: none;
     font-size: var(--h2);
     text-align: center;
@@ -84,7 +84,7 @@
     cursor: pointer;
     border: none;
     background: transparent;
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
 
 }
 
@@ -116,6 +116,7 @@
 
 
 @media (max-width: 1470px){
+    .navbar-right-login,
     .navbar-right{
         width: 150px;
     }
@@ -152,6 +153,7 @@
         filter: invert(51%) sepia(12%) saturate(2293%) hue-rotate(134deg) brightness(92%) contrast(88%);
     }
 
+    .navbar-right-login,
     .navbar-right{
         width: 50px;
         justify-content: flex-end;

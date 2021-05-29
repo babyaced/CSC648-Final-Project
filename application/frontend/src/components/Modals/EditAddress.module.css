@@ -1,7 +1,7 @@
 .edit-address-header{
     margin: 60px;
     font-size: var(--h1);
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
 }
 
 .edit-address-container{

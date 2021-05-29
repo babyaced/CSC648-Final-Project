@@ -2,7 +2,7 @@
     padding:15px 30px 30px 30px;
     font-size: var(--h1);
     font-weight: 600;
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
 }
 
 .edit-pet-details-container{

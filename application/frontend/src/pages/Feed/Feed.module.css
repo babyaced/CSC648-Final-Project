@@ -7,7 +7,7 @@
 .follower-feed-header {
   margin: 5px;
   font-size: var(--h0);
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
   font-weight: 600;
 }
 
@@ -40,7 +40,7 @@
 
 .follower-feed-no-posts-placeholder-header {
   margin: 25px auto 10px auto;
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
   font-size: var(--h1);
   color: var(--inactive-txt-clr);
 }

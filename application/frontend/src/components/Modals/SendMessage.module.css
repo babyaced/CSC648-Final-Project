@@ -1,7 +1,7 @@
 .sendAMessage-header {
   margin-left: 30px;
   font-weight: 600;
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
 }
 
 .sendAMessage-subject {
