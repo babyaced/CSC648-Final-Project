@@ -40,3 +40,10 @@ label{
 small, .text-small {
     font-size: var(--text-sm);
 }
+
+@media (max-width: 768px){
+    :root{
+        --base-size: .8em;
+    }
+
+}
