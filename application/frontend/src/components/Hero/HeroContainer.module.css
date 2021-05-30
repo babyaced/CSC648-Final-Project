@@ -14,6 +14,7 @@
     flex-basis: 33%;
     display: flex;
     justify-content: flex-end;
+    transition: .15s ease;
 }
 
 .right-side-image{
