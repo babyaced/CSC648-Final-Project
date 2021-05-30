@@ -22,7 +22,6 @@
   cursor: pointer;
   font-size: var(--h2);
   transition: 0.15s ease;
-  flex-basis: 49%;
 }
 
 @media (max-width: 1170px){
@@ -32,6 +31,7 @@
   }
 
   .right-side-container{
-    padding-right: 0;
+    flex-basis: 100%;
+    padding: 3rem;
   }
 }
