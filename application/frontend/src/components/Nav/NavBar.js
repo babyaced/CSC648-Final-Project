@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import SearchBar from '../Search/SearchBar'
 import NavBarLeft from '../Nav/NavBarLeft'
 import NavBarRight from '../Nav/NavBarRight'
-import MobileSearchBar from '../Search/MobileSearchBar'
 
 import styles from './NavBar.module.css'
 

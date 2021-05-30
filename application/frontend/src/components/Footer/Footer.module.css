@@ -2,8 +2,7 @@
     display: flex;
     flex-flow: row wrap;
     background-color: black;
-    padding-top: 2rem;
-    
+    padding: 2rem 1rem;
 }
 
 .our-team{
@@ -11,13 +10,22 @@
     
 }
 
+.our-team-header{
+    flex-basis: 100%;
+    color: var(--reversed-txt-clr);
+    font-family: var(--ff-primary);
+}
+
 .our-team a{
     color: var(--reversed-txt-clr);
     font-family: var(--ff-secondary);
+    text-decoration: none;
 }
 
 .social-media-links{
     flex-basis: 33%;
+    display: flex;
+    justify-content: center;
 }
 
 .social-media-links img{
@@ -30,5 +38,27 @@
     flex-basis: 33%;
     color: var(--reversed-txt-clr);
     font-family: var(--ff-secondary);
+    text-align: right;
+}
+
+.icons8-attribution a{
+    color: var(--reversed-txt-clr);
+}
+
+
+.terms-conditions{
+    flex-basis: 100%;
+    display: flex; 
+    justify-content: center;
+}
+
+.terms-conditions span{
+    color: var(--reversed-txt-clr);
+}
+
+.terms-conditions button{
+    border: none;
+    color: var(--reversed-txt-clr);
+    background-color: transparent;
 }
 
