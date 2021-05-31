@@ -79,7 +79,7 @@ function PostModal({display,onClose,selectedPost}) {
                     <div className={styles["post-content"]}>
                         <div className={styles["post-detail"]}>
                             <img className={styles["post-detail-pic"]} src={selectedPost.profile_pic_link}/>
-                            <div className={styles["post-detail-name"]}><h3>{selectedPost.display_name}</h3></div>
+                            <div className={styles["post-detail-name"]}><h5>{selectedPost.display_name}</h5></div>
                             <div className={styles["post-detail-timestamp"]}>{new Date(selectedPost.timestamp).toLocaleString()}</div>
                             <div className={styles["post-detail-likes"]}>
                                 {selectedPost.likes}
