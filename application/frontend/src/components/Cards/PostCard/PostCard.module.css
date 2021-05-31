@@ -1,79 +1,103 @@
-.follower-feed-post {
+.post-card{
     display: grid;
-    padding: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
     width: 100%;
     grid-template-areas:
-      "post-prof-pic post-name      post-likes-flags"
-      "post-prof-pic .............. ................"
-      "post-prof-pic post-timestamp post-flag-delete"
-      "post-body        post-body          post-body"
-      "post-pic         post-pic           post-pic ";
+      "profile-pic name      name       "
+      "profile-pic timestamp flag-delete"
+      "body        body          body"
+      "pic        pic           pic ";
     grid-template-columns: 100px auto 50px;
-    grid-template-rows: repeat(3, 34px) repeat(2, auto);
-    box-shadow: var(--elevation-2);
+    grid-template-rows: repeat(2, 50px) repeat(2, auto);
+    box-shadow: var(--elevation-1);
     border-radius: 7.5px;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     cursor: pointer;
-  }
-
-  .follower-feed-post-prof_pic {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    grid-area: post-prof-pic;
-    border-radius: 7.5px;
-  }
-
-  .follower-feed-post-prof_pic:hover {
-    opacity: 0.75;
-  }
-
-
-  .follower-feed-post-name {
-    margin-left: 15px;
-    grid-area: post-name;
-    font-size: var(--h2);
-    font-family: var(--ff-primary);
-    font-weight: 600;
-    transition: 0.15s ease-in-out;
-    line-height: 34px;
-  }
-  
-  .follower-feed-post-name:hover {
-    opacity: 0.75;
-  }
-  
-  .follower-feed-post-timestamp {
-    align-self: flex-end;
-    margin-left: 15px;
-    grid-area: post-timestamp;
-    font-family: var(--ff-primary);
-  }
-
-.follower-feed-post-flag,
-.follower-feed-post-admin-delete {
-  grid-area: post-flag-delete;
-  align-self: flex-end;
-  color: var(--inactive-txt-clr);
+    gap: 0 1rem;
 }
 
-.follower-feed-post-flag:hover,
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-area: profile-pic;
+  border-radius: 7.5px;
+}
+
+.profile-pic:hover {
+  opacity: 0.75;
+}
+
+.post-name {
+  grid-area: name;
+  font-size: var(--h3);
+  font-family: var(--ff-primary);
+  font-weight: 600;
+  transition: 0.15s ease-in-out;
+  line-height: 34px;
+}
+
+.post-name:hover {
+  opacity: 0.75;
+}
+
+.post-timestamp {
+  align-self: flex-end;
+  grid-area: timestamp;
+  font-family: var(--ff-secondary);
+  font-size: var(--h5);
+}
+
+.post-flag,
+.follower-feed-post-admin-delete {
+  grid-area: flag-delete;
+  align-self: flex-end;
+  color: var(--inactive-txt-clr);
+  font-family: var(--ff-secondary);
+}
+
+.post-flag:hover,
 .follower-feed-post-admin-delete:hover {
   color: var(--cancel-delete-exit-color);
 }
 
-.follower-feed-post-body {
-    margin-top: 10px;
-    grid-area: post-body;
-    font-family: var(--ff-primary);
+.post-body {
+    margin-top: 1rem;
+    grid-area: body;
+    font-family: var(--ff-secondary);
 }
 
-.follower-feed-post-photo {
-    margin-top: 15px;
+.post-photo {
+    margin-top: 1rem;
     width: 100%;
-    height: calc(100%-15px);
+    height: calc(100% - 1rem);
     object-fit: cover;
-    grid-area: post-pic;
+    grid-area: pic;
     border-radius: 7.5px;
 }
 
+@media (max-width: 768px){
+  .post-card{
+    grid-template-columns: calc(70px + 1rem) auto 50px;
+    grid-template-rows: repeat(2,calc(35px + 0.5rem)) repeat(2, auto);
+  }
+}
+
+@media (max-width: 768px){
+  .post-card{
+    grid-template-areas:
+    "profile-pic name      name"
+    "profile-pic timestamp timestamp"
+    "body        body          body"
+    "pic        pic           pic "
+    "flag-delete flag-delete flag-delete";
+    grid-template-columns: calc(70px + 1rem) auto 50px;
+    grid-template-rows: repeat(2,calc(35px + 0.5rem)) repeat(3, auto);
+  }
+
+  .post-flag{
+    margin-top: 0.25rem;
+    text-align: right;
+  }
+}

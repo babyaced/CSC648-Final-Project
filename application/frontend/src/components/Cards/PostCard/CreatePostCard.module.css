@@ -1,5 +1,4 @@
 .create-post-card {
-    margin: auto;
     width: 100%;
     box-shadow: var(--elevation-1);
     background-color: rgba(255, 255, 255, 0.95);

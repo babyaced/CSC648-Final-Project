@@ -65,31 +65,21 @@ function PostCard({post, innerRef,openPostModal}) {
     return (
         <>
         {innerRef ? 
-        <div ref={innerRef} key={post.post_id} className={styles["follower-feed-post"]} onClick={(event) => openPostModal(event,post)} >
-            <img className={styles["follower-feed-post-prof_pic"]} src={post.profile_pic_link} onClick={(event) => goToProfile(event,post.profile_id)}/>
-            <div className={styles["follower-feed-post-name"]} onClick={(event) => goToProfile(event,post.profile_id)}>{post.display_name}</div>
-            <div className={styles["follower-feed-post-timestamp"]}>{new Date(post.timestamp).toLocaleString()}</div>
-            {/* <div className={styles["follower-feed-post-admin-flags"]}>
-                <span className={styles["follower-feed-post-like-count"]}>{post.like_count}</span>
-                <img className={styles["follower-feed-post-like-icon"]} src={LikeIcon} onClick={(event) => likePost(event,post.post_id,index)}/>
-            </div> */}
-            <span className={styles['follower-feed-post-flag']} onClick={(event) => flagPost(event,post.post_id)}>Flag</span>
-            {/* <div className={styles["follower-feed-post-comments"]}>10 comments</div> */}
-            <div className={styles["follower-feed-post-body"]}>{post.body}</div>
-            {post.link && <img className={styles["follower-feed-post-photo"]} src={post.link} />}
+        <div ref={innerRef} key={post.post_id} className={styles["post-card"]} onClick={(event) => openPostModal(event,post)} >
+            <img className={styles["profile-pic"]} src={post.profile_pic_link} onClick={(event) => goToProfile(event,post.profile_id)}/>
+            <div className={styles["post-name"]} onClick={(event) => goToProfile(event,post.profile_id)}>{post.display_name}</div>
+            <div className={styles["post-timestamp"]}>{new Date(post.timestamp).toLocaleString()}</div>
+            <span className={styles['post-flag']} onClick={(event) => flagPost(event,post.post_id)}>Flag</span>
+            <div className={styles["post-body"]}>{post.body}</div>
+            {post.link && <img className={styles["post-photo"]} src={post.link} />}
         </div> : 
-        <div key={post.post_id} className={styles["follower-feed-post"]} onClick={(event) => openPostModal(event,post)} >
-            <img className={styles["follower-feed-post-prof_pic"]} src={post.profile_pic_link} onClick={(event) => goToProfile(event,post.profile_id)}/>
-            <div className={styles["follower-feed-post-name"]} onClick={(event) => goToProfile(event,post.profile_id)}>{post.display_name}</div>
-            <div className={styles["follower-feed-post-timestamp"]}>{new Date(post.timestamp).toLocaleString()}</div>
-            {/* <div className={styles["follower-feed-post-admin-flags"]}>
-                <span className={styles["follower-feed-post-like-count"]}>{post.like_count}</span>
-                <img className={styles["follower-feed-post-like-icon"]} src={LikeIcon} onClick={(event) => likePost(event,post.post_id,index)}/>
-            </div> */}
-            <span className={styles['follower-feed-post-flag']} onClick={(event) => flagPost(event,post.post_id)}>Flag</span>
-            {/* <div className={styles["follower-feed-post-comments"]}>10 comments</div> */}
-            <div className={styles["follower-feed-post-body"]}>{post.body}</div>
-            {post.link && <img className={styles["follower-feed-post-photo"]} src={post.link} />}
+        <div key={post.post_id} className={styles["post-card"]} onClick={(event) => openPostModal(event,post)} >
+            <img className={styles["profile-pic"]} src={post.profile_pic_link} onClick={(event) => goToProfile(event,post.profile_id)}/>
+            <div className={styles["post-name"]} onClick={(event) => goToProfile(event,post.profile_id)}>{post.display_name}</div>
+            <div className={styles["post-timestamp"]}>{new Date(post.timestamp).toLocaleString()}</div>
+            <span className={styles['post-flag']} onClick={(event) => flagPost(event,post.post_id)}>Flag</span>
+            <div className={styles["post-body"]}>{post.body}</div>
+            {post.link && <img className={styles["post-photo"]} src={post.link} />}
         </div>}
         </>
     )
