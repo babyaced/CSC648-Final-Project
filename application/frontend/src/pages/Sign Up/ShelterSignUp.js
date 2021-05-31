@@ -86,22 +86,12 @@ function ShelterSignUpPage() {
         })        
     }
 
-    // function onPasswordChangedHandler(event) {
-    //     const updatedPassword = {
-    //         ...redonePassword,
-    //         value: event.target.value,
-    //         valid: event.target.value === password,
-    //         touched: true
-    //     };
-    //     setRedonePassword(updatedPassword);
-    // }
-
     return (
             <>
 
-            <form className={styles['signup-container']} onSubmit={signUp}>
-                <div className={styles['signup-container-header']}>
-                    Create an Account for your Shelter
+            <form className={`${styles['signup-container']} ${'small-container'}`} onSubmit={signUp}>
+                <div className={styles['signup-header']}>
+                    <h2>Create an Account for your Shelter</h2>
                 </div>
                 <div className={styles['signup-fields-container']}>
                         <div className={styles['fname-input-container']}>
@@ -168,27 +158,9 @@ function ShelterSignUpPage() {
                                 onChange={e => setRedonePassword(e.target.value)}
                                 required
                             />
-                            {/* <Input
-                                config={redonePassword.inputConfig}
-                                value={redonePassword.value}
-                                valid={redonePassword.valid}
-                                touched={redonePassword.touched}
-                                changed={event => onPasswordChangedHandler(event)}
-                            /> */}
                         </div>
                     </div>
-                
-                    {/* <div className={styles['checkbox-container']}>
-                            <p>By creating an account you agree to our <button className={styles['terms-button']} onClick={openTermsAndConditionsModal}>Terms</button> &<button className={styles['policy-button']} onClick={openPrivacyPolicyModal}>Privacy Policy</button>
-                                <input
-                                    type='checkbox'
-                                    required name='remember'
-                                />
-                            </p>
-                    </div> */}
-                        <div className={styles['btn-container']}>
-                            <button type='submit' className={styles['submit-btn']}>Next: Shelter Details</button>
-                        </div>
+                    <button type='submit' className={styles['go-to-page2-btn']}>Next: Shelter Details</button>
                     {errorDisplay}
                 </form>
         </>

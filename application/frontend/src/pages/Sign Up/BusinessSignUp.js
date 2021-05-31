@@ -13,16 +13,7 @@ function BusinessSignUpPage() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
-    const [redonePassword, setRedonePassword] = useState(''/*{
-        inputConfig: {
-            type: 'password',
-            placeholder: 'Confirm password',
-            name: 'psw-repeat'
-        },
-        value: '', 
-        valid: false,
-        touched: false
-    }*/)
+    const [redonePassword, setRedonePassword] = useState('')
 
     const [termsAndConditionsDisplay,setTermsAndConditionsDisplay]= useState(false);
     const [privacyPolicyDisplay,setPrivacyPolicyDisplay]= useState(false);
@@ -82,32 +73,14 @@ function BusinessSignUpPage() {
             else if (error.response.data === "password requirements"){
                 setError("Your Password Must Have: 8-50 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character");
             }
-        })
-
-       
+        })       
     }
-    // function OnClickHandler(e) {
-    //     if(email && uname && firstName && lastName && password && redonePassword){
-    //         history.push('/business-signup2');
-    //     }
-    // }
-
-    // function onPasswordChangedHandler(event) {
-    //     const updatedPassword = {
-    //         ...redonePassword,
-    //         value: event.target.value,
-    //         valid: event.target.value === password,
-    //         touched: true
-    //     };
-    //     setRedonePassword(updatedPassword);
-    // }
-
 
     return (
             <>
-            <form className={styles['signup-container']} onSubmit={signUp}>
-                <div className={styles['signup-container-header']}>
-                    Create an Account for your Business
+            <form className={`${styles['signup-container']} ${'small-container'}`} onSubmit={signUp}>
+                <div className={styles['signup-header']}>
+                    <h2>Create an Account for your Business</h2>
                 </div>
                 <div className={styles['signup-fields-container']}>
                         <div className={styles['fname-input-container']}>
@@ -174,18 +147,9 @@ function BusinessSignUpPage() {
                                 onChange={e => setRedonePassword(e.target.value)}
                                 required
                             />
-                            {/*<Input
-                                config={redonePassword.inputConfig}
-                                value={redonePassword.value}
-                                valid={redonePassword.valid}
-                                touched={redonePassword.touched}
-                                changed={event => onPasswordChangedHandler(event)}
-                            />*/}
                         </div>
                     </div>
-                    <div className={styles['btn-container']}>
-                        <button type='submit' className={styles['submit-btn']}>Next: Business Details</button>
-                    </div>
+                    <button type='submit' className={styles['go-to-page2-btn']}>Next: Business Details</button>
                     {errorDisplay}
             </form>
         </>
