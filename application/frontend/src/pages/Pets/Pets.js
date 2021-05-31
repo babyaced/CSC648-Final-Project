@@ -33,7 +33,7 @@ function Pets() {
         <>
          <div className={`${styles['my-pets-container']} ${"container"}`}>
             <div className={styles['my-pets-header']}>
-                Pets
+                <h1>Pets</h1>
             </div>
             {loading ? <Spinner/> :
             <div className={styles['my-pets-container-pets']}>
