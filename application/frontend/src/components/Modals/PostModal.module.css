@@ -103,60 +103,6 @@
 
 }
 
-.post-comment{
-    display: grid;
-    grid-template-columns: 75px auto 35px;
-    grid-template-rows: repeat(3, 25px) auto;
-    grid-template-areas: "comment-pic  comment-name       comment-like"
-                         "comment-pic  .................  comment-likes"
-                         "comment-pic  comment-timestamp  ............."
-                         "comment-body comment-body       comment-body ";
-    box-shadow: var(--elevation-1);
-    border-radius: 7.5px;
-    margin: 0 15px 15px 15px;
-}
-
-.post-comment-name{
-    grid-area: comment-name;
-    padding-left: 10px;
-}
-
-.post-comment-body{
-    grid-area: comment-body;
-    padding: 10px 0 10px 10px;
-    font-family: var(--ff-secondary);
-}
-
-.post-comment-timestamp{
-    padding-left: 10px;
-    grid-area: comment-timestamp;
-}
-
-.post-comment-pic{
-    width: 75px;
-    height:75px;
-    object-fit: cover;
-    border-radius: 7.5px 0px 0px 0px;
-    grid-area: comment-pic;
-}
-
-.post-comment-like{
-    grid-area: comment-like;
-    border-style: none;
-    background: url('../../images/Third\ Party\ Icons/icons8-thumbs-up-48.png') no-repeat;
-    background-size: 24px 24px;
-    transition: .15s ease-in-out;
-    cursor: pointer;
-}
-
-.post-comment-like:hover{
-    opacity: .75;
-}
-
-.post-comment-likes{
-    grid-area: comment-likes;
-}
-
 .post-leave-comment input{
     width:70%;
     margin-left: 15px;
