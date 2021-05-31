@@ -1,13 +1,18 @@
 .messages-container {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .messages-header {
   font-size: var(--h0);
   font-family: var(--ff-primary);
   font-weight: 600;
+  flex-basis: 50%;
 }
 
 .messages-container-no-messages {
@@ -16,9 +21,12 @@
   font-family: var(--ff-primary);
 }
 
-.tabs {
+
+
+.tabs{
   display: flex;
-  justify-content: space-between;
+  flex-basis: 50%;
+  justify-content: flex-end;
 }
 
 .recieved-messages-container,
@@ -65,7 +73,7 @@
   }
 
   .tabs{
-    align-self: flex-end;
+    flex-basis: 100%;
   }
 }
 

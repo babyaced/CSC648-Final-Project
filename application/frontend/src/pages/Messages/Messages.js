@@ -165,13 +165,11 @@ function Messages() {
       {loading ? <Spinner/> :
         <>
           <div className={`${styles["messages-container"]} ${"container"}`}>
-          <div className={styles["tabs-container"]}>
-            <div className={styles["tabs"]}>
+            <div className={styles["container-header"]}>
               <div className={styles["messages-header"]}>Messages</div>
-              <div className="double-tabs" style={{ display: "flex" }}>
+              <div className={styles["tabs"]}>
                 {tabs}
               </div>
-            </div>
           </div>
           <div className={styles["recieved-messages-container"]}>
             {messages}
