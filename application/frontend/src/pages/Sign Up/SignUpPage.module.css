@@ -1,142 +1,40 @@
-.signup-container {
-    margin: 200px auto;
-    border-radius: 7.5px;
-    width: 50%;
+.signup-container{
     box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    margin: 5rem auto auto auto;
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
     align-items: center;
 }
 
-.signup-container-header{
-    padding-top: 20px;
-    font-size: var(--h1);
-    font-family: var(--ff-primary);
+
+.signup-header{
+    background-color: var(--accent-color-2);
     text-align: center;
-    font-weight: 600;
+    color: var(--reversed-txt-clr);
+    line-height: 4rem;
+    border-radius: 7.5px 7.5px 0 0;
+    box-shadow: var(--elevation-1);
+    width: 100%;
 }
 
 .signup-fields-container{
-    padding-top: 50px;
+    padding: 2rem 2rem .1rem 2rem;
     display: grid;
-    grid-template-columns: 2;
-    grid-template-areas: 'fname-input-container lname-input-container'
-                         'email-input-container username-input-container'
-                         'password-input-container confirm-password-input-container'; 
-    grid-template-rows: 3;
-    gap: 50px;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-areas: 'fname-input-container    lname-input-container'
+                         'email-input-container    username-input-container'
+                         'password-input-container confirm-password-input-container'
+                         'checkbox-container       checkbox-container'
+                         'submit-btn submit-btn'; 
+    grid-template-rows: repeat(3,1fr) .1fr 1fr;
+    gap: 2rem;
     justify-content: center;
     font-family: var(--ff-primary);
 }
 
-.fname-input-container{
-    grid-area: fname-input-container ;
-}
-
-.lname-input-container{
-    grid-area: lname-input-container;
-}
-
-.email-input-container{
-    grid-area: email-input-container;
-}
-
-
-.username-input-container{
-    grid-area: username-input-container;
-}
-
-.password-input-container{
-    grid-area: password-input-container;
-}
-
-
-.confirm-password-input-container{
-    grid-area: confirm-password-input-container;
-}
-
-
-.email-input-label, .username-input-label, .password-input-label, .repeat-password-input-label, .fname-input-label, .lname-input-label {
-    font-family: var(--ff-primary);
-    font-size:var(--h3);
-    display: block;
-}
-
-
-.fname-input-container input,
-.lname-input-container input,
-.username-input-container input,
-.email-input-container input,
-.password-input-container input,
-.confirm-password-input-container input  
-{
-    padding: 15px;
-    display: inline-block;
-    border: 1px solid var(--inactive-txt-clr);
-    border-radius: 7.5px;
-}
-
-.checkbox-container{
-    padding: 25px 0 25px 0;
-}
-
-.btn-container {
-    text-align: center;
-    padding: 20px 0 30px 0;
-}
-
-.submit-btn{
-    width: 200px;
-    padding:10px 0;
-    text-justify: center;
-    text-align: center;
-    color: white;
-    background-color: var(--primary-clr);
-    font-size: var(--h3);
-    font-family: var(--ff-primary);
-    font-weight: 600;
-
-    box-shadow: var(--elevation-1);
-    border: none;
-    border-radius: 7.5px;
-    
-    cursor: pointer;
-}
-
-.terms-button,
-.policy-button{
-    border: none;
-    background-color: transparent;
-    color:var(--primary-txt-clr);
-    text-decoration: underline;
-    cursor:pointer;
-}
-
-.signup-container-check{
-    margin: 30px;
-}
-
-.submit-btn-2{
-    width: 200px;
-    padding:10px 0;
-    text-justify: center;
-    text-align: center;
-    color: white;
-    background-color: var(--accent-color-2);
-    font-size: var(--h3);
-    font-family: var(--ff-primary);
-    font-weight: 600;
-
-    box-shadow: var(--elevation-1);
-    border: none;
-    border-radius: 7.5px;
-    
-    cursor: pointer;
-    transition: .15s ease-in-out;
-}
-
-.submit-btn:hover{
-    opacity: .75;
+.signup-fields-container input{
+    width: 100%;
 }
 
 .signup-error-container{
@@ -146,7 +44,7 @@
     text-align: center;
     color: var(--reversed-txt-clr);
     font-family: var(--ff-primary);
-    font-size: var(--h4);
+    font-size: var(--h5);
 }
 
 .signup-requirements-container{
@@ -156,5 +54,77 @@
     text-align: center;
     color: var(--reversed-txt-clr);
     font-family: var(--ff-primary);
-    font-size: var(--h4);
+    font-size: var(--h5);
+}
+
+.checkbox-container{
+    grid-area: checkbox-container;
+    display: flex;
+    flex-flow: row wrap;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.checkbox-container:first-child span,
+.checkbox-container:last-child span{
+    line-height: var(--h5);
+    font-size: var(--h5);
+    flex-basis: 100%;
+    font-family: var(--ff-secondary);
+}
+.terms-button,
+.policy-button{
+    text-decoration: underline;
+    cursor: pointer;
+    /* margin: 0 1rem; */
+}
+
+.submit-btn{
+    width: 250px;
+    max-width: 60%;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: var(--primary-clr);
+    font-size: var(--h3);
+    font-weight: 600;
+    font-family: var(--ff-primary);
+    box-shadow: var(--elevation-1);
+    border: none;
+    border-radius: 7.5px;
+    cursor: pointer;
+    transition: .15s ease-in-out;
+    grid-area: submit-btn;
+    margin-bottom: 2rem;
+}
+
+.submit-btn:hover{
+    opacity: .75;
+}
+
+.checkbox-container input{
+    width: auto;
+
+}
+
+@media (max-width:450px){
+    .signup-fields-container{
+        grid-template-columns: 1fr;
+        grid-template-areas: 'fname-input-container' 
+                             'lname-input-container'
+                             'email-input-container' 
+                             'username-input-container'
+                             'password-input-container' 
+                             'confirm-password-input-container'
+                             'checkbox-container'; 
+    }
+
+    .checkbox-container:first-child span{
+        flex-basis: 100%;
+    }
+    
+    .checkbox-container:last-child span{
+        flex-basis: 100%;
+    }
+    
 }

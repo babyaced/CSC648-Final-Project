@@ -13,18 +13,9 @@ function SignUpPage() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
-    const [redonePassword, setRedonePassword] = useState(/*{
-        inputConfig: {
-            type: 'password',
-            placeholder: 'Confirm password',
-            name: 'psw-repeat'
-        },
-        value: '', 
-        valid: false,
-        touched: false
-    }*/)
+    const [redonePassword, setRedonePassword] = useState('');
 
-    const[acceptTerms, setAcceptTerms] = useState();
+    const[acceptTerms, setAcceptTerms] = useState(false);
 
     const [termsAndConditionsDisplay, setTermsAndConditionsDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
@@ -96,21 +87,11 @@ function SignUpPage() {
         setAcceptTerms(e.target.checked);
     }
 
-    // function onPasswordChangedHandler(event) {
-    //     const updatedPassword = {
-    //         ...redonePassword,
-    //         value: event.target.value,
-    //         valid: event.target.value === password,
-    //         touched: true
-    //     };
-    //     setRedonePassword(updatedPassword);
-    // }
-
     return (
         <>
-            <form className={styles['signup-container']} onSubmit={signUp}>
-                <div className={styles['signup-container-header']}>
-                    Sign Up
+            <form className={`${styles['signup-container']} ${'small-container'}`} onSubmit={signUp}>
+                <div className={styles['signup-header']}>
+                    <h1>Sign Up</h1>
                 </div>
                 <div className={styles['signup-fields-container']}>
                     <div className={styles['fname-input-container']}>
@@ -182,31 +163,24 @@ function SignUpPage() {
                             onChange={e => setRedonePassword(e.target.value)}
                             required
                         />
-                        {/* <Input
-                            config={redonePassword.inputConfig}
-                            value={redonePassword.value}
-                            valid={redonePassword.valid}
-                            touched={redonePassword.touched}
-                            changed={event => onPasswordChangedHandler(event)}
-                        /> */}
+                    </div>
+                    <div className={styles['checkbox-container']}>
+                        <span>By creating an account you agree to our:</span>
+                        <span>                        
+                            <span className={styles['terms-button']} onClick={openTermsAndConditionsModal}> Terms </span> 
+                            &
+                            <span className={styles['policy-button']} onClick={openPrivacyPolicyModal}> Privacy Policy </span>
+                            <input
+                                type='checkbox'
+                                required 
+                                name='remember'
+                                onChange={e => handleCheck(e)}
+                            />
+                        </span>
                     </div>
                 </div>
 
-                <div className={styles['checkbox-container']}>
-                    <p>By creating an account you agree to our <button className={styles['terms-button']} onClick={openTermsAndConditionsModal}>Terms</button> &<button className={styles['policy-button']} onClick={openPrivacyPolicyModal}>Privacy Policy</button>
-                        <input
-                            type='checkbox'
-                            required 
-                            name='remember'
-                            onChange={e => handleCheck(e)}
-                        />
-                    </p>
-                </div>
-                <div className={styles['btn-container']}>
-                    {/*Why do we have two className for referencing the same style "submit-btn" - Wameedh */}
-                    <button className={styles['submit-btn']} type='submit' className={styles['submit-btn']} >Sign Up</button>
-                    {/* <button disabled={!redonePassword.valid} type='submit' className={styles['submit-btn']} onClick={OnClickHandler}>Sign Up</button> */}
-                </div>
+                <button className={styles['submit-btn']} type='submit'>Sign Up</button>
                 {errorDisplay}
             </form>
             {/* Modals */}

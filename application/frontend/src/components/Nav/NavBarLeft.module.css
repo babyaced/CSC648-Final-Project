@@ -1,5 +1,5 @@
 .navbar-left{
-    width: 300px;
+    flex-basis: 33%;
     display: flex;
     justify-content: center;
 }

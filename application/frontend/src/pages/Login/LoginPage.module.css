@@ -5,7 +5,6 @@
     border-radius: 7.5px;
     box-shadow: var(--elevation-1);
     margin: 5rem auto auto auto;
-    
 }
 
 
@@ -72,7 +71,6 @@
     width: 250px;
     max-width: 60%;
     height: 50px;
-    text-justify: center;
     text-align: center;
     color: white;
     background-color: var(--primary-clr);

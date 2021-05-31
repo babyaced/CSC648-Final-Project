@@ -101,9 +101,8 @@
 
 .navbar-right-login,
 .navbar-right{
-    width: 300px;
+    flex-basis: 33%;
     display: flex;
-    
 }
 
 .navbar-right{
