@@ -25,23 +25,25 @@ function Pets() {
             setLoading(false);
         })
         .catch(err =>{
+            console.log(err);
         })
     },[profileID])
 
     return (
         <>
-        {loading ? <Spinner/> :
          <div className={`${styles['my-pets-container']} ${"container"}`}>
             <div className={styles['my-pets-header']}>
                 Pets
             </div>
+            {loading ? <Spinner/> :
             <div className={styles['my-pets-container-pets']}>
                 {pets.length == 0 && <div className={styles['my-pets-container-no-pets']}>This User has No Pets :(</div>}
                 {pets && pets.map((pet) =>(
                     <PetCard key={pet.profile_id} pet={pet}/>
                 ))}
             </div>
-        </div>}
+            }
+        </div>
         </>
     )
 }
