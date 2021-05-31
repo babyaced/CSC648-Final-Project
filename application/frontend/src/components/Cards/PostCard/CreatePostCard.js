@@ -14,11 +14,16 @@ import ButtonLoader from '../../UI/Spinner/ButtonLoader';
 //Import Mods
 import SelectCustomTheme from '../../../mods/SelectCustomTheme'
 
+//Import Custom Hooks
+import useWindowSize from '../../Hooks/useWindowSize'
+
 
 const apiGatewayURL = 'https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL';
 
 function CreatePostCard({displayName, profilePic, tagOptions}) {
     const history = useHistory()
+
+    const windowSize = useWindowSize()
 
     //creating a post display
 
@@ -58,7 +63,7 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
         myFiles.forEach(file => URL.revokeObjectURL(file.preview));
       }, [myFiles]);
 
-    const customStyles = {
+    let customStyles = {
         control: (base, state) => ({
           ...base,
           height: '54.5px',
@@ -66,6 +71,17 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
           'border-radius': '7.5px',
         }),
     };
+    
+    if(windowSize.width < 768){
+        customStyles = {
+            control: (base, state) => ({
+              ...base,
+              height: '35px',
+              'min-height': '35px',
+              'border-radius': '7.5px',
+            }),
+        };
+    }
 
 
 
@@ -141,9 +157,9 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
     }
 
     return (
-        <form className={styles["follower-feed-new-post"]} onSubmit={submitPost}>
-            <img className={styles["follower-feed-new-post-pic"]} src={profilePic} />
-            <div className={styles["follower-feed-new-post-name"]}>{displayName}</div>
+        <form className={styles["create-post-card"]} onSubmit={submitPost}>
+            <img className={styles["new-post-profile-pic"]} src={profilePic} />
+            <div className={styles["new-post-name"]}>{displayName}</div>
             <textarea value={createdPostBody} maxLength="255" required className={styles["follower-feed-new-post-body"]} placeholder="Update your followers on what's going on with you and your pets"  onChange={e => setCreatedPostBody(e.target.value)}/>
             <div className={styles['follower-feed-new-post-tag-dropdown']}>
                 <Select
@@ -158,18 +174,22 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
                     noOptionsMessage={() => 'Add a Pet to Your Account on the My Pets Page'}
                 />
             </div>
-            <section className={styles["follower-feed-new-post-attach-image"]}>
-                <div className={styles["follower-feed-new-post-attach-image-container"]}  {...getRootProps()}>
+            <section className={styles["attach-image-section"]}>
+                <div className={styles["attach-image-container"]}  {...getRootProps()}>
                     <input  {...getInputProps()} />
-                    {myFiles.length === 0 && <div className={styles["follower-feed-new-post-attach-image-info"]}>Drag and Drop or Click to Select Image</div>}
-                    {myFiles.length > 0 && <>
-                        <img className={styles["follower-feed-new-post-attach-image-preview"]} src={myFiles[0].preview} onClick={removeAll}/>
-                        <button className={styles["follower-feed-new-post-attach-image-container-button"]} onClick={removeAll} >remove</button>
+                    {myFiles.length === 0 && 
+                        <div className={styles["attach-image-info"]}>
+                            {windowSize.width > 768 && <>Drag and Drop or Click to Select Image</>}
+                            {windowSize.width <= 768 && <>Attach Image</>}
+                        </div>}
+                    {myFiles.length > 0 && 
+                    <>
+                        <img className={styles["attach-image-preview"]} src={myFiles[0].preview} onClick={removeAll}/>
+                        <button className={styles["delete-attached-image-button"]} onClick={removeAll} >Remove</button>
                     </>}
                 </div>
             </section>
-            <button className={styles["follower-feed-new-post-submit"]} type='submit'>{loading ? <ButtonLoader /> : 'Submit'}</button>
-        {/* <button className={styles["follower-feed-new-post-expand-collapse"]} /> onClick={createPostOverlayToggle} */}
+            <button className={styles["submit-post-button"]} type='submit'>{loading ? <ButtonLoader /> : 'Submit'}</button>
     </form>
     )
 }

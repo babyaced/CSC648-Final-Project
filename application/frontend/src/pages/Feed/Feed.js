@@ -111,12 +111,12 @@ function Feed({appUser}) {
                     <CreatePostCard displayName={createPostDisplayName} profilePic={createPostProfilePic} tagOptions={taggablePets}/>
                     {feedPosts.length == 0 &&
                         <>
-                        <div className={styles['follower-feed-no-posts-placeholder-header']}>
-                            No Feed Posts to show :(
-                        </div>
-                        <div className={styles['follower-feed-no-posts-placeholder-detail']}>
-                            Search for a User and Follow them to see their posts here
-                        </div>
+                            <div className={styles['follower-feed-no-posts-placeholder-header']}>
+                                No Feed Posts to show :(
+                            </div>
+                            <div className={styles['follower-feed-no-posts-placeholder-detail']}>
+                                Search for a User and Follow them to see their posts here
+                            </div>
                         </>}
                     {feedPosts && feedPosts.map((feedPost, index) => {
                         if(feedPosts.length === index + 1){

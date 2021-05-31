@@ -1,6 +1,4 @@
-.follower-feed-new-post {
-/* position: sticky;
-    position: -webkit-sticky;  */
+.create-post-card {
     margin: auto;
     width: 100%;
     box-shadow: var(--elevation-1);
@@ -11,28 +9,28 @@
         "pic  user ........ submit"
         "pic  .... dropdown dropdown"
         "body body image    image";
-    grid-template-columns: 100px auto 150px 150px;
-    grid-gap: 15px;
+    grid-template-columns: calc(100px + 1rem) 2fr repeat(2,1fr);
+    gap: 1rem;
     grid-template-rows: 50px 50px 200px;
     font-family: var(--ff-primary);
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 .follower-feed-new-post-prof_pic {
     transition: 0.15s ease-in-out;
 }
 
-.follower-feed-new-post-pic {
-    width: 100px;
-    height: 100px;
+.new-post-profile-pic {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     grid-area: pic;
     border-radius: 7.5px;
-    }
+}
 
-.follower-feed-new-post-name {
-    font-size: var(--h2);
+.new-post-name{
+    font-size: var(--h3);
     font-family: var(--ff-primary);
     font-weight: 600;
     grid-area: user;
@@ -41,25 +39,24 @@
 .follower-feed-new-post-body {
     border: 1px solid var(--inactive-txt-clr);
     border-radius: 7.5px;
-    padding: 10px;
+    padding: 0.75rem;
     grid-area: body;
     resize: none;
-    font-family: var(--ff-primary);
+    font-family: var(--ff-secondary);
 }
 
-.follower-feed-new-post-attach-image {
+.attach-image-section {
     grid-area: image;
     border-radius: 7.5px;
-    border: 2px var(--primary-clr) dashed;
-    font-family: var(--ff-primary);
-    font-size: var(--h3);
+    border: 1px var(--inactive-txt-clr) dashed;
+    font-family: var(--ff-secondary);
+    font-size: var(--h5);
     font-weight: 400;
-    /* margin: 10px; */
     cursor: pointer;
     transition: 0.15s ease-in-out;
 }
 
-.follower-feed-new-post-attach-image-container {
+.attach-image-container {
     display: flex;
     position: relative;
     align-items: center;
@@ -67,20 +64,19 @@
     height: 100%;
 }
 
-.follower-feed-new-post-attach-image-info {
-    font-size: var(--h4);
+.attach-image-info {
+    font-size: var(--h5);
     color: var(--inactive-txt-clr);
-    width: 50%;
     text-align: center;
 }
 
-.follower-feed-new-post-attach-image-preview {
-    width: 315px;
-    height: 200px;
+.attach-image-preview {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 
-.follower-feed-new-post-attach-image-container-button {
+.delete-attached-image-button {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -91,11 +87,11 @@
     background-color: rgb(221, 220, 220);
 }
 
-.follower-feed-new-post-attach-image-container-button:hover {
+.attach-image-button:hover {
     background-color: #ccc;
 }
 
-.follower-feed-new-post-submit {
+.submit-post-button {
     grid-area: submit;
     background-color: var(--primary-clr);
     color: var(--reversed-txt-clr);
@@ -103,18 +99,67 @@
     border: none;
     border-radius: 7.5px;
     font-family: var(--ff-primary);
-    font-size: var(--h3);
+    font-size: var(--h5);
     font-weight: 600;
-    height: 50px;
-    line-height: 50px;
+    height: 100%;
+    line-height: 100%;
+    width: 100%;
     cursor: pointer;
     transition: 0.15s ease-in-out;
 }
 
-.follower-feed-new-post-submit:hover {
+.submit-post-button:hover {
     opacity: 0.75;
 }
 
 .follower-feed-new-post-tag-dropdown {
     grid-area: dropdown;
+    font-family: var(--ff-secondary);
+    font-size: var(--h5);
+}
+
+@media (max-width: 768px){
+    .create-post-card{
+        grid-template-areas:
+        "pic  user image submit"
+        "pic  .... dropdown dropdown"
+        "body body body body";
+        grid-template-columns: calc(70px + 1rem) 2fr repeat(2,1fr);
+        grid-template-rows: 35px 35px 200px;
+    }
+
+    .attach-image-section {
+        grid-area: image;
+        border-radius: 7.5px;
+        border: 1px var(--primary-clr) solid;
+        font-family: var(--ff-secondary);
+        font-size: var(--h5);
+        font-weight: 400;
+        cursor: pointer;
+        transition: 0.15s ease-in-out;
+    }
+
+    .attach-image-section:hover{
+        opacity: .75;
+    }
+
+    .attach-image-info{
+        color: var(--primary-clr);
+    }
+
+    .attach-image-preview{
+        display: none;
+    }
+}
+
+@media (max-width: 605px){
+    .create-post-card{
+        grid-template-areas:
+        "pic      user     user     user"
+        "pic      dropdown dropdown dropdown"
+        "body     body     body     body"
+        "image    image    submit   submit";
+        grid-template-columns: calc(70px + 1rem) repeat(3,1fr);
+        grid-template-rows: 35px 35px 200px 35px;
+    }
 }
