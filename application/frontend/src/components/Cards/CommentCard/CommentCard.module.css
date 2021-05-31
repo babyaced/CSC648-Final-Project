@@ -1,33 +1,40 @@
-.post-comment{
+.comment{
     display: grid;
     grid-template-columns: 75px auto 35px;
     grid-template-rows: repeat(3, 25px) auto;
     grid-template-areas: "comment-pic  comment-name       comment-like"
                          "comment-pic  .................  comment-likes"
-                         "comment-pic  comment-timestamp  ............."
+                         "comment-pic  comment-timestamp  comment-timestamp"
                          "comment-body comment-body       comment-body ";
     box-shadow: var(--elevation-1);
     border-radius: 7.5px;
-    margin: 0 15px 15px 15px;
+    margin: 0 1rem 1rem 1rem;
 }
 
-.post-comment-name{
-    grid-area: comment-name;
-    padding-left: 10px;
-}
-
-.post-comment-body{
-    grid-area: comment-body;
-    padding: 10px 0 10px 10px;
+.name,
+.body,
+.timestamp{
+    padding-left: 1rem;
     font-family: var(--ff-secondary);
 }
 
-.post-comment-timestamp{
-    padding-left: 10px;
-    grid-area: comment-timestamp;
+.name{
+    grid-area: comment-name;
+    font-size: var(--h5);
+    align-self: flex-end;
 }
 
-.post-comment-pic{
+.body{
+    grid-area: comment-body;
+    padding: 1rem;
+}
+
+.timestamp{
+    grid-area: comment-timestamp;
+    align-self: flex-end;
+}
+
+.profile-pic{
     width: 75px;
     height:75px;
     object-fit: cover;
