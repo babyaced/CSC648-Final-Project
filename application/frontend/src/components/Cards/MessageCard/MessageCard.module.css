@@ -1,47 +1,75 @@
-.messages-container-message {
+.message {
     display: grid;
-    padding: 15px;
+    padding: 1rem;
     width: 100%;
     grid-template-areas:  'pic subject . timestamp'
                           'pic sender  . .........'
                           'pic ....... . .........';
-    grid-template-columns: 120px auto auto 175px;
-    grid-template-rows: 34px 34px 34px;
+    grid-template-columns: 90px auto auto 200px;
+    grid-template-rows: 30px 30px 30px;
     transition: 0.15s ease-in-out;
-  
     box-shadow: var(--elevation-1);
     border-radius: 7.5px;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     cursor: pointer;
+    gap: 0 1rem;
 }
 
-.messages-container-message:hover {
+.message:hover {
     color: var(--primary-clr);
 }
 
-.messages-container-message-pic {
-    width: 100px;
-    height: 100px;
+.message-pic {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     grid-area: pic;
     border-radius: 7.5px;
 }
 
-.messages-container-message-subject {
-    margin-left: 15px;
+.message-subject {
     grid-area: subject;
-    font-size: var(--h3);
+    font-size: var(--h4);
     font-family: var(--ff-primary);
     font-weight: 600;
 }
 
-.messages-container-message-timestamp {
+.message-timestamp {
     grid-area: timestamp;
-    font-family: var(--ff-primary);
+    font-size: var(--h5);
+    font-family: var(--ff-secondary);
 }
 
-.messages-container-message-sender {
+.message-sender {
     grid-area: sender;
-    margin-left: 15px;
-    font-family: var(--ff-primary);
+    font-size: var(--h5);
+    font-family: var(--ff-secondary);
 }
+
+@media (max-width: 768px){
+
+    .message{
+        grid-template-areas:  'pic subject'
+                              'pic sender'
+                              'pic timestamp';
+        
+        grid-template-columns: 75px auto;
+        grid-template-rows: 25px 25px 25px;
+    }
+}
+
+@media (max-width: 450px){
+    .message{
+        grid-template-areas:  'pic sender'
+        'subject subject'
+        'timestamp timestamp';
+        grid-template-columns: 45px auto;
+        grid-template-rows: 45px auto auto;
+        padding: 0.5rem;
+    }
+
+    .message-subject{
+        padding-top: 0.5rem;
+    }
+}
+

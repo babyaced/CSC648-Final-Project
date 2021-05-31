@@ -63,4 +63,12 @@
   .messages-header {
     display: none;
   }
+
+  .tabs{
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 470px){
+  
 }
