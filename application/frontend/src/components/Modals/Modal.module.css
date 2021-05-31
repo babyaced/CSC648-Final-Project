@@ -6,7 +6,7 @@
   z-index: 4;
   background-color: var(--reversed-txt-clr);
   box-shadow: var(--elevation-10);
-  border-radius: 10px;
+  border-radius: 7.5px;
   overflow: hidden;
   max-height: 100%;
   max-width: 100%;
@@ -36,4 +36,11 @@
 
 .exit-button:hover {
   opacity: 0.75;
+}
+
+@media (max-width: 450px){
+  .modal {
+    height: 100vh;
+    width: 100vw;
+  }
 }

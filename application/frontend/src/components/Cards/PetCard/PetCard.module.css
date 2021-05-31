@@ -25,6 +25,7 @@
     font-size:var(--h4);
     margin-left: 1rem;
     cursor:pointer;
+    font-family: var(--ff-secondary);
 }
 
 .my-pet-card-delete{

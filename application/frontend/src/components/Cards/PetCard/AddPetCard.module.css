@@ -9,8 +9,6 @@
     cursor: pointer;
     transition: .15s ease-in-out;
     font-family: var(--ff-primary);
-    cursor: pointer;
-    padding-left: 15px;
 }
 
 .add-pet-card:hover{
@@ -20,12 +18,14 @@
 .add-pet-card-icon{
     width: 50px;
     height: 50px;
+    margin-left: 1rem;
 }
 
 .add-pet-card-name{
-    margin-left: 15px;
-    font-size:var(--h3);
+    font-size:var(--h4);
+    margin-left: 1rem;
     cursor:pointer;
+    font-family: var(--ff-secondary);
 }
 
 @media (max-width: 768px){

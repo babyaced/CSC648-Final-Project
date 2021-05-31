@@ -3,7 +3,13 @@
     overflow-y: scroll;
     overflow-x: hidden;
     width: 90%;
-    height: 600px;
-    padding: 10px;
+    height: 80vh;
+    padding: 1rem;
     font-family: var(--ff-secondary);
+}
+
+@media (max-width: 450px){
+    .terms-and-conditions-container{
+        height: 90%;
+    }
 }

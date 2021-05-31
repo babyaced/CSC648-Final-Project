@@ -35,7 +35,7 @@
   font-family: var(--ff-primary);
   font-weight: 600;
   transition: 0.15s ease-in-out;
-  line-height: 34px;
+  line-height: 100%;
 }
 
 .post-name:hover {

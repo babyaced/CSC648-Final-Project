@@ -3,8 +3,8 @@
     display: flex;
     box-shadow: var(--elevation-1);
     width: 95%;
-    margin-bottom: 25px;
-    padding: 10px 0 10px 10px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
     border-radius:7.5px;
     align-items: center;
 }
@@ -14,9 +14,7 @@
     height:100px;
     object-fit: cover;
     display: inline-block;
-    margin-right: 10px;
     border-radius: 7.5px;
-  
 }
 
 .profile-link{
@@ -24,22 +22,21 @@
 }
 
 .search-result-name-address{
-  font-family: var(--ff-primary);
-  margin-left:10px;
+  font-family: var(--ff-secondary);
+  margin-left: 1rem;
 }
 
 .search-result-name{
-  font-size: var(--h2);
+  font-size: var(--h3);
 }
 
 .search-result-address{
-  font-size: var(--h4);
+  font-size: var(--h5);
 }
 
 .search-result-marker{
     width: 50px;
     height: 50px;
     margin-left: auto;
-    margin-right: 10px;
     cursor:pointer;
 }
