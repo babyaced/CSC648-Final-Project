@@ -1,0 +1,55 @@
+.unfollow-button{
+    background-color: #ccc;
+    border: 2px solid transparent;
+    color: #545454;
+}
+
+.dropdown-button,
+.unfollow-button{
+    border-radius:7.5px;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    min-width: 125px;
+}
+
+.unfollow-button:hover + ul{
+    opacity:1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+
+.dropdown-button{
+    background-color: var(--reversed-txt-clr);
+    border: solid var(--accent-color-2) 2px;
+    color: var(--accent-color-2);
+}
+
+.dropdown-items{
+    opacity: 0;
+    width: 200px;
+    padding-left: 20px;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    margin-top: 0px;
+    list-style: none;
+    border-radius: 7.5px;
+    position:absolute;
+    background-color: white;
+    box-shadow: var(--elevation-1);
+    z-index: 1;
+}
+
+.dropdown-items:hover{
+    opacity:1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+
+.dropdown-item{
+    padding-left: 0;
+}
+
+.dropdown-item:hover{
+    color: var(--primary-clr);
+}

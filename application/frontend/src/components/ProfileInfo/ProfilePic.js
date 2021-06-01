@@ -66,7 +66,7 @@ function ProfilePic({profile, isSelfView}) {
 
 
     return (
-        <div className={styles['profile-pic-container']}>
+        <>
             <img className={styles['profile-pic']} src={profilePic} alt="No Image Found" />
             { isSelfView && 
                 <div className={styles['editable-profile-pic-overlay']}>
@@ -78,7 +78,7 @@ function ProfilePic({profile, isSelfView}) {
                     </section>
                 </div>
             }
-        </div>
+        </>
     )
 }
 

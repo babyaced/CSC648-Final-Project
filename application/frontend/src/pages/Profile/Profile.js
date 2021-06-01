@@ -119,15 +119,6 @@ function Profile({appUser}) {
                         updateProfile={updateProfileHandler}
                 />
             </div>
-            {/*Contains Preview Containers*/}
-            {/* <ProfileContent  
-                photoPosts={fetchedPhotoPosts}
-                taggedPosts={taggedPosts}
-                pets={fetchedPets}
-                isSelfView={selfView} 
-                profile={fetchedProfile} 
-                updateProfile={updateProfileHandler} 
-            /> */}
             {fetchedProfile.type !== 'Pet' &&
                 <div className={styles['photo-previews']}>
                     <ImageContainer title='Photos' previews={fetchedPhotoPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />

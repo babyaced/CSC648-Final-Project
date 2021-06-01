@@ -18,6 +18,7 @@ import { RedirectPathContext } from '../../context/redirect-path';
 import axios from 'axios';
 import ConfirmDeletion from '../Modals/ConfirmDeletion';
 import ProfilePic from './ProfilePic';
+import FollowMenu from './FollowMenu';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
 
@@ -49,7 +50,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
 
     const [profileType, setProfileType] = useState(profile.type);
     
-    function openEditModal(){
+    function editHandler(){
         profileType === 'Pet' ?
         setEditPetDetailsDisplay(true) :
         setEditing(true);
@@ -88,8 +89,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
     }
 
 
-
-
     function onFollowHandler() {
         if(appUser){
             axios.post('/api/follow-unfollow-user',{
@@ -105,227 +104,119 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
 
 
     let nameDisplay = null;
-    let displayAccountInfo = null;
+    let buttons = null;
     let dropdownButtonStyle = null;
-    follow === true ? dropdownButtonStyle = styles.UnfollowButton : dropdownButtonStyle = styles.DropdownButton;
+    follow === true ? dropdownButtonStyle = styles.UnfollowButton : dropdownButtonStyle = styles.DropdownButton
     switch(profileType) {
         case 'Shelter' :
-            nameDisplay = (
-                <h1 className={styles.UserName} >
-                    <input 
-                        value={displayName} 
-                        readOnly={!editing}
-                        maxLength = "25"
-                        onChange={event => updateProfile('userName', event.target.value)} 
-                    />
-                </h1> 
-            )
-            displayAccountInfo = (
-                <div className={styles.ButtonContainer} >
-                    {!isSelfView ? (
-                        <div style={{position: 'relative'}}>
-                            <button className={dropdownButtonStyle} onClick={() => onFollowHandler()} >
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className={styles.DropdownText} >
-                                        {follow === true ? 'Unfollow' : 'Follow'}
-                                    </span>
-                                    <div  >
-                                        <img src={arrow} />
-                                    </div>
-                                </div>
-                            </button>
-                            <ul className={styles.DropdownContent}>
-                                <li><Link className={styles.DropdownItem} to={`/Followers/${profile.profile_id}`}>Followers</Link></li>
-                            </ul>
-                        </div>
-                        ):
-                        (
-                            <button className={styles.FristButton} onClick={() => history.push(`/Followers/${profile.profile_id}`)} >Followers</button>
-                        )
-                    }
-                    {!isSelfView && <button className={styles.Button} onClick={sendAMessage} >Message</button>}
-                </div>
-            )
-            break;
         case 'Business' :
-            nameDisplay = (
-                <h1 className={styles.UserName} >
-                    <input 
-                        value={displayName} 
-                        readOnly={!editing}
-                        maxLength = "25"
-                        onChange={event => updateProfile('userName', event.target.value)} 
-                    />
-                </h1> 
-            )
-            displayAccountInfo = (
-                <div className={styles.ButtonContainer} >
-                    {!isSelfView ? (
-                        <div style={{position: 'relative'}}>
-                            <button className={dropdownButtonStyle} onClick={() => onFollowHandler()} >
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className={styles.DropdownText} >
-                                        {follow === true ? 'Unfollow' : 'Follow'}
-                                    </span>
-                                    <div  >
-                                        <img src={arrow} />
-                                    </div>
-                                </div>
-                            </button>
-                            <ul className={styles.DropdownContent}>
-                                <li><Link className={styles.DropdownItem} to={`/Followers/${profile.profile_id}`}>Followers</Link></li>
-                            </ul>
-                        </div>                       
-                        ):
-                        (
-                            <button className={styles.FristButton} onClick={() => history.push(`/Followers/${profile.profile_id}`)} >Followers</button>
-                        )
-                    }
-                    {!isSelfView && <button className={styles.Button} onClick={sendAMessage} >Message</button>}
-                </div>
-                
-            )
-            break;
         case 'PetOwner' :
-            nameDisplay = (
-                <h1 className={styles.UserName} >
-                    <input 
-                        value={displayName} 
-                        readOnly={!editing}
-                        maxLength = "25"
-                        onChange={event => setDisplayName(event.target.value)} 
-                    />
-                </h1> 
-            )
-            displayAccountInfo = (
-                <div className={styles.ButtonContainer} >
+            buttons = (
+                <>
                     {!isSelfView ? (
-                        <div style={{position: 'relative'}}>
-                            <button className={dropdownButtonStyle} onClick={() => onFollowHandler()} >
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className={styles.DropdownText} >
-                                        {follow === true ? 'Unfollow' : 'Follow'}
-                                    </span>
-                                    <div  >
-                                        <img src={arrow} />
-                                    </div>
-                                </div>
-                            </button>
-                            <ul className={styles.DropdownContent}>
-                                <li><Link className={styles.DropdownItem} to={`/Followers/${profile.profile_id}`}>Followers</Link></li>
-                            </ul>
-                        </div>
+                        <FollowMenu followingProfileOwnerFlag={follow} profile={profile} onFollowHandler={onFollowHandler}/>
                         ):
                         (
-                            <button className={styles.FristButton} onClick={() => history.push(`/Followers/${profile.profile_id}`)}>Followers</button>
+                            <button className={styles['followers-button']} onClick={() => history.push(`/Followers/${profile.profile_id}`)} >Followers</button>
                         )
                     }
                     {!isSelfView && <button className={styles.Button} onClick={sendAMessage} >Message</button>}
-                </div>
+                </>
             )
             break;
         case 'Pet':
             nameDisplay = (
                 <>
                     <div style={{display: 'flex'}} >
-                        <h1 className={styles.UserName}>{displayName ? displayName : 'Name of Your Pet'}</h1>
+                        <h1 className={styles.UserName}>{displayName}</h1>
                         {/* <h3 style={{marginLeft: '10px'}} >
                             {petType.value ? petType.value : 'Type'}
                             /
                             {petBreeds[0].value ? petBreeds[0].value : 'Breed'}
                         </h3> */}
                     </div>
-                    <EditPetDetails 
-                        display={editPetDetailsDisplay} 
-                        updateProfile={updateProfile} 
-                        profile={profile} 
-                        onClose={()=> setEditPetDetailsDisplay(false)}
-                        updatePetType={setPetType}
-                        updatePetBreed={setPetBreed}
-                    />
+                   
                 </>
             )
-            displayAccountInfo = (
-                <div className={styles.ButtonContainer} >
+            buttons = (
+                <>
                     {!isSelfView ? (
-                        <div style={{position: 'relative'}}>
-                            <button className={dropdownButtonStyle} id="dropdownButton" onClick={() => onFollowHandler()} >
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className={styles.DropdownText}>
-                                        {follow === true ? 'Unfollow' : 'Follow'}
-                                    </span>
-                                    <div  >
-                                        <img src={arrow} />
-                                    </div>
-                                </div>
-                            </button>
-                            <ul className={styles.DropdownContent}>
-                                <li><Link className={styles.DropdownItem} to={`/Followers/${profile.profile_id}`}>Followers</Link></li>
-                                <li><Link className={styles.DropdownItem} to={"/Profile/" + profile.reg_user_id}>My Owner</Link></li>
-                            </ul>
-                        </div>
+                         <FollowMenu followingProfileOwnerFlag={follow} profile={profile} onFollowHandler={onFollowHandler}/>
                         ):
                         (   
                             <>
                                 <button className={styles.FristButton} onClick={() => history.push(`/Followers/${profile.profile_id}`)}>Followers</button>
-                                <button className={styles.Button} onClick={() => history.push("/Profile/" + profile.reg_user_id)} >My Owner</button>
                             </>
                         )
                     }
-                    {!isSelfView && <button className={styles.Button} onClick={sendAMessage}>Message</button>}
-                </div>
+                    {!isSelfView &&
+                    <>
+                        <button className={styles.Button} onClick={() => history.push("/Profile/" + profile.reg_user_id)} >My Owner</button>
+                        <button className={styles.Button} onClick={sendAMessage}>Message</button>
+                    </>}
+                </>
             )
             break;
         default:
-            displayAccountInfo = null;
+            buttons = null;
     }
 
     return (
-        <div className={styles.ProfileInfo} >
-            <ProfilePic isSelfView={isSelfView} profile={profile}/>
-            <div className={styles.SideContainer} >
-                <div className={styles['SideContainer-nameDiv']}>
-                    {
-                        isSelfView && !editing && profileType !== 'Pet' &&
-                        <EditButton 
-                            style={{
-                                alignSelf: 'center',
-                                fontSize: '1.5em',
-                                height: '50%',
-                                outline: 'none'
-                            }} 
-                            edit 
-                            clicked={() => openEditModal()}
-                        >
-                            Edit
-                        </EditButton>
-                    }
-                    {nameDisplay}
-                    {
-                        isSelfView && editing && 
-                        //<button className={styles.EditButton} onClick={cancelEditHandler}  >confirm</button>
-                        <EditButton 
-                            style={{
-                                alignSelf: 'center',
-                                fontSize: '1.5em',
-                                height: '50%',
-                                outline: 'none'
-                            }} 
-                            save 
-                            clicked={cancelEditHandler}
-                        >
-                            Save
-                        </EditButton>
-                    }
-                </div>
-                <div className={styles['SideContainer-contaniner']}>
-                {displayAccountInfo}
-                {isAdminView && !isSelfView && <button className={styles['ban-button']} onClick={()=>setDeletionModalDisplay(true)}>Ban User</button>}
-                </div>
+        <div className={styles['profile-header']} >
+            <div className={styles['profile-pic-container']}>
+                <ProfilePic isSelfView={isSelfView} profile={profile}/>
             </div>
-            <SendProfileMessage display={sendAMessageDisplay} profile={profile} onClose={()=> setSendAMessageDisplay(false)}/>
-            <LoginRequired display={loginRequiredDisplay} onClose={() =>setLoginRequiredDisplay(false)} redirect={location.pathname}/>
-            <ConfirmDeletion display={deletionModalDisplay} onClose={() => setDeletionModalDisplay(false)} message={'Ban ' + profile.display_name +"'s account ?"} deleteAction={banUser}/> 
+            <div className={styles['display-name-container']}>
+                {(isSelfView && !editing && profileType !== 'Pet') &&
+                    <EditButton style={{alignSelf: 'center',fontSize: '1.5em',height: '50%',outline: 'none'}} edit clicked={() => editHandler()}>
+                        Edit
+                    </EditButton>
+                }
+                <h1 className={styles['display-name']} >
+                    <input value={displayName} readOnly={!editing} maxLength = "25" onChange={event => setDisplayName(event.target.value)}/>
+                </h1> 
+                {
+                    isSelfView && editing && 
+                    <EditButton style={{alignSelf: 'center',fontSize: '1.5em',height: '50%', outline: 'none'}} save clicked={cancelEditHandler}>
+                        Save
+                    </EditButton>
+                }
+            </div>
+            <div className={styles['button-container']} >
+                {buttons}
+                {isAdminView && !isSelfView && <button className={styles['ban-button']} onClick={()=>setDeletionModalDisplay(true)}>Ban User</button>}
+            </div>
+            
+            
+            
+            
+            
+            {/* Modals */}
+            {profileType == 'Pet' &&  
+                <EditPetDetails 
+                    display={editPetDetailsDisplay} 
+                    updateProfile={updateProfile} 
+                    profile={profile} 
+                    onClose={()=> setEditPetDetailsDisplay(false)}
+                    updatePetType={setPetType}
+                    updatePetBreed={setPetBreed}
+                />
+            }
+            <SendProfileMessage 
+                display={sendAMessageDisplay} 
+                profile={profile} 
+                onClose={()=> setSendAMessageDisplay(false)}
+            />
+            <LoginRequired 
+                display={loginRequiredDisplay} 
+                onClose={() =>setLoginRequiredDisplay(false)} 
+                redirect={location.pathname}
+            />
+            <ConfirmDeletion 
+                display={deletionModalDisplay} 
+                onClose={() => setDeletionModalDisplay(false)} 
+                message={'Ban ' + profile.display_name +"'s account ?"} deleteAction={banUser}
+            /> 
         </div>
     );
 }

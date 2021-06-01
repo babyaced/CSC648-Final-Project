@@ -1,16 +1,33 @@
-.ProfileInfo {
-    display: flex;
+.profile-header {
+    display: grid;
+    grid-template-areas: 
+    'profile-pic display-name    '
+    'profile-pic ................' 
+    'profile-pic button-container';
+     grid-template-columns: 200px auto;
+     gap: 1rem;
+
 }
 
+.profile-pic-container{
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    grid-area: profile-pic;
+}
 
-.UserName {
+.display-name-container{
+    grid-area: display-name;
+}
+
+.display-name {
     font-weight: 600;
     font-family: var(--ff-primary);
     white-space: nowrap;
-   
 }
 
-.UserName input {
+.display-name input {
     width: 100%;
     outline: none;
     border: solid var(--primary-clr) 2px;
@@ -19,9 +36,10 @@
     font-size: var(--h4);
 }
 
-.UserName input:read-only {
+.display-name input:read-only {
     border: none;
     outline: none;
+    background: transparent;
 }
 
 .SideContainer {
@@ -31,67 +49,15 @@
     justify-content: space-between;
 }
 
-.ButtonContainer {
+.button-container {
+    grid-area: button-container;
     display: flex;
-    flex-wrap: nowrap;
-    height: 42px;
-    font-size: 20px;
-    font-weight: 400;
 }
 
-.ButtonContainer a {
+.button-container a{
     text-decoration: none;
     display: inline-block;
     width: 100%;
-}
-
-.DropdownButton {
-    background-color: var(--reversed-txt-clr);
-    border: solid var(--accent-color-2) 2px;
-    width: 170px;
-    height: 100%;
-    margin-right: 30px;
-    color: var(--accent-color-2);
-    border-radius:7px;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
-}
-
-.DropdownItem {
-    padding-left: 0;
-}
-
-.DropdownItem:hover {
-    color: var(--primary-clr);
-}
-
-.DropdownContent{
-    opacity: 0;
-    width: 200px;
-    padding-left: 20px;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.4s ease;
-    margin-top: 0px;
-    list-style: none;
-    border-radius: 7.5px;
-    position:absolute;
-    background-color: white;
-    box-shadow: var(--elevation-1);
-    z-index: 1;
-}
-
-.DropdownButton:hover + ul, .UnfollowButton:hover + ul{
-    opacity:1;
-    visibility: visible;
-    transform: translateY(0px);
-}
-
-.DropdownContent:hover{
-    opacity:1;
-    visibility: visible;
-    transform: translateY(0px);
 }
 
 .FristButton {
@@ -134,45 +100,6 @@
     font-size: 1.5em;
     height: 50%;
     outline: none;
-}
-
-.DropdownText {
-    flex-grow: 1;
-}
-
-.UnfollowButton {
-    background-color: #ccc;
-    border: none;
-    width: 170px;
-    height: 100%;
-    margin-right: 30px;
-    color: #545454;
-    border-radius:7px;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
-}
-
-
-.Image {
-    width: 223px;
-    height: 223px;
-    border-radius: 10px;
-    box-shadow: var(--elevation-2);
-    object-fit: cover;
-}
-
-.ImageStackText {
-    position: absolute;
-    width: 100%;
-    padding: 5px;
-    color: white;
-    bottom: 0px;
-    background-color: var(--primary-clr);
-    align-content: center;
-    border-radius: 0 0 7.5px 7.5px;
-    box-shadow: var(--elevation-1);
-    cursor: pointer;
 }
 
 .ban-button {
