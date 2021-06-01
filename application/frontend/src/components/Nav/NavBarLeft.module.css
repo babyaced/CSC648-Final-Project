@@ -2,6 +2,7 @@
     flex-basis: 15%;
     display: flex;
     justify-content: center;
+    margin-left: 1rem;
 }
 
 .logo-img,

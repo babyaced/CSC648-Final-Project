@@ -247,7 +247,6 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
           <button className={styles["searchbar-multifunc-search"]} onClick={search}>
             Search
           </button>
-
         </span>
       }
       </div>
