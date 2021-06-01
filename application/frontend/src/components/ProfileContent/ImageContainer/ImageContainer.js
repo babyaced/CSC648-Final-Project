@@ -61,10 +61,10 @@ function ImageContainer({previews, profile, title, selfView}) {
                             )
                             if (title === 'My Siblings' || title === 'My Pets' || title === 'Pets')
                                 displayPostModal = (
-                                    <Link to={"/Profile/" + preview.profile_id} key={preview.profile_id}>
+                                    <div onClick={ () => history.push("/Profile/" + preview.profile_id)} key={preview.profile_id}>
                                             <img src={preview.profile_pic_link} alt="No Image Found"/>
                                             {/* <div className={styles.ImageStackText} >{previews[index].display_name}</div> */}
-                                    </Link>
+                                    </div>
                                 )
                             return displayPostModal
                     })}
