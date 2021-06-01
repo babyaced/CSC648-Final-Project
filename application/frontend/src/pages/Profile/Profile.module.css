@@ -3,7 +3,7 @@
     display: grid;
 
     grid-template-columns: repeat(2,1fr);
-    grid-template-rows: repeat(3,1fr);
+    grid-template-rows: auto repeat(2,1fr);
     grid-template-areas: "profile-info profile-info"
                          "about-me     photo-previews"
                          "about-me     pet-previews";
@@ -36,7 +36,7 @@
         display: grid;
     
         grid-template-columns: 100%;
-        grid-template-rows: 1fr 2fr repeat(2,1fr);
+        grid-template-rows: auto 2fr repeat(2,1fr);
         grid-template-areas: "profile-info"
                              "about-me"
                              "photo-previews"
