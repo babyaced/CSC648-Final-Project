@@ -2,8 +2,6 @@
     display: flex;
     height: 100px;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
     background-color: var(--accent-color-2);
     box-shadow: var(--elevation-10);
 }

@@ -156,7 +156,7 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
         </select>
       </span>
       <Combobox
-        className={styles['div-term-searchbar-input']}
+        className={styles['term-input-container']}
         onSelect={(value) => {
             setSelectedPrefilter(prefilterObject.current[value])  //set prefilter to selected one to pass to mapsearch page
             setSearchTerm("");
@@ -189,7 +189,7 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
           </ComboboxPopover>)}
       </Combobox>
       
-        <Combobox className={styles['div-map-searchbar-input']}
+        <Combobox className={styles['location-input-container']}
             onSelect={async (address)=>{
                 setValue(address,false);
                 clearSuggestions();
@@ -206,7 +206,7 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
           {/* Input Box */}
           {searchCategory !== "Pet Owners" && 
           <ComboboxInput
-            className={styles['searchbar-map-input']}
+            className={styles['location-input']}
             value={value}
             placeholder= {searchCategory !== 'Pet Owners' && "Near Current Location"}
             onChange={(e)=> {

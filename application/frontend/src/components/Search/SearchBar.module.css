@@ -3,17 +3,18 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
-  
+
 .search-category-dropdown select{
   background-color: var(--reversed-txt-clr);
   border: none;
   border-radius:7.5px;
-  font-size: var(--h2);
+  font-size: var(--h3);
   padding-left:0.5rem;
-  padding-right: 0.5rem;
+  padding-right: 1rem;
   background: url("../../images/Created\ Icons/Dropdown.svg") no-repeat right;
   cursor: pointer;
   font-family: var(--ff-primary);
+
 }
 
 .searchbar-mobile,
@@ -24,10 +25,8 @@ select {
   border-radius: 7.5px;
   align-items: center;
   font-family: var(--ff-secondary);
-  flex-shrink: 2;
   background-color: white;
   margin: 0 auto;
-  flex-basis: 33%;
 }
 
 .searchbar-mobile input,
@@ -36,18 +35,18 @@ select {
   border-bottom: none;
   border-top: none;
   border-color: var(--inactive-txt-color);
-  font-size: var(--h3);
+  font-size: var(--h4);
   text-overflow: ellipsis;
-}
-
-.searchbar-term-input{
-  font-size: var(--h3);
+  width: 100%;
+  padding: .25rem;
+  border-radius: 7.5px 0 0 7.5px;
 }
   
   /* Searchbar button */
 .searchbar-search-icon {
-  width: 50px;
   height: 50px;
+  width: 50px;
+  margin: 0 .5rem;
   border: none;
   padding: 0;
   background: url("../../images/Created\ Icons/Search.svg") 50% no-repeat;
@@ -66,7 +65,7 @@ select {
   
 .combobox-popover{
   background-color: white;
-  padding: 5px;
+  padding: 0.25rem;
   box-shadow: var(--elevation-1);
   font-family: var(--ff-primary);
   z-index: 1;
@@ -80,7 +79,7 @@ select {
   
 .combobox-list li{
   cursor:pointer;
-  padding:5px;
+  padding:0.25rem;
   border-bottom: 1px solid rgba(0,0,0,0.10);
 }
   
@@ -102,19 +101,14 @@ select {
     display: grid;
     grid-template-areas: 'term     category'
                          'location   search';
-    grid-template-rows: 40px;
-    grid-template-columns: auto 135px;
-    height: 80px;
   }
 
   .search-category-dropdown{
     grid-area: category;
   }
 
-  .div-term-searchbar-input{
+  .term-input-container{
     grid-area: term;
-    height: 40px;
-    line-height: 40px;
   }
 
   .searchbar-mobile input,
@@ -123,23 +117,20 @@ select {
     font-size: var(--h4);
   }
 
-  .div-map-searchbar-input{
+  .location-input-container{
     grid-area: location;
-    height: 40px;
-    line-height: 40px;
   }
 
   .searchbar-search{
     grid-area: search;
     background-color: var(--primary-clr);
     font-family: var(--ff-primary);
-    height: 100%;
-    width: 100%;
     border: none;
     font-size:var(--h4);
     border-radius: 0 0 7.5px 0;
     color: var(--reversed-txt-clr);
     transition: .15s ease-in-out;
+    padding: .5rem;
   }
 
   .searchbar-search:hover{
@@ -158,7 +149,7 @@ select {
   }
 
   .searchbar-mobile{
-    width: 100%;
+    width: 95%;
   }
 
   .searchbar-multifunc{
@@ -172,7 +163,6 @@ select {
     border: none;
     font-family: var(--ff-primary);
     color: var(--reversed-txt-clr);
-    height: 40px;
     width: 50%;
     font-size: var(--h4);
     transition: .15s ease-in-out;
@@ -187,10 +177,11 @@ select {
   .searchbar-multifunc-search{
     background-color: var(--primary-clr);
     border-radius: 0 0 7.5px 0;
+    padding: .5rem;
   }
 
   .searchbar-multifunc-cancel{
     background-color: var(--cancel-delete-exit-color);
-
+    padding: .5rem;
   }
 }

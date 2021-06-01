@@ -1,5 +1,5 @@
 .navbar-left{
-    flex-basis: 33%;
+    flex-basis: 15%;
     display: flex;
     justify-content: center;
 }
@@ -24,14 +24,7 @@
         height: auto;
         width: 50px;
     }
-
-    .navbar-left{
-        width: 150px;
-    }
 }
 
 @media (max-width: 1170px){
-    .navbar-left{
-        width: 50px;
-    }
 }
