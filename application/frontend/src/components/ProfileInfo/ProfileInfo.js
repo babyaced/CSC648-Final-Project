@@ -286,7 +286,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
             break;
         case 'Pet':
             nameDisplay = (
-                <React.Fragment>
+                <>
                     <div style={{display: 'flex'}} >
                         <h1 className={styles.UserName}>{displayName ? displayName : 'Name of Your Pet'}</h1>
                         {/* <h3 style={{marginLeft: '10px'}} >
@@ -303,7 +303,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                         updatePetType={setPetType}
                         updatePetBreed={setPetBreed}
                     />
-                </React.Fragment>
+                </>
             )
             displayAccountInfo = (
                 <div className={styles.ButtonContainer} >
@@ -355,7 +355,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                 </div>}
             </div>
             <div className={styles.SideContainer} >
-                <div className={styles['SideContainer-namvDiv']}>
+                <div className={styles['SideContainer-nameDiv']}>
                     {
                         isSelfView && !editing && profileType !== 'Pet' &&
                         <EditButton 

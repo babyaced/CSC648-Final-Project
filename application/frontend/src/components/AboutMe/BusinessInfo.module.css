@@ -1,0 +1,31 @@
+.AddressTextArea {
+    resize: none;
+    outline: none;
+    overflow: hidden;
+    border: var(--primary-clr) solid 2px;
+    border-radius: 5px;
+}
+
+.HoursDiv {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+}
+
+.hours-table{
+    width: 100%;
+}
+
+.hours-table-row{
+    text-align: left;
+}
+
+.hours-table-header{
+    width: 70px;
+    font-weight: 400;
+}
+
+.business-info-container{
+    
+}

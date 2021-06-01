@@ -7,6 +7,7 @@ import ProfileContent from '../../components/ProfileContent/ProfileContent';
 import AboutMe from '../../components/AboutMe/AboutMe';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { RedirectPathContext } from '../../context/redirect-path';
+import ImageContainer from '../../components/ProfileContent/ImageContainer/ImageContainer';
 
 import styles from './Profile.module.css'
 import axios from 'axios';
@@ -25,6 +26,8 @@ function Profile({appUser}) {
 
     const redirectContext = useContext(RedirectPathContext);
 
+    const [loading, setLoading] = useState(false);
+
     const {profileID} = useParams();
 
     const [userProfile, setUserProfile] = useState();
@@ -34,7 +37,7 @@ function Profile({appUser}) {
     const history = useHistory()
 
     useEffect(() =>{
-        redirectContext.updateLoading(true);
+        setLoading(true);
 
         const getProfile = axios.get('/api/profile',{params: {profileID: profileID}})
         const getPhotoPosts = axios.get('/api/photo-posts',{params: {profileID: profileID}})
@@ -54,10 +57,10 @@ function Profile({appUser}) {
             setFetchedPets(responses[2].data)
             setTaggedPosts(responses[3].data)
             setFollowingStatus(responses[4].data)
-            redirectContext.updateLoading(false);
+            setLoading(false);
         })
         .catch((err) =>{
-            redirectContext.updateLoading(false);
+            setLoading(false);
             //display error message to user
         })
     },[profileID])
@@ -89,12 +92,12 @@ function Profile({appUser}) {
         selfView ? button.className = styles.SwitchSelf : button.className = styles.SwitchVistor;
     }
 
-
-    let displayProfile = <Spinner />
-
-    if (!redirectContext.loading){
-        displayProfile = (
-            <>
+    return (
+        <div className={`${styles["Profile"]} ${"wide-container"}`} >
+            {loading && <Spinner/>}
+            {!loading && 
+             <>
+             <div className={styles['profile-info']}>
                 <ProfileInfo 
                     appUser={appUser} 
                     isSelfView={selfView} 
@@ -103,8 +106,9 @@ function Profile({appUser}) {
                     followingStatus={followingStatus}
                     isAdminView={adminView}
                 />
-                <div className={styles.Bottom}>
-                    <AboutMe
+             </div>
+            <div className={styles['about-me']}>
+                <AboutMe
                         aboutMeBody={fetchedProfile.about_me}
                         hours={fetchedHours}
                         phoneNumber={fetchedPhoneNumber}
@@ -113,23 +117,38 @@ function Profile({appUser}) {
                         profile={fetchedProfile} 
                         profileID={profileID}
                         updateProfile={updateProfileHandler}
-                    />
-                    <ProfileContent
-                        photoPosts={fetchedPhotoPosts}
-                        taggedPosts={taggedPosts}
-                        pets={fetchedPets}
-                        isSelfView={selfView} 
-                        profile={fetchedProfile} 
-                        updateProfile={updateProfileHandler} 
-                    />
+                />
+            </div>
+            {/*Contains Preview Containers*/}
+            {/* <ProfileContent  
+                photoPosts={fetchedPhotoPosts}
+                taggedPosts={taggedPosts}
+                pets={fetchedPets}
+                isSelfView={selfView} 
+                profile={fetchedProfile} 
+                updateProfile={updateProfileHandler} 
+            /> */}
+            {fetchedProfile.type !== 'Pet' &&
+                <div className={styles['photo-previews']}>
+                    <ImageContainer title='Photos' previews={fetchedPhotoPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />
                 </div>
-            </>
-        );
-    }
-
-    return (
-        <div className={`${styles["Profile"]} ${"wide-container"}`} >
-            {displayProfile}
+            }
+            {(fetchedProfile.type == 'Admin' || fetchedProfile.type == 'PetOwner' || fetchedProfile.type == 'Shelter') &&
+                <div className={styles['pet-previews']}>
+                    <ImageContainer title='Pets' previews={fetchedPets} type={fetchedProfile.type} profile={fetchedProfile} />
+                </div>
+            }
+            {fetchedProfile.type == 'Pet' && 
+                <>
+                    <div className={styles['photo-previews']}>
+                        <ImageContainer title='Photos' previews={taggedPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />
+                    </div>
+                    <div className={styles['pet-previews']}>
+                        <ImageContainer title='Siblings' previews={fetchedPets} type={fetchedProfile.type} profile={fetchedProfile}/>
+                    </div>
+                </>
+            }
+         </>}
         </div>
     )
 }

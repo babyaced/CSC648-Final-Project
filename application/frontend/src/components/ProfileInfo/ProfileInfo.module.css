@@ -7,14 +7,16 @@
     font-weight: 600;
     font-family: var(--ff-primary);
     white-space: nowrap;
+   
 }
 
 .UserName input {
-    width: 480px;
+    width: 100%;
     outline: none;
     border: solid var(--primary-clr) 2px;
     border-radius: 10px;
     text-overflow: ellipsis;
+    font-size: var(--h4);
 }
 
 .UserName input:read-only {
@@ -52,31 +54,9 @@
     color: var(--accent-color-2);
     border-radius:7px;
     box-sizing: border-box;
-    /* box-shadow: var(--elevation-1); */
     outline: none;
     cursor: pointer;
 }
-
-/* .DropdownButton:hover{
-    border-width: 3px;
-} */
-
-/* .DropdownHidden {
-    display: none;
-} */
-
-/* .DropdownContent {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: #ffffff;
-    text-align: center;
-    color: var(--primary-clr);
-    min-width: 170px;
-    box-shadow: var(--elevation-1);
-    z-index: 100;
-    border-radius: 7.5px;
-} */
 
 .DropdownItem {
     padding-left: 0;
@@ -101,12 +81,6 @@
     box-shadow: var(--elevation-1);
     z-index: 1;
 }
-
-/* .DropdownButton:focus + ul{
-    opacity:1;
-    visibility: visible;
-    transform: translateY(0px);
-} */
 
 .DropdownButton:hover + ul, .UnfollowButton:hover + ul{
     opacity:1;
@@ -211,7 +185,7 @@
     border-radius: 7px;
 }
 
-.SideContainer-namvDiv {
+.SideContainer-nameDiv {
     display: flex;
     justify-items: center;
 }

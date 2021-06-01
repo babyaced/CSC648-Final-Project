@@ -1,17 +1,10 @@
 .Button {
     display: inline;
-    margin-right: 10px;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
-    white-space: nowrap;
+    border-radius: 7.5px;
 }
 
 .Button:hover {
     background-color: rgb(221, 220, 220);
-}
-
-.SaveButton {
-    margin-right: 0px;
-    margin-left: 10px;
 }

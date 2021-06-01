@@ -1,5 +1,7 @@
 .AboutMe {
     display: flex;
+    height: 100%;
+    width: 100%;
 }
 
 .AboutMe button {
@@ -10,22 +12,28 @@
     font-weight: 600;
 }
 
+.AboutMe textarea{
+    font-family: var(--ff-secondary);
+    height: 100%;
+    width: 100%;
+}
+
 .AboutMe textarea:read-only {
     border: none;
 }
 
 .Container {
-    max-width: 733px;
-    height: 585px;
-    padding: 20px;
-    border-radius: 0px 25px 25px 25px;
-    margin-bottom: 20px;
+    padding: 1rem;
+    border-radius: 0px 7.5px 7.5px 7.5px;
     overflow: hidden;
     box-shadow: var(--elevation-2);
+    width: 100%;
+    height: 100%;
 }
 
 .Content {
-    max-width: 660px;
+    width: 100%;
+    height: 90%;
     font-size: 1.5em;
 }
 
@@ -76,37 +84,8 @@
     background-color: #ccc;
 }
 
-.AddressTextArea {
-    resize: none;
-    outline: none;
-    overflow: hidden;
-    border: var(--primary-clr) solid 2px;
-    border-radius: 5px;
-}
+
 
 .PetOwnerLinkLabel {
     font-weight: 600;
-}
-
-.HoursDiv {
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    white-space: nowrap;
-}
-
-.hours-table{
-    width: 100%;
-}
-
-.hours-table-row{
-    text-align: left;
-}
-
-.hours-table-header{
-    width: 70px;
-    font-weight: 400;
-}
-
-.hours-table-cell{
 }
