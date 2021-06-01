@@ -18,6 +18,7 @@ import PetOwnerSearchResultCard from '../../components/Cards/SearchResultCard/Pe
 import ShelterSearchResultCard from '../../components/Cards/SearchResultCard/ShelterSearchResultCard';
 import BusinessSearchResultCard from '../../components/Cards/SearchResultCard/BusinessSearchResultCard';
 import PetSearchResultCard from '../../components/Cards/SearchResultCard/PetSearchResultCard';
+import SearchResults from './SearchResults';
 
 const mapContainerStyle = {
     width: '100%',
@@ -162,8 +163,6 @@ function search(){
         //     }
         // }
 
-        
-        
         if(state.searchTermParam || state.searchCategoryParam || state.prefilter){
 
             setSearchCategory(state.searchCategoryParam);
@@ -198,7 +197,7 @@ function search(){
                 case 'Businesses':
                     let businessCategoryFilterValues = [];
 
-                    if (Object.keys(businessCategoryPrefilter).length !== 0){
+                    if (businessCategoryPrefilter && Object.keys(businessCategoryPrefilter).length !== 0){
                         businessCategoryFilterValues.push(businessCategoryPrefilter.value)
                     }
 
@@ -423,43 +422,17 @@ function search(){
                 </div>
                 {loading && <Spinner className={styles['map-search-results-loading']}/>}
                 { !loading &&
-                     <div className={styles['map-search-results-text']} style={{display: searchResultsDisplay}}>
-                     <>
-                         <div className={styles['map-search-header']}>
-                             <span><span className={styles['map-search-header-text']}>Results</span><button className={styles['map-search-results-header-action']} onClick={displayFilterOverlay}>Filter</button></span>
-                             {/* <div className={styles['sort-dropdown']}>
-                                 <span className={styles['sort-dropdown-label']}>Sort By:</span>
-                                 <select className={styles['sort-dropdown-select']}  name="search-category" id="search-category" onChange= {e => setResultsSortOption(e.target.value)}>
-                                     <option value="Account Age">Newly Added</option>
-                                     <option value="Distance">Distance</option>
-                                 </select>
-                                 <img src={DropdownIcon}/>
-                             </div>                 */}
-                         </div>
-                         <div className={styles['map-search-results-text-list']}>
-                             <ul>
-                                 {recievedSearchResults.length == 0 && <li className={styles['no-results']}>No {searchCategory} that Match your Search.</li>}
-                                 {recievedSearchResults.length != 0 && searchCategory == 'Pets' && recievedSearchResults.map((searchResult,index) => (
-                                     <PetSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index} panTo={panTo}/>
-                                 ))}
-                                 {recievedSearchResults.length != 0 && searchCategory == 'Businesses' && recievedSearchResults.map((searchResult, index) => (
-                                    <BusinessSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index} panTo={panTo}/>
-                                 ))}
-                                 {recievedSearchResults.length != 0 && searchCategory == 'Shelters' && recievedSearchResults.map((searchResult, index) => (
-                                     <ShelterSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index} panTo={panTo}/>
-                                 ))}
-                                 {recievedSearchResults.length != 0 && searchCategory == 'Pet Owners' && recievedSearchResults.map((searchResult, index) => (
-                                     <PetOwnerSearchResultCard key={searchResult.profile_id} searchResult={searchResult} index={index}/>
-                                 ))}
- 
-                             </ul>
-                         </div>
-                         <div className={styles['map-search-results-page-navigation']}>
-                             {currentPage != 1 && maxResultsPages != 1 && <button className={styles['map-search-results-page-navigation-back']} onClick={previousPage}>Prev Page</button>}
-                             {currentPage < maxResultsPages && <button className={styles['map-search-results-page-navigation-next']} onClick={nextPage}>Next Page</button>}
-                         </div>
-                     </>
-                    </div>
+                    <SearchResults 
+                        searchResultsDisplay={searchResultsDisplay} 
+                        searchResults={recievedSearchResults} 
+                        currentPage={currentPage} 
+                        searchCategory={searchCategory} 
+                        displayFilterOverlay={displayFilterOverlay} 
+                        panTo={panTo}
+                        maxResultsPages={maxResultsPages}
+                        previousPage={previousPage}
+                        nextPage={nextPage}
+                    />
                 }
                
                 <div className={styles["map-search-results-filter"]} style={{display: filterOverlayDisplay}}>

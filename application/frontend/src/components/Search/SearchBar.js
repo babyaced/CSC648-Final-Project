@@ -77,6 +77,7 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
   });
 
   function search(){
+    console.log("searching");
     if(searchLocationLat == null || searchLocationLng == null){
       navigator.geolocation.getCurrentPosition((position)=>{
         const location = {
