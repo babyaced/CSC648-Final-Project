@@ -3,7 +3,7 @@
     grid-template-areas: 'map search-results';
     grid-template-columns: 2fr 1fr;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 100px);
     transition: 2s;
 }
 
@@ -34,6 +34,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
+
 }
 
 .header-container{
@@ -56,9 +57,10 @@
 .filter-pet-breed,
 .filter-shelter-pets,
 .filter-distance{
-    padding-top: 25px;
+    padding-top: 1rem;
     width: 75%;
     margin: 0 auto;
+    font-family: var(--ff-secondary);
 }
 
 .submit-filters-button{
@@ -95,7 +97,7 @@
         grid-template-areas: 'map'
                              'search-results';
         grid-template-columns: 1fr;
-        grid-template-rows: calc(30vh - 50px) calc(70vh - 50px);
+        grid-template-rows: calc(40vh - 50px) calc(60vh - 50px);
     }
 }
 
