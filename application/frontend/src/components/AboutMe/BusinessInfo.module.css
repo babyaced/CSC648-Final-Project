@@ -1,4 +1,4 @@
-.AddressTextArea {
+.address-text-area {
     resize: none;
     outline: none;
     overflow: hidden;
@@ -6,12 +6,14 @@
     border-radius: 5px;
 }
 
-.HoursDiv {
-    width: 300px;
+.hours-container {
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     white-space: nowrap;
 }
+
+
 
 .hours-table{
     width: 100%;
@@ -21,11 +23,24 @@
     text-align: left;
 }
 
-.hours-table-header{
-    width: 70px;
-    font-weight: 400;
+.business-info-container label{
+    font-size: var(--base-size);
 }
 
-.business-info-container{
-    
+.hours-table-cell-header{
+    width: 10%;
+    font-size: var(--base-size);
+}
+
+.address-container textarea{
+    font-size: var(--base-size);
+}
+
+.phone-number-container input{
+    font-size: var(--base-size);
+}
+
+.hours-table-cell{
+    font-size: var(--base-size);
+    font-family: var(--ff-secondary);
 }

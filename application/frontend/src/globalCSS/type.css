@@ -32,11 +32,6 @@ p {
     font-size: var(--base-size);
 }
 
-label{
-    font-family: var(--ff-secondary);
-    font-size: var(--h5);
-}
-
 small, .text-small {
     font-size: var(--text-sm);
 }

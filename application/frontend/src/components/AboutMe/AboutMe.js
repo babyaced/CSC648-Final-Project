@@ -142,18 +142,17 @@ function AboutMe({aboutMeBody, profile, updateProfile, isSelfView, address, phon
             content = (
                 <>
                     <textarea 
-                        className={styles.TextArea} 
+                        className={styles['text-area']} 
                         placeholder='Write down something to share with others😃'
                         value={aboutMeContent} 
                         onChange={event => setAboutMeContent(event.target.value)}
                         readOnly={!changing || !(labelSelected === 'about')}
-                        rows='14' 
-                        cols='50' 
+
                     />
                     { isSelfView && ((labelSelected !== 'about') ? 
-                        <EditButton edit clicked={() => changingInfoHandler('about')}>Edit</EditButton> 
+                        <EditButton className={styles['edit-button']} edit clicked={() => changingInfoHandler('about')}>Edit</EditButton> 
                         :
-                        <EditButton style={{float: 'right'}} save clicked={() => {
+                        <EditButton className={styles['save-button']} save clicked={() => {
                             cancelEditingHandler();
                             submitAboutMeEdit();
                         }}>Save</EditButton>)
@@ -186,14 +185,12 @@ function AboutMe({aboutMeBody, profile, updateProfile, isSelfView, address, phon
 
     return (
         <>
-        <div className={styles.AboutMe} >
+        <div className={styles['about-me']} >
             <div style={{display: "flex", flexDirection: "column"}} >
                 {tabs}
             </div>
-            <div className={styles.Container} >
-                <div className={styles.Content} >
+            <div className={styles['about-me-card']} >
                     {content}
-                </div>
             </div>
         </div>
 
