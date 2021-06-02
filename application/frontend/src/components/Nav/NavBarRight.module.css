@@ -9,7 +9,7 @@
 .login-button{
     font-family: var(--ff-primary);
     text-decoration: none;
-    font-size: var(--h2);
+    font-size: var(--h5);
     text-align: center;
     color: var(--primary-clr);
     background: var(--reversed-txt-clr);

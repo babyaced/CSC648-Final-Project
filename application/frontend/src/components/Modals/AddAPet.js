@@ -77,7 +77,7 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
     return (
         <Modal display={display} onClose={onClose}>
             <form onSubmit={createPetProfile}>
-                <div className={styles['edit-pet-details-header']}>Add a Pet</div>
+                <div className={styles['edit-pet-details-header']}><h1>Add a Pet</h1></div>
                 <div className={styles['edit-pet-details-container']}>
                     <div className={styles['edit-pet-details-name']}>
                         <label for="name">Name</label>
@@ -86,7 +86,6 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                             id="name" 
                             name="pet_name" 
                             maxLength="25"
-                            style={{paddingLeft: '13px'}}
                             required
                             value={petName}
                             // value={props.profile.userName}

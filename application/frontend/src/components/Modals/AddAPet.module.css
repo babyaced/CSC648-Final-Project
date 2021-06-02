@@ -1,3 +1,7 @@
-.add-a-pet-header{
-    font-size: var(--h1);
+.edit-pet-details-container{
+    display: grid;
+}
+
+[class*='edit-pet-details-'] input{
+    width: 100%;
 }

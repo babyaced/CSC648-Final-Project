@@ -16,12 +16,14 @@ Make only pets at shelters displayed on map search results --DONE
 
 Remove preexisting markers from google map
 
-Fix Add a Pet Modal
+Fix Add a Pet Modal --DONE
 
 Fix Post MOdal
 
 Fix Pet Owners loading infinitely with no search term
 
-Fix Map Search results container matching length of search results list
+Fix Map Search results container matching length of search results list --DONE
 
-Fix styling filter page
+Fix styling filter page --DONE
+
+fix navbar too big on mobile
