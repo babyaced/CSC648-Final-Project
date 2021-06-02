@@ -1,40 +1,41 @@
-.search-results-container{
-    grid-area: search-results;
-    box-shadow: var(--elevation-1);
-    overflow: auto;
-}
-
 .header-container{
-    padding-left: 36px;
+    margin: 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-family: var(--ff-primary);
 }
 
+.header-container h2{
+    display: inline;
+}
+
 .filter-button{
     color:var(--secondary-txt-clr);
     display: inline;
-    margin-left: 10px;
-    margin-bottom: 2px;
+    margin-left: 1rem;
     border: none;
     background-color: transparent;
     cursor: pointer;
+    font-size: var(--h5);
 }
 
 .no-results{
     list-style: none;
-    text-align: left;
+    text-align: center;
     font-size: var(--h1);
     color: var(--inactive-txt-clr);
     font-family: var(--ff-primary);
-    padding: 15px 15px 15px 0;
+    /* padding: 15px 15px 15px 0; */
+}
+
+.search-results-list{
+    margin: 0 1rem;
+    padding: 0;
 }
 
 .page-navigation-container{
-    width: 85%;
-    margin: 0 auto;
-    margin-bottom: 25px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -51,12 +52,12 @@
 }
 
 .back-button{
-    align-self: flex-start;
+    margin: 0 auto 1rem 1rem;
 }
 
 
 .next-button{
-    float: right;
+    margin: 0 1rem 1rem auto;
 }
 
 .next-button:hover,

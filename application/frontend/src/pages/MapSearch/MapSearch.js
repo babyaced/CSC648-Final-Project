@@ -22,7 +22,7 @@ import SearchResults from './SearchResults';
 
 const mapContainerStyle = {
     width: '100%',
-    height: 'calc(100vh - 100px)',
+    height: '100%',
 };
 
 const options = {
@@ -100,8 +100,7 @@ function MapSearch(props) {
 
 
     //for storing whether filter tab is displaying
-    const [filterOverlayDisplay, setFilterOverlayDisplay] = useState('none');
-    const [searchResultsDisplay, setSearchResultsDisplay] = useState('block')
+    const [filterOverlayDisplay, setFilterOverlayDisplay] = useState(false);
 
     //for storing the number of pages of results
     const [maxResultsPages,setMaxResultsPages] = useState(1);
@@ -278,8 +277,6 @@ function search(){
                         catBreedFilterValues.push(catBreedFilters[i].value);
                     }
                         
-
-
                     if(petTypeFilters.length > 0 && !petTypeFilters.some(petType => petType.label == "Cat")){
                         catBreedFilterValues = [];
                     }
@@ -313,7 +310,6 @@ function search(){
                         searchPage: currentPage
                     }
                     break;
-                
             }
 
 
@@ -343,13 +339,11 @@ function search(){
 
     //toggle display of filter overlay
     function displayFilterOverlay(){
-        setFilterOverlayDisplay('flex');
-        setSearchResultsDisplay('none');
+        setFilterOverlayDisplay(true);
     }
 
     function displaySearchResults(){
-        setFilterOverlayDisplay('none');
-        setSearchResultsDisplay('block');
+        setFilterOverlayDisplay(false);
     }
 
     function applyFilters(){
@@ -384,21 +378,12 @@ function search(){
 
     const animatedComponents = makeAnimated();
 
-
-    
-
-
     return (
             <>
             <div ref={searchResultsContainerRef} className={styles['map-search-results-container']}>
-                <div className={styles['map-search-results-map']}>
-                    {state.lat && state.lng && <GoogleMap 
-                        mapContainerStyle={mapContainerStyle}
-                        zoom={14}
-                        center={center}
-                        options={options}
-                        onLoad={onMapLoad}
-                        >
+                <div className={styles['search-results-map']}>
+                    {state.lat && state.lng && 
+                    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={14} center={center} options={options} onLoad={onMapLoad}>
                         {recievedSearchResults && recievedSearchResults.map((searchResult, index) => (  //need to change index to something else later
                             <>
                              {/* <Marker position={{lat: state.lat, lng: state.lng}}/> */}
@@ -421,22 +406,23 @@ function search(){
                     {!state.lat && !state.lng && <div className={styles['map-coming-soon']}>Location Results Feature Coming Soon</div>}
                 </div>
                 {loading && <Spinner className={styles['map-search-results-loading']}/>}
-                { !loading &&
-                    <SearchResults 
-                        searchResultsDisplay={searchResultsDisplay} 
-                        searchResults={recievedSearchResults} 
-                        currentPage={currentPage} 
-                        searchCategory={searchCategory} 
-                        displayFilterOverlay={displayFilterOverlay} 
-                        panTo={panTo}
-                        maxResultsPages={maxResultsPages}
-                        previousPage={previousPage}
-                        nextPage={nextPage}
-                    />
+                { !loading && !filterOverlayDisplay &&
+                    <div className={styles['search-results']}>
+                        <SearchResults 
+                            searchResults={recievedSearchResults} 
+                            currentPage={currentPage} 
+                            searchCategory={searchCategory} 
+                            displayFilterOverlay={displayFilterOverlay} 
+                            panTo={panTo}
+                            maxResultsPages={maxResultsPages}
+                            previousPage={previousPage}
+                            nextPage={nextPage}
+                        />
+                    </div>
                 }
                
-                <div className={styles["map-search-results-filter"]} style={{display: filterOverlayDisplay}}>
-                    <>
+                {filterOverlayDisplay && 
+                    <div className={styles["map-search-results-filter"]} >
                         <div className={styles['map-search-header']}>
                         <span><span className={styles['map-search-header-text']}>Filters</span><button className={styles['map-search-results-header-action']} onClick={displaySearchResults}>Back to Results</button></span>
                         </div>
@@ -451,17 +437,6 @@ function search(){
                                         theme={customTheme}
                                         isSearchable
                                         isMulti
-                                        components={animatedComponents}
-                                    />
-                            </div>
-                            <div className={styles['filter-distance']}>
-                                <label for="distance">Distance</label>
-                                    <Select id="distance" name="distance"
-                                        onChange={setSearchDistance}
-                                        options={distanceOptions}
-                                        placeholder="Select Preferred Distance"
-                                        theme={customTheme}
-                                        isSearchable
                                         components={animatedComponents}
                                     />
                             </div>
@@ -558,22 +533,23 @@ function search(){
                                             components={animatedComponents}
                                         />
                                 </div>
-                                <div className={styles['filter-distance']}>
-                                    <label for="distance">Distance</label>
-                                        <Select id="distance" name="distance"
-                                            onChange={setSearchDistance}
-                                            options={distanceOptions}
-                                            placeholder="Select Preferred Distance"
-                                            theme={customTheme}
-                                            isSearchable
-                                            components={animatedComponents}
-                                        />
-                                </div>
+
                             </>
                         }
+                        <div className={styles['filter-distance']}>
+                            <label for="distance">Distance</label>
+                            <Select id="distance" name="distance"
+                                onChange={setSearchDistance}
+                                options={distanceOptions}
+                                placeholder="Select Preferred Distance"
+                                theme={customTheme}
+                                isSearchable
+                                components={animatedComponents}
+                            />
+                        </div>
                         <button className={styles['filter-button']} onClick={applyFilters}>Apply Filters</button>
-                    </>
-                </div>
+                    </div>
+                }
             </div>
             </>     
     );

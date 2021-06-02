@@ -2,7 +2,7 @@
     list-style: none;
     display: flex;
     box-shadow: var(--elevation-1);
-    width: 95%;
+    width: 100%;
     margin-bottom: 1rem;
     padding: 0.5rem;
     border-radius:7.5px;
