@@ -25,38 +25,28 @@
     overflow: auto;
 }
 
-/* .sort-dropdown-select{
-    border: none;
-    border-radius: 5px;
-    background-color: var(--reversed-txt-clr);
-    cursor:pointer;
-    padding-left:5px;
-}
 
-.sort-dropdown-label{
-    font-size: var(--h3);
-    font-family: var(--ff-primary);
-    font-weight: 600;
+  /* Filter Styling */
 
-}
-
-.sort-dropdown img{
-    margin-right: 36px;
-} */
-
-.map-search-results-filter{
+.filters{
     grid-area: search-results;
     box-shadow: var(--elevation-1);
     overflow: auto;
-}
-
-.map-search-results-filter{
     display: flex;
     flex-direction: column;
 }
 
+.header-container{
+    margin: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--ff-primary);
+}
 
-  /* Filter Styling */
+.header-container h2{
+    display: inline;
+}
 
 .filter-business-categories,
 .filter-pet-types,
@@ -71,7 +61,7 @@
     margin: 0 auto;
 }
 
-.filter-button{
+.submit-filters-button{
     width: 75%;
     margin: 25px auto;
     background-color: var(--primary-clr);
@@ -98,6 +88,8 @@
 }
 
 
+
+
 @media (max-width: 768px){
     .map-search-results-container{
         grid-template-areas: 'map'
@@ -105,4 +97,14 @@
         grid-template-columns: 1fr;
         grid-template-rows: calc(30vh - 50px) calc(70vh - 50px);
     }
+}
+
+.filter-button{
+    color:var(--secondary-txt-clr);
+    display: inline;
+    margin-left: 1rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: var(--h5);
 }

@@ -422,9 +422,9 @@ function search(){
                 }
                
                 {filterOverlayDisplay && 
-                    <div className={styles["map-search-results-filter"]} >
-                        <div className={styles['map-search-header']}>
-                        <span><span className={styles['map-search-header-text']}>Filters</span><button className={styles['map-search-results-header-action']} onClick={displaySearchResults}>Back to Results</button></span>
+                    <div className={styles["filters"]} >
+                        <div className={styles['header-container']}>
+                        <span><span className={styles['header']}><h2>Filters</h2></span><button className={styles['filter-button']} onClick={displaySearchResults}>Back to Results</button></span>
                         </div>
                         {searchCategory=="Businesses" && 
                         <>
@@ -547,7 +547,7 @@ function search(){
                                 components={animatedComponents}
                             />
                         </div>
-                        <button className={styles['filter-button']} onClick={applyFilters}>Apply Filters</button>
+                        <button className={styles['submit-filters-button']} onClick={applyFilters}>Apply Filters</button>
                     </div>
                 }
             </div>

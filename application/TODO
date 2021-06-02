@@ -19,3 +19,9 @@ Remove preexisting markers from google map
 Fix Add a Pet Modal
 
 Fix Post MOdal
+
+Fix Pet Owners loading infinitely with no search term
+
+Fix Map Search results container matching length of search results list
+
+Fix styling filter page
