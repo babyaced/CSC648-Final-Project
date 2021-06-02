@@ -117,7 +117,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                         <FollowMenu followingProfileOwnerFlag={follow} profile={profile} onFollowHandler={onFollowHandler}/>
                         ):
                         (
-                            <button className={styles['followers-button']} onClick={() => history.push(`/Followers/${profile.profile_id}`)} >Followers</button>
+                            <button className={styles.Button} onClick={() => history.push(`/Followers/${profile.profile_id}`)} >Followers</button>
                         )
                     }
                     {!isSelfView && <button className={styles.Button} onClick={sendAMessage} >Message</button>}
@@ -145,7 +145,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                         ):
                         (   
                             <>
-                                <button className={styles.FristButton} onClick={() => history.push(`/Followers/${profile.profile_id}`)}>Followers</button>
+                                <button className={styles.Button} onClick={() => history.push(`/Followers/${profile.profile_id}`)}>Followers</button>
                             </>
                         )
                     }
