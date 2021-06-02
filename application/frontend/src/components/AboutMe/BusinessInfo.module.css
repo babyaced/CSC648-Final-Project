@@ -13,8 +13,6 @@
     white-space: nowrap;
 }
 
-
-
 .hours-table{
     width: 100%;
 }
@@ -38,6 +36,16 @@
 
 .phone-number-container input{
     font-size: var(--base-size);
+    font-weight: 400;
+    font-size: var(--ff-secondary);
+}
+
+.phone-number-container input:read-only{
+    border: 1px solid transparent;
+    resize: none;
+    outline: none;
+    background-color: unset;
+    box-shadow: unset;
 }
 
 .hours-table-cell{
