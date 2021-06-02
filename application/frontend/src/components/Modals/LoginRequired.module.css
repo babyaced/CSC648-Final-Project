@@ -1,18 +1,20 @@
 .account-required-container{
-    width: 750px;
-    padding: 65px 15px 30px 15px;
+    width: 400px;
+    max-width: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .account-required-message{
+    padding-top: 3rem;
     font-family: var(--ff-primary);
     font-size:  var(--h1);
 }
 
 .account-required-redirect-buttons-container{
-    padding-top: 15px;
+    padding-top: 1rem;
 }
 
 .account-required-redirect-login,
@@ -20,7 +22,7 @@
     font-size: var(--h2);
     font-family: var(--ff-primary);
     text-decoration: none;
-    padding: 5px 15px;
+    padding: 1rem;
     border-radius: 7.5px;
     box-shadow: var(--elevation-1);
     cursor: pointer;
