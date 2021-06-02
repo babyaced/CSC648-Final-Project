@@ -232,13 +232,14 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
           </ComboboxPopover>
         </Combobox>
 
+
+      {windowSize.width > 768 &&
+        <button className={styles["searchbar-search-icon"]} onClick={search}/>
+      }
       {windowSize.width <= 768 && windowSize.width  > 450 &&
         <button className={styles["searchbar-search"]} onClick={search}>
           Search
         </button>
-      }
-      {windowSize.width > 768 &&
-        <button className={styles["searchbar-search-icon"]}/>
       }
       {windowSize.width  <= 450 &&
         <span className={styles['searchbar-multifunc']}>
