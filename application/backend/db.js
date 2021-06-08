@@ -2,8 +2,8 @@
 
 const connection = mysql.createPool({
     connectionLimit: 100,
-    host:'csc648project-database.ceh0a99r5rym.us-west-2.rds.amazonaws.com',
-    user:'admin',
+    host:'127.0.0.1',
+    user:'root',
     password:'7Fb!Ve35',
     database: 'M4'
 });

@@ -18,7 +18,7 @@ Remove preexisting markers from google map
 
 Fix Add a Pet Modal --DONE
 
-Fix Post MOdal
+Fix Post MOdal --DONE
 
 Fix Pet Owners loading infinitely with no search term
 
@@ -28,7 +28,7 @@ Fix styling filter page --DONE
 
 fix navbar too big on mobile
 
-fix business info in about me container
+fix business info in about me container --DONEM
 
 fix edit address modal --DONE
 
@@ -39,3 +39,13 @@ fix profile styling on self view?
 fix dropdown menu styling
 
 make menus mobile friendly
+
+fix edit button
+
+fix 100vh on mobile behavior
+
+add frontend password/username pattern validation
+
+fix raect-select styling when multiple options selected
+
+make sure correct keyboard comes up when entering data (ie. numpad on mobile when entering zip)

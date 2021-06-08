@@ -4,8 +4,8 @@ let MySQLStore = require('express-mysql-session')(session);
 const connection = require('./db');
 
 var options = {
-    host:'csc648project-database.ceh0a99r5rym.us-west-2.rds.amazonaws.com',
-    user:'admin',
+    host:'127.0.0.1',
+    user:'root',
     password:'7Fb!Ve35',
     database: 'M4'
 };
