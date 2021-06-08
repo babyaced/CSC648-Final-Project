@@ -96,8 +96,8 @@ function BusinessSignUpPage2(props) {
     const customStyles = {
         control: (base, state) => ({
           ...base,
-          height: '54.5px',
-          'min-height': '54.5px',
+          height: '37px',
+          'min-height': '37px',
           'border-radius': '7.5px',
         }),
     };
@@ -148,9 +148,9 @@ function BusinessSignUpPage2(props) {
 
     return (
         <>
-        <form className={styles['signup-container']} onSubmit={signUpBusiness}>
+        <form className={`${styles['signup-container']} ${'small-container'}`}  onSubmit={signUpBusiness}>
             <div className={styles['signup-container-header']}>
-                Business Details
+                <h2>Business Details</h2>
             </div>
             <div className={styles['signup-fields-container']}>
                     <div className={styles['name-input-container']}>

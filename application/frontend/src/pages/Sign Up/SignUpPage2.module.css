@@ -1,23 +1,24 @@
 .signup-container {
-    margin: 200px auto;
-    border-radius: 7.5px;
-    width: 50%;
     box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    margin: 5rem auto auto auto;
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
     align-items: center;
 }
 
 .signup-container-header{
-    padding-top: 20px;
-    font-size: var(--h1);
-    font-family: var(--ff-primary);
+    background-color: var(--accent-color-2);
     text-align: center;
-    font-weight: 600;
+    color: var(--reversed-txt-clr);
+    line-height: 4rem;
+    border-radius: 7.5px 7.5px 0 0;
+    box-shadow: var(--elevation-1);
+    width: 100%;
 }
 
 .signup-fields-container{
-    padding-top: 50px;
+    padding: 2rem 2rem .1rem 2rem;
     display: grid;
     grid-template-columns: 2;
     grid-template-areas: 'name    phone-num'
@@ -25,7 +26,7 @@
     grid-template-rows: 2;
     gap: 50px;
     justify-content: center;
-    font-family: var(--ff-primary);
+    font-family: var(--ff-secondary);
 }
 
 .name-input-container{
@@ -47,24 +48,25 @@
 
 
 .name-input-label, .phone-number-input-label, .address-input-label, .types-input-label {
-    font-family: var(--ff-primary);
-    font-size:var(--h3);
     display: block;
 }
 
 
 .name-input-container input,
 .phone-number-input-container input,
-.address-input-container input
+.address-input-container input,
+.types-input-container input
 {
-    padding: 15px;
-    display: inline-block;
-    border: 1px solid var(--inactive-txt-clr);
+    width: 100%;
+    font-size: var(--base-size);
+    padding: 0.5rem 1rem;
     border-radius: 7.5px;
+    border: 1px solid var(--inactive-txt-clr);
 }
 
 .checkbox-container{
     padding: 25px 0 15px 0;
+    text-align: center;
 }
 
 .btn-container {
@@ -88,7 +90,7 @@
     border-radius: 7.5px;
     
     cursor: pointer;
-    transition: .15s ease-in-out;
+    transition: .25s ease-in-out;
 }
 
 .submit-btn:hover{
@@ -117,6 +119,25 @@
 
 .combobox-list li{
     cursor:pointer;
-    padding:5px;
+    padding: 5px;
     border-bottom: 1px solid rgba(0,0,0,0.10);
+}
+
+@media (max-width:450px){
+    .signup-fields-container{
+        grid-template-columns: 1fr;
+        grid-template-areas: 'name' 
+                             'phone-num'
+                             'address' 
+                             'animals'; 
+    }
+
+    .checkbox-container:first-child span{
+        flex-basis: 100%;
+    }
+    
+    .checkbox-container:last-child span{
+        flex-basis: 100%;
+    }
+    
 }

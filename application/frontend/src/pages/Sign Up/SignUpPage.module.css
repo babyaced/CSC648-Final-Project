@@ -35,6 +35,10 @@
 
 .signup-fields-container input{
     width: 100%;
+    font-size: var(--base-size);
+    padding: 0.5rem 1rem;
+    border-radius: 7.5px;
+    border: 1px solid var(--inactive-txt-clr);
 }
 
 .signup-error-container{

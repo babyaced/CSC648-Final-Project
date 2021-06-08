@@ -36,6 +36,10 @@ small, .text-small {
     font-size: var(--text-sm);
 }
 
+body{
+    font-family: var(--ff-secondary);
+}
+
 @media (max-width: 768px){
     :root{
         --base-size: .8em;
