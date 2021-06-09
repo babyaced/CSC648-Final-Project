@@ -25,6 +25,10 @@
     flex-basis: 50%;
     box-shadow: var(--elevation-1);
     display: grid;
+    grid-template-areas: 'post-detail'
+                         'post-body'
+                         'post-comments'
+                         'post-leave-comment';
     grid-template-rows: repeat(3, auto) 40px;
     height: 100%;
     align-content: flex-start;
@@ -33,13 +37,13 @@
 /*Post Detail*/
 
 .post-detail{
+    grid-area: post-detail;
     margin-left: 1rem;
     display: grid;
     grid-template-rows: repeat(2, 22.5px);
     grid-template-columns: 45px auto;
     grid-template-areas: "post-detail-pic  post-detail-name     "
                          "post-detail-pic  post-detail-timestamp";
-    flex-basis: 100%;
 }
 
 /* Profile Pic */
@@ -68,25 +72,27 @@
 .post-body{
     margin:0.5rem 1rem;
     font-family: var(--ff-secondary);
-    flex-basis: 100%;
+    grid-area: post-body;
 }
 
 
 /* Comments  */
 
 .post-comments{
-    flex-basis: 100%;
+    grid-area: post-comments;
     padding-left:0;
     list-style: none;
     overflow: auto;
 }
 
 .post-leave-comment{
+    grid-area: post-leave-comment;
     display: flex;
     position: absolute;
-    bottom: .25rem;
+    bottom: .5rem;
     width: 50%;
     height: 40px;
+    
 }
 
 .post-leave-comment input{
