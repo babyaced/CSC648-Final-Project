@@ -6,3 +6,9 @@
     box-shadow: var(--elevation-1);
 }
 
+@media (max-width: 450px){
+    .navbar{
+        justify-content: space-between;
+    }
+}
+

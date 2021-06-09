@@ -149,7 +149,7 @@ select {
 
 @media (max-width: 450px){
   .searchbar{
-    visibility: hidden;
+    display: none;
   }
 
   .searchbar-mobile{

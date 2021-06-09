@@ -139,6 +139,11 @@
 
 @media (max-width: 450px){
 
+    .navbar-right-login,
+    .navbar-right{
+        flex-basis: 50%;
+    }
+
     .search-icon{
         margin-right: 1rem;
     }
