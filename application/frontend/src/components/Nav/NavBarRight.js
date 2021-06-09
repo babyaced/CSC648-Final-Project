@@ -57,18 +57,9 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
 
   }
 
-  function accountMenuToggle(){
-    if(accountMenuDisplay =={display:'block'}){
-      setAccountMenuDisplay({display: 'none'});
-    }
-    else{
-      setAccountMenuDisplay({display: 'block'});
-    }
-    
-  }
 
   let domNode = useClickOutside(()=>{
-    setAccountMenuDisplay({display: 'none'})
+    setMenuDisplay(false)
   })
 
   let hamburgerMenu = false
@@ -81,6 +72,10 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
     closeMobileSearchBar()
   }
 
+  const [menuDisplay, setMenuDisplay] = useState(false)
+  let menuClassname
+  menuDisplay ? menuClassname = 'menuVisible' : menuClassname = 'menuHidden'
+
   return (
         <>
           {!appUser && 
@@ -91,24 +86,22 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
           {appUser &&
             <span className={styles['navbar-right']}>
               {windowSize.width <= 450 && <img className={styles['search-icon']} src={SearchMobile} onClick={displayMobileSearchBar}/> } 
-              {windowSize.width <= 1170 && <img className={styles['menu-icon']} src={Menu} onClick={accountMenuToggle}/>}
-              {windowSize.width <= 1470 && windowSize.width > 1170 &&
+              {windowSize.width <= 1470 &&
                 <NavLink to="/Messages" className={styles["messages-menu-icon"]}>
                   <img src={Messages}/>
                 </NavLink>
               }
               {windowSize.width > 1470 &&  <NavLink to="/Messages" className={styles["messages-menu"]}>Messages</NavLink>}
               <span ref={domNode} className="account-menu-dropdown">
-                {windowSize.width <= 1470 && windowSize.width > 1170 && 
-                  <img className={styles["account-menu-icon"]} src={Account} onClick={accountMenuToggle}/>
+                {windowSize.width <= 1470 && 
+                  <img className={styles["account-menu-icon"]} src={Account} onClick={() => setMenuDisplay(!menuDisplay)}/>
                 }
                 {windowSize.width > 1470 &&
-                  <button className={styles["account-menu-dropdown-button"]} onClick={accountMenuToggle}>Account<img className={styles["account-menu-dropdown-arrow"]} src={DropdownArrow}/></button>
+                  <button className={styles["account-menu-dropdown-button"]} onClick={() => setMenuDisplay(!menuDisplay)}>Account<img className={styles["account-menu-dropdown-arrow"]} src={DropdownArrow}/></button>
                 }
-                <ul  className={styles["account-menu-dropdown-content"]} style={ accountMenuDisplay}>
+                <ul className={`${styles['menuHidden']} ${styles[menuClassname]}` }>
                   <li><NavLink className={styles["account-menu-dropdown-link"]} to={`/Profile/${appUser.profileID}`}>My Profile</NavLink></li>
                   <li><NavLink className={styles["account-menu-dropdown-link"]} to="/MyPets">My Pets</NavLink></li>
-                  {windowSize.width <= 1170 && <li><NavLink className={styles["account-menu-dropdown-link"]} to="/Messages" >Messages</NavLink></li>}
                   <li><NavLink className={styles["account-menu-dropdown-link"]} to="/" onClick={logoutHandler}>Logout</NavLink></li>
                 </ul>
               </span>

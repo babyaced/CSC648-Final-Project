@@ -143,3 +143,23 @@
         margin-right: 1rem;
     }
 }
+
+.menuHidden{
+    opacity: 0;
+    background-color: white;
+    position: absolute;
+    top: 75px;
+    right: 0px;
+    min-height: 0;
+    z-index: 3;
+    transition: all .25s cubic-bezier(.5,0,.5,1);
+    box-shadow: var(--elevation-3);
+    list-style: none;
+    border-radius: 0 0 7.5px 7.5px;
+}
+
+.menuVisible{
+    transform: translateY(10px);
+    opacity: 1;
+    min-height: 50px;
+}
