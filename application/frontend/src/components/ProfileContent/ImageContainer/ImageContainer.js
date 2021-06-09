@@ -63,7 +63,7 @@ function ImageContainer({previews, profile, title, selfView}) {
                                 displayPostModal = (
                                     <div onClick={ () => history.push("/Profile/" + preview.profile_id)} key={preview.profile_id}>
                                             <img src={preview.profile_pic_link} alt="No Image Found"/>
-                                            {/* <div className={styles.ImageStackText} >{previews[index].display_name}</div> */}
+                                            <div className={styles.ImageStackText} >{previews[index].display_name}</div>
                                     </div>
                                 )
                             return displayPostModal
