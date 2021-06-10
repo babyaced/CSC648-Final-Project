@@ -75,7 +75,7 @@ function SignUpPage() {
                     console.log(error);
                 }
                 else if (error.response.data === "password requirements"){
-                    setError("Your Password Must Have: 8-50 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character");
+                    setError("Your Password Must Have at least 8 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character");
                     console.log(error);
                 }
                 console.log(error);
@@ -153,6 +153,7 @@ function SignUpPage() {
                             required
                         />
                     </div>
+                    
 
                     <div className={styles['confirm-password-input-container']}>
                         <label className={styles['repeat-password-input-label']} for='psw-repeat'>Confirm Password</label>
@@ -164,6 +165,13 @@ function SignUpPage() {
                             required
                         />
                     </div>
+                    <ul className={styles['password-requirements-list']}>
+                        <li>At least 8 characters</li>
+                        <li>Contains a capital letter</li>
+                        <li>Contains a number</li>
+                        <li>Contains a special character</li>
+                    </ul>
+                    <span>Password Matches</span>
                     <div className={styles['checkbox-container']}>
                         <span>By creating an account you agree to our:</span>
                         <span>                        
@@ -178,6 +186,7 @@ function SignUpPage() {
                             />
                         </span>
                     </div>
+
                 </div>
 
                 <button className={styles['submit-btn']} type='submit'>Sign Up</button>

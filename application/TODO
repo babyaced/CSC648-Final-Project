@@ -38,7 +38,7 @@ fix profile styling on self view?
 
 fix dropdown menu styling
 
-make menus mobile friendly
+make menus mobile friendly --DONE
 
 fix edit button
 
@@ -49,3 +49,5 @@ add frontend password/username pattern validation
 fix raect-select styling when multiple options selected
 
 make sure correct keyboard comes up when entering data (ie. numpad on mobile when entering zip)
+
+implement remember me functionality

@@ -67,7 +67,7 @@
 }
 
 .signup-button:hover{
-    opacity: .85;
+    background-color: var(--color-primary-300);
 }
 
 @media (max-width: 1170px){

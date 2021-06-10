@@ -33,7 +33,7 @@
 .sent-messages-container {
   box-shadow: var(--elevation-1);
   width: 100%;
-  height: calc(100vh - 200px);
+  height: 60vh;
   padding: 15px;
   border-radius: 7.5px 0 7.5px 7.5px;
   display: flex;
@@ -92,5 +92,13 @@
 }
 
 @media (max-width: 470px){
-  
+    .new-message-button{
+      font-size: var(--h5);
+    }
+
+
+    .new-message-button img{
+        margin-left: 1rem;
+        width: 20px;
+    }
 }

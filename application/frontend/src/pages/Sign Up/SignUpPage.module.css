@@ -20,25 +20,32 @@
 
 .signup-fields-container{
     padding: 2rem 2rem .1rem 2rem;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-areas: 'fname-input-container    lname-input-container'
-                         'email-input-container    username-input-container'
-                         'password-input-container confirm-password-input-container'
-                         'checkbox-container       checkbox-container'
-                         'submit-btn submit-btn'; 
-    grid-template-rows: repeat(3,1fr) .1fr 1fr;
-    gap: 2rem;
-    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
     font-family: var(--ff-primary);
+    justify-content: center;
+}
+
+.signup-fields-container label{
+    display: block;
+}
+
+.signup-fields-container > div,
+.signup-fields-container > ul,
+.signup-fields-container > span{
+    flex-basis: 50%;
+    border-radius: 7.5px;
+    margin-bottom: 1rem;
 }
 
 .signup-fields-container input{
-    width: 100%;
-    font-size: var(--base-size);
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0 0.25rem 0.25rem;
     border-radius: 7.5px;
     border: 1px solid var(--inactive-txt-clr);
+}
+
+.password-requirements-list{
+    margin-top: 0;
 }
 
 .signup-error-container{
@@ -58,11 +65,11 @@
     text-align: center;
     color: var(--reversed-txt-clr);
     font-family: var(--ff-primary);
-    font-size: var(--h5);
+    font-size: var(--base-size);
 }
 
 .checkbox-container{
-    grid-area: checkbox-container;
+    margin-top: 1rem;
     display: flex;
     flex-flow: row wrap;
     text-align: center;
@@ -71,8 +78,8 @@
 
 .checkbox-container:first-child span,
 .checkbox-container:last-child span{
-    line-height: var(--h5);
-    font-size: var(--h5);
+    line-height: var(--base-size);
+    font-size: var(--base-size);
     flex-basis: 100%;
     font-family: var(--ff-secondary);
 }
@@ -80,6 +87,12 @@
 .policy-button{
     text-decoration: underline;
     cursor: pointer;
+    transition: .15s ease-in-out;
+}
+
+.terms-button:hover,
+.policy-button:hover{
+    color: var(--color-primary-200);
 }
 
 .submit-btn,
@@ -108,7 +121,12 @@
 
 .checkbox-container input{
     width: auto;
+}
 
+.password-requirements-list{
+    margin-left: 0;
+    padding-left: 1rem;
+    font-family: var(--ff-secondary);
 }
 
 @media (max-width:450px){
