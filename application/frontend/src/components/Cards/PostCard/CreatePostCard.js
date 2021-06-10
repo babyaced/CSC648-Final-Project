@@ -69,6 +69,7 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
           height: '54.5px',
           'min-height': '54.5px',
           'border-radius': '7.5px',
+          overflowY: 'auto'
         }),
     };
     

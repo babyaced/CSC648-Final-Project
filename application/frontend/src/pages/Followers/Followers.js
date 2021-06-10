@@ -8,7 +8,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import styles from "./Followers.module.css";
 
 //Import Components Here
-import FollowerCard from "./FollowerCard.js"
+import FollowerCard from '../../components/Cards/FollowerCard/FollowerCard.js'
 import Tab from "../../components/UI/Tab/Tab.js"
 import { es } from "date-fns/locale";
 

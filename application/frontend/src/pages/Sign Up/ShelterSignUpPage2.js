@@ -111,6 +111,7 @@ function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
           height: '37px',
           'min-height': '37px',
           'border-radius': '7.5px',
+          width: '300px'
         }),
     };
     
