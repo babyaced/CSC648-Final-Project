@@ -105,8 +105,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
 
     let nameDisplay = null;
     let buttons = null;
-    let dropdownButtonStyle = null;
-    follow === true ? dropdownButtonStyle = styles.UnfollowButton : dropdownButtonStyle = styles.DropdownButton
     switch(profileType) {
         case 'Shelter' :
         case 'Business' :

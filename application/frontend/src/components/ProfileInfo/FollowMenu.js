@@ -23,7 +23,7 @@ function FollowMenu({followingProfileOwnerFlag, profile, onFollowHandler}){
     followingProfileOwnerFlag === true ? followButtonStyle = styles['unfollow-button'] : followButtonStyle = styles['follow-button'];
     return (
         <div className={styles['dropdown-menu-button']} style={{position: 'relative'}}>
-            <button className={followButtonStyle} onClick={() => onFollowHandler()} >
+            <button className={`${styles['follow-unfollow-button']} ${followButtonStyle}`} onClick={() => onFollowHandler()} >
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <span className={styles['follow-button-text']} >
                         {followingProfileOwnerFlag === true ? 'Unfollow' : 'Follow'}

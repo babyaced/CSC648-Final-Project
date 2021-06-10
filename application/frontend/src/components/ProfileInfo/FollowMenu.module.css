@@ -1,11 +1,6 @@
-.unfollow-button{
-    background-color: #ccc;
-    border: 2px solid transparent;
-    color: #545454;
-}
 
-.follow-button,
-.unfollow-button{
+
+.follow-unfollow-button{
     cursor: pointer;
     padding: 0.5rem 0 0.5rem 1rem;
     min-width: 110px;
@@ -15,17 +10,18 @@
     border-radius: 7.5px 0 0 7.5px;
 }
 
-.unfollow-button:hover + ul{
-    opacity:1;
-    visibility: visible;
-    transform: translateY(0px);
-}
-
 .follow-button{
     background-color: var(--reversed-txt-clr);
     border: solid var(--accent-color-2) 2px;
     color: var(--accent-color-2);
-    border-right: none;
+    transition: all .25s ease-in-out; 
+}
+
+.unfollow-button{
+    background-color: #ccc;
+    border: 2px solid transparent;
+    color: #545454;
+    transition: all .25s ease-in-out; 
 }
 
 .dropdown-menu-button{

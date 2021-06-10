@@ -61,14 +61,6 @@
     width: 100%;
 }
 
-div.button-container button:nth-child(n){
-    /* margin-left: 1rem; */
-}
-
-div.button-container button:first-child{
-    /* margin-left: 0; */
-}
-
 .Button {
     background-color: var(--primary-clr);
     color: var(--reversed-txt-clr);

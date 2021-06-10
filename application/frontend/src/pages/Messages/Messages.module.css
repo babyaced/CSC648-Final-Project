@@ -69,7 +69,7 @@
 }
 
 .new-message-button:hover{
-  opacity: .75;
+  background-color: var(--color-primary-100);
 }
 
 .new-message-button img{
