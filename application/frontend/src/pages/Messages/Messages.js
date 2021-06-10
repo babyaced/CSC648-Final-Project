@@ -141,7 +141,7 @@ function Messages() {
           ))}
         {selectedTab === 1 && sentMessages.length == 0 && (
           <div className={styles["messages-container-no-messages"]}>
-            You have no messages :(
+            You have no new messages :(
           </div>
         )}
         {selectedTab === 1 &&

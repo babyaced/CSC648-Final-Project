@@ -13,9 +13,9 @@ function Tab(props) {
 
     return (
         <div className={tabStyle} onClick={() => props.clicked(props.id)}>
-            <p className={textStyle}  >
+            <span className={textStyle}  >
                 {props.section + ' (' + props.length + ')'}
-            </p>
+            </span>
         </div>
     );
 }
