@@ -57,9 +57,7 @@
   font-weight: 600;
 }
 
-
-
-.sendAMessage-recipient {
+.sendAMessage-recipient-dropdown {
   margin: 0.5rem 2.5%;
   font-family: var(--ff-secondary);
 }

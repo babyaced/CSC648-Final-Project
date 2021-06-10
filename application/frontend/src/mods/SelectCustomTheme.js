@@ -5,8 +5,8 @@ function SelectCustomTheme(theme) {
         ...theme,
         colors: {
             ...theme.colors,
-            primary25: '#B3B3B3',
-            primary: '#1CB48F',
+            primary25: '#24949a',
+            primary: '#24949a',
         }
     }
 }
