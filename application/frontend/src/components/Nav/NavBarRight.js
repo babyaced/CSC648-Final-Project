@@ -19,27 +19,8 @@ import useWindowSize from '../Hooks/useWindowSize'
 import styles from './NavBarRight.module.css'
 
 //used to detect if there was a click outside the account menu to close it
-let useClickOutside = (handler) =>{
-  let domNode = useRef();
+import UseClickOutside from '../../utils/UseClickOutside.js'
 
-  useEffect(() =>{
-    let maybeHandler = (event)=>{
-      if(domNode){
-        if(domNode.current && !domNode.current.contains(event.target)){
-          handler();
-        }
-      }
-    }
-  
-    document.addEventListener("mousedown", maybeHandler);
-  
-    return () => {
-      document.removeEventListener("mousedown", maybeHandler);
-    }
-  })
-
-  return domNode
-}
 
 function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMobileSearchBar}) {
   const history = useHistory();
@@ -58,7 +39,7 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
   }
 
 
-  let domNode = useClickOutside(()=>{
+  let domNode = UseClickOutside(()=>{
     setMenuDisplay(false)
   })
 
@@ -74,7 +55,7 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
 
   const [menuDisplay, setMenuDisplay] = useState(false)
   let menuClassname
-  menuDisplay ? menuClassname = 'menuVisible' : menuClassname = 'menuHidden'
+  menuDisplay ? menuClassname = 'menuVisible' : menuClassname = ''
 
   return (
         <>
@@ -99,7 +80,7 @@ function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMob
                 {windowSize.width > 1470 &&
                   <button className={styles["account-menu-dropdown-button"]} onClick={() => setMenuDisplay(!menuDisplay)}>Account<img className={styles["account-menu-dropdown-arrow"]} src={DropdownArrow}/></button>
                 }
-                <ul className={`${styles['menuHidden']} ${styles[menuClassname]}` }>
+                <ul className={`${styles['account-menu-dropdown']} ${styles[menuClassname]}` }>
                   <li><NavLink className={styles["account-menu-dropdown-link"]} to={`/Profile/${appUser.profileID}`}>My Profile</NavLink></li>
                   <li><NavLink className={styles["account-menu-dropdown-link"]} to="/MyPets">My Pets</NavLink></li>
                   <li><NavLink className={styles["account-menu-dropdown-link"]} to="/" onClick={logoutHandler}>Logout</NavLink></li>

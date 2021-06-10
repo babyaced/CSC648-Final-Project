@@ -137,7 +137,9 @@
     }
 }
 
-.menuHidden{
+/* Account Menu Dropdown */
+
+.account-menu-dropdown{
     opacity: 0;
     background-color: var(--accent-color-2);
     position: absolute;
