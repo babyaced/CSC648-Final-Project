@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 //Import UI Components
-import Tab from "./Tab";
+import Tab from "../../components/UI/Tab/Tab.js"
 import RecievedMessage from "../../components/Modals/RecievedMessage";
 import SentMessage from "../../components/Modals/SentMessage";
 import AddIcon from "../../images/Created Icons/AddWhite.svg";
