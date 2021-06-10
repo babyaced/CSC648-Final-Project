@@ -3,7 +3,7 @@
     flex-basis: 15%;
     display: flex;
     justify-content: flex-end;
-    margin-right: 1rem;
+    margin: 0 1rem;
 }
 
 .login-button{

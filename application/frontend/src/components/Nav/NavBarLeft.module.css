@@ -2,13 +2,13 @@
     flex-basis: 15%;
     display: flex;
     justify-content: center;
-    margin-left: 1rem;
+    margin: 0 1rem;
 }
 
 .logo-img,
 .logo-img-script{
     height: 50px;
-    transition: .15s ease-in-out;
+    transition: .25s ease-in-out;
 }
 
 .logo-img:hover{
