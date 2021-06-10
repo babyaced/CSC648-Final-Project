@@ -22,6 +22,7 @@
     color: var(--reversed-txt-clr);
     font-family: var(--ff-secondary);
     text-decoration: none;
+    transition: .15s ease-in-out;
 }
 
 .social-media-links{
@@ -73,6 +74,17 @@
     border: none;
     color: var(--reversed-txt-clr);
     background-color: transparent;
+    cursor: pointer;
+}
+
+.footer button,
+.footer a{
+    transition: .15s ease-in-out hover;
+}
+
+.footer button:hover,
+.footer a:hover{
+    opacity:.75;
 }
 
 @media (max-width: 768px){

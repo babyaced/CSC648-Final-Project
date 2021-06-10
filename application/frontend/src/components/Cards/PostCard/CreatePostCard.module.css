@@ -52,7 +52,7 @@
     font-size: var(--h5);
     font-weight: 400;
     cursor: pointer;
-    transition: 0.15s ease-in-out;
+    transition: 0.25s ease-in-out;
 }
 
 .attach-image-container {
@@ -108,7 +108,7 @@
 }
 
 .submit-post-button:hover {
-    opacity: 0.75;
+    background-color: var(--color-primary-300);
 }
 
 .follower-feed-new-post-tag-dropdown {
