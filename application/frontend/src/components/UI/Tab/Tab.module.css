@@ -1,12 +1,11 @@
 .Text {
     white-space: nowrap;
     color: var(--inactive-txt-clr);
-    margin-left: 20px;
-    transition: .15s ease-in-out;
+    transition: .25s ease-in-out;
 }
 
 .Text:hover{
-    color: black;
+    color: var(--primary-clr)
 }
 
 .Tab {
@@ -19,6 +18,10 @@
     font-family: var(--ff-primary);
     font-weight: 600;
     font-size: var(--h3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s ease-in-out;
 }
 
 

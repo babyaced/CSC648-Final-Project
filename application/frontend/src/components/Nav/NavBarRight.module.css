@@ -46,7 +46,7 @@
 
 .account-menu-dropdown{
     overflow: hidden;
-    transition: .15s ease-in-out;
+    transition: .25s ease-in-out;
 }
 .account-menu-dropdown-button{
     border: none;
@@ -56,7 +56,7 @@
     font-weight: 600;
     cursor:pointer;
     color: var(--reversed-txt-clr);
-    transition: .15s ease-in-out;
+    transition: .25s ease-in-out;
     display: flex;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .account-menu-dropdown-link{
-    padding: 1rem;
+    margin: 1rem;
     float:none;
     text-align: right;
     text-decoration: none;
@@ -74,6 +74,7 @@
     border: none;
     background: transparent;
     font-family: var(--ff-primary);
+    transition: .25s ease-in-out;
 }
 
 .account-menu-dropdown-link:hover{
