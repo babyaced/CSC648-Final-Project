@@ -154,8 +154,8 @@ function Messages() {
           className={styles["new-message-button"]}
           onClick={() => setSendMessageModalDisplay(true)}
         >
-          <img src={AddIcon} className={styles["new-message-icon"]} />
-          {/* <span className={styles['new-message-text']}>New Message</span> */}
+          <span className={styles['new-message-text']}>New Message</span>
+          <img src={AddIcon}/>
         </button>
       </>
     );
