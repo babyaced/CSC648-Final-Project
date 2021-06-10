@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './AboutMe.module.css'
 
-import WameedhJpg from '../../images/IMG_0109.JPG'
+import WameedhJpg from '../../assets/images/created/IMG_0109.JPG'
 
 
 

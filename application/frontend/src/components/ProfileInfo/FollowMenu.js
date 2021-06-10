@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 //Import Icons
-import arrow from '../../images/Arrow.png';
+import arrow from '../../assets/icons/created/Arrow.svg';
 
 import styles from './FollowMenu.module.css'
 

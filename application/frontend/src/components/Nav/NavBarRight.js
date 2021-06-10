@@ -4,11 +4,11 @@ import {useRef, useEffect, useState} from "react";
 import {NavLink, useHistory} from "react-router-dom";
 
 //Import Icons
-import DropdownArrow from '../../images/Created Icons/Arrow.svg';
-import Messages from '../../images/Created Icons/Messages.svg';
-import Account from '../../images/Created Icons/Account.svg';
-import Menu from '../../images/Created Icons/Menu.svg';
-import SearchMobile from '../../images/Created Icons/SearchMobile.svg'
+import DropdownArrow from '../../assets/icons/created/Arrow.svg';
+import Messages from '../../assets/icons/created/Messages.svg';
+import Account from '../../assets/icons/created/Account.svg';
+import Menu from '../../assets/icons/created/Menu.svg';
+import SearchMobile from '../../assets/icons/created/SearchMobile.svg'
 
 
 //Import UI Components

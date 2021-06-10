@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './AddPetCard.module.css'
 
-import AddIcon from '../../../images/Created Icons/Add.svg'
+import AddIcon from '../../../assets/icons/created/Add.svg'
 
 function AddPetCard({viewAdditionModal}){
     return (

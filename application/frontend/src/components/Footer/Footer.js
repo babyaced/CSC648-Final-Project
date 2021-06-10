@@ -5,10 +5,10 @@ import styles from "./Footer.module.css";
 import TermsAndConditions from '../../components/Modals/TermsAndConditions'
 import PrivacyPolicy from "../Modals/PrivacyPolicy";
 
-import FacebookIcon from '../../images/Third Party Icons/icons8-facebook.svg'
-import InstagramIcon from '../../images/Third Party Icons/icons8-instagram.svg'
-import TwitterIcon from '../../images/Third Party Icons/icons8-twitter.svg'
-import EmailIcon from '../../images/Created Icons/MessagesBlack.svg'
+import FacebookIcon from '../../assets/logos/thirdparty/icons8-facebook.svg'
+import InstagramIcon from '../../assets/logos/thirdparty/icons8-instagram.svg'
+import TwitterIcon from '../../assets/logos/thirdparty/icons8-twitter.svg'
+import EmailIcon from '../../assets/icons/created/MessagesBlack.svg'
 
 function Footer() {
   const [termsAndConditionsDisplay,setTermsAndConditionsDisplay]= useState(false);

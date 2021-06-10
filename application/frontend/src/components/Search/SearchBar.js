@@ -7,7 +7,7 @@ import {matchSorter} from 'match-sorter'
 import styles from './SearchBar.module.css'
 
 //Import Icons
-// import Search from  "../../images/Created\ Icons/Search.svg"
+// import Search from  "../../assets/icons/created/Search.svg"
 
 //Import Custom Hooks/ Functions
 import useWindowSize from '../Hooks/useWindowSize'

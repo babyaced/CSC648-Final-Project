@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 //css
-import arrow from '../../images/Arrow.png';
+import arrow from '../../assets/icons/created/Arrow.svg';
 import styles from './ProfileInfo.module.css';
 
 //component

@@ -27,7 +27,7 @@
 .DeleteIcon {
     position: absolute;
     transition: .5s ease;
-    background: url("../../images/Created\ Icons/Exit-Cancel.svg") 50% no-repeat;
+    background: url("../../assets/icons/created/Exit-Cancel.svg") 50% no-repeat;
     background-color: coral;
     left: 166px;
     top: 166px;

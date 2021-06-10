@@ -10,7 +10,7 @@ import {GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/a
 import styles from './MapSearch.module.css'
 
 //Import Images
-import DropdownIcon from '../../images/Created Icons/Dropdown.svg'
+import DropdownIcon from '../../assets/icons/created/Dropdown.svg'
 
 //Import UI Components
 import Spinner from '../../components/UI/Spinner/Spinner';

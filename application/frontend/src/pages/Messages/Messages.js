@@ -6,7 +6,7 @@ import axios from "axios";
 import Tab from "../../components/UI/Tab/Tab.js"
 import RecievedMessage from "../../components/Modals/RecievedMessage";
 import SentMessage from "../../components/Modals/SentMessage";
-import AddIcon from "../../images/Created Icons/AddWhite.svg";
+import AddIcon from "../../assets/icons/created/AddWhite.svg";
 import SendMessage from "../../components/Modals/SendMessage";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import MessageCard from "../../components/Cards/MessageCard/MessageCard"

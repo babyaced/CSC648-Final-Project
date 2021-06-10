@@ -6,8 +6,8 @@ import styles from './HeroContainer.module.css';
 import CallToActionButton from '../Buttons/CallToActionButton'
 
 //Import Images
-import DogOwnerImage from '../../images/Third Party Images/undraw_Modern_woman_lxh7.svg'
-import CatOwnerImage from '../../images/Third Party Images/undraw_chilling_8tii 1.svg'
+import DogOwnerImage from '../../assets/images/thirdparty/undraw_Modern_woman_lxh7.svg'
+import CatOwnerImage from '../../assets/images/thirdparty/undraw_chilling_8tii 1.svg'
 
 function HeroContainer() {
   const history = useHistory();

@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom'
 import styles from './PetCard.module.css'
 
 //Import Icons
-import DeleteIcon from  '../../../images/Created Icons/Exit-Cancel.svg'
+import DeleteIcon from  '../../../assets/icons/created/Exit-Cancel.svg'
 
 function MyPetCard({pet, viewDeletionModal}) {
     const history = useHistory();

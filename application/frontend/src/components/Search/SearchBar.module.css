@@ -11,7 +11,7 @@ select {
   font-size: var(--h3);
   padding-left:0.5rem;
   padding-right: 1rem;
-  background: url("../../images/Created\ Icons/Dropdown.svg") no-repeat right;
+  background: url("../../assets/icons/created/Dropdown.svg") no-repeat right;
   cursor: pointer;
   font-family: var(--ff-primary);
 
@@ -49,7 +49,7 @@ select {
   margin: 0 .5rem;
   border: none;
   padding: 0;
-  background: url("../../images/Created\ Icons/Search.svg") 50% no-repeat;
+  background: url("../../assets/icons/created/Search.svg") 50% no-repeat;
   transition: .15s ease-in-out;
 }
 

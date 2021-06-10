@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import styles from './AccountType.module.css';
 
 //Import Images
-import OwnerImage from '../../images/Third Party Images/undraw_good_doggy_4wfq.svg'
-import ShelterImage from '../../images/Third Party Images/undraw_pet_adoption_2qkw.svg'
-import BusinessImage from '../../images/Third Party Images/undraw_business_shop_qw5t.svg'
+import OwnerImage from '../../assets/images/thirdparty/undraw_good_doggy_4wfq.svg'
+import ShelterImage from '../../assets/images/thirdparty/undraw_pet_adoption_2qkw.svg'
+import BusinessImage from '../../assets/images/thirdparty/undraw_business_shop_qw5t.svg'
 
 function AccountTypePage() {
 

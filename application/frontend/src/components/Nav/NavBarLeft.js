@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import LogoScript from '../../images/Created Icons/Zooble_Logo_Horizontal_White_Text.svg';
-import Logo from '../../images/Created Icons/Zooble_Icon.png';
+import LogoScript from '../../assets/logos/created/Zooble_Logo_Horizontal_White_Text.svg';
+import Logo from '../../assets/logos/created/Zooble_Icon.png';
 
 import styles from './NavBarLeft.module.css'
 

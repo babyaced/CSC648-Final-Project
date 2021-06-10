@@ -45,7 +45,7 @@
 .post-comment-like{
     grid-area: like;
     border-style: none;
-    background: url('../../../images/Third\ Party\ Icons/icons8-thumbs-up-48.png') no-repeat;
+    background: url('../../../assets/icons/thirdparty/icons8-thumbs-up-48.png') no-repeat;
     background-size: 24px 24px;
     transition: .15s ease-in-out;
     cursor: pointer;

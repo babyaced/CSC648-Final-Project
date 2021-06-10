@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './AboutMe.module.css'
 
-import DanielJpg from '../../images/Daniel.jpg'
+import DanielJpg from '../../assets/images/created/Daniel.jpg'
 
 
 
