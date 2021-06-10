@@ -6,11 +6,13 @@
 
 .follow-button,
 .unfollow-button{
-    border-radius:7.5px;
     cursor: pointer;
     padding: 0.5rem 0 0.5rem 1rem;
-    min-width: 125px;
+    min-width: 110px;
     margin-left: 0;
+    font-size: var(--h5);
+    border-right: none;
+    border-radius: 7.5px 0 0 7.5px;
 }
 
 .unfollow-button:hover + ul{
@@ -23,15 +25,30 @@
     background-color: var(--reversed-txt-clr);
     border: solid var(--accent-color-2) 2px;
     color: var(--accent-color-2);
+    border-right: none;
 }
+
+.dropdown-menu-button{
+    display: flex;
+}
+
+.more-options-button{
+    border: none;
+    width: 40px;
+    height: 100%;
+    background-color: var(--accent-color-2);;
+    border: solid var(--accent-color-2) 2px;
+    border-left: none;
+    border-radius: 0 7.5px 7.5px 0;
+    cursor: pointer;
+}
+
+/* Follow Menu Dropdown */
 
 .dropdown-items{
     opacity: 0;
-    width: 200px;
-    padding-left: 20px;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.4s ease;
+    transform: translate(-110px,-10px);
+    transition: all 0.25s cubic-bezier(.5,0,.5,1);
     margin-top: 0px;
     list-style: none;
     border-radius: 7.5px;
@@ -39,12 +56,14 @@
     background-color: white;
     box-shadow: var(--elevation-1);
     z-index: 1;
+    padding: 0.5rem 0 0.5rem 1rem;
+    min-width: 150px;
+    font-family: var(--ff-secondary);
 }
 
 .menuVisible{
-    transform: translateY(0px);
+    transform: translate(-110px,0px);
     opacity:1;
-    visibility: visible;
 }
 
 /* .dropdown-items:hover{

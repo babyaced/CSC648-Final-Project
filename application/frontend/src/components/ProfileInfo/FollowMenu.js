@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {Link} from 'react-router-dom'
 
 //Import Icons
-import arrow from '../../assets/icons/created/Arrow.svg';
+import arrow from '../../assets/icons/created/ArrowWhite.svg';
 
 import styles from './FollowMenu.module.css'
 
@@ -22,7 +22,7 @@ function FollowMenu({followingProfileOwnerFlag, profile, onFollowHandler}){
     let followButtonStyle = null;
     followingProfileOwnerFlag === true ? followButtonStyle = styles['unfollow-button'] : followButtonStyle = styles['follow-button'];
     return (
-        <div style={{position: 'relative'}}>
+        <div className={styles['dropdown-menu-button']} style={{position: 'relative'}}>
             <button className={followButtonStyle} onClick={() => onFollowHandler()} >
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <span className={styles['follow-button-text']} >
@@ -31,7 +31,7 @@ function FollowMenu({followingProfileOwnerFlag, profile, onFollowHandler}){
                 </div>
             </button>
             <span ref={domNode}>
-                <button className={styles['more-options']} onClick={()=> setMenuDisplay(!menuDisplay)}>
+                <button className={styles['more-options-button']} onClick={()=> setMenuDisplay(!menuDisplay)}>
                     <img src={arrow}/>
                 </button>
                 <ul  className={`${styles['dropdown-items']} ${styles[menuClassname]}`}>

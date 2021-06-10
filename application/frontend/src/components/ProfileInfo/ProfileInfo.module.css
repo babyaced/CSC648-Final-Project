@@ -72,7 +72,7 @@ div.button-container button:first-child{
 .Button {
     background-color: var(--primary-clr);
     color: var(--reversed-txt-clr);
-    border-radius:7px;
+    border-radius:7.5px;
     box-sizing: border-box;
     border: none;
     /* box-shadow: var(--elevation-1); */
@@ -82,6 +82,8 @@ div.button-container button:first-child{
     cursor: pointer;
     transition: .15s ease-in-out;
     padding: 0.5rem 1rem;
+    min-width: 150px;
+    font-size: var(--h5);
 }
 
 .Button:hover{
