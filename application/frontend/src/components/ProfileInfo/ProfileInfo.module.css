@@ -87,7 +87,7 @@ div.button-container button:first-child{
 }
 
 .Button:hover{
-    opacity: .75;
+    background-color: var(--color-primary-300);
 }
 
 .EditButton {

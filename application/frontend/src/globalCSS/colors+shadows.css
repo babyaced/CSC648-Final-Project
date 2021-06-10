@@ -1,5 +1,32 @@
 :root{
 
+    /*Colors*/
+    --color-primary-100: #29A7AE;
+    --color-primary-200: #24949A;
+    --color-primary-300: #1F7F84;
+
+    --color-secondary-100: #18225D;
+    --color-secondary-200: #131B49;
+    --color-secondary-300: #0E1335;
+
+    --color-tertiary-100: #FFF9F5;
+    --color-tertiary-200: #FEEBDE;
+    --color-tertiary-300: #FDDBC4;
+
+    /*Text Colors*/
+    --color-text: #000000;
+    --color-text-inverted: #FFFFFF;
+
+    /*Neutrals*/
+    --color-neutral-100: #E8EDED;
+    --color-neutral-200: #CCD6D6;
+    --color-neutral-300: #B0BFBF;
+
+    --color-neutral-400: #93A8A9;
+    --color-neutral-500: #779192;
+    --color-neutral-600: #5F7677;
+
+
     /* UI Colors*/
     --primary-clr: #24949a;
     --inset-txt-field-clr: #FCF8F8;

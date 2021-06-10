@@ -31,9 +31,7 @@ function FollowMenu({followingProfileOwnerFlag, profile, onFollowHandler}){
                 </div>
             </button>
             <span ref={domNode}>
-                <button className={styles['more-options-button']} onClick={()=> setMenuDisplay(!menuDisplay)}>
-                    <img src={arrow}/>
-                </button>
+                <button className={styles['more-options-button']} onClick={()=> setMenuDisplay(!menuDisplay)}/>
                 <ul  className={`${styles['dropdown-items']} ${styles[menuClassname]}`}>
                     <li><Link className={styles['dropdown-item']} to={`/Followers/${profile.profile_id}`}>Followers</Link></li>
                 </ul>
