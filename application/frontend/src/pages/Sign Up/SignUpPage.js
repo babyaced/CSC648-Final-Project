@@ -179,7 +179,6 @@ function SignUpPage() {
         else{
             passwordMatchStyle = "differing"
         }
-        
     }
 
     return (
@@ -199,6 +198,7 @@ function SignUpPage() {
                             onChange={e => setFirstName(e.target.value)}
                             // pattern="[A-Za-z]"
                             maxlength="40"
+                            className={styles.valid}
                         /> : 
                         <input
                             type='text'
@@ -221,6 +221,7 @@ function SignUpPage() {
                             onChange={e => setLastName(e.target.value)}
                             // pattern="[a-zA-Z]"
                             maxlength="40"
+                            className={styles.valid}
                         /> :
                         <input
                             type='text'
@@ -243,6 +244,7 @@ function SignUpPage() {
                             name='email'
                             onChange={e => setEmail(e.target.value)}
                             maxlength="320"
+                            className={styles.valid}
                         /> :
                         <input
                             type='email'
@@ -264,6 +266,7 @@ function SignUpPage() {
                             placeholder='Enter username'
                             name='uname'
                             onChange={e => setUname(e.target.value)}
+                            className={styles.valid}
                         /> :
                         <input
                             type='username'
@@ -284,6 +287,7 @@ function SignUpPage() {
                             placeholder='Enter password'
                             name='psw'
                             onChange={e => setPassword(e.target.value)}
+                            className={styles.valid}
                         /> :
                         <input
                             type='password'
@@ -304,6 +308,7 @@ function SignUpPage() {
                             name='psw-repeat'
                             onChange={e => setRedonePassword(e.target.value)}
                             onBlur={() => setPasswordChecking(true)}
+                            className={styles.valid}
                         /> :
                         <input
                             type='password'

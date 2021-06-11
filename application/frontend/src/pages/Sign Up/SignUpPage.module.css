@@ -48,7 +48,7 @@
 .signup-fields-container input{
     padding: 0.5rem 0 0.5rem 0.25rem;
     border-radius: 7.5px;
-    border: 1px solid var(--inactive-txt-clr);
+    
     width: 100%;
 }
 
@@ -139,8 +139,17 @@
     padding-left: .5rem;
 }
 
+.valid{
+    border: 1px solid var(--inactive-txt-clr);
+}
+
 .invalid{
-    background-color: red;
+    padding-right: 20px;
+    border: 1px solid red;
+    background-image: url(../../assets/icons/thirdparty/icons8-error-24.png);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 18px;
 }
 
 @media (max-width:450px){
