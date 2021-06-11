@@ -33,13 +33,16 @@
 .signup-fields-container > div,
 .signup-fields-container > ul,
 .signup-fields-container > span{
-    flex-basis: 49%;
+    flex-basis: 48%;
     border-radius: 7.5px;
     margin-bottom: 1rem;
 }
 
-.signup-fields-container:nth-child(odd){
-    margin-right: 2%;
+.fname-input-container,
+.email-input-container,
+.password-input-container,
+.password-requirements-list{
+    margin-right: 4%;
 }
 
 .signup-fields-container input{
@@ -47,10 +50,6 @@
     border-radius: 7.5px;
     border: 1px solid var(--inactive-txt-clr);
     width: 100%;
-}
-
-.password-requirements-list{
-    margin-top: 0;
 }
 
 .signup-error-container{
@@ -129,6 +128,7 @@
 }
 
 .password-requirements-list{
+    margin-top: 0.25rem;
     margin-left: 0;
     padding-left: 1rem;
     font-family: var(--ff-secondary);
@@ -144,16 +144,21 @@
 }
 
 @media (max-width:450px){
-    .signup-fields-container{
-        grid-template-columns: 1fr;
-        grid-template-areas: 'fname-input-container' 
-                             'lname-input-container'
-                             'email-input-container' 
-                             'username-input-container'
-                             'password-input-container' 
-                             'confirm-password-input-container'
-                             'checkbox-container'; 
+    .signup-fields-container > div,
+    .signup-fields-container > ul,
+    .signup-fields-container > span{
+        flex-basis: 100%;
+        border-radius: 7.5px;
+        margin-bottom: 1rem;
     }
+    
+    .fname-input-container,
+    .email-input-container,
+    .password-input-container,
+    .password-requirements-list{
+        margin-right: 0;
+    }
+
 
     .checkbox-container:first-child span{
         flex-basis: 100%;
@@ -178,7 +183,7 @@
 
 .differing:after{
     margin-top: 0;
-    content: 'Password does not match';
+    content: 'Passwords do not match';
     color: red;
     font-size: var(--text-sm);
     font-family: var(--ff-secondary);
