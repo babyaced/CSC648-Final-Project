@@ -15,7 +15,7 @@ import PasswordValidation from '../../utils/signupValidation/PasswordValidation'
 import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 
-function SignUpPage() {
+function SignUpPage({type}) {
 
     //form states
     const [email, setEmail] = useState('')
@@ -72,6 +72,11 @@ function SignUpPage() {
 
     const history = useHistory();
 
+    function onSubmitFunction(event){
+        //Conditionals for personal vs business/shelter sign up
+        type == 'personal' ? signUp(event) : onSubmitFunction = nextSignUpStep(event);
+    }
+
     function signUp(event) {
         event.preventDefault();
 
@@ -109,6 +114,42 @@ function SignUpPage() {
         else{
             console.log('invalid form')
         }
+    }
+
+    function nextSignUpStep(event) {
+        event.preventDefault();
+
+        let pathname
+        type = 'business' ? pathname = '/business-signup2' : pathname = '/shelter-signup2'
+        const signUpPage2 = {
+            pathname: pathname,
+            state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword}
+        }
+
+        const valid =validateForm();
+        console.log('valid form: ', valid)
+
+        if(valid){
+            Axios.post('/api/sign-up/validate',{
+                email: email,
+                username: uname,
+                password: password,
+                redonePassword: redonePassword
+            },{withCredentials: true})
+            .then(response =>{
+                history.push(signUpPage2);
+            }).catch(error =>{
+                if (error.response.data === "exists"){
+                    setError("An Account using that Email or Username already exists");
+                }
+                else if (error.response.data === "passwords not matching"){
+                    setError("The Passwords Entered Do Not Match");
+                }
+                else if (error.response.data === "password requirements"){
+                    setError("Your Password Must Have: 8-50 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character");
+                }
+            })
+        }   
     }
 
     function validateForm(){
@@ -178,9 +219,11 @@ function SignUpPage() {
         }
     }
 
+
+
     return (
         <>
-            <form className={`${styles['signup-container']} ${'small-container'}`} onSubmit={signUp}>
+            <form className={`${styles['signup-container']} ${'small-container'}`} onSubmit={(e) => onSubmitFunction(e)}>
                 <div className={styles['signup-header']}>
                     <h1>Sign Up</h1>
                 </div>
@@ -344,14 +387,18 @@ function SignUpPage() {
                         </span>
                         <span className={styles['termsError']}>{termsError}</span>
                     </div>
-
                 </div>
-
-                <button className={styles['submit-btn']} type='submit'>Sign Up</button>
+                {type == 'personal' && <button className={styles['submit-btn']} type='submit'>Sign Up</button>}
+                {type == 'business' && <button className={styles['next-btn']} type='submit'>Next: Business Info</button>}
+                {type == 'shelter' && <button className={styles['next-btn']} type='submit'>Next: Shelter Info</button>}
             </form>
             {/* Modals */}
-            <TermsAndConditions display={termsAndConditionsDisplay} onClose={closeTermsAndConditionsModal} />
-            <PrivacyPolicy display={privacyPolicyDisplay} onClose={closePrivacyPolicyModal} />
+            {type == 'personal' && 
+                <>
+                    <TermsAndConditions display={termsAndConditionsDisplay} onClose={closeTermsAndConditionsModal} />
+                    <PrivacyPolicy display={privacyPolicyDisplay} onClose={closePrivacyPolicyModal} />
+                </>
+            }
         </>
     );
 }

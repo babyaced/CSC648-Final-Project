@@ -100,15 +100,14 @@
 }
 
 .submit-btn,
-.go-to-page2-btn{
+.next-btn{
     width: 250px;
     max-width: 60%;
     text-align: center;
     padding: 0.5rem 1rem;
     color: white;
     background-color: var(--primary-clr);
-    font-size: var(--h4);
-    font-weight: 600;
+
     font-family: var(--ff-primary);
     box-shadow: var(--elevation-1);
     border: none;
@@ -117,6 +116,14 @@
     transition: .15s ease-in-out;
     grid-area: submit-btn;
     margin-bottom: 2rem;
+}
+
+.submit-btn{
+    font-size: var(--h4);
+}
+
+.next-btn{
+    font-size: var(--h5);
 }
 
 .submit-btn:hover{

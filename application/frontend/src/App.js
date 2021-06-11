@@ -90,7 +90,15 @@ const App = () => {
           <LoginPage appUser={appUser} updateLoginState={updateLoginState}/>
         </Route>
         <Route path="/account-type" exact component={AccountTypePage}/>
-        <Route path="/signup-page" exact component={SignUpPage}/>
+        <Route path="/signup-page/personal" exact>
+          <SignUpPage type="personal"/>
+        </Route>
+        <Route path="/signup-page/business" exact>
+          <SignUpPage type="business"/>
+        </Route>
+        <Route path="/signup-page/shelter" exact>
+          <SignUpPage type="shelter"/>
+        </Route>
         <Route path="/shelter-signup" exact component={ShelterSignUpPage}/>
         <Route path="/shelter-signup2" exact component={ShelterSignUpPage2}/>
         <Route path="/business-signup" exact component={BusinessSignUpPage}/>
