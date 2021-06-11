@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {useHistory} from 'react-router'
 import {useLocation} from "react-router-dom";
 import Axios from 'axios';
-import styles from './SignUpPage2.module.css';
+import styles from './SignUpPage.module.css';
 
 import BaseSelect from "react-select";
 import FixRequiredSelect from "../../mods/FixRequiredSelect";
@@ -19,17 +19,18 @@ import {
     ComboboxPopover,
     ComboboxList,
     ComboboxOption,
-  } from "@reach/combobox";
-  import "@reach/combobox";
+} from "@reach/combobox";
+import "@reach/combobox";
 
 import usePlacesAutocomplete,{
-getGeocode,
-getLatLng,
+    getGeocode,
+    getLatLng,
 } from "use-places-autocomplete";
 
 import BusinessNameValidation from '../../utils/signupValidation/BusinessNameValidation';
 import AddressValidation from '../../utils/signupValidation/AddressValidation';
 import PhoneNumberValidation from '../../utils/signupValidation/PhoneNumberValidation';
+import TermsValidation from '../../utils/signupValidation/TermsValidation';
 
 let typeOptions = []; //for storing business type options
 
@@ -42,19 +43,24 @@ const Select = props => (
     />
 );
 
-function BusinessSignUpPage2(props) {
+function SignUpPage2(props) {
+    const location = useLocation();
+    let state = props.location.state;
+    let type = props.location.type;
 
     const [typeOptions, setTypeOptions] = useState([]);
 
     useEffect(() => {  //run once when page loads/refresh
+        type == 'business' ? 
         Axios.get('/api/business-types')   //get business types from database
+        .then(response =>{
+            setTypeOptions(response.data);
+        }) :
+        Axios.get('/api/pet-types')   //get business types from database
         .then(response =>{
             setTypeOptions(response.data);
         })
     }, [])
-    
-    const location = useLocation();
-    let state = props.location.state;
     
     const [termsAndConditionsDisplay, setTermsAndConditionsDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
@@ -62,6 +68,7 @@ function BusinessSignUpPage2(props) {
     const [failedSubmit, setFailedSubmit] = useState(false)
 
     const [selectedBusinessType, setSelectedBusinessType] = useState();
+    const [selectedPetTypes, setSelectedPetTypes] = useState([]);
 
     const [businessName, setBusinessName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -71,10 +78,14 @@ function BusinessSignUpPage2(props) {
     const[acceptTerms, setAcceptTerms] = useState(false);
 
 
+
+
     //Error states for input fields
     const [businessNameError, setBusinessNameError] = useState('');
     const [phoneNumberError, setPhoneNumberError] = useState('');
     const [addressError, setAddressError] = useState('');
+    const [termsError, setTermsError] = useState('');
+
 
 
     function customTheme(theme) { //move this a separate file and import maybe?
@@ -135,12 +146,14 @@ function BusinessSignUpPage2(props) {
         let businessNameErr = BusinessNameValidation(businessName)
         let phoneNumberErr = PhoneNumberValidation(phoneNumber);
         let addressErr = AddressValidation(address);
+        let termsErr = TermsValidation(acceptTerms);
 
         setBusinessNameError(businessNameErr);
         setPhoneNumberError(phoneNumberErr);
         setAddressError(addressErr);
+        setTermsError(termsErr);
 
-        if(businessNameErr || phoneNumberErr || addressErr){
+        if(businessNameErr || phoneNumberErr || addressErr || termsErr){
             return false;
         }
 
@@ -154,6 +167,7 @@ function BusinessSignUpPage2(props) {
         const valid = validateForm()
 
         if(valid){
+            type == 'business' ? 
             Axios.post('/api/sign-up/business', { 
                 email: state.email,
                 firstName: state.firstName,
@@ -174,7 +188,31 @@ function BusinessSignUpPage2(props) {
     
             }).catch(error => {
                 console.log(error);
+            }) :
+            Axios.post('/api/sign-up/shelter', { 
+                email: state.email,
+                firstName: state.firstName,
+                lastName: state.lastName,
+                uname: state.username,
+                password: state.password,
+                redonePassword: state.redonePassword,
+                businessName: businessName,
+                phoneNumber: phoneNumber,
+                address: address,
+                latitude: latitude,
+                longitude: longitude,
+                petTypes: selectedPetTypes
+            },{withCredentials:true})
+            .then(response => {
+                if(response.data.affectedRows === 1){
+                    history.push("/SignUpSuccess");
+                }
+    
             })
+            .catch(error => {
+                console.log(error);
+            })
+
         }   
     }
 
@@ -182,8 +220,8 @@ function BusinessSignUpPage2(props) {
     return (
         <>
         <form className={`${styles['signup-container']} ${'small-container'}`}  onSubmit={signUpBusiness}>
-            <div className={styles['signup-container-header']}>
-                <h2>Business Details</h2>
+            <div className={styles['signup-header']}>
+                {type == 'business' ? <h2>Business Info</h2> :  <h2>Shelter Info</h2> }
             </div>
             <div className={styles['signup-fields-container']}>
                     <div className={styles['name-input-container']}>
@@ -287,37 +325,54 @@ function BusinessSignUpPage2(props) {
                         <span className={styles['termsError']}>{addressError}</span>
                     </div>
                 <div className={styles['types-input-container']}>
-                    <label className={styles['types-input-label']} for='business-categories'>Business Categories</label>
-                        <Select id="business-type" name="business_type" className={styles['Select']}
-                            onChange={setSelectedBusinessType}
-                            options={typeOptions}
-                            placeholder="Business Type"
-                            theme={customTheme}
-                            styles={customStyles}
-                            isSearchable
-                            // isMulti
-                            components={animatedComponents}
-                            // required
-                        />
+                    {type == 'business' ?
+                        <>
+                            <label className={styles['types-input-label']} for='business-categories'>Business Categories</label>
+                            <Select id="business-type" name="business_type" className={styles['Select']}
+                                onChange={setSelectedBusinessType}
+                                options={typeOptions}
+                                placeholder="Business Type"
+                                theme={customTheme}
+                                styles={customStyles}
+                                isSearchable
+                                // isMulti
+                                components={animatedComponents}
+                                // required
+                            />
+                        </> :
+                        <>
+                            <label className={styles['types-input-label']} for='business-categories'>Shelter Animals</label>
+                            <Select id="business-type" name="business_type" className={styles['Select']}
+                                onChange={setSelectedPetTypes}
+                                options={typeOptions}
+                                placeholder="Shelter Animals"
+                                theme={customTheme}
+                                styles={customStyles}
+                                isSearchable
+                                // isMulti
+                                components={animatedComponents}
+                                // required
+                            />
+                        </>
+                    }
                 </div>
-            </div>
 
                 <div className={styles['checkbox-container']}>
-                    <p>By creating an account you agree to our <button className={styles['terms-button']} onClick={() => setTermsAndConditionsDisplay(true)}>Terms</button> &<button className={styles['policy-button']} onClick={()=> setPrivacyPolicyDisplay(true)}>Privacy Policy</button>
-                        <label>
-                            <input
-                                type='checkbox'
-                                name='remember'
-                                onChange={e => setAcceptTerms(e.target.checked)}
-                            />
-                        </label>
-                    </p>
+                    <span>By creating an account you agree to our:</span>
+                    <span>                        
+                        <span className={styles['terms-button']} onClick={() => setTermsAndConditionsDisplay(true)}> Terms </span> 
+                        &
+                        <span className={styles['policy-button']} onClick={() => setPrivacyPolicyDisplay(true)}> Privacy Policy </span>
+                        <input
+                            type='checkbox' 
+                            name='remember'
+                            onChange={e => setAcceptTerms(e.target.checked)}
+                        />
+                    </span>
+                    <span className={styles['termsError']}>{termsError}</span>
                 </div>
-
-                <div className={styles['btn-container']}>
-                    <button type='submit' className={styles['submit-btn']}>Sign Up</button>
-                </div>
-
+            </div>
+            <button type='submit' className={styles['submit-btn']}>Sign Up</button>
         </form>
         {/* Modals */}
         <TermsAndConditions display={termsAndConditionsDisplay} onClose={() => setPrivacyPolicyDisplay(false)} />
@@ -326,4 +381,4 @@ function BusinessSignUpPage2(props) {
     );
 }
 
-export default BusinessSignUpPage2;
+export default SignUpPage2;

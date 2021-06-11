@@ -17,6 +17,7 @@ import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 function SignUpPage({type}) {
 
+    console.log('type: ', type);
     //form states
     const [email, setEmail] = useState('')
     const [uname, setUname] = useState('')
@@ -102,14 +103,23 @@ function SignUpPage({type}) {
     function nextSignUpStep(event) {
         event.preventDefault();
 
-        let pathname
-        type = 'business' ? pathname = '/business-signup2' : pathname = '/shelter-signup2'
-        const signUpPage2 = {
-            pathname: pathname,
-            state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword}
-        }
+        let nextPage
+        type == 'business' ? 
+            nextPage = {
+                pathname: '/business-signup2',
+                state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword},
+                type: 'business'
+            } : 
+            nextPage = {
+                pathname: '/shelter-signup2',
+                state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword},
+                type: 'shelter'
+            } 
 
-        const valid =validateForm();
+        console.log(nextPage)
+       
+
+        const valid = validateForm();
         console.log('valid form: ', valid)
 
         if(valid){
@@ -120,7 +130,7 @@ function SignUpPage({type}) {
                 redonePassword: redonePassword
             },{withCredentials: true})
             .then(response =>{
-                history.push(signUpPage2);
+                history.push(nextPage);
             }).catch(error =>{
                 if (error.response.data === "exists"){
                     setError("An Account using that Email or Username already exists");
