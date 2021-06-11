@@ -135,6 +135,10 @@
     font-size: var(--text-sm);
 }
 
+.password-requirements-list li{
+    padding-left: .5rem;
+}
+
 .invalid{
     background-color: red;
 }
@@ -162,16 +166,22 @@
 }
 
 .met{
-    background-color: green;
+    color: var(--color-primary-100);
+    list-style-type: "●";
 }
 
 .unmet{
-    background-color: red;
+    color: var(--inactive-txt-clr);
+    list-style-type: "○";
 }
 
+
 .differing:after{
+    margin-top: 0;
     content: 'Password does not match';
     color: red;
+    font-size: var(--text-sm);
+    font-family: var(--ff-secondary);
 }
 
 .same:after{
