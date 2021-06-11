@@ -29,6 +29,7 @@ getLatLng,
 
 let typeOptions = []; //for storing business type options
 
+//use select with required attribute
 const Select = props => (
     <FixRequiredSelect
       {...props}
@@ -40,7 +41,6 @@ const Select = props => (
 function BusinessSignUpPage2(props) {
 
     const [typeOptions, setTypeOptions] = useState([]);
-
 
     useEffect(() => {  //run once when page loads/refresh
         Axios.get('/api/business-types')   //get business types from database
@@ -70,7 +70,7 @@ function BusinessSignUpPage2(props) {
     }
 
     function closePrivacyPolicyModal() {
-        setPrivacyPolicyDisplay(false);
+        
     }
 
     const [selectedBusinessType, setSelectedBusinessType] = useState();
@@ -247,8 +247,8 @@ function BusinessSignUpPage2(props) {
 
         </form>
         {/* Modals */}
-        <TermsAndConditions display={termsAndConditionsDisplay} onClose={closeTermsAndConditionsModal} />
-        <PrivacyPolicy display={privacyPolicyDisplay} onClose={closePrivacyPolicyModal} />
+        <TermsAndConditions display={termsAndConditionsDisplay} onClose={() => setPrivacyPolicyDisplay(false)} />
+        <PrivacyPolicy display={privacyPolicyDisplay} onClose={() => setTermsAndConditionsDisplay(false)}/>
         </>
     );
 }
