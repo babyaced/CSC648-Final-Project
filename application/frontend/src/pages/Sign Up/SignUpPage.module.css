@@ -33,19 +33,23 @@
 .signup-fields-container > div,
 .signup-fields-container > ul,
 .signup-fields-container > span{
-    flex-basis: 50%;
+    flex-basis: 48%;
     border-radius: 7.5px;
     margin-bottom: 1rem;
 }
 
-.signup-fields-container input{
-    padding: 0.25rem 0 0.25rem 0.25rem;
-    border-radius: 7.5px;
-    border: 1px solid var(--inactive-txt-clr);
+.fname-input-container,
+.email-input-container,
+.password-input-container,
+.password-requirements-list{
+    margin-right: 4%;
 }
 
-.password-requirements-list{
-    margin-top: 0;
+.signup-fields-container input{
+    padding: 0.5rem 0 0.5rem 0.25rem;
+    border-radius: 7.5px;
+    
+    width: 100%;
 }
 
 .signup-error-container{
@@ -96,15 +100,14 @@
 }
 
 .submit-btn,
-.go-to-page2-btn{
+.next-btn{
     width: 250px;
     max-width: 60%;
     text-align: center;
     padding: 0.5rem 1rem;
     color: white;
     background-color: var(--primary-clr);
-    font-size: var(--h4);
-    font-weight: 600;
+
     font-family: var(--ff-primary);
     box-shadow: var(--elevation-1);
     border: none;
@@ -113,6 +116,14 @@
     transition: .15s ease-in-out;
     grid-area: submit-btn;
     margin-bottom: 2rem;
+}
+
+.submit-btn{
+    font-size: var(--h4);
+}
+
+.next-btn{
+    font-size: var(--h5);
 }
 
 .submit-btn:hover{
@@ -124,22 +135,46 @@
 }
 
 .password-requirements-list{
+    margin-top: 0.25rem;
     margin-left: 0;
     padding-left: 1rem;
     font-family: var(--ff-secondary);
+    font-size: var(--text-sm);
+}
+
+.password-requirements-list li{
+    padding-left: .5rem;
+}
+
+.valid{
+    border: 1px solid var(--inactive-txt-clr);
+}
+
+.invalid{
+    padding-right: 20px;
+    border: 2px solid red;
+    background-image: url(../../assets/icons/thirdparty/icons8-error-24.png);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 18px;
 }
 
 @media (max-width:450px){
-    .signup-fields-container{
-        grid-template-columns: 1fr;
-        grid-template-areas: 'fname-input-container' 
-                             'lname-input-container'
-                             'email-input-container' 
-                             'username-input-container'
-                             'password-input-container' 
-                             'confirm-password-input-container'
-                             'checkbox-container'; 
+    .signup-fields-container > div,
+    .signup-fields-container > ul,
+    .signup-fields-container > span{
+        flex-basis: 100%;
+        border-radius: 7.5px;
+        margin-bottom: 1rem;
     }
+    
+    .fname-input-container,
+    .email-input-container,
+    .password-input-container,
+    .password-requirements-list{
+        margin-right: 0;
+    }
+
 
     .checkbox-container:first-child span{
         flex-basis: 100%;
@@ -149,4 +184,34 @@
         flex-basis: 100%;
     }
     
+}
+
+.met{
+    color: var(--color-primary-100);
+    list-style-type: "●";
+}
+
+.unmet{
+    color: var(--inactive-txt-clr);
+    list-style-type: "○";
+}
+
+
+.differing:after{
+    margin-top: 0;
+    content: 'Passwords do not match';
+    color: red;
+    font-size: var(--text-sm);
+    font-family: var(--ff-secondary);
+}
+
+.same:after{
+    content: ''
+}
+
+.signup-fields-container > div .termsError{
+    margin-top: 1rem;
+    color: red;
+    font-size: var(--text-sm);
+    font-family: var(--ff-secondary);
 }

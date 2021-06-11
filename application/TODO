@@ -36,13 +36,13 @@ fix left margin combobox list
 
 fix profile styling on self view?
 
-fix dropdown menu styling
+fix dropdown menu styling -- DONE
 
 make menus mobile friendly --DONE
 
 fix edit button
 
-fix 100vh on mobile behavior
+fix 100vh on mobile behavior -- DONEish
 
 add frontend password/username pattern validation
 
@@ -51,3 +51,5 @@ fix raect-select styling when multiple options selected
 make sure correct keyboard comes up when entering data (ie. numpad on mobile when entering zip)
 
 implement remember me functionality
+
+fix back button functionality on mobile

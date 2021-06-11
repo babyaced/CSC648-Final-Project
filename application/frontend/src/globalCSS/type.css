@@ -7,6 +7,8 @@
     --h2: calc(var(--h3) * var(--type-scale));
     --h1: calc(var(--h2) * var(--type-scale));
 
+    --text-sm:  calc(var(--base-size) / var(--type-scale));
+
     /*Font Families*/ 
     --ff-primary: 'Nunito', sans-serif;
     --ff-secondary: 'Roboto', sans-serif;

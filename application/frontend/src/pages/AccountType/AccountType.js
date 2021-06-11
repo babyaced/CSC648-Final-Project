@@ -13,19 +13,19 @@ function AccountTypePage() {
         <div className={`${styles['account-type-container']} ${'wide-container'}`}>
                     <div className={styles['owner-container']}>
                         <img className={styles['owner-img']} src={OwnerImage} />
-                        <NavLink to="/signup-page">
+                        <NavLink to="/signup-page/personal">
                             <button className={styles['signup-button']}>Sign Up as Pet Owner</button>
                         </NavLink>
                     </div>
                     <div className={styles['shelter-container']}>
                         <img className={styles['shelter-img']} src={ShelterImage}/>
-                        <NavLink to="/shelter-signup">
+                        <NavLink to="/signup-page/shelter">
                             <button className={styles['shelter-button']}>Sign Up as Pet Shelter</button>
                         </NavLink>
                     </div>
                     <div className={styles['business-container']}>
                         <img className={styles['business-img']} src={BusinessImage} />
-                        <NavLink to="/business-signup">
+                        <NavLink to="/signup-page/business">
                             <button className={styles['business-button']}>Sign Up as Pet Business</button>
                         </NavLink>
                     </div>
