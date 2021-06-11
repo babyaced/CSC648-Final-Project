@@ -12,6 +12,7 @@ import NameValidation from '../../utils/signupValidation/NameValidation'
 import EmailValidation from '../../utils/signupValidation/EmailValidation'
 import UsernameValidation from '../../utils/signupValidation/UsernameValidation'
 import PasswordValidation from '../../utils/signupValidation/PasswordValidation'
+import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 
 function SignUpPage() {
@@ -23,6 +24,7 @@ function SignUpPage() {
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
     const [redonePassword, setRedonePassword] = useState('');
+    const[acceptTerms, setAcceptTerms] = useState(false);
 
     //form error states
     const [emailError, setEmailError] = useState('')
@@ -39,7 +41,7 @@ function SignUpPage() {
     // const [numberRequirementStyle, setNumberRequirementStyle] = useState('unmet');
     // const [characterRequirementStyle, setCharacterRequirementStyle] = useState('unmet');
 
-    const[acceptTerms, setAcceptTerms] = useState(false);
+
 
     const [termsAndConditionsDisplay, setTermsAndConditionsDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
@@ -119,15 +121,11 @@ function SignUpPage() {
 
         let fNameErr = NameValidation(firstName);
         let lNameErr = NameValidation(lastName);
-        let unameErr = NameValidation(uname);
-        let emailErr = NameValidation(email);
-        let passwordErr = NameValidation(password);
-        let rPasswordErr = NameValidation(redonePassword);
-
-        let termsErr = ''
-        if(!acceptTerms){
-            termsErr = 'You must accept the Terms and Privacy Policy to Create an Account'
-        }
+        let unameErr = UsernameValidation(uname);
+        let emailErr = EmailValidation(email);
+        let passwordErr = PasswordValidation(password);
+        let rPasswordErr = PasswordValidation(redonePassword);
+        let termsErr = TermsValidation(acceptTerms);
 
         setFirstNameError(fNameErr);
         setLastNameError(lNameErr);
@@ -145,9 +143,7 @@ function SignUpPage() {
         return true;
     }
 
-    
-
-
+    //Config of password requirements display when password input field state changes
     let lengthRequirementStyle = 'unmet';
     let capitalRequirementStyle = 'unmet';
     let numberRequirementStyle = 'unmet';
@@ -155,7 +151,6 @@ function SignUpPage() {
     if(password.length >= 8){
         lengthRequirementStyle = 'met'
     }
-
     if(password.toLowerCase() != password){
         capitalRequirementStyle = 'met'
     }
@@ -169,7 +164,7 @@ function SignUpPage() {
     }
 
 
-
+    //Decide if password not matching message is displayed
     let passwordMatchStyle = "same"
     if(passwordChecking  && password !== redonePassword){
         console.log('Password Checking on')

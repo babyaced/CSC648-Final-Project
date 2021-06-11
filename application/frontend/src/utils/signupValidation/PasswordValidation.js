@@ -7,7 +7,7 @@ function PasswordValidation(password) {
         passwordErr = "Please enter a Password"
     }
 
-    return (password)
+    return (passwordErr)
 }
 
 export default PasswordValidation

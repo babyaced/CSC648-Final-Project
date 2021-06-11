@@ -8,6 +8,10 @@ function UsernameValidation(username) {
         usernameErr = "Please enter an Email"
     }
 
+    if(username.length < 6 || username.length > 30){
+        usernameErr = "Username must be 3-20 characters"
+    }
+
     return (usernameErr)
 }
 
