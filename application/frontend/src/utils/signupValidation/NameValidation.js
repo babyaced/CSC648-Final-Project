@@ -1,10 +1,14 @@
 import React from 'react'
 
-function NameValidation(name) {
+function NameValidation(firstName,name) {
     let nameErr = "";
 
     if (!name){
-        nameErr = "Please enter an Email"
+        if(firstName)
+            nameErr = "Please enter your first name"
+        else{
+            nameErr = "Please enter your last name"
+        }
     }
 
     return (nameErr)

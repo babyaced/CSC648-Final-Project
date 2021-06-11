@@ -5,10 +5,9 @@ function UsernameValidation(username) {
     let usernameErr = "";
 
     if (!username){
-        usernameErr = "Please enter an Email"
+        usernameErr = "Please enter a Username"
     }
-
-    if(username.length < 6 || username.length > 30){
+    else if(username.length < 6 || username.length > 30){
         usernameErr = "Username must be 3-20 characters"
     }
 

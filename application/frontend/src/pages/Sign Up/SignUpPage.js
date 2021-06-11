@@ -119,8 +119,8 @@ function SignUpPage() {
         console.log('Password: ', password)
         console.log('Redone Password: ', redonePassword)
 
-        let fNameErr = NameValidation(firstName);
-        let lNameErr = NameValidation(lastName);
+        let fNameErr = NameValidation(true,firstName);
+        let lNameErr = NameValidation(false, lastName);
         let unameErr = UsernameValidation(uname);
         let emailErr = EmailValidation(email);
         let passwordErr = PasswordValidation(password);
@@ -159,7 +159,7 @@ function SignUpPage() {
         numberRequirementStyle = 'met'
     }
 
-    if(/[!()-.?[]_`~;:!@#+=]/.test(password)){
+    if(/[!()-.?\[\]_`~;:@#$%^&*+=]/.test(password)){
         characterRequirementStyle = 'met'
     }
 
@@ -187,6 +187,7 @@ function SignUpPage() {
                 <div className={styles['signup-fields-container']}>
                     <div className={styles['fname-input-container']}>
                         <label className={styles['fname-input-label']} for='fname'>First Name</label>
+                        
                         {!firstNameError ? 
                         <input
                             type='text'
@@ -206,10 +207,12 @@ function SignUpPage() {
                             maxlength="40"
                             className={styles.invalid}
                         />}
+                        <span className={styles['termsError']}>{firstNameError}</span>
                     </div>
 
                     <div className={styles['lname-input-container']}>
                         <label className={styles['lname-input-label']} for='lname'>Last Name</label>
+
                         {!lastNameError ? 
                         <input
                             type='text'
@@ -230,6 +233,7 @@ function SignUpPage() {
                             className={styles.invalid}
                         />
                         }
+                        <span className={styles['termsError']}>{lastNameError}</span>
                     </div>
 
                     <div className={styles['email-input-container']}>
@@ -251,8 +255,8 @@ function SignUpPage() {
                             maxlength="320"
                             className={styles.invalid}
                         /> 
-
                         }
+                        <span className={styles['termsError']}>{emailError}</span>
                     </div>
 
                     <div className={styles['username-input-container']}>
@@ -273,7 +277,7 @@ function SignUpPage() {
                             className={styles.invalid}
                         /> 
                         }
-                        
+                        <span className={styles['termsError']}>{unameError}</span>
                     </div>
 
                     <div className={styles['password-input-container']}>
@@ -294,6 +298,7 @@ function SignUpPage() {
                             className={styles.invalid}
                         />
                         }
+                        <span className={styles['termsError']}>{passwordError}</span>
                     </div>
                     
                     <div className={styles['confirm-password-input-container']}>
@@ -316,6 +321,7 @@ function SignUpPage() {
                             className={styles.invalid}
                         />
                         }
+                        <span className={styles['termsError']}>{redonePasswordError}</span>
                     </div>
                     <ul className={styles['password-requirements-list']}>
                         <li className={styles[lengthRequirementStyle]}>At least 8 characters</li>
