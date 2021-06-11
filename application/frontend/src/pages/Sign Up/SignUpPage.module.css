@@ -33,15 +33,20 @@
 .signup-fields-container > div,
 .signup-fields-container > ul,
 .signup-fields-container > span{
-    flex-basis: 50%;
+    flex-basis: 49%;
     border-radius: 7.5px;
     margin-bottom: 1rem;
 }
 
+.signup-fields-container:nth-child(odd){
+    margin-right: 2%;
+}
+
 .signup-fields-container input{
-    padding: 0.25rem 0 0.25rem 0.25rem;
+    padding: 0.5rem 0 0.5rem 0.25rem;
     border-radius: 7.5px;
     border: 1px solid var(--inactive-txt-clr);
+    width: 100%;
 }
 
 .password-requirements-list{
@@ -127,6 +132,11 @@
     margin-left: 0;
     padding-left: 1rem;
     font-family: var(--ff-secondary);
+    font-size: var(--text-sm);
+}
+
+.invalid{
+    background-color: red;
 }
 
 @media (max-width:450px){
@@ -149,4 +159,12 @@
         flex-basis: 100%;
     }
     
+}
+
+.met{
+    background-color: green;
+}
+
+.unmet{
+    background-color: red;
 }

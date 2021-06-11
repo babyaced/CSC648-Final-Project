@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
 import styles from './SignUpPage.module.css';
 
@@ -7,13 +7,36 @@ import PrivacyPolicy from '../../components/Modals/PrivacyPolicy'
 import Input from '../../components/UI/Input/Input';
 import { useHistory } from "react-router";
 
+//Import Validation Functions
+import NameValidation from '../../utils/signupValidation/NameValidation'
+import EmailValidation from '../../utils/signupValidation/EmailValidation'
+import UsernameValidation from '../../utils/signupValidation/UsernameValidation'
+import PasswordValidation from '../../utils/signupValidation/PasswordValidation'
+
+
 function SignUpPage() {
+
+    //form states
     const [email, setEmail] = useState('')
     const [uname, setUname] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
     const [redonePassword, setRedonePassword] = useState('');
+
+    //form error states
+    const [emailError, setEmailError] = useState('')
+    const [unameError, setUnameError] = useState('')
+    const [firstNameError, setFirstNameError] = useState('')
+    const [lastNameError, setLastNameError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [redonePasswordError, setRedonePasswordError] = useState('');
+
+    //Password Requirement states
+    // const [lengthRequirementStyle, setLengthRequirementStyle] = useState('unmet');
+    // const [capitalRequirementStyle, setCapitalRequirementStyle] = useState('unmet');
+    // const [numberRequirementStyle, setNumberRequirementStyle] = useState('unmet');
+    // const [characterRequirementStyle, setCharacterRequirementStyle] = useState('unmet');
 
     const[acceptTerms, setAcceptTerms] = useState(false);
 
@@ -52,7 +75,10 @@ function SignUpPage() {
 
     function signUp(event) {
         event.preventDefault();
-        // if(email && uname && firstName && lastName && password && redonePassword && acceptTerms){
+
+        const valid =validateForm();
+        console.log('valid form: ', valid)
+        if(valid){
             Axios.post('/api/sign-up', {
                     email: email,
                     firstName: firstName,
@@ -80,11 +106,59 @@ function SignUpPage() {
                 }
                 console.log(error);
             })
-        // }
+        }
+        else{
+            console.log('invalid form')
+        }
     }
 
-    function handleCheck(e) {
-        setAcceptTerms(e.target.checked);
+    function validateForm(){
+        console.log('First Name: ', firstName)
+        console.log('Last Name: ', lastName)
+        console.log('Email: ', email)
+        console.log('uname: ', uname)
+        console.log('Password: ', password)
+        console.log('Redone Password: ', redonePassword)
+
+        let fNameErr = NameValidation(firstName);
+        let lNameErr = NameValidation(lastName);
+        let unameErr = NameValidation(uname);
+        let emailErr = NameValidation(email);
+        let passwordErr = NameValidation(password);
+        let rPasswordErr = NameValidation(redonePassword);
+
+        setFirstNameError(fNameErr);
+        setLastNameError(lNameErr);
+        setEmailError(emailErr);
+        setUnameError(unameErr);
+        setPasswordError(passwordErr);
+        setRedonePasswordError(rPasswordErr);
+
+        if(fNameErr || lNameErr || emailErr || unameErr || passwordErr || rPasswordErr ){
+            return false;
+        }
+
+        console.log('no errors');
+        return true;
+    }
+
+    let lengthRequirementStyle = 'unmet';
+    let capitalRequirementStyle = 'unmet';
+    let numberRequirementStyle = 'unmet';
+    let characterRequirementStyle = 'unmet';
+    if(password.length >= 8){
+        lengthRequirementStyle = 'met'
+    }
+
+    if(password.toLowerCase() != password){
+        capitalRequirementStyle = 'met'
+    }
+
+    if(/[0-9]/.test(password)){
+        numberRequirementStyle = 'met'
+    }
+    else{
+        numberRequirementStyle = 'unmet'
     }
 
     return (
@@ -96,80 +170,133 @@ function SignUpPage() {
                 <div className={styles['signup-fields-container']}>
                     <div className={styles['fname-input-container']}>
                         <label className={styles['fname-input-label']} for='fname'>First Name</label>
+                        {!firstNameError ? 
                         <input
                             type='text'
                             placeholder='First name'
                             name='fname'
                             onChange={e => setFirstName(e.target.value)}
-                            required
                             // pattern="[A-Za-z]"
                             maxlength="40"
-                        />
+                        /> : 
+                        <input
+                            type='text'
+                            placeholder='First name'
+                            name='fname'
+                            onChange={e => setFirstName(e.target.value)}
+                            // pattern="[A-Za-z]"
+                            maxlength="40"
+                            className={styles.invalid}
+                        />}
                     </div>
 
                     <div className={styles['lname-input-container']}>
                         <label className={styles['lname-input-label']} for='lname'>Last Name</label>
+                        {!firstNameError ? 
                         <input
                             type='text'
                             placeholder='Last name'
                             name='lname'
                             onChange={e => setLastName(e.target.value)}
-                            required
                             // pattern="[a-zA-Z]"
                             maxlength="40"
+                        /> :
+                        <input
+                            type='text'
+                            placeholder='Last name'
+                            name='lname'
+                            onChange={e => setLastName(e.target.value)}
+                            // pattern="[a-zA-Z]"
+                            maxlength="40"
+                            className={styles.invalid}
                         />
+                        }
                     </div>
 
                     <div className={styles['email-input-container']}>
                         <label className={styles['email-input-label']} for='email'>Email</label>
+                        {!emailError ? 
                         <input
                             type='email'
                             placeholder='Enter email'
                             name='email'
                             onChange={e => setEmail(e.target.value)}
-                            required
                             maxlength="320"
-                        />
+                        /> :
+                        <input
+                            type='email'
+                            placeholder='Enter email'
+                            name='email'
+                            onChange={e => setEmail(e.target.value)}
+                            maxlength="320"
+                            className={styles.invalid}
+                        /> 
+
+                        }
                     </div>
 
                     <div className={styles['username-input-container']}>
                         <label className={styles['username-input-label']} for='uname'>Username</label>
+                        {!unameError ? 
                         <input
                             type='username'
                             placeholder='Enter username'
                             name='uname'
                             onChange={e => setUname(e.target.value)}
-                            required
-                        />
+                        /> :
+                        <input
+                            type='username'
+                            placeholder='Enter username'
+                            name='uname'
+                            onChange={e => setUname(e.target.value)}
+                            className={styles.invalid}
+                        /> 
+                        }
+                        
                     </div>
 
                     <div className={styles['password-input-container']}>
                         <label className={styles['password-input-label']} for='psw'>Password</label>
+                        {!passwordError ? 
                         <input
                             type='password'
                             placeholder='Enter password'
                             name='psw'
                             onChange={e => setPassword(e.target.value)}
-                            required
+                        /> :
+                        <input
+                            type='password'
+                            placeholder='Enter password'
+                            name='psw'
+                            onChange={e => setPassword(e.target.value)}
+                            className={styles.invalid}
                         />
+                        }
                     </div>
                     
-
                     <div className={styles['confirm-password-input-container']}>
                         <label className={styles['repeat-password-input-label']} for='psw-repeat'>Confirm Password</label>
+                        {!redonePasswordError ? 
                         <input
                             type='password'
                             placeholder='Confirm password'
                             name='psw-repeat'
                             onChange={e => setRedonePassword(e.target.value)}
-                            required
+                        /> :
+                        <input
+                            type='password'
+                            placeholder='Confirm password'
+                            name='psw-repeat'
+                            onChange={e => setRedonePassword(e.target.value)}
+                            className={styles.invalid}
                         />
+                        }
                     </div>
                     <ul className={styles['password-requirements-list']}>
-                        <li>At least 8 characters</li>
-                        <li>Contains a capital letter</li>
-                        <li>Contains a number</li>
-                        <li>Contains a special character</li>
+                        <li className={styles[lengthRequirementStyle]}>At least 8 characters</li>
+                        <li className={styles[capitalRequirementStyle]}>Contains a capital letter</li>
+                        <li className={styles[numberRequirementStyle]}>Contains a number</li>
+                        <li className={styles[characterRequirementStyle]}>Contains a special character</li>
                     </ul>
                     <span>Password Matches</span>
                     <div className={styles['checkbox-container']}>
@@ -179,10 +306,9 @@ function SignUpPage() {
                             &
                             <span className={styles['policy-button']} onClick={openPrivacyPolicyModal}> Privacy Policy </span>
                             <input
-                                type='checkbox'
-                                required 
+                                type='checkbox' 
                                 name='remember'
-                                onChange={e => handleCheck(e)}
+                                onChange={e => setAcceptTerms(e.target.checked)}
                             />
                         </span>
                     </div>
