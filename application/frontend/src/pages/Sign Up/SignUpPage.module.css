@@ -168,3 +168,12 @@
 .unmet{
     background-color: red;
 }
+
+.differing:after{
+    content: 'Password does not match';
+    color: red;
+}
+
+.same:after{
+    content: ''
+}

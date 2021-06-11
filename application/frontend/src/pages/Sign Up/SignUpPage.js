@@ -43,6 +43,10 @@ function SignUpPage() {
     const [termsAndConditionsDisplay, setTermsAndConditionsDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
 
+    // const[passwordMatchStyle, setPasswordMatchStyle] = useState('same');
+
+    const [passwordChecking, setPasswordChecking] = useState(false);
+
 
     function openTermsAndConditionsModal() {
         setTermsAndConditionsDisplay(true);
@@ -142,6 +146,9 @@ function SignUpPage() {
         return true;
     }
 
+    
+
+
     let lengthRequirementStyle = 'unmet';
     let capitalRequirementStyle = 'unmet';
     let numberRequirementStyle = 'unmet';
@@ -159,6 +166,20 @@ function SignUpPage() {
     }
     else{
         numberRequirementStyle = 'unmet'
+    }
+
+    let passwordMatchStyle = "same"
+    if(passwordChecking  && password !== redonePassword){
+        console.log('Password Checking on')
+        if(redonePassword.length == 0 || password.length == 0){
+            console.log('but password length is 0')
+            passwordMatchStyle = "same"
+            setPasswordChecking(false)
+        }
+        else{
+            passwordMatchStyle = "differing"
+        }
+        
     }
 
     return (
@@ -282,12 +303,14 @@ function SignUpPage() {
                             placeholder='Confirm password'
                             name='psw-repeat'
                             onChange={e => setRedonePassword(e.target.value)}
+                            onBlur={() => setPasswordChecking(true)}
                         /> :
                         <input
                             type='password'
                             placeholder='Confirm password'
                             name='psw-repeat'
                             onChange={e => setRedonePassword(e.target.value)}
+                            onBlur={() => setPasswordChecking(true)}
                             className={styles.invalid}
                         />
                         }
@@ -298,7 +321,7 @@ function SignUpPage() {
                         <li className={styles[numberRequirementStyle]}>Contains a number</li>
                         <li className={styles[characterRequirementStyle]}>Contains a special character</li>
                     </ul>
-                    <span>Password Matches</span>
+                    {passwordMatchStyle && <span className={styles[passwordMatchStyle]}></span>}
                     <div className={styles['checkbox-container']}>
                         <span>By creating an account you agree to our:</span>
                         <span>                        
