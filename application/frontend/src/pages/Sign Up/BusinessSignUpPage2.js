@@ -97,6 +97,16 @@ function BusinessSignUpPage2(props) {
         }),
     };
 
+    const invalidStyle = {
+        control: (base, state) => ({
+            ...base,
+            height: '37px',
+            'min-height': '37px',
+            'border-radius': '7.5px',
+            'border' : '2px solid red',
+          }),
+    };
+
     const animatedComponents = makeAnimated();
 
     const history= useHistory();
@@ -196,6 +206,7 @@ function BusinessSignUpPage2(props) {
                                 className={styles.invalid}
                             />
                         }
+                        <span className={styles['termsError']}>{businessNameError}</span>
                     </div>
 
                     <div className={styles['phone-number-input-container']}>
@@ -219,8 +230,8 @@ function BusinessSignUpPage2(props) {
                                 onChange={e => setPhoneNumber(e.target.value)}
                                 className={styles.invalid}
                             />
-                        }           
-
+                        }        
+                        <span className={styles['termsError']}>{phoneNumberError}</span>   
                     </div>
 
                     <div className={styles['address-input-container']}>
@@ -273,6 +284,7 @@ function BusinessSignUpPage2(props) {
                                 </ComboboxList>
                             </ComboboxPopover>
                         </Combobox>
+                        <span className={styles['termsError']}>{addressError}</span>
                     </div>
                 <div className={styles['types-input-container']}>
                     <label className={styles['types-input-label']} for='business-categories'>Business Categories</label>

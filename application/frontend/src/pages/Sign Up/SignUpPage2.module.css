@@ -154,3 +154,10 @@
     }
     
 }
+
+.signup-fields-container > div .termsError{
+    margin-top: 1rem;
+    color: red;
+    font-size: var(--text-sm);
+    font-family: var(--ff-secondary);
+}
