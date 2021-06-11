@@ -50,23 +50,6 @@ function SignUpPage({type}) {
 
     const [passwordChecking, setPasswordChecking] = useState(false);
 
-
-    function openTermsAndConditionsModal() {
-        setTermsAndConditionsDisplay(true);
-    }
-
-    function closeTermsAndConditionsModal() {
-        setTermsAndConditionsDisplay(false);
-    }
-
-    function openPrivacyPolicyModal() {
-        setPrivacyPolicyDisplay(true);
-    }
-
-    function closePrivacyPolicyModal() {
-        setPrivacyPolicyDisplay(false);
-    }
-
     //states for sign up error display
     const [error, setError] = useState(null);
 
@@ -230,7 +213,6 @@ function SignUpPage({type}) {
                 <div className={styles['signup-fields-container']}>
                     <div className={styles['fname-input-container']}>
                         <label className={styles['fname-input-label']} for='fname'>First Name</label>
-                        
                         {!firstNameError ? 
                         <input
                             type='text'
@@ -376,9 +358,9 @@ function SignUpPage({type}) {
                     <div className={styles['checkbox-container']}>
                         <span>By creating an account you agree to our:</span>
                         <span>                        
-                            <span className={styles['terms-button']} onClick={openTermsAndConditionsModal}> Terms </span> 
+                            <span className={styles['terms-button']} onClick={() => setTermsAndConditionsDisplay(true)}> Terms </span> 
                             &
-                            <span className={styles['policy-button']} onClick={openPrivacyPolicyModal}> Privacy Policy </span>
+                            <span className={styles['policy-button']} onClick={() => setPrivacyPolicyDisplay(true)}> Privacy Policy </span>
                             <input
                                 type='checkbox' 
                                 name='remember'
@@ -395,8 +377,8 @@ function SignUpPage({type}) {
             {/* Modals */}
             {type == 'personal' && 
                 <>
-                    <TermsAndConditions display={termsAndConditionsDisplay} onClose={closeTermsAndConditionsModal} />
-                    <PrivacyPolicy display={privacyPolicyDisplay} onClose={closePrivacyPolicyModal} />
+                    <TermsAndConditions display={termsAndConditionsDisplay} onClose={() => setTermsAndConditionsDisplay(false)} />
+                    <PrivacyPolicy display={privacyPolicyDisplay} onClose={() => setPrivacyPolicyDisplay(false)} />
                 </>
             }
         </>

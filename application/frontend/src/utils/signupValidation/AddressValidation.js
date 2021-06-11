@@ -4,6 +4,8 @@ function AddressValidation(address) {
     if (!address){
         addressErr = "Please enter a valid address"
     }
+
+    console.log('addressErr: ',addressErr)
     return (addressErr)
 }
 

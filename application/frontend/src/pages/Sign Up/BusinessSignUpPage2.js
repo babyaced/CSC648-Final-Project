@@ -27,6 +27,10 @@ getGeocode,
 getLatLng,
 } from "use-places-autocomplete";
 
+import BusinessNameValidation from '../../utils/signupValidation/BusinessNameValidation';
+import AddressValidation from '../../utils/signupValidation/AddressValidation';
+import PhoneNumberValidation from '../../utils/signupValidation/PhoneNumberValidation';
+
 let typeOptions = []; //for storing business type options
 
 //use select with required attribute
@@ -57,29 +61,20 @@ function BusinessSignUpPage2(props) {
 
     const [failedSubmit, setFailedSubmit] = useState(false)
 
-    function openTermsAndConditionsModal() {
-        setTermsAndConditionsDisplay(true);
-    }
-
-    function closeTermsAndConditionsModal() {
-        setTermsAndConditionsDisplay(false);
-    }
-
-    function openPrivacyPolicyModal() {
-        setPrivacyPolicyDisplay(true);
-    }
-
-    function closePrivacyPolicyModal() {
-        
-    }
-
     const [selectedBusinessType, setSelectedBusinessType] = useState();
 
-    const [name, setName] = useState('');
+    const [businessName, setBusinessName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
+    const[acceptTerms, setAcceptTerms] = useState(false);
+
+
+    //Error states for input fields
+    const [businessNameError, setBusinessNameError] = useState('');
+    const [phoneNumberError, setPhoneNumberError] = useState('');
+    const [addressError, setAddressError] = useState('');
 
 
     function customTheme(theme) { //move this a separate file and import maybe?
@@ -120,29 +115,57 @@ function BusinessSignUpPage2(props) {
         },
         });
 
+    function validateForm(){
+        console.log('Business Name: ', businessName)
+        console.log('Phone Number: ', phoneNumber)
+        console.log('Address: ', address)
+        console.log('Latitude: ', latitude)
+        console.log('Longitude: ', longitude)
+
+        let businessNameErr = BusinessNameValidation(businessName)
+        let phoneNumberErr = PhoneNumberValidation(phoneNumber);
+        let addressErr = AddressValidation(address);
+
+        setBusinessNameError(businessNameErr);
+        setPhoneNumberError(phoneNumberErr);
+        setAddressError(addressErr);
+
+        if(businessNameErr || phoneNumberErr || addressErr){
+            return false;
+        }
+
+        console.log('no errors');
+        return true;
+    }
+
     function signUpBusiness(event){
         event.preventDefault();
-        Axios.post('/api/sign-up/business', { 
-            email: state.email,
-            firstName: state.firstName,
-            lastName: state.lastName,
-            uname: state.username,
-            password: state.password,
-            redonePassword: state.redonePassword,
-            businessName: name,
-            phoneNumber: phoneNumber,
-            address: address,
-            latitude: latitude,
-            longitude: longitude,
-            type: selectedBusinessType.value
-        },{withCredentials:true}).then(response => {
-            // if(response.data.affectedRows === 1){
-                history.push("/SignUpSuccess");
-            // }
 
-        }).catch(error => {
-            console.log(error);
-        })
+        const valid = validateForm()
+
+        if(valid){
+            Axios.post('/api/sign-up/business', { 
+                email: state.email,
+                firstName: state.firstName,
+                lastName: state.lastName,
+                uname: state.username,
+                password: state.password,
+                redonePassword: state.redonePassword,
+                businessName: businessName,
+                phoneNumber: phoneNumber,
+                address: address,
+                latitude: latitude,
+                longitude: longitude,
+                type: selectedBusinessType.value
+            },{withCredentials:true}).then(response => {
+                // if(response.data.affectedRows === 1){
+                    history.push("/SignUpSuccess");
+                // }
+    
+            }).catch(error => {
+                console.log(error);
+            })
+        }   
     }
 
 
@@ -155,27 +178,49 @@ function BusinessSignUpPage2(props) {
             <div className={styles['signup-fields-container']}>
                     <div className={styles['name-input-container']}>
                         <label className={styles['name-input-label']} for='business-name'>Business Name</label>
-                        <input
-                            type='text'
-                            placeholder='Enter Business Name'
-                            name='business-name'
-                            required
-                            oninvalid={()=>{console.log('')}}
-                            onChange={e => setName(e.target.value)}
-                        />
+                        {!businessNameError ? 
+                            <input
+                                type='text'
+                                placeholder='Enter Business Name'
+                                name='business-name'
+                                oninvalid={()=>{console.log('')}}
+                                onChange={e => setBusinessName(e.target.value)}
+                                className={styles.valid}
+                            /> : 
+                            <input
+                                type='text'
+                                placeholder='Enter Business Name'
+                                name='business-name'
+                                oninvalid={()=>{console.log('')}}
+                                onChange={e => setBusinessName(e.target.value)}
+                                className={styles.invalid}
+                            />
+                        }
                     </div>
 
                     <div className={styles['phone-number-input-container']}>
                         <label className={styles['phone-number-input-label']} for='business-phone-number'>Phone Number</label>
-                        <input
-                            type='text'
-                            placeholder='(000) 000-0000'
-                            name='business-phone-number'
-                            required
-                            pattern="[0-9]*"
-                            maxLength={10}
-                            onChange={e => setPhoneNumber(e.target.value)}
-                        />
+                        {!phoneNumberError ?
+                            <input
+                                type='text'
+                                placeholder='(000) 000-0000'
+                                name='business-phone-number'
+                                pattern="[0-9]*"
+                                maxLength={10}
+                                onChange={e => setPhoneNumber(e.target.value)}
+                                className={styles.valid}
+                            /> :
+                            <input
+                                type='text'
+                                placeholder='(000) 000-0000'
+                                name='business-phone-number'
+                                pattern="[0-9]*"
+                                maxLength={10}
+                                onChange={e => setPhoneNumber(e.target.value)}
+                                className={styles.invalid}
+                            />
+                        }           
+
                     </div>
 
                     <div className={styles['address-input-container']}>
@@ -195,21 +240,36 @@ function BusinessSignUpPage2(props) {
                                 setAddress(address);
                             }}
                             >
-                            <ComboboxInput 
-                                value={value}
-                                placeholder= "Start Typing your Business's Address"
-                                onChange={(e)=> {
-                                    setValue(e.target.value);
-                                    //record lat lng to store in database
-                                }}
-                                required
-                                disabled={!ready}
-                            />
+                            { !addressError ?
+                                <ComboboxInput 
+                                    value={value}
+                                    placeholder= "Start Typing your Business's Address"
+                                    onChange={(e)=> {
+                                        setValue(e.target.value);
+                                        //record lat lng to store in database
+                                    }}
+                                    // required
+                                    disabled={!ready}
+                                    className={styles.valid}
+                                />
+                                :
+                                <ComboboxInput 
+                                    value={value}
+                                    placeholder= "Start Typing your Business's Address"
+                                    onChange={(e)=> {
+                                        setValue(e.target.value);
+                                        //record lat lng to store in database
+                                    }}
+                                    // required
+                                    disabled={!ready}
+                                    className={styles.invalid}
+                                />
+                            }
                             <ComboboxPopover>
                                 <ComboboxList className={styles['combobox-list']}>
                                     {status === "OK" && data.map(({id,description}) => 
-                                    <ComboboxOption key={id} value={description}/>
-                                )}
+                                        <ComboboxOption key={id} value={description}/>
+                                    )}
                                 </ComboboxList>
                             </ComboboxPopover>
                         </Combobox>
@@ -225,17 +285,18 @@ function BusinessSignUpPage2(props) {
                             isSearchable
                             // isMulti
                             components={animatedComponents}
-                            required
+                            // required
                         />
                 </div>
             </div>
 
                 <div className={styles['checkbox-container']}>
-                    <p>By creating an account you agree to our <button className={styles['terms-button']} onClick={openTermsAndConditionsModal}>Terms</button> &<button className={styles['policy-button']} onClick={openPrivacyPolicyModal}>Privacy Policy</button>
+                    <p>By creating an account you agree to our <button className={styles['terms-button']} onClick={() => setTermsAndConditionsDisplay(true)}>Terms</button> &<button className={styles['policy-button']} onClick={()=> setPrivacyPolicyDisplay(true)}>Privacy Policy</button>
                         <label>
                             <input
                                 type='checkbox'
-                                required name='remember'
+                                name='remember'
+                                onChange={e => setAcceptTerms(e.target.checked)}
                             />
                         </label>
                     </p>

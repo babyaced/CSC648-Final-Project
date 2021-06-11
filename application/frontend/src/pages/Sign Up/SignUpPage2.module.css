@@ -19,14 +19,10 @@
 
 .signup-fields-container{
     padding: 2rem 2rem .1rem 2rem;
-    display: grid;
-    grid-template-columns: 2;
-    grid-template-areas: 'name    phone-num'
-                         'address animals';
-    grid-template-rows: 2;
-    gap: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    font-family: var(--ff-primary);
     justify-content: center;
-    font-family: var(--ff-secondary);
 }
 
 .name-input-container{
@@ -51,11 +47,16 @@
     display: block;
 }
 
+.signup-fields-container > div{
+    flex-basis: 48%;
+}
 
-.name-input-container input,
-.phone-number-input-container input,
-.address-input-container input,
-.types-input-container input
+.name-input-container,
+.address-input-container{
+    margin-right: 4%;
+}
+
+.signup-fields-container > div input
 {
     width: 100%;
     font-size: var(--base-size);
@@ -121,6 +122,18 @@
     cursor:pointer;
     padding: 5px;
     border-bottom: 1px solid rgba(0,0,0,0.10);
+}
+
+.valid{
+    border: 1px solid var(--inactive-txt-clr);
+}
+
+.signup-fields-container > div .invalid{
+    border: 2px solid red;
+    background-image: url(../../assets/icons/thirdparty/icons8-error-24.png);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 18px;
 }
 
 @media (max-width:450px){
