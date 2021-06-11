@@ -31,6 +31,7 @@ function SignUpPage() {
     const [lastNameError, setLastNameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [redonePasswordError, setRedonePasswordError] = useState('');
+    const [termsError, setTermsError] = useState('');
 
     //Password Requirement states
     // const [lengthRequirementStyle, setLengthRequirementStyle] = useState('unmet');
@@ -66,14 +67,6 @@ function SignUpPage() {
 
     //states for sign up error display
     const [error, setError] = useState(null);
-
-    const errorDisplay = error ? 
-    <div className={styles['signup-error-container']}>
-        {error}
-    </div> : 
-    <div className={styles['signup-requirements-container']}>
-        Your Password Must Have at Least 8 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character
-    </div>;
 
     const history = useHistory();
 
@@ -131,14 +124,20 @@ function SignUpPage() {
         let passwordErr = NameValidation(password);
         let rPasswordErr = NameValidation(redonePassword);
 
+        let termsErr = ''
+        if(!acceptTerms){
+            termsErr = 'You must accept the Terms and Privacy Policy to Create an Account'
+        }
+
         setFirstNameError(fNameErr);
         setLastNameError(lNameErr);
         setEmailError(emailErr);
         setUnameError(unameErr);
         setPasswordError(passwordErr);
         setRedonePasswordError(rPasswordErr);
+        setTermsError(termsErr);
 
-        if(fNameErr || lNameErr || emailErr || unameErr || passwordErr || rPasswordErr ){
+        if(fNameErr || lNameErr || emailErr || unameErr || passwordErr || rPasswordErr || termsErr){
             return false;
         }
 
@@ -164,9 +163,12 @@ function SignUpPage() {
     if(/[0-9]/.test(password)){
         numberRequirementStyle = 'met'
     }
-    else{
-        numberRequirementStyle = 'unmet'
+
+    if(/[!()-.?[]_`~;:!@#+=]/.test(password)){
+        characterRequirementStyle = 'met'
     }
+
+
 
     let passwordMatchStyle = "same"
     if(passwordChecking  && password !== redonePassword){
@@ -213,7 +215,7 @@ function SignUpPage() {
 
                     <div className={styles['lname-input-container']}>
                         <label className={styles['lname-input-label']} for='lname'>Last Name</label>
-                        {!firstNameError ? 
+                        {!lastNameError ? 
                         <input
                             type='text'
                             placeholder='Last name'
@@ -339,12 +341,12 @@ function SignUpPage() {
                                 onChange={e => setAcceptTerms(e.target.checked)}
                             />
                         </span>
+                        <span className={styles['termsError']}>{termsError}</span>
                     </div>
 
                 </div>
 
                 <button className={styles['submit-btn']} type='submit'>Sign Up</button>
-                {errorDisplay}
             </form>
             {/* Modals */}
             <TermsAndConditions display={termsAndConditionsDisplay} onClose={closeTermsAndConditionsModal} />
