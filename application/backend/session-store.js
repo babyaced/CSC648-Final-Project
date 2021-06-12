@@ -4,10 +4,10 @@ let MySQLStore = require('express-mysql-session')(session);
 const connection = require('./db');
 
 var options = {
-    host:'127.0.0.1',
-    user:'root',
-    password:'7Fb!Ve35',
-    database: 'M4'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 };
 
 var sessionStore = new MySQLStore(options);
