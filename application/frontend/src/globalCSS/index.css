@@ -14,6 +14,10 @@ html,body {
 a{
   color: var(--primary-txt-clr)
 }
+/* 
+input:focus{
+  outline-color: var(--color-primary-300) !important;
+} */
 
 
 

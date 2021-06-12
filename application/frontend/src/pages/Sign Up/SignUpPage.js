@@ -17,6 +17,7 @@ import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 function SignUpPage({type}) {
 
+    console.log('type: ', type);
     //form states
     const [email, setEmail] = useState('')
     const [uname, setUname] = useState('')
@@ -49,23 +50,6 @@ function SignUpPage({type}) {
     // const[passwordMatchStyle, setPasswordMatchStyle] = useState('same');
 
     const [passwordChecking, setPasswordChecking] = useState(false);
-
-
-    function openTermsAndConditionsModal() {
-        setTermsAndConditionsDisplay(true);
-    }
-
-    function closeTermsAndConditionsModal() {
-        setTermsAndConditionsDisplay(false);
-    }
-
-    function openPrivacyPolicyModal() {
-        setPrivacyPolicyDisplay(true);
-    }
-
-    function closePrivacyPolicyModal() {
-        setPrivacyPolicyDisplay(false);
-    }
 
     //states for sign up error display
     const [error, setError] = useState(null);
@@ -119,14 +103,23 @@ function SignUpPage({type}) {
     function nextSignUpStep(event) {
         event.preventDefault();
 
-        let pathname
-        type = 'business' ? pathname = '/business-signup2' : pathname = '/shelter-signup2'
-        const signUpPage2 = {
-            pathname: pathname,
-            state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword}
-        }
+        let nextPage
+        type == 'business' ? 
+            nextPage = {
+                pathname: '/business-signup2',
+                state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword},
+                type: 'business'
+            } : 
+            nextPage = {
+                pathname: '/shelter-signup2',
+                state: {email: email, username: uname, firstName: firstName, lastName: lastName, password: password, redonePassword: redonePassword},
+                type: 'shelter'
+            } 
 
-        const valid =validateForm();
+        console.log(nextPage)
+       
+
+        const valid = validateForm();
         console.log('valid form: ', valid)
 
         if(valid){
@@ -137,7 +130,7 @@ function SignUpPage({type}) {
                 redonePassword: redonePassword
             },{withCredentials: true})
             .then(response =>{
-                history.push(signUpPage2);
+                history.push(nextPage);
             }).catch(error =>{
                 if (error.response.data === "exists"){
                     setError("An Account using that Email or Username already exists");
@@ -230,7 +223,6 @@ function SignUpPage({type}) {
                 <div className={styles['signup-fields-container']}>
                     <div className={styles['fname-input-container']}>
                         <label className={styles['fname-input-label']} for='fname'>First Name</label>
-                        
                         {!firstNameError ? 
                         <input
                             type='text'
@@ -376,9 +368,9 @@ function SignUpPage({type}) {
                     <div className={styles['checkbox-container']}>
                         <span>By creating an account you agree to our:</span>
                         <span>                        
-                            <span className={styles['terms-button']} onClick={openTermsAndConditionsModal}> Terms </span> 
+                            <span className={styles['terms-button']} onClick={() => setTermsAndConditionsDisplay(true)}> Terms </span> 
                             &
-                            <span className={styles['policy-button']} onClick={openPrivacyPolicyModal}> Privacy Policy </span>
+                            <span className={styles['policy-button']} onClick={() => setPrivacyPolicyDisplay(true)}> Privacy Policy </span>
                             <input
                                 type='checkbox' 
                                 name='remember'
@@ -395,8 +387,8 @@ function SignUpPage({type}) {
             {/* Modals */}
             {type == 'personal' && 
                 <>
-                    <TermsAndConditions display={termsAndConditionsDisplay} onClose={closeTermsAndConditionsModal} />
-                    <PrivacyPolicy display={privacyPolicyDisplay} onClose={closePrivacyPolicyModal} />
+                    <TermsAndConditions display={termsAndConditionsDisplay} onClose={() => setTermsAndConditionsDisplay(false)} />
+                    <PrivacyPolicy display={privacyPolicyDisplay} onClose={() => setPrivacyPolicyDisplay(false)} />
                 </>
             }
         </>

@@ -15,7 +15,7 @@ import AccountTypePage from './pages/AccountType/AccountType.js'
 import LoginPage from './pages/Login/LoginPage.js'
 import SignUpPage from './pages/Sign Up/SignUpPage.js'
 import ShelterSignUpPage2 from './pages/Sign Up/ShelterSignUpPage2.js'
-import BusinessSignUpPage2 from './pages/Sign Up/BusinessSignUpPage2.js'
+import SignUpPage2 from './pages/Sign Up/SignUpPage2.js'
 import ProfilePage from './pages/Profile/Profile';
 import Messages from './pages/Messages/Messages'
 import MyPets from './pages/Pets/MyPets'
@@ -97,8 +97,8 @@ const App = () => {
         <Route path="/signup-page/shelter" exact>
           <SignUpPage type="shelter"/>
         </Route>
-        <Route path="/shelter-signup2" exact component={ShelterSignUpPage2}/>
-        <Route path="/business-signup2" exact component={BusinessSignUpPage2}/>
+        <Route path="/shelter-signup2" exact component={SignUpPage2}/>
+        <Route path="/business-signup2" exact component={SignUpPage2}/>
         <Route path="/Edgar" component={Edgar}/>
         <Route path="/Daniel" component={Daniel}/>
         <Route path="/Em" component={Em}/>
