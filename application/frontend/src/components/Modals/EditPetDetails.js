@@ -9,8 +9,8 @@ import makeAnimated from 'react-select/animated';
 import styles from './EditPetDetails.module.css'
 import axios from 'axios';
 
-function EditPetDetails(props) {
-
+function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed}) {
+    console.log(profile);
     //full version should recieve pet types and breeds from db and display in dropdown
     const [petName, setPetName] = useState('');
     const [petType,setPetType] = useState([]);  //set this to already existing pet type stored in db for real version
@@ -44,7 +44,7 @@ function EditPetDetails(props) {
         }
     }
 
-    // function updatePet(){
+    //function updatePet(){
     //     axios.post('/api/edit-pet',{})
     //     .then((response) =>{
 
@@ -59,7 +59,7 @@ function EditPetDetails(props) {
 
 
     return (
-        <Modal display={props.display} onClose={props.onClose}>
+        <Modal display={display} onClose={onClose}>
             <div className={styles['edit-pet-details-header']}>Edit Pet Information</div>
             <div className={styles['edit-pet-details-container']}>
                 <div className={styles['edit-pet-details-name']}>
@@ -69,16 +69,17 @@ function EditPetDetails(props) {
                         id="name" 
                         name="pet_name" 
                         maxLength="25"
-                        value={props.profile.userName}
+                        value={profile.display_name}
                         placeholder="Name"
-                        onChange={event => props.updateProfile('userName', event.target.value)} />
+                        onChange={event => updateProfile('userName', event.target.value)} />
                 </div>
                 <div className={styles['edit-pet-details-type']}>
                     <label for="type">Type</label>
                     <Select id="type" name="pet_type"
-                        onChange={props.updatePetType}
+                        onChange={updatePetType}
                         options={typeOptions}
                         theme={customTheme}
+                        //value = pet Type
                         placeholder="Select Pet Type"
                         isSearchable
                     />
@@ -86,12 +87,13 @@ function EditPetDetails(props) {
                 <div className={styles['edit-pet-details-breed']}>
                     <label for="breed">Breed</label>
                     <Select id="breed" name="pet_breed"
-                        onChange={props.updatePetBreed}
+                        onChange={updatePetBreed}
                         options={ dogBreedOptions}
                         theme={customTheme}
                         placeholder="Select Dog Breed"
                         isSearchable
                         isMulti
+                        // value = pet breed
                         components={animatedComponents}
                     />
                 </div>
@@ -103,6 +105,7 @@ function EditPetDetails(props) {
                         theme={customTheme}
                         placeholder="Select Pet Color(s)"
                         isSearchable
+                        //value = pet color
                         isMulti
                     />
                 </div>
@@ -114,6 +117,7 @@ function EditPetDetails(props) {
                             theme={customTheme}
                             value={petAge}
                             placeholder="Select Pet Age"
+                            //value = pet age
                             isSearchable
                         />
                 </div>
@@ -124,36 +128,39 @@ function EditPetDetails(props) {
                         options={ sizeOptions}
                         theme={customTheme}
                         placeholder="Select Pet Size"
+                        //value = pet size
                         isSearchable
                     />
                 </div>
                 {petType && petType.label == 'Dog' && <div className={styles['edit-pet-details-breed']}>
                         <label for="breed">Breed</label>
                         <Select id="breed" name="pet_breed"
-                            // onChange={props.updatePetBreed}
+                            // onChange={updatePetBreed}
                             onChange={setDogBreed}
                             options={ dogBreedOptions}
                             theme={customTheme}
                             placeholder="Select Dog Breed"
                             isSearchable
                             isMulti
+                            //value= dog breed
                             components={animatedComponents}
                         />
                     </div>}
                 {petType && petType.label == 'Cat' && <div className={styles['edit-pet-details-breed']}>
                     <label for="breed">Breed</label>
                     <Select id="breed" name="pet_breed"
-                        // onChange={props.updatePetBreed}
+                        // onChange={updatePetBreed}
                         onChange={setCatBreed}
                         options={ catBreedOptions}
                         theme={customTheme}
                         placeholder="Select Cat Breed"
                         isSearchable
                         isMulti
+                        //value = cat breed
                         components={animatedComponents}
                     />
                 </div>}
-                <button className={styles['edit-pet-details-submit']} onClick={props.onClose}>Submit</button>
+                <button className={styles['edit-pet-details-submit']} onClick={onClose}>Submit</button>
             </div>
             
         </Modal>

@@ -65,12 +65,12 @@ function MyPets() {
         Promise.all([getCurrentUserPets,getPetTypes,getDogBreeds,getCatBreeds,getAges,getSizes,getColors])
         .then(responses =>{
             setMyPets(responses[0].data);
-            // setTypeOptions(responses[1].data);
-            // setDogBreedOptions(responses[2].data);
-            // setCatBreedOptions(responses[3].data);
-            // setAgeOptions(responses[4].data);
-            // setSizeOptions(responses[5].data);
-            // setColorOptions(responses[6].data);
+            setTypeOptions(responses[1].data);
+            setDogBreedOptions(responses[2].data);
+            setCatBreedOptions(responses[3].data);
+            setAgeOptions(responses[4].data);
+            setSizeOptions(responses[5].data);
+            setColorOptions(responses[6].data);
             setLoading(false);
         })
         .catch(err =>{
@@ -97,15 +97,14 @@ function MyPets() {
                     <h1>My Pets</h1>
                 </div>
                 <div className={styles['my-pets-container-pets']}>
-                    {/* {loading ? <Spinner/> :          */}
+                    {loading ? <Spinner/> :        
                         <>
                             <AddPetCard viewAdditionModal={viewAdditionModal}/>
                             {myPets && myPets.map((pet) =>(
                                     <MyPetCard key={pet.profile_id} pet={pet}/>
                                 ))
                             }
-                        </>
-                    {/* } */}
+                        </>}
                 </div>
             </div>
             {/* Modals */}

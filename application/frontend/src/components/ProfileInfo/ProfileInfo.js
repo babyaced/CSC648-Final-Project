@@ -172,7 +172,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
 
             </div>
             <div className={styles['save-edit-button-wrapper']}>
-                {(isSelfView && !editing && profileType !== 'Pet') &&
+                {isSelfView && !editing &&
                     <EditButton style={{fontSize: 'var(--h5)'}} edit clicked={() => editHandler()}>
                         Edit
                     </EditButton>
