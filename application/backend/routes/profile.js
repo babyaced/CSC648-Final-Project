@@ -232,4 +232,32 @@ router.post('/api/name',(req, res)=>{
     })
 })
 
+router.get('/api/pet-details', (req,res) =>{
+    console.log('GET /api/pet-details')
+
+    const {petID} = req.query;
+    console.log('petID: ', petID)
+    connection.query(`
+        SELECT Pet.type_id, Pet.size_id, Pet.age_id
+        FROM Pet
+        WHERE Pet.pet_id = ?`,[petID],
+        function(err, result){
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(result)
+            }
+        }
+    )
+    
+})
+
 module.exports = router
+
+//GROUP_CONCAT(DogBreeds.breed_id), GROUP_CONCAT(CatBreeds.breed_id), GROUP_CONCAT(PetColor.color_id), 
+// JOIN PetColor ON PetColor.pet_id = Pet.pet_id
+// JOIN Dog ON Dog.pet_id = Pet.pet_id
+// JOIN DogBreeds ON DogBreeds.dog_id = Dog.dog_id
+// JOIN Cat ON Cat.pet_id = Pet.pet_id
+// JOIN CatBreeds ON CatBreeds.cat_id = Cat.cat_id

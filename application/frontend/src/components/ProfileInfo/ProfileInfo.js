@@ -94,8 +94,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
         }
     }
 
-
-
     let nameDisplay = null;
     let buttons = null;
     switch(profileType) {

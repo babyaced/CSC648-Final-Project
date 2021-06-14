@@ -6,7 +6,7 @@ import styles from './ImageContainer.module.css';
 import PostModal from '../../Modals/PostModal'
 
 function ImageContainer({previews, profile, title, selfView}) {
-    console.log('previews',previews);
+    // console.log('previews',previews);
     const [postModalDisplay, setPostModalDisplay] = useState(false);
     const [imageStack, setImageStack] = useState();
     const [selectedPost,setSelectedPost] = useState({});

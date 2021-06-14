@@ -10,7 +10,21 @@ import styles from './EditPetDetails.module.css'
 import axios from 'axios';
 
 function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed}) {
-    console.log(profile);
+    let recievedPetName
+    let recievedPetType
+    let recievedPetAge
+    let recievedPetSize
+    axios.get('/api/pet-details', {params: {petID: profile.pet_id}})
+    .then(response =>{
+        recievedPetType = response.data.type_id
+        recievedPetAge = response.data.age_id
+        recievedPetSize = response.data.size_id
+        console.log(response);
+    })
+    .catch(err =>{
+        console.log(err);
+    })
+    // console.log(profile);
     //full version should recieve pet types and breeds from db and display in dropdown
     const [petName, setPetName] = useState('');
     const [petType,setPetType] = useState([]);  //set this to already existing pet type stored in db for real version
