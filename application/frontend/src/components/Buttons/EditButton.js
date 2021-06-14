@@ -1,19 +1,20 @@
 import React from 'react'
 
 import styles from './EditButton.module.css'
-import { FaEdit } from 'react-icons/fa';
+
+import EditIcon from '../../assets/icons/thirdparty/icons8-edit.svg'
 
 function EditButton(props) {
-    let edit = null;
+    let editIcon = null;
     let buttonStyles = styles.Button;
     if (props.edit)
-        edit = <FaEdit />
+        editIcon = <img src={EditIcon} className={styles.editIcon}/>
     if (props.save)
-        buttonStyles = [styles.Button, styles.SaveButton].join(' ');
+        buttonStyles = styles.Button;
     return (
         <button className={buttonStyles} onClick={props.clicked} style={props.style} >
-            {edit}
             {props.children}
+            {editIcon}
         </button>
     )
 }

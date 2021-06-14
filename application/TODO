@@ -52,4 +52,4 @@ make sure correct keyboard comes up when entering data (ie. numpad on mobile whe
 
 implement remember me functionality
 
-fix back button functionality on mobile
+fix back button functionality on mobile(ie. make it close modal instead of going back one page possibly)

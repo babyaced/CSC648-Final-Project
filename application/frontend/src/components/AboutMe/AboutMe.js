@@ -150,9 +150,9 @@ function AboutMe({aboutMeBody, profile, updateProfile, isSelfView, address, phon
 
                     />
                     { isSelfView && ((labelSelected !== 'about') ? 
-                        <EditButton className={styles['edit-button']} edit clicked={() => changingInfoHandler('about')}>Edit</EditButton> 
+                        <EditButton style={{fontSize: 'var(--h5)'}} edit clicked={() => changingInfoHandler('about')}>Edit</EditButton> 
                         :
-                        <EditButton className={styles['save-button']} save clicked={() => {
+                        <EditButton style={{fontSize: 'var(--h5)'}} save clicked={() => {
                             cancelEditingHandler();
                             submitAboutMeEdit();
                         }}>Save</EditButton>)
