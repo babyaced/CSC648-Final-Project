@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import Modal from './Modal'
 
@@ -10,6 +10,7 @@ import styles from './EditPetDetails.module.css'
 import axios from 'axios';
 
 function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed}) {
+
     let recievedPetName
     let recievedPetType
     let recievedPetAge
@@ -35,17 +36,17 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
     const [petAge, setPetAge] = useState([]); 
 
 
-    const typeOptions = [];
+    const [typeOptions,setTypeOptions] = useState();
 
-    const dogBreedOptions = [];
+    const [dogBreedOptions,setDogBreedOptions] = useState();
 
-    const catBreedOptions = [];
+    const [catBreedOptions,setCatBreedOptions] = useState();
 
-    const colorOptions = [];
+    const [colorOptions,setColorOptions] = useState();
 
-    const sizeOptions = [];
+    const [sizeOptions,setSizeOptions] = useState();
 
-    const ageOptions = [];
+    const [ageOptions,setAgeOptions] = useState();
 
     function customTheme(theme){
         return {
@@ -67,6 +68,26 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
 
     //     })
     // }
+
+    useEffect(() =>{
+        const getPetTypes = axios.get('/api/pet-types')   //get business types from database
+        const getDogBreeds = axios.get('/api/dog-breeds')   //get business types from database
+        const getPetColors = axios.get('/api/colors')   //get business types from database
+        const getPetAges = axios.get('/api/ages')   //get business types from database
+        const getPetSizes = axios.get('/api/sizes')   //get business types from database
+        const getCatBreeds = axios.get('/api/cat-breeds')   //get business types from database
+
+        Promise.all([getPetTypes, getPetColors, getPetAges, getPetSizes, getDogBreeds, getCatBreeds])
+        .then((responses) =>{
+            setTypeOptions(responses[0].data);
+            setColorOptions(responses[1].data);
+            setAgeOptions(responses[2].data);
+            setSizeOptions(responses[3].data);
+            setDogBreedOptions(responses[4].data);
+            setCatBreedOptions(responses[5].data);
+        })
+        
+    },[display])
     
     const animatedComponents = makeAnimated();
 
@@ -176,7 +197,6 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                 </div>}
                 <button className={styles['edit-pet-details-submit']} onClick={onClose}>Submit</button>
             </div>
-            
         </Modal>
     )
 }
