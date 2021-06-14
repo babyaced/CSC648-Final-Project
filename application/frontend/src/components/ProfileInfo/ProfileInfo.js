@@ -22,19 +22,12 @@ import FollowMenu from './FollowMenu';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
 
-    //image upload array
-    
-    //const [profile.profile_pic_link, setprofile.profile_pic_link] = useState('');
-    //const [profileTitle, setProfileTitle] = useState('');
     const [editing, setEditing] = useState(false);
     
     const [follow, setFollow] = useState(followingStatus); // update this from backend
-    // const [showBackdrop, setShowBackdrop] = useState(false);
 
     const [petType, setPetType] = useState({});
     const [petBreeds, setPetBreed] = useState([{}]);
-    // const [petColors, setPetColors] = useState([]);
-    // const [petSize, setPetSize] = useState();
 
     const [sendAMessageDisplay,setSendAMessageDisplay] = useState(false);
     const[editPetDetailsDisplay, setEditPetDetailsDisplay] = useState(false);
@@ -142,9 +135,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                          <FollowMenu followingProfileOwnerFlag={follow} profile={profile} onFollowHandler={onFollowHandler}/>
                         ):
                         (   
-                            <>
-                                <button className={styles.Button} onClick={() => history.push(`/Followers/${profile.profile_id}`)}>Followers</button>
-                            </>
+                            <button className={styles.Button} onClick={() => history.push(`/Followers/${profile.profile_id}`)}>Followers</button>
                         )
                     }
                     {!isSelfView &&
@@ -165,7 +156,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                 <ProfilePic isSelfView={isSelfView} profile={profile}/>
             </div>
             <div className={styles['display-name-container']}>
-
                 <h1 className={styles['display-name']} >
                     <input value={displayName} readOnly={!editing} maxLength = "25" onChange={event => setDisplayName(event.target.value)}/>
                 </h1> 
@@ -173,25 +163,17 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
             </div>
             <div className={styles['save-edit-button-wrapper']}>
                 {isSelfView && !editing &&
-                    <EditButton style={{fontSize: 'var(--h5)'}} edit clicked={() => editHandler()}>
-                        Edit
-                    </EditButton>
+                    <EditButton style={{fontSize: 'var(--h5)'}} edit clicked={() => editHandler()}>Edit</EditButton>
                 }
                 {
                     isSelfView && editing && 
-                    <EditButton style={{fontSize: 'var(--h5)'}} save clicked={cancelEditHandler}>
-                        Save
-                    </EditButton>
+                    <EditButton style={{fontSize: 'var(--h5)'}} save clicked={cancelEditHandler}>Save</EditButton>
                 }
             </div>
             <div className={styles['button-container']} >
                 {buttons}
                 {isAdminView && !isSelfView && <button className={styles['ban-button']} onClick={()=>setDeletionModalDisplay(true)}>Ban User</button>}
             </div>
-            
-            
-            
-            
             
             {/* Modals */}
             {profileType == 'Pet' &&  
