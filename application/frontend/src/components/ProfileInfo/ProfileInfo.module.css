@@ -2,7 +2,7 @@
     display: grid;
     grid-template-areas: 
     'profile-pic display-name    '
-    'profile-pic ................' 
+    'profile-pic save-edit-button' 
     'profile-pic button-container';
      grid-template-columns: 200px auto;
      gap: 1rem;
@@ -18,6 +18,8 @@
 
 .display-name-container{
     grid-area: display-name;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .display-name {
@@ -30,7 +32,7 @@
     width: 100%;
     outline: none;
     border: solid var(--primary-clr) 2px;
-    border-radius: 10px;
+    border-radius:7.5px;
     text-overflow: ellipsis;
     font-size: var(--h4);
 }
@@ -65,9 +67,7 @@
     background-color: var(--primary-clr);
     color: var(--reversed-txt-clr);
     border-radius:7.5px;
-    box-sizing: border-box;
     border: none;
-    /* box-shadow: var(--elevation-1); */
     text-align: center;
     align-items: center;
     outline: none;
@@ -82,18 +82,10 @@
     background-color: var(--color-primary-300);
 }
 
-.EditButton {
-    align-self: center;
-    font-size: 1.5em;
-    height: 50%;
-    outline: none;
-}
-
 .ban-button {
-    margin-left: 30px;
+    margin-left: 1rem;
     color: white;
     background-color: red;
-    outline: none;
     border: none;
     cursor: pointer;
     border-radius: 7px;
@@ -106,6 +98,10 @@
 
 .SideContainer-contaniner {
     display: flex;
+}
+
+.save-edit-button-wrapper{
+    grid-area: save-edit-button;
 }
 
 @media (max-width: 768px){
