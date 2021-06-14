@@ -165,17 +165,21 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                 <ProfilePic isSelfView={isSelfView} profile={profile}/>
             </div>
             <div className={styles['display-name-container']}>
-                {(isSelfView && !editing && profileType !== 'Pet') &&
-                    <EditButton style={{alignSelf: 'center',fontSize: '1.5em',height: '50%',outline: 'none'}} edit clicked={() => editHandler()}>
-                        Edit
-                    </EditButton>
-                }
+
                 <h1 className={styles['display-name']} >
                     <input value={displayName} readOnly={!editing} maxLength = "25" onChange={event => setDisplayName(event.target.value)}/>
                 </h1> 
+
+            </div>
+            <div className={styles['save-edit-button-wrapper']}>
+                {(isSelfView && !editing && profileType !== 'Pet') &&
+                    <EditButton style={{fontSize: 'var(--h5)'}} edit clicked={() => editHandler()}>
+                        Edit
+                    </EditButton>
+                }
                 {
                     isSelfView && editing && 
-                    <EditButton style={{alignSelf: 'center',fontSize: '1.5em',height: '50%', outline: 'none'}} save clicked={cancelEditHandler}>
+                    <EditButton style={{fontSize: 'var(--h5)'}} save clicked={cancelEditHandler}>
                         Save
                     </EditButton>
                 }
