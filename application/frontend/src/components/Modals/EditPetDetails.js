@@ -9,22 +9,12 @@ import makeAnimated from 'react-select/animated';
 import styles from './EditPetDetails.module.css'
 import axios from 'axios';
 
-function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed}) {
+function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge}) {
 
-    let recievedPetName
-    let recievedPetType
-    let recievedPetAge
-    let recievedPetSize
-    axios.get('/api/pet-details', {params: {petID: profile.pet_id}})
-    .then(response =>{
-        recievedPetType = response.data.type_id
-        recievedPetAge = response.data.age_id
-        recievedPetSize = response.data.size_id
-        console.log(response);
-    })
-    .catch(err =>{
-        console.log(err);
-    })
+    // let recievedPetName
+    // let recievedPetType
+    console.log(recievedPetAge)
+    // let recievedPetSize
     // console.log(profile);
     //full version should recieve pet types and breeds from db and display in dropdown
     const [petName, setPetName] = useState('');
@@ -87,11 +77,9 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
             setCatBreedOptions(responses[5].data);
         })
         
-    },[display])
+    },[])
     
     const animatedComponents = makeAnimated();
-
-
 
     return (
         <Modal display={display} onClose={onClose}>
@@ -150,7 +138,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                             onChange={setPetAge}
                             options={ageOptions}
                             theme={customTheme}
-                            value={petAge}
+                            value={recievedPetAge}
                             placeholder="Select Pet Age"
                             //value = pet age
                             isSearchable

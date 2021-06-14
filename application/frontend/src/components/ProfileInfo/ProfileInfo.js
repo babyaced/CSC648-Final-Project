@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 //css
@@ -21,6 +21,19 @@ import ProfilePic from './ProfilePic';
 import FollowMenu from './FollowMenu';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
+
+    const [recievedPetAge, setRecievedPetAge] = useState();
+    useEffect(() => {
+        axios.get('/api/pet-details', {params: {petID: profile.pet_id}})
+        .then(response =>{
+            setRecievedPetAge(response.data);
+            console.log(recievedPetAge)
+            console.log(response);
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+    }, [profile])
 
     const [editing, setEditing] = useState(false);
     
@@ -80,7 +93,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
             console.log(err)
         })
     }
-
 
     function onFollowHandler() {
         if(appUser){
@@ -182,6 +194,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                     onClose={()=> setEditPetDetailsDisplay(false)}
                     updatePetType={setPetType}
                     updatePetBreed={setPetBreed}
+                    recievedPetAge ={recievedPetAge}
                 />
             }
             <SendProfileMessage 

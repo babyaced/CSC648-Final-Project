@@ -86,12 +86,6 @@ function Profile({appUser}) {
         }
     }
 
-    function toggleSelfViewHandler() {
-        setSelfView(!selfView);
-        let button = document.getElementById('profile-button'); // Maybe change the ID name to somthing more specific - Wameedh
-        selfView ? button.className = styles.SwitchSelf : button.className = styles.SwitchVistor;
-    }
-
     return (
         <div className={`${styles["Profile"]} ${"wide-container"}`} >
             {loading && <Spinner/>}
@@ -119,15 +113,15 @@ function Profile({appUser}) {
                         updateProfile={updateProfileHandler}
                 />
             </div>
-            {fetchedProfile.type !== 'Pet' &&
-                <div className={styles['photo-previews']}>
-                    <ImageContainer title='Photos' previews={fetchedPhotoPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />
-                </div>
-            }
             {(fetchedProfile.type == 'Admin' || fetchedProfile.type == 'PetOwner' || fetchedProfile.type == 'Shelter') &&
-                <div className={styles['pet-previews']}>
-                    <ImageContainer title='Pets' previews={fetchedPets} type={fetchedProfile.type} profile={fetchedProfile} />
-                </div>
+                <>
+                    <div className={styles['photo-previews']}>
+                        <ImageContainer title='Photos' previews={fetchedPhotoPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />
+                    </div>
+                    <div className={styles['pet-previews']}>
+                        <ImageContainer title='Pets' previews={fetchedPets} type={fetchedProfile.type} profile={fetchedProfile} />
+                    </div>
+                </>
             }
             {fetchedProfile.type == 'Pet' && 
                 <>

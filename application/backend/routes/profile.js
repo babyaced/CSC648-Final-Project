@@ -247,10 +247,10 @@ router.get('/api/pet-details', (req,res) =>{
             }
             else{
                 console.log(result)
+                res.send({value: 1, label: 'Baby'})
             }
         }
     )
-    
 })
 
 module.exports = router
