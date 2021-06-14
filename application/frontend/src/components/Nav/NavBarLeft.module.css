@@ -1,0 +1,28 @@
+.navbar-left{
+    flex-basis: 15%;
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem;
+}
+
+.logo-img,
+.logo-img-script{
+    height: 50px;
+    transition: .25s ease-in-out;
+}
+
+.logo-img:hover{
+    opacity: .75;
+}
+
+.logo-img-inactive{
+    height: 50px;
+    cursor: default;
+}
+
+@media (max-width: 1470px){
+    .logo-img{
+        height: auto;
+        width: 50px;
+    }
+}

@@ -1,0 +1,60 @@
+.comment{
+    display: grid;
+    grid-template-columns: 45px auto 35px;
+    grid-template-rows: repeat(2, 22.5px) auto;
+    grid-template-areas: "profile-pic  name      like"
+                         "profile-pic  timestamp timestamp"
+                         "body         body      body ";
+    box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    margin: 0 1rem 1rem 1rem;
+}
+
+.name,
+.body,
+.timestamp{
+    padding-left: 1rem;
+    font-family: var(--ff-secondary);
+}
+
+.name{
+    grid-area: name;
+    font-size: var(--h5);
+    align-self: flex-end;
+}
+
+.body{
+    grid-area: body;
+    padding: 1rem;
+}
+
+.timestamp{
+    grid-area: timestamp;
+    align-self: flex-end;
+    font-size: var(--base-size);
+}
+
+.profile-pic{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+    border-radius: 7.5px 0px 0px 0px;
+    grid-area: profile-pic;
+}
+
+.post-comment-like{
+    grid-area: like;
+    border-style: none;
+    background: url('../../../assets/icons/thirdparty/icons8-thumbs-up-48.png') no-repeat;
+    background-size: 24px 24px;
+    transition: .15s ease-in-out;
+    cursor: pointer;
+}
+
+.post-comment-like:hover{
+    opacity: .75;
+}
+
+.post-comment-likes{
+    grid-area: likes;
+}

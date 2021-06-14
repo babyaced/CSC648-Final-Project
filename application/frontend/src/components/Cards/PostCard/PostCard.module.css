@@ -1,0 +1,103 @@
+.post-card{
+    display: grid;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    grid-template-areas:
+      "profile-pic name      name       "
+      "profile-pic timestamp flag-delete"
+      "body        body          body"
+      "pic        pic           pic ";
+    grid-template-columns: 100px auto 50px;
+    grid-template-rows: repeat(2, 50px) repeat(2, auto);
+    box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    gap: 0 1rem;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-area: profile-pic;
+  border-radius: 7.5px;
+}
+
+.profile-pic:hover {
+  opacity: 0.75;
+}
+
+.post-name {
+  grid-area: name;
+  font-size: var(--h3);
+  font-family: var(--ff-primary);
+  font-weight: 600;
+  transition: 0.15s ease-in-out;
+  line-height: 100%;
+}
+
+.post-name:hover {
+  opacity: 0.75;
+}
+
+.post-timestamp {
+  align-self: flex-end;
+  grid-area: timestamp;
+  font-family: var(--ff-secondary);
+  font-size: var(--h5);
+}
+
+.post-flag,
+.follower-feed-post-admin-delete {
+  grid-area: flag-delete;
+  align-self: flex-end;
+  color: var(--inactive-txt-clr);
+  font-family: var(--ff-secondary);
+}
+
+.post-flag:hover,
+.follower-feed-post-admin-delete:hover {
+  color: var(--cancel-delete-exit-color);
+}
+
+.post-body {
+    margin-top: 1rem;
+    grid-area: body;
+    font-family: var(--ff-secondary);
+}
+
+.post-photo {
+    margin-top: 1rem;
+    width: 100%;
+    height: calc(100% - 1rem);
+    object-fit: cover;
+    grid-area: pic;
+    border-radius: 7.5px;
+}
+
+@media (max-width: 768px){
+  .post-card{
+    grid-template-columns: calc(70px + 1rem) auto 50px;
+    grid-template-rows: repeat(2,calc(35px + 0.5rem)) repeat(2, auto);
+  }
+}
+
+@media (max-width: 768px){
+  .post-card{
+    grid-template-areas:
+    "profile-pic name      name"
+    "profile-pic timestamp timestamp"
+    "body        body          body"
+    "pic        pic           pic "
+    "flag-delete flag-delete flag-delete";
+    grid-template-columns: calc(70px + 1rem) auto 50px;
+    grid-template-rows: repeat(2,calc(35px + 0.5rem)) repeat(3, auto);
+  }
+
+  .post-flag{
+    margin-top: 0.25rem;
+    text-align: right;
+  }
+}

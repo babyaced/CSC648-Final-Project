@@ -1,115 +1,168 @@
 .signup-container {
-    margin: 200px auto;
-    border-radius: 7.5px;
-    width: 50%;
     box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    margin: 5rem auto auto auto;
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
     align-items: center;
 }
 
-.signup-container-header{
-    padding-top: 20px;
-    font-size: var(--h1);
-    font-family: var(--ff-tertiary);
+.signup-header{
+    background-color: var(--accent-color-2);
     text-align: center;
-    font-weight: 600;
+    color: var(--reversed-txt-clr);
+    line-height: 4rem;
+    border-radius: 7.5px 7.5px 0 0;
+    box-shadow: var(--elevation-1);
+    width: 100%;
 }
 
 .signup-fields-container{
-    padding-top: 50px;
-    display: grid;
-    grid-template-columns: 2;
-    /* grid-template-areas: 'name    phone-num'
-                            'address animals;*/
-    grid-template-rows: 2;
-    gap: 50px;
+    padding: 2rem 2rem .1rem 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    font-family: var(--ff-primary);
     justify-content: center;
-    font-family: var(--ff-primary);
 }
 
-.name-input-container{
-    grid-area: 1/ 1/ span 1;
-}
-
-.phone-number-input-container{
-    grid-area: 1/ 2/ span 1;
-}
-
-.address-input-container{
-    grid-area: 2/ 1/ span 1;
-}
-
-
-.types-input-container{
-    grid-area: 2/ 2/ span 1;
-}
-
-
-.name-input-label, .phone-number-input-label, .address-input-label, .types-input-label {
-    font-family: var(--ff-primary);
-    font-size:var(--h3);
+.signup-fields-container label{
     display: block;
 }
 
-
-.name-input-container input,
-.phone-number-input-container input,
-.address-input-container input
-{
-    padding: 15px;
-    display: inline-block;
-    border: 1px solid var(--inactive-txt-clr);
+.signup-fields-container > div,
+.signup-fields-container > ul,
+.signup-fields-container > span{
+    flex-basis: 48%;
     border-radius: 7.5px;
+    margin-bottom: 1rem;
+}
+
+.signup-fields-container input{
+    width: 100%;
+    padding: 0.5rem 0 0.5rem 0.3rem;
+    border-radius: 7.5px;
+    font-size: var(--base-size);
 }
 
 .checkbox-container{
-    padding: 25px 0 15px 0;
-}
-
-.btn-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-flow: row wrap;
     text-align: center;
-    padding: 0 0 30px 0;
+    padding-bottom: 2rem;
 }
 
-.submit-btn{
-    width: 200px;
-    padding:10px 0;
-    text-justify: center;
-    text-align: center;
-    color: white;
-    background-color: var(--primary-clr);
-    font-size: var(--h3);
-    font-family: var(--ff-primary);
-    font-weight: 600;
-
-    box-shadow: var(--elevation-1);
-    border: none;
-    border-radius: 7.5px;
-    
-    cursor: pointer;
-    transition: .15s ease-in-out;
-}
-
-.submit-btn:hover{
-    opacity: .75;
+.checkbox-container:first-child span,
+.checkbox-container:last-child span{
+    line-height: var(--base-size);
+    font-size: var(--base-size);
+    flex-basis: 100%;
+    font-family: var(--ff-secondary);
 }
 
 .terms-button,
 .policy-button{
-    border: none;
-    background-color: transparent;
-    color:var(--primary-txt-clr);
     text-decoration: underline;
-    cursor:pointer;
+    cursor: pointer;
+    transition: .15s ease-in-out;
 }
 
+.terms-button:hover,
+.policy-button:hover{
+    color: var(--color-primary-200);
+}
+
+.submit-btn,
+.next-btn{
+    width: 250px;
+    max-width: 60%;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: var(--primary-clr);
+
+    font-family: var(--ff-primary);
+    box-shadow: var(--elevation-1);
+    border: none;
+    border-radius: 7.5px;
+    cursor: pointer;
+    transition: .15s ease-in-out;
+    grid-area: submit-btn;
+    margin-bottom: 2rem;
+}
+
+.submit-btn{
+    font-size: var(--h4);
+}
+
+.next-btn{
+    font-size: var(--h5);
+}
+
+.submit-btn:hover{
+    background-color: var(--color-primary-300);
+}
+
+.password-requirements-list{
+    margin-top: 0.25rem;
+    margin-left: 0;
+    padding-left: 1rem;
+    font-family: var(--ff-secondary);
+    font-size: var(--text-sm);
+}
+
+.password-requirements-list li{
+    padding-left: .5rem;
+}
+
+.valid{
+    border: 1px solid var(--inactive-txt-clr);
+}
+
+.invalid{
+    border: 2px solid red;
+    background-image: url(../../assets/icons/thirdparty/icons8-error-24.png);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 18px;
+}
+
+.met{
+    color: var(--color-primary-100);
+    list-style-type: "●";
+}
+
+.unmet{
+    color: var(--inactive-txt-clr);
+    list-style-type: "○";
+}
+
+.differing:after{
+    margin-top: 0;
+    content: 'Passwords do not match';
+    color: red;
+    font-size: var(--text-sm);
+    font-family: var(--ff-secondary);
+}
+
+.same:after{
+    content: ''
+}
+
+.signup-fields-container > div .termsError{
+    margin-top: 1rem;
+    color: red;
+    font-size: var(--text-sm);
+    font-family: var(--ff-secondary);
+}
+
+/*Address Input Combobox styling*/
 .combobox-list{
     background-color: white;
-    padding: 15px;
+    padding: 1rem;
     list-style: none;
     box-shadow: var(--elevation-2);
-    font-family: var(--ff-primary);
+    font-family: var(--ff-secondary);
     z-index: 1;
     border-radius: 7.5px;
     position: relative;
@@ -117,48 +170,35 @@
 
 .combobox-list li{
     cursor:pointer;
-    padding:5px;
+    padding: 5px;
     border-bottom: 1px solid rgba(0,0,0,0.10);
 }
 
-
-@media only screen and (min-width: 414px) and (max-width: 1024px) {
-    .signup-container-header {
-        font-size: var(--h2);
-        font-weight: bold;
-    }
-    .signup-fields-container {
-        grid-template-areas: 
-            'fname-input-container' 
-            'lname-input-container'
-            'email-input-container' 
-            'username-input-container'
-            'password-input-container' 
-            'confirm-password-input-container';
-        display: flex;
-        flex-direction: column;
-        grid-gap: 0px;
-        gap: 0px;
-    }  
+.checkbox-container input{
+    width: auto;
 }
 
-@media only screen and (max-width: 414px){
-    .signup-container-header {
-        font-size: var(--h2);
-        font-weight: bold;
+@media (max-width:450px){
+    .signup-fields-container > div,
+    .signup-fields-container > ul,
+    .signup-fields-container > span{
+        flex-basis: 100%;
+        border-radius: 7.5px;
+        margin-bottom: 1rem;
     }
-    .signup-fields-container {
-        display: flex;
-        flex-direction: column;
-        grid-gap: 0px;
-        gap: 0px;
-        text-align: center;
+
+    .name-input-container,
+    .phone-number-input-container,
+    .address-input-container{
+        margin-right: 0;
     }
-    .signup-fields-container input {
-        width: 90%;   
-    }  
-    .submit-btn {
-        width: 100px; 
-        height: 100px;
+
+    .checkbox-container:first-child span{
+        flex-basis: 100%;
+    }
+    
+    .checkbox-container:last-child span{
+        flex-basis: 100%;
     }
 }
+

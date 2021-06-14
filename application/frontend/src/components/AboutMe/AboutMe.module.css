@@ -1,118 +1,64 @@
-.AboutMe {
+.about-me {
     display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 0.5rem;
 }
 
-.AboutMe button {
+.about-me button {
     outline: none;
 }
 
-.AboutMe label {
+.about-me label {
     font-weight: 600;
 }
 
-.AboutMe textarea:read-only {
-    border: none;
-}
-
-.Container {
-    max-width: 733px;
-    height: 585px;
-    padding: 20px;
-    border-radius: 0px 25px 25px 25px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    box-shadow: var(--elevation-2);
-}
-
-.Content {
-    max-width: 660px;
-    font-size: 1.5em;
-}
-
-.Content input {
+.about-me textarea{
+    font-family: var(--ff-secondary);
+    font-size: var(--base-size);
+    height: 90%;
+    width: 100%;
+    resize: none;
     outline: none;
-    border: var(--primary-clr) solid 2px;
-    border-radius: 10px;
-    width: 146px;
-    margin-bottom: 7px;
-    text-overflow: ellipsis;
+    border: 1px solid var(--inactive-txt-clr);
+    border-radius: 7.5px;
+    padding: 0.5rem;
 }
 
-.Content input:read-only {
-    outline: none;
-    border: none;
-}
-
-.TextArea:read-only {
+.about-me textarea:read-only {
+    border: 1px solid transparent;
     resize: none;
     outline: none;
     background-color: unset;
     box-shadow: unset;
 }
 
-.TextArea {
-    resize: none;
-    outline: none;
-    border: 1px solid var(--inactive-txt-clr);
-    border-radius: 7.5px;
-    width: 100%;  
-    padding-left: 10px;
-
+.about-me-card {
+    padding: 1rem;
+    border-radius: 0px 7.5px 7.5px 7.5px;
+    overflow: hidden;
+    box-shadow: var(--elevation-2);
+    width: 100%;
+    height: 100%;
 }
 
-.TextArea::-webkit-scrollbar {
-    width: 10px; 
+.text-area::-webkit-scrollbar {
     background-color: none;
     box-shadow: unset;
 }
 
-.TextArea::-webkit-scrollbar-track {
-    border-radius: 10px;
+.text-area::-webkit-scrollbar-track {
+    border-radius: 7.5px;
     background-color: rgba(245, 243, 243, 0.966);
 }
 
-.TextArea::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+.text-area::-webkit-scrollbar-thumb {
+    border-radius: 7.5px;
     background-color: #ccc;
 }
 
-.AddressTextArea {
-    resize: none;
-    outline: none;
-    overflow: hidden;
-    border: var(--primary-clr) solid 2px;
-    border-radius: 5px;
-}
-
-.PetOwnerLinkLabel {
-    font-weight: 600;
-}
-
-.HoursDiv {
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    white-space: nowrap;
-}
-
-.hours-table{
-    width: 100%;
-}
-
-.hours-table-row{
-    text-align: left;
-}
-
-.hours-table-header{
-    width: 70px;
-    font-weight: 400;
-}
-
-.hours-table-cell{
-}
-
-@media (max-width: 800px) {
-    .AboutMe {
-        display: none;
-    }
+.edit-button,
+.save-button{
+    height: 10%;
+    float: right;
 }

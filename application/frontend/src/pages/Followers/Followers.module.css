@@ -1,0 +1,42 @@
+.followers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.followers-listing {
+  columns: 2;
+  width: 100%;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  margin: 1px auto;
+  box-shadow: var(--elevation-2);
+  border-radius: 0 7.5px 7.5px 7.5px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabContainer {
+  width: 100%;
+  background-color: "white";
+  color: "black";
+}
+
+.Tabs {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0 auto;
+  align-items: flex-start;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 470px){
+    .followers-listing{
+      border-radius: 0 0 7.5px 7.5px;
+    }
+    
+}
+

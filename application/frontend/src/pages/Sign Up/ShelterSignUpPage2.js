@@ -108,9 +108,10 @@ function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
     const customStyles = {
         control: (base, state) => ({
           ...base,
-          height: '54.5px',
-          'min-height': '54.5px',
+          height: '37px',
+          'min-height': '37px',
           'border-radius': '7.5px',
+          width: '300px'
         }),
     };
     
@@ -157,19 +158,7 @@ function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
 
         })
         .catch(error => {
-            if (error.response.data === "exists"){
-                // setError("An Account using that Email or Username already exists");
-                console.log(error);
-            }
-            else if (error.response.data === "passwords not matching"){
-                // setError("The Passwords Entered Do Not Match");
-                console.log(error);
-            }
-            else if (error.response.data === "password requirements"){
-                // setError("Your Password Must Have: 8-50 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character");
-                console.log(error);
-            }
-                console.log(error);
+            console.log(error);
         })
     }
 
@@ -179,9 +168,9 @@ function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
 
     return (
         <>
-        <form className={styles['signup-container']} onSubmit={signUpShelter}>
+        <form className={`${styles['signup-container']} ${'small-container'}`}  onSubmit={signUpShelter}>
             <div className={styles['signup-container-header']}>
-                Shelter Details
+                <h2>Shelter Details</h2>
             </div>
             <div className={styles['signup-fields-container']}>
                 <div className={styles['name-input-container']}>

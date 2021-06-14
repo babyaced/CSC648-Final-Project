@@ -1,88 +1,14 @@
 .follower-feed-container {
   display: flex;
   flex-direction: column;
-  width: 50%;
   margin: 25px auto;
-}
-
-.follower-feed-header-profile {
-  text-align: left;
-  margin: 10px 0 10px 40px;
-}
-
-.follower-feed-header-profile:hover {
-  opacity: 0.75;
-}
-
-.follower-feed-header-profile-pic {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  float: left;
-  margin-right: 15px;
-}
-
-.follower-feed-header-profile-name {
-  display: block;
-  grid-area: 1/ 2 / span 1 / span 1;
-  font-size: var(--h2);
-  font-family: var(--ff-primary);
-  font-weight: 500;
 }
 
 .follower-feed-header {
   margin: 5px;
   font-size: var(--h0);
-  font-family: var(--ff-tertiary);
-  font-weight: 600;
-}
-
-.follower-feed-post {
-  display: grid;
-  padding: 15px;
-  width: 100%;
-  grid-template-areas:
-    "post-prof-pic post-name      post-likes-flags"
-    "post-prof-pic .............. ................"
-    "post-prof-pic post-timestamp post-flag-delete"
-    "post-body        post-body          post-body"
-    "post-pic         post-pic           post-pic ";
-  grid-template-columns: 100px auto 50px;
-  grid-template-rows: repeat(3, 34px) repeat(2, auto);
-  box-shadow: var(--elevation-2);
-  border-radius: 7.5px;
-  margin-bottom: 15px;
-  cursor: pointer;
-}
-
-.follower-feed-post-prof_pic {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  grid-area: post-prof-pic;
-  border-radius: 7.5px;
-}
-
-.follower-feed-post-name {
-  margin-left: 15px;
-  grid-area: post-name;
-  font-size: var(--h2);
   font-family: var(--ff-primary);
   font-weight: 600;
-  transition: 0.15s ease-in-out;
-  line-height: 34px;
-}
-
-.follower-feed-post-name:hover {
-  opacity: 0.75;
-}
-
-.follower-feed-post-timestamp {
-  align-self: flex-end;
-  margin-left: 15px;
-  grid-area: post-timestamp;
-  font-family: var(--ff-primary);
 }
 
 .follower-feed-post-flags {
@@ -108,165 +34,13 @@
   width: 34px;
 }
 
-.follower-feed-post-flag,
-.follower-feed-post-admin-delete {
-  grid-area: post-flag-delete;
-  align-self: flex-end;
-  color: var(--inactive-txt-clr);
-}
-
-.follower-feed-post-flag:hover,
-.follower-feed-post-admin-delete:hover {
-  color: var(--cancel-delete-exit-color);
-}
-
 .follower-feed-post-like:hover {
-  opacity: 0.75;
-}
-
-/* .follower-feed-post-comments{
-    grid-area: 3 /  3 / span 1 / span 1;
-} */
-
-.follower-feed-post-body {
-  margin-top: 10px;
-  grid-area: post-body;
-  font-family: var(--ff-primary);
-}
-
-.follower-feed-post-pic {
-  margin-top: 15px;
-  width: 100%;
-  height: calc(100%-15px);
-  object-fit: cover;
-  grid-area: 5 / 1 / span 1 / span 3;
-  border-radius: 7.5px;
-}
-
-.follower-feed-post-prof_pic:hover {
-  opacity: 0.75;
-}
-
-.follower-feed-new-post {
-  /* position: sticky;
-    position: -webkit-sticky;  */
-  margin: auto;
-  width: 100%;
-  box-shadow: var(--elevation-1);
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 7.5px;
-  display: grid;
-  grid-template-areas:
-    "pic  user ........ submit"
-    "pic  .... dropdown dropdown"
-    "body body image    image";
-  grid-template-columns: 100px auto 150px 150px;
-  grid-gap: 15px;
-  grid-template-rows: 50px 50px 200px;
-  font-family: var(--ff-primary);
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.follower-feed-new-post-prof_pic {
-  transition: 0.15s ease-in-out;
-}
-
-.follower-feed-new-post-pic {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  grid-area: pic;
-  border-radius: 7.5px;
-}
-
-.follower-feed-new-post-name {
-  font-size: var(--h2);
-  font-family: var(--ff-primary);
-  font-weight: 600;
-  grid-area: user;
-}
-
-.follower-feed-new-post-body {
-  border: 1px solid var(--inactive-txt-clr);
-  border-radius: 7.5px;
-  padding: 10px;
-  grid-area: body;
-  resize: none;
-  font-family: var(--ff-primary);
-}
-
-.follower-feed-new-post-attach-image {
-  grid-area: image;
-  border-radius: 7.5px;
-  border: 2px var(--primary-clr) dashed;
-  font-family: var(--ff-primary);
-  font-size: var(--h3);
-  font-weight: 400;
-  /* margin: 10px; */
-  cursor: pointer;
-  transition: 0.15s ease-in-out;
-}
-
-.follower-feed-new-post-attach-image-container {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.follower-feed-new-post-attach-image-info {
-  font-size: var(--h4);
-  color: var(--inactive-txt-clr);
-  width: 50%;
-  text-align: center;
-}
-
-.follower-feed-new-post-attach-image-preview {
-  width: 315px;
-  height: 200px;
-  object-fit: contain;
-}
-
-.follower-feed-new-post-attach-image-container-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  white-space: nowrap;
-  background-color: rgb(221, 220, 220);
-}
-
-.follower-feed-new-post-attach-image-container-button:hover {
-  background-color: #ccc;
-}
-
-.follower-feed-new-post-submit {
-  grid-area: submit;
-  background-color: var(--primary-clr);
-  color: var(--reversed-txt-clr);
-  box-shadow: var(--elevation-1);
-  border: none;
-  border-radius: 7.5px;
-  font-family: var(--ff-primary);
-  font-size: var(--h3);
-  font-weight: 600;
-  height: 50px;
-  line-height: 50px;
-  cursor: pointer;
-  transition: 0.15s ease-in-out;
-}
-
-.follower-feed-new-post-submit:hover {
   opacity: 0.75;
 }
 
 .follower-feed-no-posts-placeholder-header {
   margin: 25px auto 10px auto;
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
   font-size: var(--h1);
   color: var(--inactive-txt-clr);
 }
@@ -276,24 +50,4 @@
   font-family: var(--ff-primary);
   font-size: var(--h2);
   color: var(--inactive-txt-clr);
-}
-
-.follower-feed-new-post-tag-dropdown {
-  grid-area: dropdown;
-}
-
-@media all and (max-width: 1120px) {
-  .follower-feed-container {
-    margin: 25% auto;
-    width: 95%;
-  }
-  .follower-feed-new-post {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .follower-feed-post {
-    display: flex;
-    flex-direction: column;
-  }
 }

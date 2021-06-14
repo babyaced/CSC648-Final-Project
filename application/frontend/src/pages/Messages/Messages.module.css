@@ -1,14 +1,18 @@
 .messages-container {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  margin: 0 auto;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .messages-header {
   font-size: var(--h0);
-  font-family: var(--ff-tertiary);
+  font-family: var(--ff-primary);
   font-weight: 600;
+  flex-basis: 50%;
 }
 
 .messages-container-no-messages {
@@ -17,76 +21,26 @@
   font-family: var(--ff-primary);
 }
 
-.messages-container-message {
-  display: grid;
-  padding: 15px;
-  width: 100%;
-  /* grid-template-areas:  'pic subject ........ timestamp'
-                          'pic sender ........ reply-icon'
-                          'pic ....... ........ ..........'; */
-  grid-template-columns: 120px auto auto 175px;
-  grid-template-rows: 34px 34px 34px;
-  transition: 0.15s ease-in-out;
 
-  box-shadow: var(--elevation-1);
-  border-radius: 7.5px;
-  margin-bottom: 15px;
-  cursor: pointer;
-}
 
-.messages-container-message:hover {
-  color: var(--primary-clr);
-}
-
-.messages-container-message-pic {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  grid-area: 1 / 1 / span 3 / span 1;
-  border-radius: 7.5px;
-}
-
-.messages-container-message-subject {
-  margin-left: 15px;
-  grid-area: 1 / 2 / span 1 / span 1;
-  font-size: var(--h3);
-  font-family: var(--ff-primary);
-  font-weight: 600;
-}
-
-.messages-container-message-timestamp {
-  grid-area: 1 / 4 / span 1 / span 1;
-  font-family: var(--ff-primary);
-}
-
-.messages-container-message-sender {
-  grid-area: 2 / 2 / span 1 / span 1;
-  margin-left: 15px;
-  font-family: var(--ff-primary);
-}
-
-/* @media all and (max-width: 876px){
-    .messages-container-message{
-        width: 90%;
-    }
-} */
-
-.tabs {
+.tabs{
   display: flex;
-  justify-content: space-between;
+  flex-basis: 50%;
+  justify-content: flex-end;
 }
 
 .recieved-messages-container,
 .sent-messages-container {
   box-shadow: var(--elevation-1);
   width: 100%;
-  height: calc(100vh - 200px);
+  height: 60vh;
   padding: 15px;
   border-radius: 7.5px 0 7.5px 7.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  position: relative;
 }
 
 .messages-header {
@@ -94,48 +48,57 @@
 }
 
 .new-message-button {
-  position: fixed;
-  top: calc(100vh - 150px);
+  position: sticky;
+  bottom: 5px;
+  left: 10px;
   align-self: flex-start;
   margin-top: auto;
-  padding: 15px;
+  padding: 1rem;
   box-shadow: var(--elevation-2);
-  background-color: var(--accent-color-2);
   border: none;
-  border-radius: 50%;
-  font-family: var(--ff-primary);
-  font-size: var(--h3);
+  background-color: var(--primary-clr);
+  border-radius: 15px;
+  font-family: var(--ff-secondary);
+  font-size: var(--h4);
   display: flex;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  transition: .25s ease-in-out;
+  color: var(--reversed-txt-clr);
+}
+
+.new-message-button:hover{
+  background-color: var(--color-primary-100);
+}
+
+.new-message-button img{
+  margin-left: 1rem;
+  width: 30px;
 }
 
 .new-message-text {
   margin-left: 10px;
 }
 
-@media only screen and (min-width: 414px) and (max-width: 1024px) {
-  .messages-container {
-    width: 90%;
+@media (max-width: 660px){
+  .messages-header {
+    display: none;
+  }
+
+  .tabs{
+    flex-basis: 100%;
   }
 }
 
-@media only screen and (max-width: 414px) {
-  .messages-container {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+@media (max-width: 470px){
+    .new-message-button{
+      font-size: var(--h5);
+    }
 
-  /*The tab container would not wrap, added some white space so it can wrap*/
-  .messages-header:after {
-    content: "     ";
-    white-space: pre;
-  }
 
-  .tabs {
-    align-items: flex-start;
-    white-space: wrap;
-    flex-wrap: wrap;
-  }
+    .new-message-button img{
+        margin-left: 1rem;
+        width: 20px;
+    }
 }

@@ -1,12 +1,17 @@
-import React, {useEffect, useLayoutEffect, useMemo, useState, useRef} from "react";
-import {Link, Switch, Route, Redirect, useHistory} from "react-router-dom";
+import React, {useEffect, useMemo, useState, useRef} from "react";
+import { useHistory} from "react-router-dom";
 import Axios from "axios";
 import {useThrottle} from '@react-hook/throttle'
 import {matchSorter} from 'match-sorter'
 
-import { useLoadScript} from '@react-google-maps/api';
+import styles from './SearchBar.module.css'
 
-import styles from '../Nav/NavBar.module.css'
+//Import Icons
+// import Search from  "../../assets/icons/created/Search.svg"
+
+//Import Custom Hooks/ Functions
+import useWindowSize from '../Hooks/useWindowSize'
+
 
 import usePlacesAutocomplete,{
   getGeocode,
@@ -43,8 +48,11 @@ let catBreedOptions = [];
 
 
 
-function SearchBar() {
+function SearchBar({cssClass, closeMobileSearchBar}) {
   const history = useHistory();
+  const windowSize = useWindowSize();
+
+
   const [searchTerm, setSearchTerm] = useState('')
   const [searchCategory, setSearchCategory] = useState('Pets');
 
@@ -69,7 +77,7 @@ function SearchBar() {
   });
 
   function search(){
-    // let prefilterObject = matchPrefilter(selectedPrefilter);
+    console.log("searching");
     if(searchLocationLat == null || searchLocationLng == null){
       navigator.geolocation.getCurrentPosition((position)=>{
         const location = {
@@ -139,7 +147,7 @@ function SearchBar() {
 
   return (
   <>
-    <div className={styles["searchbar"]}>
+    <div className={styles[cssClass]}>
       <span className={styles["search-category-dropdown"]}>
         <select name="search-category" id="search-category" onChange= {e => setSearchCategory(e.target.value)}>
           <option value="Pets">Pets</option>
@@ -149,7 +157,7 @@ function SearchBar() {
         </select>
       </span>
       <Combobox
-        className={styles['div-term-searchbar-input']}
+        className={styles['term-input-container']}
         onSelect={(value) => {
             setSelectedPrefilter(prefilterObject.current[value])  //set prefilter to selected one to pass to mapsearch page
             setSearchTerm("");
@@ -182,8 +190,7 @@ function SearchBar() {
           </ComboboxPopover>)}
       </Combobox>
       
-      {/* <span className={styles["div-searchbar-input"]}> */}
-        <Combobox className={styles['div-map-searchbar-input']}
+        <Combobox className={styles['location-input-container']}
             onSelect={async (address)=>{
                 setValue(address,false);
                 clearSuggestions();
@@ -198,7 +205,9 @@ function SearchBar() {
             }}
         >
           {/* Input Box */}
-          {searchCategory !== "Pet Owners" && <ComboboxInput
+          {searchCategory !== "Pet Owners" && 
+          <ComboboxInput
+            className={styles['location-input']}
             value={value}
             placeholder= {searchCategory !== 'Pet Owners' && "Near Current Location"}
             onChange={(e)=> {
@@ -222,16 +231,26 @@ function SearchBar() {
             </ComboboxList>
           </ComboboxPopover>
         </Combobox>
-          
 
-      
-      {/* </span> */}
 
-      
-      <button  
-        className={styles["searchbar-search"]}
-        onClick={search}
-      />
+      {windowSize.width > 768 &&
+        <button className={styles["searchbar-search-icon"]} onClick={search}/>
+      }
+      {windowSize.width <= 768 && windowSize.width  > 450 &&
+        <button className={styles["searchbar-search"]} onClick={search}>
+          Search
+        </button>
+      }
+      {windowSize.width  <= 450 &&
+        <span className={styles['searchbar-multifunc']}>
+          <button className={styles["searchbar-multifunc-cancel"]} onClick={closeMobileSearchBar}>
+            Cancel
+          </button>
+          <button className={styles["searchbar-multifunc-search"]} onClick={search}>
+            Search
+          </button>
+        </span>
+      }
       </div>
   </>
   );

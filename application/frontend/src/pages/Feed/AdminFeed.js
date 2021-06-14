@@ -5,11 +5,11 @@ import axios from 'axios';
 import styles from './Feed.module.css'
 import PostModal from '../../components/Modals/PostModal'
 
-import ArrowIcon from '../../images/Created Icons/Arrow.svg'
+import ArrowIcon from '../../assets/icons/created/Arrow.svg'
 
-import DeleteIcon from  '../../images/Created Icons/Exit-Cancel.svg'
+import DeleteIcon from  '../../assets/icons/created/Exit-Cancel.svg'
 
-import FlagIcon from '../../images/Third Party Icons/icons8-empty-flag.png'
+import FlagIcon from '../../assets/icons/thirdparty/icons8-empty-flag.png'
 
 import ConfirmDeletion from '../../components/Modals/ConfirmDeletion';
 
@@ -102,7 +102,7 @@ function AdminFeed({appUser}) {
 
     return (
         <>
-            <div className={styles["follower-feed-container"]}>
+            <div className={`${styles["follower-feed-container"]} ${"container"}`}>
                 <div className={styles["follower-feed-header"]}></div>
 
                 {feedPosts.length == 0 &&                     

@@ -11,7 +11,7 @@
 .signup-container-header{
     padding-top: 20px;
     font-size: var(--h1);
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     text-align: center;
     font-weight: 600;
 }
@@ -114,20 +114,6 @@
 
 .signup-container-check{
     margin: 30px;
-}
-
-
-
-@media all and (max-width: 1024px){
-    .sign-up-container {
-        width: 50%;
-    }
-}
-
-@media all and (max-width: 414px){
-    .sign-up-container{
-        width: 90%;
-    }
 }
 
 .submit-btn-2{

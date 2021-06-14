@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {useParams} from "react-router-dom";
-import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
+import {useParams, useHistory, Link} from "react-router-dom";
+
 
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-// Import Components Here
+import styles from "./Followers.module.css";
+
+//Import Components Here
+import FollowerCard from '../../components/Cards/FollowerCard/FollowerCard.js'
+import Tab from "../../components/UI/Tab/Tab.js"
+
 function Followers() {
 
   const {profileID} = useParams();
@@ -33,10 +38,56 @@ function Followers() {
     })
   },[profileID])
 
+  let history = useHistory();
+
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const onTabClicked = (value) => {
+    setSelectedTab(value);
+  };
+
+  let tabs = ["Followers", "Following"].map((tab, index) => (
+    <Tab
+      key={tab}
+      id={index}
+      section={tab}
+      selected={selectedTab}
+      length={index === 0 ? followers.length : following.length}
+      clicked={onTabClicked}
+    />));
+
+  let fList = []
+
+  //Set List to display based on selectedTab
+  if(selectedTab === 0){
+    fList = followers
+  }
+  else if(selectedTab === 1){
+    fList = following
+  }
 
   return (
     <div>
-      {loading ? <Spinner /> : <UserProfileCard followersList={followers} followingList={following}/>}
+      {loading ? <Spinner /> : 
+      <div className={`${styles["followers-container"]} ${"container"}`}>
+        <div className={styles["tabContainer"]}>
+          <div className={styles.Tabs}>
+            {tabs}
+          </div>
+            <div>
+              <div className={styles["followers-listing"]}>
+                {" "}
+                {fList.map((item) => (
+                  <Link style={{ textDecoration: "none" }} key={item.profile_id} to={"/Profile/" + item.profile_id}>
+                    <div style={{padding: " 10px 0px"}}>
+                      <FollowerCard key={item.profile_id} title={item.display_name} src={item.profile_pic_link}/>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+        </div>
+      </div>}
     </div>
   );
 }

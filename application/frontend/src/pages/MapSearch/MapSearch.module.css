@@ -1,140 +1,53 @@
 .map-search-results-container{
     display:grid;
-    grid-template-areas: 'map map map map search-results';
-    grid-template-columns: repeat(5, 1fr), 2fr;
+    grid-template-areas: 'map search-results';
+    grid-template-columns: 2fr 1fr;
     width: 100%;
-    height: calc(100vh - 100px); 
+    height: calc(100vh - 100px);
     transition: 2s;
 }
 
 /* MAP */
-.map-search-results-map{
+.search-results-map{
     background-color: var(--site-preview-2-container-color);
     grid-area: map;
 }
 
-.map-search-results-map img{
+.search-results-map img{
     width: 100%;
-    height: calc(100vh - 100px);
+    height: 100%;
     object-fit: cover;
 }
 
+.search-results{
+    grid-area: search-results;
+    box-shadow: var(--elevation-1);
+    overflow: auto;
+}
 
-.map-search-header{
-    padding-left: 36px;
+
+  /* Filter Styling */
+
+.filters{
+    grid-area: search-results;
+    box-shadow: var(--elevation-1);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.header-container{
+    margin: 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-family: var(--ff-primary);
 }
 
-.map-search-header-text{
-    font-family: var(--ff-tertiary);
-    font-weight: 600;
-    font-size: var(--h1);
-}
-
-.sort-dropdown-select{
-    border: none;
-    border-radius: 5px;
-    background-color: var(--reversed-txt-clr);
-    cursor:pointer;
-    padding-left:5px;
-}
-
-.map-search-results-header-action{
-    color:var(--secondary-txt-clr);
+.header-container h2{
     display: inline;
-    margin-left: 10px;
-    margin-bottom: 2px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
 }
-
-.sort-dropdown-label{
-    font-size: var(--h3);
-    font-family: var(--ff-primary);
-    font-weight: 600;
-
-}
-
-.sort-dropdown img{
-    margin-right: 36px;
-}
-
-.map-search-results-text,
-.map-search-results-filter{
-    grid-area: search-results;
-    box-shadow: var(--elevation-1);
-    overflow: auto;
-}
-
-.map-search-results-filter{
-    display: flex;
-    flex-direction: column;
-}
-
-.search-result{
-    list-style: none;
-    display: flex;
-    box-shadow: var(--elevation-1);
-    width: 95%;
-    margin-bottom: 25px;
-    padding: 10px 0 10px 10px;
-    border-radius:7.5px;
-    align-items: center;
-  }
-  
-  .search-result-pic{
-    width: 100px;
-    height:100px;
-    object-fit: cover;
-    display: inline-block;
-    margin-right: 10px;
-    border-radius: 7.5px;
-  
-  }
-
-  .search-result-marker{
-      width: 50px;
-      height: 50px;
-      margin-left: auto;
-      margin-right: 10px;
-      cursor:pointer;
-  }
-
-  .profile-link{
-      text-decoration: none;
-  }
-
-
-
-  .search-result-name-address{
-    font-family: var(--ff-primary);
-    margin-left:10px;
-  }
-  .search-result-name{
-    font-size: var(--h2);
-}
-.search-result-address{
-    font-size: var(--h4);
-}
-
-  
-  /* .map-search-results-text {
-    display:inline-block;
-    margin:0 15px auto 5px;
-    font-size: 20px;
-    text-align: left;
-    line-height: 1.6;
-    top: 0;
-    font-family: var(--ff-primary);
-    font-weight: 600;
-  } */
-
-
-  /* Filter Styling */
 
 .filter-business-categories,
 .filter-pet-types,
@@ -144,12 +57,13 @@
 .filter-pet-breed,
 .filter-shelter-pets,
 .filter-distance{
-    padding-top: 25px;
+    padding-top: 1rem;
     width: 75%;
     margin: 0 auto;
+    font-family: var(--ff-secondary);
 }
 
-.filter-button{
+.submit-filters-button{
     width: 75%;
     margin: 25px auto;
     background-color: var(--primary-clr);
@@ -165,97 +79,34 @@
 }
 
 
-
-.no-results{
-    list-style: none;
-    text-align: left;
-    font-size: var(--h1);
-    color: var(--inactive-txt-clr);
-    font-family: var(--ff-primary);
-    padding: 15px 15px 15px 0;
-}
-
-
 .map-coming-soon{
     text-align: center;
     font-size: var(--h1);
     color: var(--primary-txt-clr);
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
     margin-top: calc(50vh - 100px);
     font-weight: 600;
     color: var(--accent-color-1)
 }
 
-.map-search-results-page-navigation{
-    width: 85%;
-    margin: 0 auto;
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.map-search-results-page-navigation-next,
-.map-search-results-page-navigation-back{
-    background-color: var(--reversed-txt-clr);
-    border: 2px solid var(--primary-clr);
-    border-radius: 7.5px;
-    color: var(--primary-clr);
-    font-size: var(--h3);
-    cursor: pointer;
-    transition: .15s ease-in-out;
-}
-
-.map-search-results-page-navigation-back{
-    align-self: flex-start;
-}
 
 
-.map-search-results-page-navigation-next{
-    float: right;
-}
 
-.map-search-results-page-navigation-next:hover,
-.map-search-results-page-navigation-back:hover{
-    color:var(--reversed-txt-clr);
-    background-color: var(--primary-clr);
-}
-
-@media all and (max-width: 1000px){
+@media (max-width: 768px){
     .map-search-results-container{
-        display:grid;
-        grid-template-areas: "map"
-                             "search-results";
-        width: 100%;
-        grid-template-rows: auto 300px;
+        grid-template-areas: 'map'
+                             'search-results';
+        grid-template-columns: 1fr;
+        grid-template-rows: calc(40vh - 50px) calc(60vh - 50px);
     }
+}
 
-    .map-search-results-text-list {
-        display: inline-block;
-        overflow-x: auto;
-        white-space: nowrap;
-        overflow-y: hidden;
-    } 
-
-    .search-result{
-        display: flex;
-        width: 95%;
-    }
-
-    .search-result-pic{
-        width: 50px;
-        height: 50px;
-    }
-
-    .search-result-name{
-        font-size: var(--h3);
-    }
-
-    .search-result-address{
-        font-size: var(--h4);
-    }
-
-    .search-result-marker{
-        width: 30px;
-        height: 30px;
-    }
+.filter-button{
+    color:var(--secondary-txt-clr);
+    display: inline;
+    margin-left: 1rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: var(--h5);
 }

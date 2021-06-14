@@ -1,0 +1,23 @@
+/**/
+html,body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+a{
+  color: var(--primary-txt-clr)
+}
+/* 
+input:focus{
+  outline-color: var(--color-primary-300) !important;
+} */
+
+
+

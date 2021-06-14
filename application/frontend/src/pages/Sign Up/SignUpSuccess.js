@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 
-import CheckMark from '../../images/Third Party Images/undraw_checkbox.svg'
+import CheckMark from '../../assets/images/thirdparty/undraw_checkbox.svg'
 
 import styles from './SignUpPage.module.css'
 

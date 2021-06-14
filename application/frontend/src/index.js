@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import RedirectPathContextProvider from './context/redirect-path';
+
+/*Import Global CSS*/
+import './globalCSS/index.css';
+import './globalCSS/colors+shadows.css';
+import './globalCSS/type.css';
+import './globalCSS/layout.css';
+
 
 ReactDOM.render(
   <RedirectPathContextProvider>

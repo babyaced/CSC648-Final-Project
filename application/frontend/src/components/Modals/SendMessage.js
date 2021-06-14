@@ -7,6 +7,8 @@ import {components} from 'react-select'
 
 import styles from './SendMessage.module.css';
 
+import SelectCustomTheme from '../../mods/SelectCustomTheme.js'
+
 const {Option} = components
 
 function SendMessage({display,onClose, profile, recipientOptions}) {
@@ -36,17 +38,6 @@ function SendMessage({display,onClose, profile, recipientOptions}) {
         })
     }
 
-    function customTheme(theme){
-        return {
-            ... theme,
-            colors:{
-                ... theme.colors,
-                primary25: '#B3B3B3',
-                primary:'#1CB48F',
-            }
-        }
-    }
-
     const RecipientOption = (props) => (
         <Option {...props}>
             <img className={styles['option-recipient-image']} src={props.data.pic}/>
@@ -60,11 +51,11 @@ function SendMessage({display,onClose, profile, recipientOptions}) {
             <>
                 <h1 className={styles["sendAMessage-header"]}>Send a Message</h1>
                 <form className={styles['send-a-message-container']} onSubmit={sendMessage}>
-                    <Select id="recipient" name="message-recipient" className={styles["sendAMessage-recipient"]}
+                    <Select id="recipient" name="message-recipient" className={styles["sendAMessage-recipient-dropdown"]}
                         onChange={event => setRecipient([event])}
                         value={recipient}
                         options={recipientOptions}
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         components={{Option: RecipientOption}}
                         placeholder="To"
                         isSearchable

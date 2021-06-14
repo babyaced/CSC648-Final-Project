@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './AboutMe.module.css'
 
-import CameronJpg from '../../images/Cameron.jpg'
+import CameronJpg from '../../assets/images/created/Cameron.jpg'
 
 function Cameron() {
     return (

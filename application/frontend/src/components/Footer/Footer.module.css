@@ -1,63 +1,95 @@
 .footer{
-    background-color: var(--primary-txt-clr);
-    height:200px;
-    color: white;
-    display: grid;
-    grid-template-columns: 5;
-    font-family: var(--ff-primary);
+    display: flex;
+    flex-flow: row wrap;
+    background-color: black;
+    padding: 2rem 2rem 1rem 2rem;
 }
 
-.our-team-footer{
-    margin-top: 25px;
-    margin-left: 50px;
-    grid-column: 1 /span 1;
-    font-weight: bold;
+.our-team{
+    flex-basis: 33%;
 }
 
-.our-team-footer a{
-    text-decoration: none;
+.our-team-header,
+.social-media-header,
+.icons8-attribution-header{
+    flex-basis: 100%;
     color: var(--reversed-txt-clr);
-    font-weight: normal;
+    font-family: var(--ff-primary);
+    padding: 1rem;
 }
 
-.nav-link{
-    margin-left: 5px;
+.our-team a{
+    color: var(--reversed-txt-clr);
+    font-family: var(--ff-secondary);
+    text-decoration: none;
+    transition: .15s ease-in-out;
 }
 
-.logos {
-    color: white;
-    text-align: center;
-    
-    font-size: 40px;
-    margin: auto;
+.social-media-links{
+    flex-basis: 33%;
+    display: flex;
+    /* justify-content: center; */
 }
 
-.terms-conditions {
-    text-align: center;
-    margin: auto;
+.social-media-links a:first-child{
+    margin-left: 0;
 }
 
-.fa {
-    
-    font-size: 30px;
-    width: 7%;
-    margin: 10px 5px;
-    border-radius: 50%;
-  }
-
-i {
-    padding-right: 20px;
+.social-media-links a{
+    margin-left: 1rem;
 }
 
-.terms-button,
-.policy-button{
+.social-media-links img{
+    width: 50px;
+    height: 50px;
+    filter: invert(98%) sepia(85%) saturate(0%) hue-rotate(178deg) brightness(116%) contrast(100%);
+}
+
+
+
+
+
+.icons8-attribution{
+    flex-basis: 33%;
+    color: var(--reversed-txt-clr);
+    font-family: var(--ff-secondary);
+}
+
+.icons8-attribution a{
+    color: var(--reversed-txt-clr);
+}
+
+
+.terms-conditions{
+    flex-basis: 100%;
+    display: flex; 
+    justify-content: center;
+}
+
+.terms-conditions span{
+    color: var(--reversed-txt-clr);
+}
+
+.terms-conditions button{
     border: none;
+    color: var(--reversed-txt-clr);
     background-color: transparent;
-    color:var(--reversed-txt-clr);
     cursor: pointer;
 }
 
-.icons-8-attribution{
-    margin-left: auto;
-    padding:10px;
+.footer button,
+.footer a{
+    transition: .15s ease-in-out hover;
+}
+
+.footer button:hover,
+.footer a:hover{
+    opacity:.75;
+}
+
+@media (max-width: 768px){
+
+    .terms-conditions{
+        padding: 1rem;
+    }
 }

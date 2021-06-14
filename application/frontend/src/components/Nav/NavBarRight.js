@@ -1,42 +1,32 @@
+//Import Libraries
 import axios from "axios";
 import {useRef, useEffect, useState} from "react";
 import {NavLink, useHistory} from "react-router-dom";
-import DropdownArrow from '../../images/Created Icons/Arrow.svg';
 
-import useWindowDimensions from '../ProfileContent/ImageContainer/useWindowDimensions';
+//Import Icons
+import DropdownArrow from '../../assets/icons/created/Arrow.svg';
+import Messages from '../../assets/icons/created/Messages.svg';
+import Account from '../../assets/icons/created/Account.svg';
+import Menu from '../../assets/icons/created/Menu.svg';
+import SearchMobile from '../../assets/icons/created/SearchMobile.svg'
 
-import styles from './NavBar.module.css'
 
+//Import UI Components
+import useWindowSize from '../Hooks/useWindowSize'
+
+
+//Import CSS
+import styles from './NavBarRight.module.css'
 
 //used to detect if there was a click outside the account menu to close it
-let useClickOutside = (handler) =>{
-  let domNode = useRef();
+import UseClickOutside from '../../utils/UseClickOutside.js'
 
-  useEffect(() =>{
-    let maybeHandler = (event)=>{
-      if(domNode){
-        if(domNode.current && !domNode.current.contains(event.target)){
-          handler();
-        }
-      }
-    }
-  
-    document.addEventListener("mousedown", maybeHandler);
-  
-    return () => {
-      document.removeEventListener("mousedown", maybeHandler);
-    }
-  })
 
-  return domNode
-}
-
-function NavBarRight({appUser, updateLoginState}) {
+function NavBarRight({appUser, updateLoginState,displayMobileSearchBar, closeMobileSearchBar}) {
   const history = useHistory();
 
   const [accountMenuDisplay, setAccountMenuDisplay] = useState({display: 'none'});
-  const { width } = useWindowDimensions();
-
+  const windowSize = useWindowSize()
   function logoutHandler(){
     axios.post("/api/logout", {withCredentials: true}).then((response) =>{
       updateLoginState(response.data.loggedIn,response.data.user);
@@ -48,39 +38,56 @@ function NavBarRight({appUser, updateLoginState}) {
 
   }
 
-  function accountMenuToggle(){
-    if(accountMenuDisplay =={display:'block'}){
-      setAccountMenuDisplay({display: 'none'});
-    }
-    else{
-      setAccountMenuDisplay({display: 'block'});
-    }
-    
+
+  let domNode = UseClickOutside(()=>{
+    setMenuDisplay(false)
+  })
+
+  let hamburgerMenu = false
+  if(windowSize.width < 1170){
+    hamburgerMenu = true
   }
 
-  // useEffect(() =>{
-  //   console.log('AppUser in NavbarRight changed to: ', appUser)
-  // },[appUser])
+  if(windowSize.width > 450){
+    console.log("closing mobile search bar")
+    closeMobileSearchBar()
+  }
 
-  let domNode = useClickOutside(()=>{
-    setAccountMenuDisplay({display: 'none'})
-  })
+  const [menuDisplay, setMenuDisplay] = useState(false)
+  let menuClassname
+  menuDisplay ? menuClassname = 'menuVisible' : menuClassname = ''
 
   return (
         <>
-        {!appUser && <button className={styles["login-link"]} onClick={()=>history.push("/login-page")}>Login</button>}
-        {appUser && <NavLink to="/Messages" className={styles["messages-menu"]}>Messages</NavLink>}
-        {appUser &&<span ref={domNode} className="account-menu-dropdown">
-          <button className={styles["account-menu-dropdown-button"]} onClick={accountMenuToggle}>Account<img className={styles["account-menu-dropdown-arrow"]} src={DropdownArrow}/></button>
-          <ul  className={styles["account-menu-dropdown-content"]} style={ accountMenuDisplay}>
-            <li>
-              <NavLink className={styles["account-menu-dropdown-link"]} to={`/Profile/${appUser.profileID}`}>My Profile</NavLink>
-            </li>
-            <li><NavLink className={styles["account-menu-dropdown-link"]} to="/MyPets">My Pets</NavLink></li>
-            <li>{(width < 770) && <NavLink className={styles["account-menu-dropdown-link"]} to="/Messages" >Messages</NavLink>}</li>
-            <li><NavLink className={styles["account-menu-dropdown-link"]} to="/" onClick={logoutHandler}>Logout</NavLink></li>
-          </ul>
-        </span>}
+          {!appUser && 
+            <span className={styles['navbar-right-login']}>
+               {windowSize.width <= 450 && <img className={styles['search-icon']} src={SearchMobile} onClick={displayMobileSearchBar}/> } 
+              <button className={styles["login-button"]} onClick={()=>history.push("/login-page")}>Login</button>
+            </span>}
+          {appUser &&
+            <span className={styles['navbar-right']}>
+              {windowSize.width <= 450 && <img className={styles['search-icon']} src={SearchMobile} onClick={displayMobileSearchBar}/> } 
+              {windowSize.width <= 1470 &&
+                <NavLink to="/Messages" className={styles["messages-menu-icon"]}>
+                  <img src={Messages}/>
+                </NavLink>
+              }
+              {windowSize.width > 1470 &&  <NavLink to="/Messages" className={styles["messages-menu"]}>Messages</NavLink>}
+              <span ref={domNode} className="account-menu-dropdown">
+                {windowSize.width <= 1470 && 
+                  <img className={styles["account-menu-icon"]} src={Account} onClick={() => setMenuDisplay(!menuDisplay)}/>
+                }
+                {windowSize.width > 1470 &&
+                  <button className={styles["account-menu-dropdown-button"]} onClick={() => setMenuDisplay(!menuDisplay)}>Account<img className={styles["account-menu-dropdown-arrow"]} src={DropdownArrow}/></button>
+                }
+                <ul className={`${styles['account-menu-dropdown']} ${styles[menuClassname]}` }>
+                  <li><NavLink className={styles["account-menu-dropdown-link"]} to={`/Profile/${appUser.profileID}`}>My Profile</NavLink></li>
+                  <li><NavLink className={styles["account-menu-dropdown-link"]} to="/MyPets">My Pets</NavLink></li>
+                  <li><NavLink className={styles["account-menu-dropdown-link"]} to="/" onClick={logoutHandler}>Logout</NavLink></li>
+                </ul>
+              </span>
+            </span>
+          }
         </>
   );
 }

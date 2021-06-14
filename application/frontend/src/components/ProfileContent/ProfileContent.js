@@ -12,51 +12,48 @@ function ProfileContent({photoPosts, pets, profile, isSelfView, updateProfile, t
     const [writeAReviewDisplay, setWriteAReviewDisplay] = useState(false);
     const [text, setText] = useState('See All');
 
-    let imageContainer = null;
+    let imageContainers = null;
     switch(profile.type) {
         case 'Shelter':
-            imageContainer = (
-                <div className={styles.ImageContainerShelter} >
-                    <ImageContainer title='Photos' previews={photoPosts} selfView={isSelfView} type={profile.type} profile={profile} />
-                    <ImageContainer title='Pets' previews={pets} type={profile.type} profile={profile} />
-                </div>
+            imageContainers = (
+                    <>
+                        <ImageContainer title='Photos' previews={photoPosts} selfView={isSelfView} type={profile.type} profile={profile} />
+                        <ImageContainer title='Pets' previews={pets} type={profile.type} profile={profile} />
+                    </>
             )
             break;
         case 'Business':
-            imageContainer = (
-                <div className={styles.ImageContainerBusiness} >
+            imageContainers = (
                     <ImageContainer title='Photos' selfView={isSelfView} previews={photoPosts} type={profile.type} profile={profile} />
-                </div>
             )
             break;
         case 'Admin':
         case 'PetOwner':
-            imageContainer = (
-                <div className={styles.ImageContainerTwoRows} >
-                    <ImageContainer title='My Photos' previews={photoPosts} selfView={isSelfView} image={profile.photos} type={profile.type} profile={profile} />
-                    <ImageContainer title='Pets' previews={pets} type={profile.type} profile={profile} />
-                </div>
+            imageContainers = (
+                    <>
+                        <ImageContainer title='Photos' previews={photoPosts} selfView={isSelfView} image={profile.photos} type={profile.type} profile={profile} />
+                        <ImageContainer title='Pets' previews={pets} type={profile.type} profile={profile} />
+                    </>
             )
             break;
         case 'Pet':
-            imageContainer = (
-                <div className={styles.ImageContainerTwoRows} >
-                    <ImageContainer title='My Photos' previews={taggedPosts} selfView={isSelfView} type={profile.type} profile={profile} />
-                    <ImageContainer title='My Siblings' previews={pets} type={profile.type} profile={profile}/>
-                </div>
+            imageContainers = (
+                    <>
+                        <ImageContainer title='Photos' previews={taggedPosts} selfView={isSelfView} type={profile.type} profile={profile} />
+                        <ImageContainer title='Siblings' previews={pets} type={profile.type} profile={profile}/>
+                    </>
             )
             break;
         default:
-            imageContainer = null;
+            imageContainers = null;
     }
 
     let displayReview = null;
     
     return (
-        <div className={styles.ProfileContent} >
-            {imageContainer}
-            
-        </div>
+        <>
+            {imageContainers}
+        </>
     );
 }
 

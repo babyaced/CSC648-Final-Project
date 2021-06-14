@@ -1,0 +1,40 @@
+.Text {
+    white-space: nowrap;
+    color: var(--inactive-txt-clr);
+    transition: .25s ease-in-out;
+}
+
+.Text:hover{
+    color: var(--primary-clr)
+}
+
+.Tab {
+    flex-basis: 50%;
+    height: 50px;
+    box-shadow: var(--elevation-1);
+    border-radius: 15px 15px 0 0;
+    cursor: pointer;
+    background-color: var(--reversed-txt-clr);
+    font-family: var(--ff-primary);
+    font-weight: 600;
+    font-size: var(--h4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s ease-in-out;
+}
+
+
+.ActiveText {
+    color: white;
+}
+
+.ActiveText:hover {
+    color: white;
+}
+
+.ActiveTab {
+    box-shadow: var(--elevation-2);
+    z-index: 1;
+    background-color: var(--primary-clr);
+}

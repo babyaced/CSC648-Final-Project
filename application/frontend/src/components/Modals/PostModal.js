@@ -5,6 +5,7 @@ import styles from './PostModal.module.css'
 import Modal from './Modal.js'
 import axios from 'axios';
 import Spinner from '../UI/Spinner/Spinner';
+import CommentCard from '../Cards/CommentCard/CommentCard';
 
 
 function PostModal({display,onClose,selectedPost}) {
@@ -61,18 +62,7 @@ function PostModal({display,onClose,selectedPost}) {
         else {
         displayComment = (
             comments && comments.map((comment)=>(
-                <li key={comment.comment_id}>
-                    <div className={styles['post-comment']}>
-                        <img className={styles['post-comment-pic']} src={comment.profile_pic_link}/>
-                        <div className={styles['post-comment-name']}><h4>{comment.display_name}</h4></div>
-                        <div className={styles['post-comment-timestamp']}>{new Date(comment.timestamp).toLocaleString()}</div>
-                        <div className={styles['post-comment-body']}>{comment.body}</div>
-                        {/* <div className={styles['post-comment-likes']}>
-                            {comment.like_count}  
-                        </div>
-                        <button className={styles['post-comment-like']}/> */}
-                    </div>
-                </li>
+                <CommentCard comment={comment}/>
             ))
         )}
      }
@@ -89,22 +79,16 @@ function PostModal({display,onClose,selectedPost}) {
                     <div className={styles["post-content"]}>
                         <div className={styles["post-detail"]}>
                             <img className={styles["post-detail-pic"]} src={selectedPost.profile_pic_link}/>
-                            <div className={styles["post-detail-name"]}><h3>{selectedPost.display_name}</h3></div>
+                            <div className={styles["post-detail-name"]}><h5>{selectedPost.display_name}</h5></div>
                             <div className={styles["post-detail-timestamp"]}>{new Date(selectedPost.timestamp).toLocaleString()}</div>
-                            <div className={styles["post-detail-likes"]}>
-                                {selectedPost.likes}
-                                
-                            </div>
-                            {/* <button className={styles["post-detail-like"]}/> */}
-                            {/* <div className={styles["post-detail-comments-count"]}>{comments.length} comments</div>  */} 
-                            <div className={styles["post-detail-body"]}>{selectedPost.body}</div>
                         </div>
+                        <div className={styles["post-body"]}>{selectedPost.body}</div>
                         <ul className={styles["post-comments"]}>
                             {displayComment}
                         </ul>
                         <form className={styles["post-leave-comment"]} onSubmit={submitComment}>
                             <input value={createdCommentBody} maxLength="255" required placeholder="Write a Comment..." onChange={e => setCreatedCommentBody(e.target.value)}/>
-                            <button onClick><span>Comment</span></button>
+                            <button type="submit"><span>Comment</span></button>
                         </form>
                     </div>
                 </div>
@@ -116,12 +100,6 @@ function PostModal({display,onClose,selectedPost}) {
                         <img className={styles["post-detail-pic"]} src={selectedPost.profile_pic_link}/>
                         <div className={styles["post-detail-name"]}><h3>{selectedPost.display_name}</h3></div>
                         <div className={styles["post-detail-timestamp"]}>{new Date(selectedPost.timestamp).toLocaleString()}</div>
-                        <div className={styles["post-detail-likes"]}>
-                            {selectedPost.likes}
-                            
-                        </div>
-                        {/* <button className={styles["post-detail-like"]}/> */}
-                        {/* <div className={styles["post-detail-comments-count"]}>{comments.length} comments</div>  */} 
                         <div className={styles["post-detail-body"]}>{selectedPost.body}</div>
                     </div>
                     <ul className={styles["post-comments"]}>
@@ -129,7 +107,7 @@ function PostModal({display,onClose,selectedPost}) {
                     </ul>
                     <form className={styles["post-leave-comment"]} onSubmit={submitComment}>
                         <input value={createdCommentBody} maxLength="255" required placeholder="Write a Comment..." onChange={e => setCreatedCommentBody(e.target.value)}/>
-                        <button onClick><span>Comment</span></button>
+                        <button type="submit"><span>Comment</span></button>
                     </form>
                 </div>
             </div>

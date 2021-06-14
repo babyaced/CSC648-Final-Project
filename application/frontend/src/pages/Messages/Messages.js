@@ -1,14 +1,19 @@
+//Import Libraries
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Tab from "./Tab";
-
-import styles from "./Messages.module.css";
+//Import UI Components
+import Tab from "../../components/UI/Tab/Tab.js"
 import RecievedMessage from "../../components/Modals/RecievedMessage";
 import SentMessage from "../../components/Modals/SentMessage";
-import AddIcon from "../../images/Created Icons/AddWhite.svg";
+import AddIcon from "../../assets/icons/created/AddWhite.svg";
 import SendMessage from "../../components/Modals/SendMessage";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import MessageCard from "../../components/Cards/MessageCard/MessageCard"
+
+//Import CSS
+import styles from "./Messages.module.css";
+
 
 function Messages() {
   const [recievedMessageModalDisplay, setRecievedMessageModalDisplay] =
@@ -25,7 +30,7 @@ function Messages() {
     []
   );
 
-  const [loading, setLoding] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function viewSentMessageModal(message) {
     setSelectedMessage(message);
@@ -39,7 +44,7 @@ function Messages() {
 
   function getMessages() {
     //retrieve currently logged in user's messages
-    setLoding(true);
+    setLoading(true);
     const getSentMessages = axios.get("/api/sent-messages");
     const getRecievedMessages = axios.get("/api/recieved-messages");
 
@@ -47,10 +52,10 @@ function Messages() {
       .then((responses) => {
         setRecievedMessages(responses[0].data);
         setSentMessages(responses[1].data);
-        setLoding(false);
+        setLoading(false);
       })
       .catch((err) => {
-        setLoding(false);
+        setLoading(false);
       });
   }
 
@@ -86,7 +91,6 @@ function Messages() {
         });
       }
 
-
       setPossibleMessageRecipients(recipientOptions);
     });
   }
@@ -119,10 +123,10 @@ function Messages() {
     />
   ));
 
-  let displayMessage = <Spinner />;
+  let messages = <></>;
 
   if (!loading)
-    displayMessage = (
+    messages = (
       <>
         {selectedTab === 0 && recievedMessages.length == 0 && (
           <div className={styles["messages-container-no-messages"]}>
@@ -132,97 +136,64 @@ function Messages() {
         {selectedTab === 0 &&
           recievedMessages.map((recievedMessage) => (
             <>
-              <div
-                key={recievedMessage.message_id}
-                className={styles["messages-container-message"]}
-                onClick={() => viewRecievedMessageModal(recievedMessage)}
-              >
-                <img
-                  className={styles["messages-container-message-pic"]}
-                  src={recievedMessage.profile_pic_link}
-                />
-                <div className={styles["messages-container-message-subject"]}>
-                  {recievedMessage.subject}
-                </div>
-                <div className={styles["messages-container-message-timestamp"]}>
-                  {new Date(recievedMessage.timestamp).toLocaleString()}
-                </div>
-                <div className={styles["messages-container-message-sender"]}>
-                  {recievedMessage.display_name}
-                </div>
-              </div>
+              <MessageCard key={recievedMessage.message_id}  message={recievedMessage} viewModal={() => viewRecievedMessageModal(recievedMessage)}/>
             </>
           ))}
         {selectedTab === 1 && sentMessages.length == 0 && (
           <div className={styles["messages-container-no-messages"]}>
-            You have no messages :(
+            You have no new messages :(
           </div>
         )}
         {selectedTab === 1 &&
           sentMessages.map((sentMessage) => (
             <>
-              <div
-                key={sentMessage.message_id}
-                className={styles["messages-container-message"]}
-                onClick={() => viewSentMessageModal(sentMessage)}
-              >
-                <img
-                  className={styles["messages-container-message-pic"]}
-                  src={sentMessage.profile_pic_link}
-                />
-                <div className={styles["messages-container-message-subject"]}>
-                  {sentMessage.subject}
-                </div>
-                <div className={styles["messages-container-message-timestamp"]}>
-                  {new Date(sentMessage.timestamp).toLocaleString()}
-                </div>
-                <div className={styles["messages-container-message-sender"]}>
-                  {sentMessage.display_name}
-                </div>
-              </div>
+              <MessageCard key={sentMessage.message_id} message={sentMessage} viewModal={() => viewSentMessageModal(sentMessage)}/>
             </>
           ))}
         <button
           className={styles["new-message-button"]}
           onClick={() => setSendMessageModalDisplay(true)}
         >
-          <img src={AddIcon} className={styles["new-message-icon"]} />
-          {/* <span className={styles['new-message-text']}>New Message</span> */}
+          <span className={styles['new-message-text']}>New Message</span>
+          <img src={AddIcon}/>
         </button>
       </>
     );
 
   return (
     <>
-      <div className={styles["messages-container"]}>
-        <div className={styles["tabs-container"]}>
-          <div className={styles["tabs"]}>
-            <div className={styles["messages-header"]}>Messages</div>
-            <div className="double-tabs" style={{ display: "flex" }}>
-              {tabs}
-            </div>
+      {loading ? <Spinner/> :
+        <>
+          <div className={`${styles["messages-container"]} ${"container"}`}>
+            <div className={styles["container-header"]}>
+              <div className={styles["messages-header"]}>Messages</div>
+              <div className={styles["tabs"]}>
+                {tabs}
+              </div>
+          </div>
+          <div className={styles["recieved-messages-container"]}>
+            {messages}
           </div>
         </div>
-        <div className={styles["recieved-messages-container"]}>
-          {displayMessage}
-        </div>
-      </div>
-      <RecievedMessage
-        display={recievedMessageModalDisplay}
-        updateSentMessages={updateSentMessages}
-        onClose={() => setRecievedMessageModalDisplay(false)}
-        selectedMessage={selectedMessage}
-      ></RecievedMessage>
-      <SentMessage
-        display={sentMessageModalDisplay}
-        onClose={() => setSentMessageModalDisplay(false)}
-        selectedMessage={selectedMessage}
-      ></SentMessage>
-      <SendMessage
-        display={sendMessageModalDisplay}
-        onClose={() => setSendMessageModalDisplay(false)}
-        recipientOptions={possibleMessageRecipients}
-      />
+        <RecievedMessage
+          display={recievedMessageModalDisplay}
+          updateSentMessages={updateSentMessages}
+          onClose={() => setRecievedMessageModalDisplay(false)}
+          selectedMessage={selectedMessage}
+        ></RecievedMessage>
+        <SentMessage
+          display={sentMessageModalDisplay}
+          onClose={() => setSentMessageModalDisplay(false)}
+          selectedMessage={selectedMessage}
+        ></SentMessage>
+        <SendMessage
+          display={sendMessageModalDisplay}
+          onClose={() => setSendMessageModalDisplay(false)}
+          recipientOptions={possibleMessageRecipients}
+        />
+      </>
+      }
+      
     </>
   );
 }

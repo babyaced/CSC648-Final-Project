@@ -76,7 +76,7 @@ function MyPhotos() {
 
     return (
         <>
-            <div className={styles.Photo} >
+            <div className={styles.Photos} >
                 <div className={styles.NameDiv} >
                     <div className={styles.NameDivLeft} >
                         <h1>{name + '\'s Photos'}</h1>
@@ -85,7 +85,6 @@ function MyPhotos() {
                     </div>
                     <div className={styles.NameDivRight} >
                         {/* <button>filter</button> */}
-                        <p onClick={() => history.goBack()}>Back to Profile</p>
                     </div>
                 </div>
                 {/* <div className={styles.PhotosContainer} >

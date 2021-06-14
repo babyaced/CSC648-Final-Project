@@ -62,7 +62,8 @@ function EditAddress({display, onClose, setAddressState}) {
         <Modal display={display} onClose={onClose}>
             <div className={styles['edit-address-header']}>Edit Address</div>
             <div className={styles['edit-address-container']}>
-                <Combobox 
+                <Combobox
+                        className={styles['edit-address-input-container']}
                         onSelect={async (address)=>{
                         setValue(address,false);
                         clearSuggestions();
@@ -78,6 +79,7 @@ function EditAddress({display, onClose, setAddressState}) {
                         }}
                     >
                         <ComboboxInput
+                            className={styles['edit-address-input']}
                             value={value}
                             placeholder= "Start Typing your Shelter's Address"
                             onChange={(e)=> {

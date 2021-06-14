@@ -1,0 +1,160 @@
+.navbar-right-login,
+.navbar-right{
+    flex-basis: 15%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 1rem;
+}
+
+.login-button{
+    font-family: var(--ff-primary);
+    text-decoration: none;
+    font-size: var(--h5);
+    text-align: center;
+    color: var(--primary-clr);
+    background: var(--reversed-txt-clr);
+    border: 3px solid var(--primary-clr);
+    border-radius: 15px;
+    transition: 0.5s ease;
+    cursor:pointer;
+    padding: 0.25rem 1rem;
+}
+
+.login-button:hover{
+    background-color:var(--primary-clr);
+    color: var(--reversed-txt-clr);
+    font-weight: 600;
+}
+
+
+.messages-menu{
+    border:none;
+    background-color: transparent;
+    font-size: var(--h2);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    cursor:pointer;
+    text-decoration: none;
+    color: var(--reversed-txt-clr);
+    transition: .15s ease-in-out;
+    margin-right: 1rem;
+}
+
+.messages-menu:hover{
+    color: var(--primary-clr);
+}
+
+.account-menu-dropdown-button{
+    border: none;
+    background-color: transparent;
+    font-size: var(--h2);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    cursor:pointer;
+    color: var(--reversed-txt-clr);
+    transition: .25s ease-in-out;
+    display: flex;
+}
+
+.account-menu-dropdown-button:hover{
+    color: var(--primary-clr);
+}
+
+.account-menu-dropdown-arrow{
+    align-self: center;
+    transform: rotate(180deg);
+    margin-left: .5rem;
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(337deg) brightness(103%) contrast(101%);
+}
+
+/* Account Menu Dropdown */
+
+.account-menu-dropdown{
+    opacity: 0;
+    background-color: var(--accent-color-2);
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    min-height: 0;
+    z-index: -1;
+    transition: all .25s cubic-bezier(.5,0,.5,1);
+    box-shadow: var(--elevation-3);
+    list-style: none;
+    border-radius: 0 0 7.5px 7.5px;
+    padding-left: 0;
+}
+
+.menuVisible{
+    transform: translateY(35px);
+    opacity: 1;
+    min-height: 50px;
+    background-color: var(--reversed-txt-clr);
+    z-index: 1;
+}
+
+.account-menu-dropdown-link{
+    margin: 1rem;
+    float:none;
+    text-align: right;
+    text-decoration: none;
+    font-size:var(--h2);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-family: var(--ff-primary);
+    transition: .25s ease-in-out;
+}
+
+.account-menu-dropdown-link:hover{
+    color: var(--primary-clr);
+}
+
+
+
+@media (max-width: 1470px){
+
+    .messages-menu-icon{
+        align-self: center;
+        transition: .15s ease-in-out;
+        margin-right: 1rem;
+    }
+
+    .account-menu-icon{
+        height: 35px;
+        transition: .15s ease-in-out;
+    }
+
+    .messages-menu-icon:hover{
+        cursor: pointer;
+        filter: invert(51%) sepia(12%) saturate(2293%) hue-rotate(134deg) brightness(92%) contrast(88%);
+    }
+
+    .account-menu-icon:hover{
+        cursor: pointer;
+        filter: invert(51%) sepia(12%) saturate(2293%) hue-rotate(134deg) brightness(92%) contrast(88%);
+    }
+}
+
+@media (max-width: 1170px){
+    .menu-icon{
+        height: 35px;
+    }
+
+    .menu-icon:hover{
+        cursor: pointer;
+        filter: invert(51%) sepia(12%) saturate(2293%) hue-rotate(134deg) brightness(92%) contrast(88%);
+    }
+}
+
+@media (max-width: 450px){
+
+    .navbar-right-login,
+    .navbar-right{
+        flex-basis: 50%;
+    }
+
+    .search-icon{
+        margin-right: 1rem;
+    }
+}
+

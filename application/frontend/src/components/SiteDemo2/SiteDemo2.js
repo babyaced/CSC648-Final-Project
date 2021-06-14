@@ -1,13 +1,10 @@
 import {useState} from "react";
 import { useHistory } from "react-router";
 
-import MapSearchPreview from '../../images/MapSearchPreview.png'
-
 import styles from './SiteDemo2.module.css';
 
 
 function SiteDemo2() {
-  const [text, setText] = useState('Try the Tool');
 
   const history = useHistory();
 
@@ -23,18 +20,12 @@ function SiteDemo2() {
 
   return (
     <div className={styles['site-demo2-container']}>
-      <div className={styles['right-side']}>
-      <div className={styles['right-side-text']}>
-            <p className={styles['side-text']}>Use our location search tool to find a pet-friendly small businesses near you </p>
-            <button className={styles['site-demo2-button']} onClick={searchLocalBusinesses}>
-            {text}
-        </button>
-        </div>
-        {/* <img className={styles['left-side-map']} src={MapSearchPreview} /> */}
+      <div className={styles['right-side-container']}>
+          <h1>Use our location search tool to find a pet-friendly small business near you</h1>
+          <button className={styles['search-biz-button']} onClick={searchLocalBusinesses}>
+            Try the Tool
+          </button>
       </div>
-      {/* <div className={styles['right-side']}>
-        
-      </div> */}
     </div>
   );
 }

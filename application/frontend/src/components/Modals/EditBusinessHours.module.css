@@ -2,7 +2,7 @@
     padding:15px 30px 30px 30px;
     font-size: var(--h1);
     font-weight: 600;
-    font-family: var(--ff-tertiary);
+    font-family: var(--ff-primary);
 }
 .edit-business-hours-container{
     padding: 30px;
@@ -38,27 +38,4 @@
 
 .edit-business-hours-submit:hover{
     opacity: .75;
-}
-
-@media only screen and (max-width: 1024px) {
-    .edit-business-hours-container {
-        grid-template-areas: 
-            'sun-start' 
-            'sun-end'
-            'mon-start' 
-            'mon-end'
-            'tue-start' 
-            'tue-end'
-            'wed-start' 
-            'wed-end'
-            'thu-start' 
-            'thu-end'
-            'fri-start' 
-            'fri-end'
-            'sat-start' 
-            'sat-end'
-            'btn';
-        overflow-y: auto;
-        width: auto;
-    }
 }

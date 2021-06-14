@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './AboutMe.module.css'
 
-import EmJPG from '../../images/Em.jpg'
+import EmJPG from '../../assets/images/created/Em.jpg'
 
 
 function Em() {

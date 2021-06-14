@@ -4,15 +4,15 @@ import {Link, useHistory} from 'react-router-dom'
 import styles from './MyPets.module.css'
 import axios from 'axios'
 
-import AddIcon from '../../images/Created Icons/Add.svg'
-
-import DeleteIcon from  '../../images/Created Icons/Exit-Cancel.svg'
 import ConfirmDeletion from '../../components/Modals/ConfirmDeletion';
 
+//Import UI Components
+import MyPetCard from '../../components/Cards/PetCard/MyPetCard'
 import AddAPet from '../../components/Modals/AddAPet';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 import {RedirectPathContext} from '../../context/redirect-path'
+import AddPetCard from '../../components/Cards/PetCard/AddPetCard'
 
 function MyPets() {
 
@@ -38,7 +38,6 @@ function MyPets() {
 
     const [loading, setLoading] = useState(false);
 
-    const [update, setUpdate] = useState(false);
 
     //const redirectContext = useContext(RedirectPathContext);
     const history = useHistory();
@@ -46,6 +45,10 @@ function MyPets() {
     function viewDeletionModal(pet){
         setSelectedPet(pet);
         setDeletionModalDisplay(true);
+    }
+
+    function viewAdditionModal(){
+        setAdditionModalDisplay(true)
     }
 
     useEffect(() => {
@@ -62,18 +65,18 @@ function MyPets() {
         Promise.all([getCurrentUserPets,getPetTypes,getDogBreeds,getCatBreeds,getAges,getSizes,getColors])
         .then(responses =>{
             setMyPets(responses[0].data);
-            setTypeOptions(responses[1].data);
-            setDogBreedOptions(responses[2].data);
-            setCatBreedOptions(responses[3].data);
-            setAgeOptions(responses[4].data);
-            setSizeOptions(responses[5].data);
-            setColorOptions(responses[6].data);
+            // setTypeOptions(responses[1].data);
+            // setDogBreedOptions(responses[2].data);
+            // setCatBreedOptions(responses[3].data);
+            // setAgeOptions(responses[4].data);
+            // setSizeOptions(responses[5].data);
+            // setColorOptions(responses[6].data);
             setLoading(false);
         })
         .catch(err =>{
             console.log(err);
         }) 
-    }, [update])
+    }, [])
 
 
     function deletePet(){
@@ -86,49 +89,38 @@ function MyPets() {
         })
     }
 
-    let displayMyPets = <Spinner />
-
-    if (!loading)
-        displayMyPets = <>
-            <div className={styles['my-pets-container-add-pet']} onClick={() => setAdditionModalDisplay(true)}>
-                <img className={styles['my-pets-container-add-pet-icon']} src={AddIcon}/>
-                <div className={styles['my-pets-container-add-pet-text']}>Add a Pet</div>
-             </div>
-            {myPets && myPets.map((pet,index) =>(
-                    <div key={index} className={styles['my-pets-container-pet']} >  {/*onClick={() => profileClicked('/Profile/' + pet.pet_name)}*/}
-                        <div className={styles.LinkDiv} onClick={() => history.push('/Profile/' + pet.profile_id)}  >
-                            <img className={styles['my-pets-container-pet-pic']} src={pet.profile_pic_link}/>
-                            <div className={styles['my-pets-container-pet-name']}>{pet.display_name}</div>
-                        </div>
-                        <img className={styles['my-pets-container-pet-delete']} onClick={()=>viewDeletionModal(pet)}src={DeleteIcon}/>
-                    </div>
-            ))}
-        </>
 
     return (
         <>
-
-        <div className={styles['my-pets-container']}>
-            <div className={styles['my-pets-header']}>
-                My Pets
-                <span onClick={() => history.goBack()} > Back to Profile</span>
+            <div className={`${styles['my-pets-container']} ${"container"}`}>
+                <div className={styles['my-pets-header']}>
+                    <h1>My Pets</h1>
+                </div>
+                <div className={styles['my-pets-container-pets']}>
+                    {/* {loading ? <Spinner/> :          */}
+                        <>
+                            <AddPetCard viewAdditionModal={viewAdditionModal}/>
+                            {myPets && myPets.map((pet) =>(
+                                    <MyPetCard key={pet.profile_id} pet={pet}/>
+                                ))
+                            }
+                        </>
+                    {/* } */}
+                </div>
             </div>
-            <div className={styles['my-pets-container-pets']}>
-                {displayMyPets}
-            </div>
-        </div>
-        <ConfirmDeletion display={deletionModalDisplay} onClose={() => setDeletionModalDisplay(false)} selectedPet={selectedPet} deleteAction={deletePet}/>
-        <AddAPet 
-            display={additionModalDisplay} 
-            onClose={() => setAdditionModalDisplay(false)} 
-            typeOptions={typeOptions} 
-            dogBreedOptions={dogBreedOptions} 
-            catBreedOptions={catBreedOptions} 
-            colorOptions={colorOptions} 
-            sizeOptions={sizeOptions} 
-            ageOptions={ageOptions}
-            update={() => setUpdate(!update)}
-        />
+            {/* Modals */}
+            <ConfirmDeletion display={deletionModalDisplay} onClose={() => setDeletionModalDisplay(false)} selectedPet={selectedPet} deleteAction={deletePet}/>
+            <AddAPet 
+                display={additionModalDisplay} 
+                onClose={() => setAdditionModalDisplay(false)}
+                typeOptions={typeOptions} 
+                dogBreedOptions={dogBreedOptions} 
+                catBreedOptions={catBreedOptions} 
+                colorOptions={colorOptions} 
+                sizeOptions={sizeOptions} 
+                ageOptions={ageOptions}
+                // update={() => setUpdate(!update)}
+            />
         </>
     )
 }

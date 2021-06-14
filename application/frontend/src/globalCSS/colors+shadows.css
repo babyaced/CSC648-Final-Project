@@ -1,0 +1,57 @@
+:root{
+
+    /*Colors*/
+    --color-primary-100: #29A7AE;
+    --color-primary-200: #24949A;
+    --color-primary-300: #1F7F84;
+
+    --color-secondary-100: #18225D;
+    --color-secondary-200: #131B49;
+    --color-secondary-300: #0E1335;
+
+    --color-tertiary-100: #FFF9F5;
+    --color-tertiary-200: #FEEBDE;
+    --color-tertiary-300: #FDDBC4;
+
+    /*Text Colors*/
+    --color-text: #000000;
+    --color-text-inverted: #FFFFFF;
+
+    /*Neutrals*/
+    --color-neutral-100: #E8EDED;
+    --color-neutral-200: #CCD6D6;
+    --color-neutral-300: #B0BFBF;
+
+    --color-neutral-400: #93A8A9;
+    --color-neutral-500: #779192;
+    --color-neutral-600: #5F7677;
+
+
+    /* UI Colors*/
+    --primary-clr: #24949a;
+    --inset-txt-field-clr: #FCF8F8;
+    --site-preview-1-container-color: #C6A5A5;
+    --site-preview-2-container-color:  #9cc0f9;
+    --cancel-delete-exit-color: #EB1B1B;
+    --accent-color-2: #131b49;
+    --accent-color-1: #feebde;
+    
+    /*text colors*/
+    --primary-txt-clr: #000;
+    --secondary-txt-clr: #7d7d7d;
+    --inactive-txt-clr: #B3B3B3;
+    --reversed-txt-clr: #fff;
+
+    /*Shadows*/
+    --elevation-0: none;
+    --elevation-1: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+    --elevation-2: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+    --elevation-3: 0 3px 4px 0 rgba(0,0,0,0.14), 0 3px 3px -2px rgba(0,0,0,0.12), 0 1px 8px 0 rgba(0,0,0,0.20);
+    --elevation-4: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+    --elevation-5: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.20);
+    --elevation-6: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+    --elevation-7: 0 9px 12px 1px rgba(0,0,0,0.14), 0 3px 16px 2px rgba(0,0,0,0.12), 0 5px 6px -3px rgba(0,0,0,0.20);
+    --elevation-8: 0 12px 17px 2px rgba(0,0,0,0.14), 0 5px 22px 4px rgba(0,0,0,0.12), 0 7px 8px -4px rgba(0,0,0,0.20);
+    --elevation-9: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.20);
+    --elevation-10: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.20);
+}
