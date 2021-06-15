@@ -1,9 +1,9 @@
 require('dotenv').config({path:__dirname+'/.env'})
 
-console.log(process.env.DB_HOST),
-console.log(process.env.DB_USER),
-console.log(process.env.DB_PASSWORD),
-console.log(process.env.DB_NAME)
+// //console.log(process.env.DB_HOST),
+// //console.log(process.env.DB_USER),
+// //console.log(process.env.DB_PASSWORD),
+// //console.log(process.env.DB_NAME)
 const express = require("express");
 
 const session = require('express-session');
@@ -62,7 +62,7 @@ app.use(session({
 
 //start express server on port 5000
 app.listen(5000, () =>{
-    console.log("server started on port 5000");
+    //console.log("server started on port 5000");
 });
 
 //Sign Up

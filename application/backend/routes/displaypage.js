@@ -6,7 +6,7 @@ const connection = require('../db');
 router.get("/api/user/:user", (req, res) => {
     var userInfo = {userResults:[]}
     var urlArray = req.query.id.split("/")
-    console.log(urlArray[2])
+    // //console.log(urlArray[2])
     connection.query(
         "SELECT * FROM User WHERE user_id=?", urlArray[2],
         function(err, result) {
@@ -23,7 +23,7 @@ router.get("/api/user/:user", (req, res) => {
                     "full_name": row.full_name
                 });
               });
-            console.log(userInfo);
+            // //console.log(userInfo);
             res.json(userInfo);
         }
     });
@@ -32,7 +32,7 @@ router.get("/api/user/:user", (req, res) => {
 router.get("/api/pet/:pet", (req, res) => {
     var petInfo = {petResults:[]}
     var urlArray = req.query.id.split("/")
-    console.log(urlArray[2])
+    // //console.log(urlArray[2])
     connection.query(
         "SELECT * FROM Pet WHERE pet_id=?", urlArray[2],
         function(err, result) {
@@ -51,7 +51,7 @@ router.get("/api/pet/:pet", (req, res) => {
                     "profile_pic": row.profile_pic
                 });
               });
-            console.log(petInfo);
+            // //console.log(petInfo);
             res.json(petInfo);
         }
     });
@@ -60,7 +60,7 @@ router.get("/api/pet/:pet", (req, res) => {
 router.get("/api/business/:business", (req, res) => {
     var businessInfo = {businessResults:[]}
     var urlArray = req.query.id.split("/")
-    console.log(urlArray[2])
+    // //console.log(urlArray[2])
     connection.query(
         "SELECT * FROM Business WHERE business_id=?", urlArray[2],
         function(err, result) {
@@ -77,7 +77,7 @@ router.get("/api/business/:business", (req, res) => {
                     "reg_user_id" : row.reg_user_id
                 });
               });
-            console.log(businessInfo);
+            // //console.log(businessInfo);
             res.json(businessInfo);
         }
     });
@@ -86,7 +86,7 @@ router.get("/api/business/:business", (req, res) => {
 router.get("/api/shelter/:shelter", (req, res) => {
     var shelterInfo = {shelterResults:[]}
     var urlArray = req.query.id.split("/")
-    console.log(urlArray[2])
+    // //console.log(urlArray[2])
     connection.query(
         "SELECT * FROM Shelter WHERE shelter_id=?", urlArray[2],
         function(err, result) {
@@ -101,7 +101,7 @@ router.get("/api/shelter/:shelter", (req, res) => {
                     "business_id": row.business_id
                 });
               });
-            console.log(shelterInfo);
+            // //console.log(shelterInfo);
             res.json(shelterInfo);
         }
     });

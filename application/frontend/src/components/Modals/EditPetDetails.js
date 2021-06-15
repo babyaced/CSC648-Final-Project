@@ -9,21 +9,18 @@ import makeAnimated from 'react-select/animated';
 import styles from './EditPetDetails.module.css'
 import axios from 'axios';
 
+import SelectCustomTheme from '../../mods/SelectCustomTheme'
+
 import TypeOptions from '../../components/DropdownOptions/TypeOptions'
 import ColorOptions from '../../components/DropdownOptions/ColorOptions'
-import AgeOptions from '../../components/DropdownOptions/AgeOptions'
+import useAgeOptions from '../DropdownOptions/useAgeOptions'
 import SizeOptions from '../../components/DropdownOptions/SizeOptions'
 import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions'
 import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions'
 
 function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge}) {
 
-    // let recievedPetName
-    // let recievedPetType
     console.log(recievedPetAge)
-    // let recievedPetSize
-    // console.log(profile);
-    //full version should recieve pet types and breeds from db and display in dropdown
     const [petName, setPetName] = useState('');
     const [petType,setPetType] = useState([]);  //set this to already existing pet type stored in db for real version
     const [dogBreed, setDogBreed] = useState([]);
@@ -43,18 +40,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
 
     const [sizeOptions,setSizeOptions] = useState();
 
-    const [ageOptions,setAgeOptions] = useState();
-
-    function customTheme(theme){
-        return {
-            ... theme,
-            colors:{
-                ... theme.colors,
-                primary25: '#B3B3B3',
-                primary:'#1CB48F',
-            }
-        }
-    }
+    const [ageOptions] = useAgeOptions();
 
     //function updatePet(){
     //     axios.post('/api/edit-pet',{})
@@ -88,7 +74,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <Select id="type" name="pet_type"
                         onChange={updatePetType}
                         options= {TypeOptions()}
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         //value = pet Type
                         placeholder="Select Pet Type"
                         isSearchable
@@ -99,7 +85,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <Select id="breed" name="pet_breed"
                         onChange={updatePetBreed}
                         options={DogBreedOptions()}
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         placeholder="Select Dog Breed"
                         isSearchable
                         isMulti
@@ -112,7 +98,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <Select id="color" name="pet_color"
                         onChange={setPetColors}
                         options={ColorOptions()}
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         placeholder="Select Pet Color(s)"
                         isSearchable
                         //value = pet color
@@ -123,8 +109,8 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         <label for="age">Age</label>
                         <Select id="age" name="pet_age"
                             onChange={setPetAge}
-                            options={AgeOptions()}
-                            theme={customTheme}
+                            options={ageOptions}
+                            theme={SelectCustomTheme}
                             value={recievedPetAge}
                             placeholder="Select Pet Age"
                             //value = pet age
@@ -136,7 +122,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <Select id="size" name="pet_size"
                         onChange={setPetSize}
                         options={SizeOptions()}
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         placeholder="Select Pet Size"
                         //value = pet size
                         isSearchable
@@ -148,7 +134,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                             // onChange={updatePetBreed}
                             onChange={setDogBreed}
                             options={DogBreedOptions()}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Select Dog Breed"
                             isSearchable
                             isMulti
@@ -162,7 +148,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         // onChange={updatePetBreed}
                         onChange={setCatBreed}
                         options={ catBreedOptions()}
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         placeholder="Select Cat Breed"
                         isSearchable
                         isMulti

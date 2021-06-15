@@ -17,7 +17,7 @@ import TypeOptions from '../../components/DropdownOptions/TypeOptions';
 import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions';
 import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions';
 import ColorOptions from '../../components/DropdownOptions/ColorOptions';
-import AgeOptions from '../../components/DropdownOptions/AgeOptions';
+import useAgeOptions from '../../components/DropdownOptions/useAgeOptions';
 import SizeOptions from '../../components/DropdownOptions/SizeOptions';
 
 function MyPets() {
@@ -40,7 +40,7 @@ function MyPets() {
 
     const sizeOptions = SizeOptions();
 
-    const ageOptions = AgeOptions();
+    const [ageOptions] = useAgeOptions();
 
     const [loading, setLoading] = useState(false);
 

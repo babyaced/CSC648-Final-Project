@@ -6,14 +6,14 @@ const bcrypt = require('bcrypt');
 const connection = require('../db');
 
 router.post("/api/reset/:token", (req,res) =>{
-    console.log("/reset");
+    //console.log("/reset");
     const givenEmail = req.body.email;
     const givenPassword = req.body.password;
     const givenResubmitted = req.body.redonePassword;
 
-    console.log(givenEmail)
-    console.log(givenPassword)
-    console.log(givenResubmitted)
+    //console.log(givenEmail)
+    //console.log(givenPassword)
+    //console.log(givenResubmitted)
 
     function passwordValidate(password) {
         var re = {
@@ -35,14 +35,14 @@ router.post("/api/reset/:token", (req,res) =>{
                                             if(passwordValidate(givenPassword)){  //if password is valid
                                                 if(givenPassword === givenResubmitted){  //if password and confirmed password match
                                                     const hash = bcrypt.hashSync(givenPassword, 10);
-                                                    console.log(hash)
+                                                    //console.log(hash)
 
                                                     connection.query(`DELETE FROM token WHERE expires < NOW()`, 
                                                         function(err,insertedCredentials){
                                                             if(err){
-                                                                console.log(err)
+                                                                //console.log(err)
                                                             }
-                                                        console.log('Not deleted properly');
+                                                        //console.log('Not deleted properly');
                                                         } 
                                                     )
 
@@ -51,16 +51,16 @@ router.post("/api/reset/:token", (req,res) =>{
                                                             if(err){
                                                                 res.status(500).json(err);
                                                             }
-                                                        console.log('URL expired');
+                                                        //console.log('URL expired');
                                                         } 
                                                     )
                                                                         
                                                 }else{
-                                                    console.log("Passwords do not match.");
+                                                    //console.log("Passwords do not match.");
                                                     res.status(400).json("passwords not matching");
                                                 }
                                             }else{
-                                                console.log("Password must have SUCH AND SUCH values")
+                                                //console.log("Password must have SUCH AND SUCH values")
                                                 res.status(400).json("password requirements");
                                             }
                                     })

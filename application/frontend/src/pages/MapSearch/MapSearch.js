@@ -22,7 +22,7 @@ import SearchResults from './SearchResults';
 import TypeOptions from '../../components/DropdownOptions/TypeOptions';
 import SizeOptions from '../../components/DropdownOptions/SizeOptions';
 import ColorOptions from '../../components/DropdownOptions/ColorOptions';
-import AgeOptions from '../../components/DropdownOptions/AgeOptions';
+import useAgeOptions from '../../components/DropdownOptions/useAgeOptions';
 import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions';
 import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions';
 import BusinessCategoryOptions from '../../components/DropdownOptions/BusinessCategoryOptions';
@@ -56,7 +56,7 @@ function MapSearch(props) {
 
     let typeOptions = TypeOptions();
     let businessCategoryOptions = BusinessCategoryOptions();
-    let ageOptions = AgeOptions();
+    const [ageOptions] = useAgeOptions();
     let dogBreedOptions = DogBreedOptions();
     let catBreedOptions = CatBreedOptions();
     let colorOptions = ColorOptions();

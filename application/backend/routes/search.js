@@ -32,7 +32,7 @@ function distance(lat1, lat2, lon1, lon2) //for calculating distance between two
 
 router.get("/api/search", (req,res) =>{
     var requestedSearchResults = {searchResults:[]}
-    console.log("/search");
+    //console.log("/search");
     if(req.query.searchTerm){
         var name = req.query.searchTerm.toLowerCase();
     }
@@ -42,13 +42,13 @@ router.get("/api/search", (req,res) =>{
 
     const {searchCategory,searchLatitude,searchLongitude,searchDistance,searchPage, searchBizCategories, searchPetTypes, searchPetColors, searchPetSizes,searchPetAges, searchCatBreeds, searchDogBreeds} = req.query
     
-    console.log("Name: ",name);
-    console.log("Category: ",searchCategory);
-    console.log("Given Latitude: ",searchLatitude);
-    console.log("Given Longitude: ", searchLongitude);
-    console.log("Preferred Search Distance: ", searchDistance);
-    console.log("Given Page: ", searchPage);
-    console.log("Search Dog breeds: ", searchDogBreeds)
+    //console.log("Name: ",name);
+    //console.log("Category: ",searchCategory);
+    //console.log("Given Latitude: ",searchLatitude);
+    //console.log("Given Longitude: ", searchLongitude);
+    //console.log("Preferred Search Distance: ", searchDistance);
+    //console.log("Given Page: ", searchPage);
+    //console.log("Search Dog breeds: ", searchDogBreeds)
 
     if(searchCategory == 'Pets'){
         let query = '';
@@ -135,7 +135,7 @@ router.get("/api/search", (req,res) =>{
             query += ` 
             LIMIT 10                       
             OFFSET ${(searchPage-1)*10}`;
-            console.log(query);
+            //console.log(query);
         }
         else{
             query = 
@@ -148,7 +148,7 @@ router.get("/api/search", (req,res) =>{
             AND distance <  ${searchDistance}
             LIMIT 10 
             OFFSET ${(searchPage-1)*10}`;
-            console.log(query)
+            //console.log(query)
         }
         
 
@@ -158,15 +158,15 @@ router.get("/api/search", (req,res) =>{
                 throw err;
             } else {
                 requestedSearchResults = results;
-                console.log(requestedSearchResults);
+                //console.log(requestedSearchResults);
                 res.json(requestedSearchResults);
             }
         });
     }
     else if(searchCategory == 'Businesses'){
-        console.log("Category == Businesses")
-        console.log("Given Biz Categories: ", searchBizCategories);
-        console.log(typeof searchBizCategories);
+        //console.log("Category == Businesses")
+        //console.log("Given Biz Categories: ", searchBizCategories);
+        //console.log(typeof searchBizCategories);
 
         let query = '';
 
@@ -189,8 +189,8 @@ router.get("/api/search", (req,res) =>{
             AND (
             `
             for(let i = 0; i < searchBizCategories.length; i++){  //build sql query with filters
-                console.log("Given Biz Categories [", i,"]: " , searchBizCategories[i]);
-                console.log(typeof searchBizCategories[i]);
+                //console.log("Given Biz Categories [", i,"]: " , searchBizCategories[i]);
+                //console.log(typeof searchBizCategories[i]);
                 if(i == (searchBizCategories.length - 1))
                     query += 'Commerce.business_type_id = ' + searchBizCategories[i];
                 else
@@ -200,7 +200,7 @@ router.get("/api/search", (req,res) =>{
             query += `) 
             LIMIT 10                       
             OFFSET ${(searchPage-1)*10};`
-            console.log(query);
+            //console.log(query);
         }
         else{
             query =             
@@ -219,7 +219,7 @@ router.get("/api/search", (req,res) =>{
             LIMIT 10 
             OFFSET ${(searchPage-1)*10}`;
         }
-        console.log('Query: ',query);
+        //console.log('Query: ',query);
 
         connection.query(query,
             function(err, results) {
@@ -228,13 +228,13 @@ router.get("/api/search", (req,res) =>{
             } 
             else {
                 requestedSearchResults = results;
-                console.log(requestedSearchResults);
+                //console.log(requestedSearchResults);
                 res.status(200).json(requestedSearchResults);
             }       
         });
     }
     else if(searchCategory == 'Shelters'){
-        console.log('search pet types: ', searchPetTypes)
+        //console.log('search pet types: ', searchPetTypes)
         let query = '';
 
         if(searchPetTypes && searchPetTypes[0] !== 'undefined'){
@@ -266,7 +266,7 @@ router.get("/api/search", (req,res) =>{
             AND Profile.pet_id IS NULL 
             LIMIT 10                       
             OFFSET ${(searchPage-1)*10}`
-            console.log(query);
+            //console.log(query);
         }
         else{
             query = 
@@ -283,7 +283,7 @@ router.get("/api/search", (req,res) =>{
             AND Profile.pet_id IS NULL
             LIMIT 10 
             OFFSET ${(searchPage-1)*10}`
-            console.log(query);
+            //console.log(query);
         }
         connection.query(query, 
             function(err, results) {
@@ -291,14 +291,14 @@ router.get("/api/search", (req,res) =>{
                 throw err;
             } else {
                 requestedSearchResults = results;
-                console.log(requestedSearchResults);
+                //console.log(requestedSearchResults);
                 res.json(requestedSearchResults);
             }
         });
     }
     else if(searchCategory == 'Pet Owners'){
         if(name != ''){ 
-            console.log('searching through RegisteredPetOwner')
+            //console.log('searching through RegisteredPetOwner')
             connection.query(
             `SELECT *, COUNT(*) OVER () as results_count
             FROM Profile
@@ -315,7 +315,7 @@ router.get("/api/search", (req,res) =>{
                     throw err;
                 } else {
                     requestedSearchResults = results
-                    console.log("Pet Owner Results: ", requestedSearchResults);
+                    //console.log("Pet Owner Results: ", requestedSearchResults);
                     res.status(200).json(requestedSearchResults);
                 }
             });

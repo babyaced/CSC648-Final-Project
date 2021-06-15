@@ -8,11 +8,11 @@ router.post("/api/reply",(req,res)=>{
          VALUES ('${"RE: " + req.body.selectedMessage.subject}', '${req.body.replyBody}', '${req.session.reg_user_id}', '${req.body.selectedMessage.sender_id}', NOW(), '${req.body.selectedMessage.message_id}', false)`,
     function(err, result){
         if(err){
-            console.log(err);
+            //console.log(err);
             res.status(500).json(err);
         }
         else{
-            console.log(result)
+            //console.log(result)
             res.status(200).json(result);
         }
     })    
@@ -20,7 +20,7 @@ router.post("/api/reply",(req,res)=>{
 
 router.get("/api/recieved-messages", (req,res) =>{
     //get message and profile pic, display_name or username?
-    console.log('/api/recieved-messages')
+    //console.log('/api/recieved-messages')
     connection.query(
         `SELECT * 
          FROM Message
@@ -33,11 +33,11 @@ router.get("/api/recieved-messages", (req,res) =>{
         `,
     function(err,messages){
         if(err){
-            console.log(err);
+            //console.log(err);
             res.status(500).json(err);
         }
         else{
-            console.log(messages)
+            //console.log(messages)
             res.status(200).json(messages);
         }
     })
@@ -45,7 +45,7 @@ router.get("/api/recieved-messages", (req,res) =>{
 
 router.get("/api/sent-messages", (req,res) =>{
     //get message and profile pic, display_name or username?
-    console.log('/api/sent-messages')
+    //console.log('/api/sent-messages')
     connection.query(
         `SELECT * 
          FROM Message
@@ -58,11 +58,11 @@ router.get("/api/sent-messages", (req,res) =>{
         `,
     function(err,messages){
         if(err){
-            console.log(err);
+            //console.log(err);
             res.status(500).json(err);
         }
         else{
-            console.log(messages)
+            //console.log(messages)
             res.status(200).json(messages);
         }
     })
@@ -70,8 +70,8 @@ router.get("/api/sent-messages", (req,res) =>{
 
 //for sending a message through a profile
 router.post("/api/message-profile", (req,res) =>{
-    console.log(req.body);
-    console.log("POST /api/message-profile")
+    //console.log(req.body);
+    //console.log("POST /api/message-profile")
     connection.query(`INSERT INTO Message (subject, body, sender_id, recipient_id, timestamp) 
          VALUES ('${req.body.messageSubject}', '${req.body.messageBody}', '${req.session.reg_user_id}', 
          (SELECT RegisteredUser.reg_user_id
@@ -82,11 +82,11 @@ router.post("/api/message-profile", (req,res) =>{
           NOW())`,
     function(err,result){
         if(err){
-            console.log(err);
+            //console.log(err);
             res.status(500).json(err);
         }
         else{
-            console.log(result);
+            //console.log(result);
             res.status(200).json(result);
         }
     })
@@ -94,9 +94,9 @@ router.post("/api/message-profile", (req,res) =>{
 
 //for sending a message to a follower or with a username on the messages page
 router.post("/api/message",(req,res) =>{
-    console.log(req.body);
-    console.log(req.session.reg_user_id);
-    console.log("POST /api/message")
+    //console.log(req.body);
+    //console.log(req.session.reg_user_id);
+    //console.log("POST /api/message")
     connection.query(`INSERT INTO Message (subject, body, sender_id, recipient_id, timestamp) 
         VALUES ('${req.body.messageSubject}', '${req.body.messageBody}', '${req.session.reg_user_id}', 
         (SELECT RegisteredUser.reg_user_id
@@ -108,11 +108,11 @@ router.post("/api/message",(req,res) =>{
          NOW())`,
     function(err,result){
         if(err){
-            console.log(err);
+            //console.log(err);
             res.status(500).json(err);
         }
         else{
-            console.log(result);
+            //console.log(result);
             res.status(200).json(result);
         }
     })

@@ -4,7 +4,7 @@ const router = express.Router();
 const connection = require('../db');
 
 router.post("/api/follow-unfollow-user", (req, res) => { // follow user
-    console.log("POST /api/follow-unfollow-user");
+    //console.log("POST /api/follow-unfollow-user");
     const {accountId} = req.body
 
     connection.query(
@@ -19,7 +19,7 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
             if (err) {
                 console.error(err);
                     if(err.errno = 1062){  //if duplicate key error means that the post has already been liked by the user
-                        console.log(1062);
+                        //console.log(1062);
                         connection.query(
                             `DELETE FROM Follow 
                             WHERE Follow.reg_user_id = '${accountId}' 
@@ -30,11 +30,11 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
                                 )`,
                             function(err, result){
                                 if(err){
-                                    console.log(err);
+                                    //console.log(err);
                                 }
                                 else{
-                                    console.log("Follower has been deleted")
-                                    console.log(result);
+                                    //console.log("Follower has been deleted")
+                                    //console.log(result);
                                     res.status(200).json(result);
                                     res.end;
                                 }
@@ -43,7 +43,7 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
                     }
             }
             else {
-                console.log("Follower has been added");
+                //console.log("Follower has been added");
                 //We don't have followers_count in Profile database entity but I think we should,
                 // then it would be updated in this section.
                 res.status(200).json(follow);
@@ -54,7 +54,7 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
 
 // router.post("/api/unfollow-user", (req, res) => { // follow user
 
-//     console.log("/unfollow-user");
+//     //console.log("/unfollow-user");
 //     const followerId = req.body.followerId;
 //     const userId = req.body.userId;
 
@@ -63,7 +63,7 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
 //             console.error('An error occurred while executing the query');
 //             res.status(500).json(error);
 //         } else {
-//             console.log("unfollowed");
+//             //console.log("unfollowed");
 //             //We don't have followers_count in Profile database entity but I think we should,
 //             // then it would be updated in this section.
 //             res.sendStatus(200);
@@ -91,10 +91,10 @@ router.get("/api/followers", (req,res) =>{
         `,
         function(err, followers){
             if(err){
-                console.log(err);
+                //console.log(err);
             }
             else{
-                console.log(followers);
+                //console.log(followers);
                 res.status(200).json(followers);
             }
 
@@ -106,7 +106,7 @@ router.get("/api/following", (req,res) =>{
     if(!profileID){
         profileID = req.session.profile_id;
     }
-    console.log("GET /api/following");
+    //console.log("GET /api/following");
     connection.query(
         `SELECT Profile.profile_pic_link, Profile.profile_id, Profile.display_name
          FROM Follow
@@ -122,10 +122,10 @@ router.get("/api/following", (req,res) =>{
         `,
          function(err, followings){
             if(err){
-                console.log(err);
+                //console.log(err);
             }
             else{
-                console.log(followings);
+                //console.log(followings);
                 res.status(200).json(followings);
             }
          })

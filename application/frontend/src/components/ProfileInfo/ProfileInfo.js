@@ -19,12 +19,35 @@ import axios from 'axios';
 import ConfirmDeletion from '../Modals/ConfirmDeletion';
 import ProfilePic from './ProfilePic';
 import FollowMenu from './FollowMenu';
+import TypeOptions from '../DropdownOptions/TypeOptions';
+import ColorOptions from '../DropdownOptions/ColorOptions';
+import useAgeOptions from '../DropdownOptions/useAgeOptions';
+import SizeOptions from '../DropdownOptions/SizeOptions';
+import DogBreedOptions from '../DropdownOptions/DogBreedOptions';
+import CatBreedOptions from '../DropdownOptions/CatBreedOptions';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
+    let typeOptions = TypeOptions()
+    let colorOptions = ColorOptions()
+    const [ageOptions] = useAgeOptions()
+    let sizeOptions = SizeOptions()
+    let dogBreedOptions = DogBreedOptions()
+    let catBreedOptions = CatBreedOptions()
 
+    const [recievedPetType, setRecievedPetType] = useState();
+    const [recievedPetSize, setRecievedPetSize] = useState();
     const [recievedPetAge, setRecievedPetAge] = useState();
     useEffect(() => {
-        axios.get('/api/pet-details', {params: {petID: profile.pet_id}})
+        axios.get('/api/pet-details', {
+            params: 
+            {
+                petID: profile.pet_id, 
+                typeOptions: typeOptions, 
+                colorOptions: colorOptions, 
+                ageOptions: ageOptions, 
+                sizeOptions: sizeOptions, 
+                dogBreedOptions: dogBreedOptions, 
+                catBreedOptions: catBreedOptions}})
         .then(response =>{
             setRecievedPetAge(response.data);
             console.log(recievedPetAge)

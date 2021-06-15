@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const connection = require('../db');
 
 router.get("/api/login",(req, res) =>{ //check if user is logged in
-    // console.log(req.session);
+    // //console.log(req.session);
     if(req.session.username){
         res.send({username: req.session.username, role: req.session.role, profileID: req.session.profile_id})
     } else{
@@ -15,11 +15,11 @@ router.get("/api/login",(req, res) =>{ //check if user is logged in
 })
 
 router.post("/api/login", (req, res) =>{ //login user
-    console.log("/login")
+    //console.log("/login")
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username);
-    console.log(password);
+    //console.log(username);
+    //console.log(password);
     
     if(username && password){
         connection.query(
@@ -39,9 +39,9 @@ router.post("/api/login", (req, res) =>{ //login user
                         req.session.role = results[0].role_id;
                         req.session.reg_user_id = results[0].reg_user_id;
                         req.session.profile_id = results[0].profile_id;
-                        console.log("Req.session.username: ", req.session.username);
-                        console.log(passwordMatch);
-                        console.log(results);
+                        //console.log("Req.session.username: ", req.session.username);
+                        //console.log(passwordMatch);
+                        //console.log(results);
                         res.status(200).json(
                             {
                                 username: results[0].username,
@@ -49,21 +49,21 @@ router.post("/api/login", (req, res) =>{ //login user
                                 profileID: results[0].profile_id
                             }
                         )
-                        console.log("Logged in.");    
+                        //console.log("Logged in.");    
                     }
                     else{
-                        console.log("Password is incorrect");
+                        //console.log("Password is incorrect");
                         res.status(400).json("no match");
                     }
                 }else{
-                    console.log("Username is incorrect");
+                    //console.log("Username is incorrect");
                     res.status(400).json("no match");
                     // res.send("Username or password is incorrect");
                 }
             // res.end();
         });
     }else{
-        console.log("Please enter information correctly");
+        //console.log("Please enter information correctly");
         res.status(400).json("incomplete");
     }
 }
