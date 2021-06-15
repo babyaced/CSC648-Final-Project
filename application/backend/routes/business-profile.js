@@ -16,17 +16,17 @@ router.get('/api/hours', (req,res)=>{
         `, 
         function(err,hours){
             if(err){
-                console.log(err)
+                // //console.log(err)
                 res.status(500).json(err);
             }
             else{
-                console.log("hours[0]: ",hours[0])
+                // //console.log("hours[0]: ",hours[0])
                 let hourOptions = []
                 let hourObject = {}
                 hours = hours[0]
                 Object.keys(hours).forEach( (key) =>{
-                    console.log('hours[key]: ', hours[key])
-                    console.log('key: ',key);
+                    // //console.log('hours[key]: ', hours[key])
+                    // //console.log('key: ',key);
                     switch(hours[key]){
                         case '00:00:00':
                             hourObject[key] = {value: hours[key], label:'Closed'}
@@ -108,14 +108,14 @@ router.get('/api/hours', (req,res)=>{
                             break
                     }
                 })
-                console.log('hourObject: ', hourObject)
+                // //console.log('hourObject: ', hourObject)
                 res.status(200).json(hourObject);
             }
         })
 })
 
 router.get('/api/business-address', (req,res)=>{
-    console.log('GET /api/business-address');
+    // //console.log('GET /api/business-address');
     connection.query(
         `SELECT address
          FROM Address
@@ -126,18 +126,18 @@ router.get('/api/business-address', (req,res)=>{
         `, 
         function(err,address){
             if(err){
-                console.log(err)
+                // //console.log(err)
                 res.status(500).json(err);
             }
             else{
-                console.log("address: ",address)
+                // //console.log("address: ",address)
                 res.status(200).json(address[0]);
             }
         })
 })
 
 router.get('/api/business-phone-number', (req,res)=>{
-    console.log('GET /api/business-address');
+    // //console.log('GET /api/business-address');
     connection.query(
         `SELECT phone_num
          FROM Business
@@ -148,11 +148,11 @@ router.get('/api/business-phone-number', (req,res)=>{
         `, 
         function(err,number){
             if(err){
-                console.log(err)
+                // //console.log(err)
                 res.status(500).json(err);
             }
             else{
-                console.log("phone number: ",number)
+                // //console.log("phone number: ",number)
                 res.status(200).json(number[0]);
             }
         })
@@ -160,7 +160,7 @@ router.get('/api/business-phone-number', (req,res)=>{
 
 router.post('/api/address', (req,res) =>{
     const {newAddress, newLatitude, newLongitude} = req.body
-    console.log('POST /api/address')
+    // //console.log('POST /api/address')
     connection.query(
         `UPDATE Address
          SET address = ?, latitude= ?,longitude = ?
@@ -168,11 +168,11 @@ router.post('/api/address', (req,res) =>{
         `, [newAddress, newLatitude, newLongitude, req.session.reg_user_id],
         function(err,result){
             if(err){
-                console.log(err)
+                // //console.log(err)
                 res.status(500).json(err);
             }
             else{
-                console.log("result: ", result)
+                // //console.log("result: ", result)
                 res.status(200).json(result)
             }
         }

@@ -6,7 +6,7 @@ import styles from './ImageContainer.module.css';
 import PostModal from '../../Modals/PostModal'
 
 function ImageContainer({previews, profile, title, selfView}) {
-    console.log('previews',previews);
+    // console.log('previews',previews);
     const [postModalDisplay, setPostModalDisplay] = useState(false);
     const [imageStack, setImageStack] = useState();
     const [selectedPost,setSelectedPost] = useState({});
@@ -61,9 +61,9 @@ function ImageContainer({previews, profile, title, selfView}) {
                             )
                             if (title === 'My Siblings' || title === 'My Pets' || title === 'Pets')
                                 displayPostModal = (
-                                    <div onClick={ () => history.push("/Profile/" + preview.profile_id)} key={preview.profile_id}>
+                                    <div className={styles.previewCard} onClick={ () => history.push("/Profile/" + preview.profile_id)} key={preview.profile_id}>
                                             <img src={preview.profile_pic_link} alt="No Image Found"/>
-                                            <div className={styles.ImageStackText} >{previews[index].display_name}</div>
+                                            <div className={styles.previewCardNamePlate} >{previews[index].display_name}</div>
                                     </div>
                                 )
                             return displayPostModal

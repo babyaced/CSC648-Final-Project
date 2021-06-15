@@ -5,7 +5,7 @@ const connection = require('../db');
 
 router.get("/api/posts-admin",(req,res)=>{
     const {offset} = req.query
-    console.log("/api/get-admin-feed-posts");
+    // //console.log("/api/get-admin-feed-posts");
     let username = req.session.username;
     let postsWithLikes = []; //array for holding objects with posts and likes
     connection.query(
@@ -23,7 +23,7 @@ router.get("/api/posts-admin",(req,res)=>{
         `,
         function(err, posts){
             if(err){
-                console.log(err);
+                // //console.log(err);
                 res.status(500).json(err);
             }
             else{
@@ -34,7 +34,7 @@ router.get("/api/posts-admin",(req,res)=>{
 })
 
 router.post("/api/delete-post",(req,res)=>{
-    console.log("POST /api/delete-post");
+    // //console.log("POST /api/delete-post");
 
     const {postID} = req.body
 
@@ -46,8 +46,8 @@ router.post("/api/delete-post",(req,res)=>{
             WHERE Post.post_id = ${postID}
             `,
             function(err, result){
-                if(err)
-                    console.log(err);
+                if(err){}
+                    // //console.log(err);
                 else{
                     res.status(200).json(result);
                 }
@@ -57,9 +57,9 @@ router.post("/api/delete-post",(req,res)=>{
 })
 
 router.post("/api/ban-user",(req,res) =>{
-    console.log("POST /api/ban-user");
+    // //console.log("POST /api/ban-user");
     const {profileID} = req.body
-    console.log(profileID)
+    // //console.log(profileID)
 
     if(req.session.role === 4){ //check if logged in user has admin privileges
         connection.query(
@@ -71,11 +71,11 @@ router.post("/api/ban-user",(req,res) =>{
             `,
             function(err, result){
                 if(err){
-                    console.log(err);
+                    // //console.log(err);
                     res.status(500).json(err);
                 }
                 else{
-                    console.log(result);
+                    // //console.log(result);
                     res.status(200).json(result);
                 }
             }

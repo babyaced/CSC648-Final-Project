@@ -14,7 +14,6 @@ import NavBar from './components/Nav/NavBar'
 import AccountTypePage from './pages/AccountType/AccountType.js'
 import LoginPage from './pages/Login/LoginPage.js'
 import SignUpPage from './pages/Sign Up/SignUpPage.js'
-import ShelterSignUpPage2 from './pages/Sign Up/ShelterSignUpPage2.js'
 import SignUpPage2 from './pages/Sign Up/SignUpPage2.js'
 import ProfilePage from './pages/Profile/Profile';
 import Messages from './pages/Messages/Messages'

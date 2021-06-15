@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 //css
@@ -19,8 +19,44 @@ import axios from 'axios';
 import ConfirmDeletion from '../Modals/ConfirmDeletion';
 import ProfilePic from './ProfilePic';
 import FollowMenu from './FollowMenu';
+import useTypeOptions from '../DropdownOptions/useTypeOptions';
+import useColorOptions from '../DropdownOptions/useColorOptions';
+import useAgeOptions from '../DropdownOptions/useAgeOptions';
+import useSizeOptions from '../DropdownOptions/useSizeOptions';
+import useDogBreedOptions from '../DropdownOptions/useDogBreedOptions';
+import useCatBreedOptions from '../DropdownOptions/useCatBreedOptions';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
+    let [typeOptions] = useTypeOptions()
+    let [colorOptions] = useColorOptions()
+    const [ageOptions] = useAgeOptions()
+    let [sizeOptions] = useSizeOptions()
+    let [dogBreedOptions] = useDogBreedOptions()
+    let [catBreedOptions] = useCatBreedOptions()
+
+    const [recievedPetType, setRecievedPetType] = useState();
+    const [recievedPetSize, setRecievedPetSize] = useState();
+    const [recievedPetAge, setRecievedPetAge] = useState();
+    useEffect(() => {
+        axios.get('/api/pet-details', {
+            params: 
+            {
+                petID: profile.pet_id, 
+                typeOptions: typeOptions, 
+                colorOptions: colorOptions, 
+                ageOptions: ageOptions, 
+                sizeOptions: sizeOptions, 
+                dogBreedOptions: dogBreedOptions, 
+                catBreedOptions: catBreedOptions}})
+        .then(response =>{
+            setRecievedPetAge(response.data);
+            console.log(recievedPetAge)
+            console.log(response);
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+    }, [profile])
 
     const [editing, setEditing] = useState(false);
     
@@ -81,7 +117,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
         })
     }
 
-
     function onFollowHandler() {
         if(appUser){
             axios.post('/api/follow-unfollow-user',{
@@ -93,8 +128,6 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
             setLoginRequiredDisplay(true);
         }
     }
-
-
 
     let nameDisplay = null;
     let buttons = null;
@@ -184,6 +217,7 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                     onClose={()=> setEditPetDetailsDisplay(false)}
                     updatePetType={setPetType}
                     updatePetBreed={setPetBreed}
+                    recievedPetAge ={recievedPetAge}
                 />
             }
             <SendProfileMessage 

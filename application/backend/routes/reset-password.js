@@ -6,18 +6,18 @@ const nodemailer = require('nodemailer');
 const randomToken = require('random-token');
 
 router.post("/api/resetpassword", (req, res) => {
-    console.log("/resetpassword")
+    //console.log("/resetpassword")
 
     const email = req.body.email;
     const token = randomToken(16);
 
-    console.log(email)
+    //console.log(email)
     if(req.body.email == ''){
         res.status(400).send('Email required');
     }
 
     connection.query('SELECT * FROM User WHERE email = ?', [email], function(error, results, fields){
-        console.log(results)
+        //console.log(results)
         if(results.length > 0 && email == results[0].email){
             // Needs to be inserted into a "token" column in the user in the
             // database
@@ -25,11 +25,11 @@ router.post("/api/resetpassword", (req, res) => {
             const passwordExpires = Date.now() + 140000000;
             connection.query(`UPDATE Credentials SET reset_token =?, reset_expiry = NOW() + INTERVAL 48 HOUR WHERE email= ?`,[resetPasswordToken, email], 
             function(error, results, fields){
-                console.log("Inserted Token and Expiry")
+                //console.log("Inserted Token and Expiry")
             });        
             
         }else{
-            console.log("No Email");
+            //console.log("No Email");
             res.status(400).json("no email exists");
         }
     });
@@ -60,7 +60,7 @@ router.post("/api/resetpassword", (req, res) => {
         if(err){
             console.error("Error: ", err);
         } else {
-            console.log("Here is the response: ", response);
+            //console.log("Here is the response: ", response);
             res.status(200).json('recovery email sent');
         }
     });

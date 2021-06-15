@@ -3,8 +3,8 @@ const router = express.Router();
 const connection = require('../db');
 
 // router.get("/api/photos", (req,res) =>{
-//     console.log(req.query);
-//     console.log("GET /api/photos")
+//     //console.log(req.query);
+//     //console.log("GET /api/photos")
 //     connection.query(
 //         `SELECT Post.post_id, 
 //          FROM Photo
@@ -15,10 +15,10 @@ const connection = require('../db');
 //          WHERE Profile.profile_id = '${req.query.profileID}'`,
 //         function(err, photoPosts){
 //             if(err){
-//                console.log(err);
+//                //console.log(err);
 //             }
 //             else{
-//                 console.log("photoPosts: ", photoPosts);
+//                 //console.log("photoPosts: ", photoPosts);
 //                 res.status(200).json(photoPosts);
 //             }
 //         }

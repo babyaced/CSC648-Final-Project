@@ -3,8 +3,8 @@ const connection = require('../db');
 const router = express.Router();
 
 router.get("/api/feed-user",(req,res)=>{
-    console.log("/api/get-feed-user");
-    console.log('req.session.profile_id: ', req.session.profile_id)
+    //console.log("/api/get-feed-user");
+    //console.log('req.session.profile_id: ', req.session.profile_id)
 
     connection.query(
         `SELECT Profile.display_name, Profile.profile_pic_link
@@ -12,10 +12,10 @@ router.get("/api/feed-user",(req,res)=>{
          WHERE Profile.profile_id = ?`, [req.session.profile_id], 
         function(err, feedUser){
             if(err){
-                console.log(err);
+                //console.log(err);
             }
             else{
-                console.log("FeedUser: ",feedUser);
+                //console.log("FeedUser: ",feedUser);
                 res.status(200).json(feedUser[0]);
             }
         }
@@ -24,8 +24,8 @@ router.get("/api/feed-user",(req,res)=>{
 
 router.get("/api/posts",(req,res)=>{
     const {offset} = req.query
-    console.log(offset)
-    console.log("/api/posts");
+    //console.log(offset)
+    //console.log("/api/posts");
     let username = req.session.username;
     let postsWithLikes = []; //array for holding objects with posts and likes
     connection.query(
@@ -54,11 +54,11 @@ router.get("/api/posts",(req,res)=>{
         `,
         function(err, posts){
             if(err){
-                console.log(err);
+                //console.log(err);
                 res.status(500).json(err);
             }
             else{
-                console.log(posts)
+                //console.log(posts)
                 res.status(200).json(posts);
             }
         }

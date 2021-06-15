@@ -8,6 +8,8 @@ import Modal from './Modal'
 
 import styles from './EditBusinessHours.module.css'
 
+import SelectCustomTheme from '../../mods/SelectCustomTheme';
+
 const hourOptions = [
     {value: '00:00:00', label: 'Closed'},
     {value: '01:00:00', label:'1:00 AM'},
@@ -62,17 +64,6 @@ function EditBusinessHours({display,onClose, hours, setHours}){
     const [fridayEnd, setFridayEnd] = useState(hours.fri_close);
     const [saturdayEnd, setSaturdayEnd] = useState(hours.sat_close);
 
-    function customTheme(theme){
-        return {
-            ... theme,
-            colors:{
-                ... theme.colors,
-                primary25: '#B3B3B3',
-                primary:'#1CB48F',
-            }
-        }
-    }
-
     function submitHoursEdit(){
         axios.post("/api/hours", {
             newSunOpen: sundayStart['value'], 
@@ -125,7 +116,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                     <Select id="sunday-start" name="sunday_start"
                             onChange={event => setSundayStart([event])}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             value={sundayStart}
@@ -137,7 +128,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="sunday-end" name="sunday_end"
                             onChange={setSundayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             value={sundayEnd}
@@ -149,7 +140,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="monday-start" name="monday_start"
                             onChange={setMondayStart}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             value={mondayStart}
@@ -161,7 +152,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="monday-end" name="monday_end"
                             onChange={setMondayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             value={mondayEnd}
@@ -173,7 +164,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="tuesday-start" name="tuesday_start"
                             onChange={setTuesdayStart}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             value={tuesdayStart}
@@ -185,7 +176,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="tuesday-end" name="tuesday_end"
                             onChange={setTuesdayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             value={tuesdayEnd}
@@ -197,7 +188,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="wednesday-start" name="wednesday_start"
                             onChange={setWednesdayStart}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             value={wednesdayStart}
@@ -209,7 +200,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="wednesday-end" name="wednesday_end"
                             onChange={setWednesdayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             value={wednesdayEnd}
@@ -221,7 +212,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="thursday-start" name="thursday_start"
                             onChange={setThursdayStart}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             value={thursdayStart}
@@ -233,7 +224,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="thursday-end" name="thursday_end"
                             onChange={setThursdayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             value={thursdayEnd}
@@ -245,7 +236,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="friday-start" name="friday_start"
                             onChange={setFridayStart}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             value={fridayStart}
@@ -257,7 +248,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="friday-end" name="friday_end"
                             onChange={setFridayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             value={fridayEnd}
@@ -269,7 +260,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="saturday-start" name="saturday_start"
                             onChange={setSaturdayStart}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Opening Hours"
                             isSearchable
                             maxMenuHeight= {45}
@@ -282,7 +273,7 @@ function EditBusinessHours({display,onClose, hours, setHours}){
                         <Select id="saturday-end" name="saturday_end"
                             onChange={setSaturdayEnd}
                             options={hourOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             placeholder="Closing Hours"
                             isSearchable
                             maxMenuHeight= {45}

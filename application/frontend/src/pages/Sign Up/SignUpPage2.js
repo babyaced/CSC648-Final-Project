@@ -32,6 +32,11 @@ import AddressValidation from '../../utils/signupValidation/AddressValidation';
 import PhoneNumberValidation from '../../utils/signupValidation/PhoneNumberValidation';
 import TermsValidation from '../../utils/signupValidation/TermsValidation';
 
+import useTypeOptions from '../../components/DropdownOptions/useTypeOptions';
+import useBusinessCategoryOptions from '../../components/DropdownOptions/useBusinessCategoryOptions';
+
+import SelectCustomTheme from '../../mods/SelectCustomTheme'
+
 let typeOptions = []; //for storing business type options
 
 //use select with required attribute
@@ -48,19 +53,10 @@ function SignUpPage2(props) {
     let state = props.location.state;
     let type = props.location.type;
 
-    const [typeOptions, setTypeOptions] = useState([]);
-
-    useEffect(() => {  //run once when page loads/refresh
-        type == 'business' ? 
-        Axios.get('/api/business-types')   //get business types from database
-        .then(response =>{
-            setTypeOptions(response.data);
-        }) :
-        Axios.get('/api/pet-types')   //get business types from database
-        .then(response =>{
-            setTypeOptions(response.data);
-        })
-    }, [])
+    let typeOptions
+    const [businessCategoryOptions] = useBusinessCategoryOptions
+    const [petTypeOptions] = useTypeOptions
+    type === 'business' ? typeOptions = businessCategoryOptions : typeOptions = petTypeOptions
     
     const [termsAndConditionsDisplay, setTermsAndConditionsDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
@@ -85,19 +81,6 @@ function SignUpPage2(props) {
     const [phoneNumberError, setPhoneNumberError] = useState('');
     const [addressError, setAddressError] = useState('');
     const [termsError, setTermsError] = useState('');
-
-
-
-    function customTheme(theme) { //move this a separate file and import maybe?
-        return {
-            ...theme,
-            colors: {
-                ...theme.colors,
-                primary25: '#B3B3B3',
-                primary: '#1CB48F',
-            }
-        }
-    }
 
     const customStyles = {
         control: (base, state) => ({
@@ -332,7 +315,7 @@ function SignUpPage2(props) {
                                 onChange={setSelectedBusinessType}
                                 options={typeOptions}
                                 placeholder="Business Type"
-                                theme={customTheme}
+                                theme={SelectCustomTheme}
                                 styles={customStyles}
                                 isSearchable
                                 // isMulti
@@ -346,7 +329,7 @@ function SignUpPage2(props) {
                                 onChange={setSelectedPetTypes}
                                 options={typeOptions}
                                 placeholder="Shelter Animals"
-                                theme={customTheme}
+                                theme={SelectCustomTheme}
                                 styles={customStyles}
                                 isSearchable
                                 // isMulti

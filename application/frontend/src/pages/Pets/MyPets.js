@@ -13,6 +13,12 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import {RedirectPathContext} from '../../context/redirect-path'
 import AddPetCard from '../../components/Cards/PetCard/AddPetCard'
+import useTypeOptions from '../../components/DropdownOptions/useTypeOptions';
+import useDogBreedOptions from '../../components/DropdownOptions/useDogBreedOptions';
+import useCatBreedOptions from '../../components/DropdownOptions/useCatBreedOptions';
+import useColorOptions from '../../components/DropdownOptions/useColorOptions';
+import useAgeOptions from '../../components/DropdownOptions/useAgeOptions';
+import useSizeOptions from '../../components/DropdownOptions/useSizeOptions';
 
 function MyPets() {
 
@@ -23,18 +29,13 @@ function MyPets() {
 
 
     const [myPets,setMyPets] = useState([]);
-
-    const [typeOptions, setTypeOptions] = useState([]);
-
-    const [dogBreedOptions, setDogBreedOptions] = useState([]);
-
-    const [catBreedOptions, setCatBreedOptions] = useState([]);
-
-    const [colorOptions, setColorOptions] = useState([]);
-
-    const [sizeOptions, setSizeOptions] = useState([]);
-
-    const [ageOptions, setAgeOptions] = useState([]);
+    
+    const [typeOptions] = useTypeOptions()
+    const [dogBreedOptions] = useDogBreedOptions()
+    const [catBreedOptions] = useCatBreedOptions()
+    const [colorOptions] = useColorOptions()
+    const [sizeOptions] = useSizeOptions();
+    const [ageOptions] = useAgeOptions();
 
     const [loading, setLoading] = useState(false);
 
@@ -55,22 +56,10 @@ function MyPets() {
         setLoading(true);
 
         const getCurrentUserPets = axios.get('/api/current-user-pets') 
-        const getPetTypes = axios.get('/api/pet-types')
-        const getDogBreeds = axios.get('/api/dog-breeds')
-        const getCatBreeds = axios.get('/api/cat-breeds')
-        const getAges = axios.get('/api/ages')
-        const getSizes = axios.get('/api/sizes')
-        const getColors = axios.get('/api/colors')
 
-        Promise.all([getCurrentUserPets,getPetTypes,getDogBreeds,getCatBreeds,getAges,getSizes,getColors])
+        Promise.all([getCurrentUserPets])
         .then(responses =>{
             setMyPets(responses[0].data);
-            setTypeOptions(responses[1].data);
-            setDogBreedOptions(responses[2].data);
-            setCatBreedOptions(responses[3].data);
-            setAgeOptions(responses[4].data);
-            setSizeOptions(responses[5].data);
-            setColorOptions(responses[6].data);
             setLoading(false);
         })
         .catch(err =>{
