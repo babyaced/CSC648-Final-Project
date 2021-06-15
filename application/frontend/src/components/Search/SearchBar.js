@@ -28,10 +28,10 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox";
-import TypeOptions from "../DropdownOptions/TypeOptions";
-import BusinessCategoryOptions from "../DropdownOptions/BusinessCategoryOptions";
-import DogBreedOptions from "../DropdownOptions/DogBreedOptions";
-import CatBreedOptions from "../DropdownOptions/CatBreedOptions";
+import useTypeOptions from "../DropdownOptions/useTypeOptions";
+import useBusinessCategoryOptions from "../DropdownOptions/useBusinessCategoryOptions";
+import useDogBreedOptions from "../DropdownOptions/useDogBreedOptions";
+import useCatBreedOptions from "../DropdownOptions/useCatBreedOptions";
 
 //Google Maps
 const libraries = ["places"]
@@ -40,10 +40,10 @@ const libraries = ["places"]
 
 function SearchBar({cssClass, closeMobileSearchBar}) {
 
-  let typeOptions = TypeOptions();
-  let businessCategoryOptions = BusinessCategoryOptions();
-  let dogBreedOptions = DogBreedOptions();
-  let catBreedOptions = CatBreedOptions();
+  let typeOptions = useTypeOptions();
+  let businessCategoryOptions = useBusinessCategoryOptions();
+  let dogBreedOptions = useDogBreedOptions();
+  let catBreedOptions = useCatBreedOptions();
 
   const history = useHistory();
   const windowSize = useWindowSize();

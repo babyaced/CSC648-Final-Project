@@ -11,12 +11,12 @@ import axios from 'axios';
 
 import SelectCustomTheme from '../../mods/SelectCustomTheme'
 
-import TypeOptions from '../../components/DropdownOptions/TypeOptions'
-import ColorOptions from '../../components/DropdownOptions/ColorOptions'
+import useTypeOptions from '../DropdownOptions/useTypeOptions'
+import useColorOptions from '../DropdownOptions/useColorOptions'
 import useAgeOptions from '../DropdownOptions/useAgeOptions'
-import SizeOptions from '../../components/DropdownOptions/SizeOptions'
-import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions'
-import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions'
+import useSizeOptions from '../DropdownOptions/useSizeOptions'
+import useCatBreedOptions from '../DropdownOptions/useCatBreedOptions'
+import useDogBreedOptions from '../DropdownOptions/useDogBreedOptions'
 
 function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge}) {
 
@@ -30,15 +30,15 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
     const [petAge, setPetAge] = useState([]); 
 
 
-    const [typeOptions,setTypeOptions] = useState();
+    const [typeOptions] = useTypeOptions()
 
-    const [dogBreedOptions,setDogBreedOptions] = useState();
+    const [dogBreedOptions] = useDogBreedOptions()
 
-    const [catBreedOptions,setCatBreedOptions] = useState();
+    const [catBreedOptions] = useCatBreedOptions()
 
-    const [colorOptions,setColorOptions] = useState();
+    const [colorOptions] = useColorOptions
 
-    const [sizeOptions,setSizeOptions] = useState();
+    const [sizeOptions] = useSizeOptions
 
     const [ageOptions] = useAgeOptions();
 
@@ -73,7 +73,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="type">Type</label>
                     <Select id="type" name="pet_type"
                         onChange={updatePetType}
-                        options= {TypeOptions()}
+                        options= {typeOptions}
                         theme={SelectCustomTheme}
                         //value = pet Type
                         placeholder="Select Pet Type"
@@ -84,7 +84,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="breed">Breed</label>
                     <Select id="breed" name="pet_breed"
                         onChange={updatePetBreed}
-                        options={DogBreedOptions()}
+                        options={dogBreedOptions}
                         theme={SelectCustomTheme}
                         placeholder="Select Dog Breed"
                         isSearchable
@@ -97,7 +97,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="color">Color(s)</label>
                     <Select id="color" name="pet_color"
                         onChange={setPetColors}
-                        options={ColorOptions()}
+                        options={colorOptions}
                         theme={SelectCustomTheme}
                         placeholder="Select Pet Color(s)"
                         isSearchable
@@ -121,19 +121,19 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="size">Size</label>
                     <Select id="size" name="pet_size"
                         onChange={setPetSize}
-                        options={SizeOptions()}
+                        options={sizeOptions}
                         theme={SelectCustomTheme}
                         placeholder="Select Pet Size"
                         //value = pet size
                         isSearchable
                     />
                 </div>
-                {petType && petType.label == 'Dog' && <div className={styles['edit-pet-details-breed']}>
+                {petType && petType.label === 'Dog' && <div className={styles['edit-pet-details-breed']}>
                         <label for="breed">Breed</label>
                         <Select id="breed" name="pet_breed"
                             // onChange={updatePetBreed}
                             onChange={setDogBreed}
-                            options={DogBreedOptions()}
+                            options={dogBreedOptions}
                             theme={SelectCustomTheme}
                             placeholder="Select Dog Breed"
                             isSearchable
@@ -142,7 +142,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                             components={animatedComponents}
                         />
                     </div>}
-                {petType && petType.label == 'Cat' && <div className={styles['edit-pet-details-breed']}>
+                {petType && petType.label === 'Cat' && <div className={styles['edit-pet-details-breed']}>
                     <label for="breed">Breed</label>
                     <Select id="breed" name="pet_breed"
                         // onChange={updatePetBreed}

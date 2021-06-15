@@ -13,12 +13,12 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import {RedirectPathContext} from '../../context/redirect-path'
 import AddPetCard from '../../components/Cards/PetCard/AddPetCard'
-import TypeOptions from '../../components/DropdownOptions/TypeOptions';
-import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions';
-import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions';
-import ColorOptions from '../../components/DropdownOptions/ColorOptions';
+import useTypeOptions from '../../components/DropdownOptions/useTypeOptions';
+import useDogBreedOptions from '../../components/DropdownOptions/useDogBreedOptions';
+import useCatBreedOptions from '../../components/DropdownOptions/useCatBreedOptions';
+import useColorOptions from '../../components/DropdownOptions/useColorOptions';
 import useAgeOptions from '../../components/DropdownOptions/useAgeOptions';
-import SizeOptions from '../../components/DropdownOptions/SizeOptions';
+import useSizeOptions from '../../components/DropdownOptions/useSizeOptions';
 
 function MyPets() {
 
@@ -29,17 +29,12 @@ function MyPets() {
 
 
     const [myPets,setMyPets] = useState([]);
-
-    const typeOptions = TypeOptions()
-
-    const dogBreedOptions = DogBreedOptions()
-
-    const catBreedOptions = CatBreedOptions()
-
-    const colorOptions = ColorOptions()
-
-    const sizeOptions = SizeOptions();
-
+    
+    const [typeOptions] = useTypeOptions()
+    const [dogBreedOptions] = useDogBreedOptions()
+    const [catBreedOptions] = useCatBreedOptions()
+    const [colorOptions] = useColorOptions()
+    const [sizeOptions] = useSizeOptions();
     const [ageOptions] = useAgeOptions();
 
     const [loading, setLoading] = useState(false);

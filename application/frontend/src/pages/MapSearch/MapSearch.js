@@ -19,13 +19,13 @@ import ShelterSearchResultCard from '../../components/Cards/SearchResultCard/She
 import BusinessSearchResultCard from '../../components/Cards/SearchResultCard/BusinessSearchResultCard';
 import PetSearchResultCard from '../../components/Cards/SearchResultCard/PetSearchResultCard';
 import SearchResults from './SearchResults';
-import TypeOptions from '../../components/DropdownOptions/TypeOptions';
-import SizeOptions from '../../components/DropdownOptions/SizeOptions';
-import ColorOptions from '../../components/DropdownOptions/ColorOptions';
+import useTypeOptions from '../../components/DropdownOptions/useTypeOptions';
+import useSizeOptions from '../../components/DropdownOptions/useSizeOptions';
+import useColorOptions from '../../components/DropdownOptions/useColorOptions';
 import useAgeOptions from '../../components/DropdownOptions/useAgeOptions';
-import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions';
-import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions';
-import BusinessCategoryOptions from '../../components/DropdownOptions/BusinessCategoryOptions';
+import useDogBreedOptions from '../../components/DropdownOptions/useDogBreedOptions';
+import useCatBreedOptions from '../../components/DropdownOptions/useCatBreedOptions';
+import useBusinessCategoryOptions from '../../components/DropdownOptions/useBusinessCategoryOptions';
 
 
 //Import Mods
@@ -54,13 +54,13 @@ function MapSearch(props) {
     let state = props.location.state;
 
 
-    let typeOptions = TypeOptions();
-    let businessCategoryOptions = BusinessCategoryOptions();
+    const [typeOptions] = useTypeOptions();
+    const [businessCategoryOptions] = useBusinessCategoryOptions();
     const [ageOptions] = useAgeOptions();
-    let dogBreedOptions = DogBreedOptions();
-    let catBreedOptions = CatBreedOptions();
-    let colorOptions = ColorOptions();
-    let sizeOptions = SizeOptions();
+    let [dogBreedOptions] = useDogBreedOptions();
+    let [catBreedOptions] = useCatBreedOptions();
+    let [colorOptions] = useColorOptions();
+    let [sizeOptions] = useSizeOptions();
 
     //For storing filter states
     const [businessCategoryFilters,setBusinessCategoryFilters] = useState([]);

@@ -12,6 +12,8 @@ import axios from 'axios';
 //component
 import ButtonLoader from '../UI/Spinner/ButtonLoader';
 
+import SelectCustomTheme from '../../mods/SelectCustomTheme';
+
 function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,colorOptions,sizeOptions,ageOptions,update}) {
 
     //States to be set and sent to db
@@ -25,28 +27,8 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
     //Loading UI
     const [loading, setLoading] = useState(false);
 
-
-
-    function customTheme(theme){
-        return {
-            ... theme,
-            colors:{
-                ... theme.colors,
-                primary25: '#B3B3B3',
-                primary:'#1CB48F',
-            }
-        }
-    }
-
     function createPetProfile(event){
         event.preventDefault();
-        // if(petType.label != 'Cat'){  //make sure Cat or dog breeds are null
-        //     setCatBreed([]);
-        // }
-
-        // if(petType.label != 'Dog'){
-        //     setCatBreed([]);
-        // }
         setLoading(true);
 
         axios.post('/api/create-pet-profile',{
@@ -100,7 +82,7 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                             // onChange={props.updatePetType}
                             onChange={setPetType}
                             options={typeOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             value={petType}
                             required
                             placeholder="Select Pet Type"
@@ -113,8 +95,8 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                         <label for="color">Color(s)</label>
                         <Select id="color" name="pet_color"
                             onChange={setPetColor}
-                            options={ colorOptions}
-                            theme={customTheme}
+                            options={colorOptions}
+                            theme={SelectCustomTheme}
                             value={petColor}
                             required
                             placeholder="Select Pet Color(s)"
@@ -128,7 +110,7 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                         <Select id="age" name="pet_age"
                             onChange={setPetAge}
                             options={ageOptions}
-                            theme={customTheme}
+                            theme={SelectCustomTheme}
                             value={petAge}
                             required
                             placeholder="Select Pet Age"
@@ -140,8 +122,8 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                         <label for="size">Size</label>
                         <Select id="size" name="pet_size"
                             onChange={setPetSize}
-                            options={ sizeOptions}
-                            theme={customTheme}
+                            options={sizeOptions}
+                            theme={SelectCustomTheme}
                             value={petSize}
                             required
                             placeholder="Select Pet Size"
@@ -153,8 +135,8 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                         <Select id="breed" name="pet_breed"
                             // onChange={props.updatePetBreed}
                             onChange={setDogBreed}
-                            options={ dogBreedOptions}
-                            theme={customTheme}
+                            options={dogBreedOptions}
+                            theme={SelectCustomTheme}
                             placeholder="Select Dog Breed"
                             isSearchable
                             required
@@ -167,8 +149,8 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                         <Select id="breed" name="pet_breed"
                             // onChange={props.updatePetBreed}
                             onChange={setCatBreed}
-                            options={ catBreedOptions}
-                            theme={customTheme}
+                            options={catBreedOptions}
+                            theme={SelectCustomTheme}
                             placeholder="Select Cat Breed"
                             isSearchable
                             required

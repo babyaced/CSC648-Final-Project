@@ -19,20 +19,20 @@ import axios from 'axios';
 import ConfirmDeletion from '../Modals/ConfirmDeletion';
 import ProfilePic from './ProfilePic';
 import FollowMenu from './FollowMenu';
-import TypeOptions from '../DropdownOptions/TypeOptions';
-import ColorOptions from '../DropdownOptions/ColorOptions';
+import useTypeOptions from '../DropdownOptions/useTypeOptions';
+import useColorOptions from '../DropdownOptions/useColorOptions';
 import useAgeOptions from '../DropdownOptions/useAgeOptions';
-import SizeOptions from '../DropdownOptions/SizeOptions';
-import DogBreedOptions from '../DropdownOptions/DogBreedOptions';
-import CatBreedOptions from '../DropdownOptions/CatBreedOptions';
+import useSizeOptions from '../DropdownOptions/useSizeOptions';
+import useDogBreedOptions from '../DropdownOptions/useDogBreedOptions';
+import useCatBreedOptions from '../DropdownOptions/useCatBreedOptions';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
-    let typeOptions = TypeOptions()
-    let colorOptions = ColorOptions()
+    let [typeOptions] = useTypeOptions()
+    let [colorOptions] = useColorOptions()
     const [ageOptions] = useAgeOptions()
-    let sizeOptions = SizeOptions()
-    let dogBreedOptions = DogBreedOptions()
-    let catBreedOptions = CatBreedOptions()
+    let [sizeOptions] = useSizeOptions()
+    let [dogBreedOptions] = useDogBreedOptions()
+    let [catBreedOptions] = useCatBreedOptions()
 
     const [recievedPetType, setRecievedPetType] = useState();
     const [recievedPetSize, setRecievedPetSize] = useState();

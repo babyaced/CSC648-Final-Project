@@ -33,7 +33,9 @@ import usePlacesAutocomplete,{
     getGeocode,
     getLatLng,
 } from "use-places-autocomplete";
-import TypeOptions from '../../components/DropdownOptions/TypeOptions';
+import useTypeOptions from '../../components/DropdownOptions/useTypeOptions';
+
+import SelectCustomTheme from '../../mods/SelectCustomTheme';
 
 
 
@@ -51,7 +53,7 @@ const Select = props => (
 
 function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
 
-    const typeOptions = TypeOptions()
+    const typeOptions = useTypeOptions()
 
     //to get form data from sign up page 1
     const location = useLocation();
@@ -85,18 +87,6 @@ function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
             radius: 200 * 1000,
         },
     });
-
-    //Custom color scheme for react-select
-    function customTheme(theme) { //move this a separate file and import maybe?
-        return {
-            ...theme,
-            colors: {
-                ...theme.colors,
-                primary25: '#B3B3B3',
-                primary: '#1CB48F',
-            }
-        }
-    }
 
     //Custom sizing for react-select
     const customStyles = {
@@ -235,7 +225,7 @@ function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
                         onChange={setSelectedPetTypes}
                         options={typeOptions}
                         placeholder="Animal Types"
-                        theme={customTheme}
+                        theme={SelectCustomTheme}
                         styles={customStyles}
                         isSearchable
                         isMulti
