@@ -9,7 +9,7 @@
     position: relative;
     transition: all .25s ease-in-out;
     overflow: hidden;
-    border-radius: 7.5px;
+    border-radius: 0 0 7.5px 7.5px;
     box-shadow: var(--elevation-1);
 }
 
