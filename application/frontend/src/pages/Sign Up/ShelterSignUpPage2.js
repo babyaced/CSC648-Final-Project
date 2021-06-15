@@ -33,6 +33,7 @@ import usePlacesAutocomplete,{
     getGeocode,
     getLatLng,
 } from "use-places-autocomplete";
+import TypeOptions from '../../components/DropdownOptions/TypeOptions';
 
 
 
@@ -50,14 +51,7 @@ const Select = props => (
 
 function ShelterSignUpPage2(props) { //recieve form data from sign up page 1
 
-    const [typeOptions, setTypeOptions] = useState([]);
-
-    useEffect(() => {  //run once when page loads/refresh
-        Axios.get('/api/pet-types')   //get business types from database
-        .then(response =>{
-            setTypeOptions(response.data);
-        })
-    }, [])
+    const typeOptions = TypeOptions()
 
     //to get form data from sign up page 1
     const location = useLocation();

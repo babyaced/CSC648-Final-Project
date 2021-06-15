@@ -32,6 +32,9 @@ import AddressValidation from '../../utils/signupValidation/AddressValidation';
 import PhoneNumberValidation from '../../utils/signupValidation/PhoneNumberValidation';
 import TermsValidation from '../../utils/signupValidation/TermsValidation';
 
+import TypeOptions from '../../components/DropdownOptions/TypeOptions';
+import BusinessCategoryOptions from '../../components/DropdownOptions/BusinessCategoryOptions';
+
 let typeOptions = []; //for storing business type options
 
 //use select with required attribute
@@ -48,19 +51,8 @@ function SignUpPage2(props) {
     let state = props.location.state;
     let type = props.location.type;
 
-    const [typeOptions, setTypeOptions] = useState([]);
-
-    useEffect(() => {  //run once when page loads/refresh
-        type == 'business' ? 
-        Axios.get('/api/business-types')   //get business types from database
-        .then(response =>{
-            setTypeOptions(response.data);
-        }) :
-        Axios.get('/api/pet-types')   //get business types from database
-        .then(response =>{
-            setTypeOptions(response.data);
-        })
-    }, [])
+    let typeOptions
+    type == 'business' ? typeOptions = BusinessCategoryOptions() : typeOptions = TypeOptions()
     
     const [termsAndConditionsDisplay, setTermsAndConditionsDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);

@@ -13,6 +13,12 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import {RedirectPathContext} from '../../context/redirect-path'
 import AddPetCard from '../../components/Cards/PetCard/AddPetCard'
+import TypeOptions from '../../components/DropdownOptions/TypeOptions';
+import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions';
+import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions';
+import ColorOptions from '../../components/DropdownOptions/ColorOptions';
+import AgeOptions from '../../components/DropdownOptions/AgeOptions';
+import SizeOptions from '../../components/DropdownOptions/SizeOptions';
 
 function MyPets() {
 
@@ -24,17 +30,17 @@ function MyPets() {
 
     const [myPets,setMyPets] = useState([]);
 
-    const [typeOptions, setTypeOptions] = useState([]);
+    const typeOptions = TypeOptions()
 
-    const [dogBreedOptions, setDogBreedOptions] = useState([]);
+    const dogBreedOptions = DogBreedOptions()
 
-    const [catBreedOptions, setCatBreedOptions] = useState([]);
+    const catBreedOptions = CatBreedOptions()
 
-    const [colorOptions, setColorOptions] = useState([]);
+    const colorOptions = ColorOptions()
 
-    const [sizeOptions, setSizeOptions] = useState([]);
+    const sizeOptions = SizeOptions();
 
-    const [ageOptions, setAgeOptions] = useState([]);
+    const ageOptions = AgeOptions();
 
     const [loading, setLoading] = useState(false);
 
@@ -55,22 +61,10 @@ function MyPets() {
         setLoading(true);
 
         const getCurrentUserPets = axios.get('/api/current-user-pets') 
-        const getPetTypes = axios.get('/api/pet-types')
-        const getDogBreeds = axios.get('/api/dog-breeds')
-        const getCatBreeds = axios.get('/api/cat-breeds')
-        const getAges = axios.get('/api/ages')
-        const getSizes = axios.get('/api/sizes')
-        const getColors = axios.get('/api/colors')
 
-        Promise.all([getCurrentUserPets,getPetTypes,getDogBreeds,getCatBreeds,getAges,getSizes,getColors])
+        Promise.all([getCurrentUserPets])
         .then(responses =>{
             setMyPets(responses[0].data);
-            setTypeOptions(responses[1].data);
-            setDogBreedOptions(responses[2].data);
-            setCatBreedOptions(responses[3].data);
-            setAgeOptions(responses[4].data);
-            setSizeOptions(responses[5].data);
-            setColorOptions(responses[6].data);
             setLoading(false);
         })
         .catch(err =>{
