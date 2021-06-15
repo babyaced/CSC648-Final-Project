@@ -19,6 +19,17 @@ import ShelterSearchResultCard from '../../components/Cards/SearchResultCard/She
 import BusinessSearchResultCard from '../../components/Cards/SearchResultCard/BusinessSearchResultCard';
 import PetSearchResultCard from '../../components/Cards/SearchResultCard/PetSearchResultCard';
 import SearchResults from './SearchResults';
+import TypeOptions from '../../components/DropdownOptions/TypeOptions';
+import SizeOptions from '../../components/DropdownOptions/SizeOptions';
+import ColorOptions from '../../components/DropdownOptions/ColorOptions';
+import AgeOptions from '../../components/DropdownOptions/AgeOptions';
+import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions';
+import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions';
+import BusinessCategoryOptions from '../../components/DropdownOptions/BusinessCategoryOptions';
+
+
+//Import Mods
+import SelectCustomTheme from '../../mods/SelectCustomTheme';
 
 const mapContainerStyle = {
     width: '100%',
@@ -30,14 +41,7 @@ const options = {
     // zoomControl: false,
 }
 
-let typeOptions = [];
-let businessCategoryOptions = [];
-let ageOptions = [];
-let dogBreedOptions = [];
-let catBreedOptions = [];
-let colorOptions = [];
-let sizeOptions = [];
-let markerColors = []
+
 let markerBaseUrl = "../../images/Third\ Party\ Icons/marker"
 
 const distanceOptions = [
@@ -48,6 +52,15 @@ const distanceOptions = [
 
 function MapSearch(props) {
     let state = props.location.state;
+
+
+    let typeOptions = TypeOptions();
+    let businessCategoryOptions = BusinessCategoryOptions();
+    let ageOptions = AgeOptions();
+    let dogBreedOptions = DogBreedOptions();
+    let catBreedOptions = CatBreedOptions();
+    let colorOptions = ColorOptions();
+    let sizeOptions = SizeOptions();
 
     //For storing filter states
     const [businessCategoryFilters,setBusinessCategoryFilters] = useState([]);
@@ -110,40 +123,9 @@ function MapSearch(props) {
     const searchResultsContainerRef = useRef();
 
     const [loading, setLoading] = useState(true);
-
-
-
-
-    //Check if state matches any dropdown options within the searchCategory to populate filter automatically
     
     //for storing map location
     const center = {lat: state.lat, lng: state.lng};
-
-    useEffect(() => {  //run once when page loads/refresh
-        const getPetTypes = Axios.get('/api/pet-types')   //get business types from database
-        const getBusinessTypes = Axios.get('/api/business-types')   //get business types from database
-        const getDogBreeds = Axios.get('/api/dog-breeds')   //get business types from database
-        const getCatBreeds = Axios.get('/api/cat-breeds')   //get business types from database
-        const getAges = Axios.get('/api/ages')   //get business types from database
-        const getSizes = Axios.get('/api/sizes')   //get business types from database
-        const getColors = Axios.get('/api/colors')   //get business types from database
-        
-
-        Promise.all([getPetTypes,getBusinessTypes,getDogBreeds,getCatBreeds,getAges,getSizes,getColors])
-        .then((responses) =>{
-            typeOptions =  responses[0].data;
-            businessCategoryOptions = responses[1].data;
-            dogBreedOptions = responses[2].data;
-            catBreedOptions = responses[3].data;
-            ageOptions = responses[4].data;
-            sizeOptions = responses[5].data;
-            colorOptions = responses[6].data;
-        })
-        .catch((err) =>{
-            console.log(err);
-        })
-    }, [])
-
 
 
 function search(){
@@ -161,6 +143,8 @@ function search(){
         //         searchResultsContainerNode.classList.add(styles['map-search-results-container'])
         //     }
         // }
+
+
 
         if(state.searchTermParam || state.searchCategoryParam || state.prefilter){
 
@@ -336,6 +320,10 @@ function search(){
         search();
     },[state, currentPage]);  //only fetch results when search params or filters or page changes
 
+    useEffect(() =>{
+        setCurrentPage(1);
+        search();
+    },[state])
 
     //toggle display of filter overlay
     function displayFilterOverlay(){
@@ -362,17 +350,6 @@ function search(){
             // search();
         }
         else{
-        }
-    }
-
-    function customTheme(theme){
-        return {
-            ... theme,
-            colors:{
-                ... theme.colors,
-                primary25: '#B3B3B3',
-                primary:'#1CB48F',
-            }
         }
     }
 
@@ -434,7 +411,7 @@ function search(){
                                         onChange={setBusinessCategoryFilters}
                                         options={businessCategoryOptions}
                                         placeholder="Select Business Categories"
-                                        theme={customTheme}
+                                        theme={SelectCustomTheme}
                                         isSearchable
                                         isMulti
                                         components={animatedComponents}
@@ -450,7 +427,7 @@ function search(){
                                     onChange={setPetTypeFilters}
                                     options={typeOptions}
                                     placeholder="Select Pet Type(s)"
-                                    theme={customTheme}
+                                    theme={SelectCustomTheme}
                                     isSearchable
                                     isMulti
                                     components={animatedComponents}
@@ -462,7 +439,7 @@ function search(){
                                         onChange={setPetSizeFilters}
                                         options={sizeOptions}
                                         placeholder="Select Pet Size(s)"
-                                        theme={customTheme}
+                                        theme={SelectCustomTheme}
                                         isSearchable
                                         isMulti
                                         components={animatedComponents}
@@ -474,7 +451,7 @@ function search(){
                                         onChange={setPetColorFilters}
                                         options={colorOptions}
                                         placeholder="Select Pet Color(s)"
-                                        theme={customTheme}
+                                        theme={SelectCustomTheme}
                                         isSearchable
                                         isMulti
                                         components={animatedComponents}
@@ -486,7 +463,7 @@ function search(){
                                         onChange={setPetAgeFilters}
                                         options={ageOptions}
                                         placeholder="Select Pet Age(s)"
-                                        theme={customTheme}
+                                        theme={SelectCustomTheme}
                                         isSearchable
                                         isMulti
                                         components={animatedComponents}
@@ -498,7 +475,7 @@ function search(){
                                         onChange={setDogBreedFilters}
                                         options={dogBreedOptions}
                                         placeholder="Select Dog Breed(s)"
-                                        theme={customTheme}
+                                        theme={SelectCustomTheme}
                                         isSearchable
                                         isMulti
                                         components={animatedComponents}
@@ -511,7 +488,7 @@ function search(){
                                         onChange={setCatBreedFilters}
                                         options={catBreedOptions}
                                         placeholder="Select Cat Breed(s)"
-                                        theme={customTheme}
+                                        theme={SelectCustomTheme}
                                         isSearchable
                                         isMulti
                                         components={animatedComponents}
@@ -527,7 +504,7 @@ function search(){
                                             onChange={setShelterPetTypeFilters}
                                             options={typeOptions}
                                             placeholder="Select Types of Pets"
-                                            theme={customTheme}
+                                            theme={SelectCustomTheme}
                                             isSearchable
                                             isMulti
                                             components={animatedComponents}
@@ -542,7 +519,7 @@ function search(){
                                 onChange={setSearchDistance}
                                 options={distanceOptions}
                                 placeholder="Select Preferred Distance"
-                                theme={customTheme}
+                                theme={SelectCustomTheme}
                                 isSearchable
                                 components={animatedComponents}
                             />

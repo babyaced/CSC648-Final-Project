@@ -28,27 +28,23 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox";
+import TypeOptions from "../DropdownOptions/TypeOptions";
+import BusinessCategoryOptions from "../DropdownOptions/BusinessCategoryOptions";
+import DogBreedOptions from "../DropdownOptions/DogBreedOptions";
+import CatBreedOptions from "../DropdownOptions/CatBreedOptions";
 
 //Google Maps
 const libraries = ["places"]
 
-let typeOptions = [];
-let businessCategoryOptions = [];
-let dogBreedOptions = [];
-let catBreedOptions = [];
-
-
-// componentWillMount() and componentWillUnmount() functions work toghther
-// to unable and disable scrolling on the main page
-
-// change the scroll bar behavior when component mount  
-
-  
-// change the scroll bar behavior when component unmount  
-
 
 
 function SearchBar({cssClass, closeMobileSearchBar}) {
+
+  let typeOptions = TypeOptions();
+  let businessCategoryOptions = BusinessCategoryOptions();
+  let dogBreedOptions = DogBreedOptions();
+  let catBreedOptions = CatBreedOptions();
+
   const history = useHistory();
   const windowSize = useWindowSize();
 
@@ -95,28 +91,6 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
       history.push(location)
     }    
   }
-
-  useEffect(() =>{
-    const getPetTypes = Axios.get('/api/pet-types')   //get business types from database
-    const getBusinessTypes = Axios.get('/api/business-types')   //get business types from database
-    const getDogBreeds = Axios.get('/api/dog-breeds')   //get business types from database
-    const getCatBreeds = Axios.get('/api/cat-breeds')   //get business types from database
-    
-
-    Promise.all([getPetTypes,getBusinessTypes,getDogBreeds,getCatBreeds])
-    .then((responses) =>{
-        typeOptions =  responses[0].data;
-        businessCategoryOptions = responses[1].data;
-        dogBreedOptions = responses[2].data;
-        catBreedOptions = responses[3].data;
-    })
-    .catch((err) =>{
-        console.log(err);
-    })
-  },[])
-
-  useEffect(() => {
-  }, [searchLocationLat, searchLocationLng])
 
   const results = useCategoryMatch(searchTerm);
 

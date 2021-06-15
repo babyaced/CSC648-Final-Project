@@ -9,6 +9,13 @@ import makeAnimated from 'react-select/animated';
 import styles from './EditPetDetails.module.css'
 import axios from 'axios';
 
+import TypeOptions from '../../components/DropdownOptions/TypeOptions'
+import ColorOptions from '../../components/DropdownOptions/ColorOptions'
+import AgeOptions from '../../components/DropdownOptions/AgeOptions'
+import SizeOptions from '../../components/DropdownOptions/SizeOptions'
+import CatBreedOptions from '../../components/DropdownOptions/CatBreedOptions'
+import DogBreedOptions from '../../components/DropdownOptions/DogBreedOptions'
+
 function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge}) {
 
     // let recievedPetName
@@ -58,26 +65,6 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
 
     //     })
     // }
-
-    useEffect(() =>{
-        const getPetTypes = axios.get('/api/pet-types')   //get business types from database
-        const getDogBreeds = axios.get('/api/dog-breeds')   //get business types from database
-        const getPetColors = axios.get('/api/colors')   //get business types from database
-        const getPetAges = axios.get('/api/ages')   //get business types from database
-        const getPetSizes = axios.get('/api/sizes')   //get business types from database
-        const getCatBreeds = axios.get('/api/cat-breeds')   //get business types from database
-
-        Promise.all([getPetTypes, getPetColors, getPetAges, getPetSizes, getDogBreeds, getCatBreeds])
-        .then((responses) =>{
-            setTypeOptions(responses[0].data);
-            setColorOptions(responses[1].data);
-            setAgeOptions(responses[2].data);
-            setSizeOptions(responses[3].data);
-            setDogBreedOptions(responses[4].data);
-            setCatBreedOptions(responses[5].data);
-        })
-        
-    },[])
     
     const animatedComponents = makeAnimated();
 
@@ -100,7 +87,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="type">Type</label>
                     <Select id="type" name="pet_type"
                         onChange={updatePetType}
-                        options={typeOptions}
+                        options= {TypeOptions()}
                         theme={customTheme}
                         //value = pet Type
                         placeholder="Select Pet Type"
@@ -111,7 +98,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="breed">Breed</label>
                     <Select id="breed" name="pet_breed"
                         onChange={updatePetBreed}
-                        options={ dogBreedOptions}
+                        options={DogBreedOptions()}
                         theme={customTheme}
                         placeholder="Select Dog Breed"
                         isSearchable
@@ -124,7 +111,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="color">Color(s)</label>
                     <Select id="color" name="pet_color"
                         onChange={setPetColors}
-                        options={ colorOptions}
+                        options={ColorOptions()}
                         theme={customTheme}
                         placeholder="Select Pet Color(s)"
                         isSearchable
@@ -136,7 +123,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         <label for="age">Age</label>
                         <Select id="age" name="pet_age"
                             onChange={setPetAge}
-                            options={ageOptions}
+                            options={AgeOptions()}
                             theme={customTheme}
                             value={recievedPetAge}
                             placeholder="Select Pet Age"
@@ -148,7 +135,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <label for="size">Size</label>
                     <Select id="size" name="pet_size"
                         onChange={setPetSize}
-                        options={ sizeOptions}
+                        options={SizeOptions()}
                         theme={customTheme}
                         placeholder="Select Pet Size"
                         //value = pet size
@@ -160,7 +147,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         <Select id="breed" name="pet_breed"
                             // onChange={updatePetBreed}
                             onChange={setDogBreed}
-                            options={ dogBreedOptions}
+                            options={DogBreedOptions()}
                             theme={customTheme}
                             placeholder="Select Dog Breed"
                             isSearchable
@@ -174,7 +161,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                     <Select id="breed" name="pet_breed"
                         // onChange={updatePetBreed}
                         onChange={setCatBreed}
-                        options={ catBreedOptions}
+                        options={ catBreedOptions()}
                         theme={customTheme}
                         placeholder="Select Cat Breed"
                         isSearchable
