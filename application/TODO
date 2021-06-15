@@ -57,3 +57,5 @@ fix back button functionality on mobile(ie. make it close modal instead of going
 create mapping function to map database data to react-select options
 
 fix offcenter loading icon on profile
+
+fix profile button height
