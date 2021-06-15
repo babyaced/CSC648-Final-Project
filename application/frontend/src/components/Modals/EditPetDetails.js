@@ -36,9 +36,9 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
 
     const [catBreedOptions] = useCatBreedOptions()
 
-    const [colorOptions] = useColorOptions
+    const [colorOptions] = useColorOptions();
 
-    const [sizeOptions] = useSizeOptions
+    const [sizeOptions] = useSizeOptions();
 
     const [ageOptions] = useAgeOptions();
 
