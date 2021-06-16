@@ -18,9 +18,15 @@ import useSizeOptions from '../DropdownOptions/useSizeOptions'
 import useCatBreedOptions from '../DropdownOptions/useCatBreedOptions'
 import useDogBreedOptions from '../DropdownOptions/useDogBreedOptions'
 
-function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge}) {
+function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge, recievedPetSize, recievedPetType, recievedPetColors, recievedDogBreeds, recievedCatBreeds}) {
 
     console.log(recievedPetAge)
+    console.log(recievedPetSize)
+    console.log(recievedPetType)
+    console.log(recievedPetColors)
+    console.log(recievedDogBreeds)
+    console.log(recievedCatBreeds)
+
     const [petName, setPetName] = useState('');
     const [petType,setPetType] = useState([]);  //set this to already existing pet type stored in db for real version
     const [dogBreed, setDogBreed] = useState([]);
@@ -75,7 +81,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         onChange={updatePetType}
                         options= {typeOptions}
                         theme={SelectCustomTheme}
-                        //value = pet Type
+                        value={recievedPetType}
                         placeholder="Select Pet Type"
                         isSearchable
                     />
@@ -101,7 +107,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         theme={SelectCustomTheme}
                         placeholder="Select Pet Color(s)"
                         isSearchable
-                        //value = pet color
+                        value={recievedPetColors}
                         isMulti
                     />
                 </div>
@@ -113,7 +119,6 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                             theme={SelectCustomTheme}
                             value={recievedPetAge}
                             placeholder="Select Pet Age"
-                            //value = pet age
                             isSearchable
                         />
                 </div>
@@ -124,11 +129,11 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         options={sizeOptions}
                         theme={SelectCustomTheme}
                         placeholder="Select Pet Size"
-                        //value = pet size
+                        value={recievedPetSize}
                         isSearchable
                     />
                 </div>
-                {petType && petType.label === 'Dog' && <div className={styles['edit-pet-details-breed']}>
+                <div className={styles['edit-pet-details-breed']}>
                         <label for="breed">Breed</label>
                         <Select id="breed" name="pet_breed"
                             // onChange={updatePetBreed}
@@ -138,10 +143,10 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                             placeholder="Select Dog Breed"
                             isSearchable
                             isMulti
-                            //value= dog breed
+                            value={recievedDogBreeds}
                             components={animatedComponents}
                         />
-                    </div>}
+                    </div>
                 {petType && petType.label === 'Cat' && <div className={styles['edit-pet-details-breed']}>
                     <label for="breed">Breed</label>
                     <Select id="breed" name="pet_breed"
@@ -152,7 +157,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         placeholder="Select Cat Breed"
                         isSearchable
                         isMulti
-                        //value = cat breed
+                        value={recievedCatBreeds}
                         components={animatedComponents}
                     />
                 </div>}

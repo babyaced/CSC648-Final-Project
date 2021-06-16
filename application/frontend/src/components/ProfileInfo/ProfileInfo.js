@@ -27,36 +27,66 @@ import useDogBreedOptions from '../DropdownOptions/useDogBreedOptions';
 import useCatBreedOptions from '../DropdownOptions/useCatBreedOptions';
 
 function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStatus, isAdminView}) {
-    let [typeOptions] = useTypeOptions()
-    let [colorOptions] = useColorOptions()
+    const [typeOptions] = useTypeOptions()
+    const [colorOptions] = useColorOptions()
     const [ageOptions] = useAgeOptions()
-    let [sizeOptions] = useSizeOptions()
-    let [dogBreedOptions] = useDogBreedOptions()
-    let [catBreedOptions] = useCatBreedOptions()
+    const [sizeOptions] = useSizeOptions()
+    const [dogBreedOptions] = useDogBreedOptions()
+    const [catBreedOptions] = useCatBreedOptions()
 
     const [recievedPetType, setRecievedPetType] = useState();
     const [recievedPetSize, setRecievedPetSize] = useState();
     const [recievedPetAge, setRecievedPetAge] = useState();
+    const [recievedPetColors, setRecievedPetColors] = useState();
+    const [recievedDogBreeds, setRecievedDogBreeds] = useState();
+    const [recievedCatBreeds, setRecievedCatBreeds] = useState();
+
     useEffect(() => {
-        axios.get('/api/pet-details', {
-            params: 
-            {
-                petID: profile.pet_id, 
-                typeOptions: typeOptions, 
-                colorOptions: colorOptions, 
-                ageOptions: ageOptions, 
-                sizeOptions: sizeOptions, 
-                dogBreedOptions: dogBreedOptions, 
-                catBreedOptions: catBreedOptions}})
-        .then(response =>{
-            setRecievedPetAge(response.data);
-            console.log(recievedPetAge)
-            console.log(response);
-        })
-        .catch(err =>{
-            console.log(err);
-        })
-    }, [profile])
+        if(typeOptions.length && colorOptions.length && ageOptions.length && sizeOptions.length && dogBreedOptions.length && catBreedOptions.length){
+            axios.get('/api/pet-details', {
+                params: 
+                {
+                    petID: profile.pet_id, 
+                    typeOptions: typeOptions, 
+                    colorOptions: colorOptions, 
+                    ageOptions: ageOptions, 
+                    sizeOptions: sizeOptions, 
+                    dogBreedOptions: dogBreedOptions, 
+                    catBreedOptions: catBreedOptions}})
+            .then(response =>{
+                console.log(response);
+                setRecievedPetAge(JSON.parse(response.data.petAge));
+                setRecievedPetSize(JSON.parse(response.data.petSize));
+                setRecievedPetType(JSON.parse(response.data.petType));
+
+                let parsedPetColors = []
+                for(const petColor of response.data.colors){
+                    parsedPetColors.push(JSON.parse(petColor));
+                }
+
+                let parsedDogBreeds = []
+                for(const dogBreed of response.data.dogBreeds){
+                    parsedDogBreeds.push(JSON.parse(dogBreed));
+                }
+
+                let parsedCatBreeds = []
+                for(const catBreed of response.data.catBreeds){
+                    parsedCatBreeds.push(JSON.parse(catBreed));
+                }
+
+                console.log(parsedPetColors)
+                setRecievedPetColors(parsedPetColors);
+                setRecievedDogBreeds(parsedDogBreeds);
+                setRecievedCatBreeds(parsedCatBreeds);
+                
+                
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+        }
+      
+    }, [typeOptions, colorOptions, ageOptions, sizeOptions,dogBreedOptions,catBreedOptions])
 
     const [editing, setEditing] = useState(false);
     
@@ -217,7 +247,12 @@ function ProfileInfo({profile, appUser, isSelfView, updateProfile, followingStat
                     onClose={()=> setEditPetDetailsDisplay(false)}
                     updatePetType={setPetType}
                     updatePetBreed={setPetBreed}
-                    recievedPetAge ={recievedPetAge}
+                    recievedPetAge={recievedPetAge}
+                    recievedPetSize={recievedPetSize}
+                    recievedPetType={recievedPetType}
+                    recievedPetColors={recievedPetColors}
+                    recievedDogBreeds={recievedDogBreeds}
+                    recievedCatBreeds={recievedCatBreeds}
                 />
             }
             <SendProfileMessage 

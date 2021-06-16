@@ -1,4 +1,5 @@
 const express = require('express');
+const { restart } = require('nodemon');
 const connection = require('../db');
 const router = express.Router();
 
@@ -234,26 +235,88 @@ router.post('/api/name',(req, res)=>{
 
 router.get('/api/pet-details', (req,res) =>{
     console.log('GET /api/pet-details')
-    console.log(req.query)
+    // console.log(req.query)
     const {petID, typeOptions, colorOptions,ageOptions, sizeOptions, dogBreedOptions, catBreedOptions} = req.query;
-    console.log(typeOptions)
-    console.log(colorOptions)
-    console.log(ageOptions)
-    console.log(sizeOptions)
-    console.log(dogBreedOptions)
-    console.log(catBreedOptions)
+    console.log(Array.isArray(typeOptions))
+    console.log(Array.isArray(colorOptions))
+    console.log(Array.isArray(ageOptions))
+    console.log(Array.isArray(sizeOptions))
+    console.log(Array.isArray(dogBreedOptions))
+    console.log(Array.isArray(catBreedOptions))
     console.log('petID: ', petID)
     connection.query(`
-        SELECT Pet.type_id, Pet.size_id, Pet.age_id
+        SELECT PetType.pet_type_name, Size.size_name, Age.age_name,GROUP_CONCAT(Color.color_name SEPARATOR ',') AS Colors, GROUP_CONCAT(DogBreed.dog_breed_name SEPARATOR ',') AS BreedsOfDog,GROUP_CONCAT(CatBreed.cat_breed_name SEPARATOR ',') AS BreedsOfCat
         FROM Pet
+        JOIN PetType ON PetType.pet_type_id = Pet.type_id
+        JOIN Size ON Size.size_id = Pet.size_id
+        JOIN Age ON Age.age_id = Pet.age_id
+        JOIN PetColor ON Pet.pet_id = PetColor.pet_id
+        JOIN Color ON Color.color_id = PetColor.color_id
+        LEFT JOIN Dog ON Dog.pet_id = Pet.pet_id
+        LEFT JOIN DogBreeds ON Dog.dog_id = DogBreeds.dog_id
+        LEFT JOIN DogBreed ON DogBreeds.breed_id = DogBreed.dog_breed_id
+        LEFT JOIN Cat ON Cat.pet_id = Pet.pet_id
+        LEFT JOIN CatBreeds ON Cat.cat_id = CatBreeds.cat_id
+        LEFT JOIN CatBreed ON CatBreeds.breed_id = CatBreed.cat_breed_id
         WHERE Pet.pet_id = ?`,[petID],
         function(err, result){
             if(err){
-                //console.log(err)
+                console.error(err)
             }
             else{
-                //console.log(result)
-                res.send({value: 1, label: 'Baby'})
+                console.log(result)
+
+                let age
+                if(ageOptions && result[0]){
+                    age = ageOptions.find(ageOption => JSON.parse(ageOption).label === result[0].age_name)
+                }
+
+                let type
+                if(typeOptions && result[0]){
+                    type = typeOptions.find(typeOption => JSON.parse(typeOption).label === result[0].pet_type_name)
+                }
+
+                let size
+                if(sizeOptions && result[0]){
+                    size = sizeOptions.find(sizeOption => JSON.parse(sizeOption).label === result[0].size_name)
+                }
+
+                let colorSelectOptions = []
+                if(colorOptions && result[0].Colors){
+                    let colors = result[0].Colors.split(',')
+                    colors = [...new Set(colors)]
+
+                    for(let i = 0; i < colors.length; i++){
+                        colorOption = colorOptions.find(colorOption => JSON.parse(colorOption).label === colors[i])
+                        colorSelectOptions.push(colorOption)
+                    }
+                    console.log(colorSelectOptions)
+                }
+
+                let catBreedSelectOptions = []
+                if(catBreedOptions && result[0].BreedsOfCat){
+                    let catBreeds = result[0].BreedsOfCat.split(',')
+                    catBreeds = [...new Set(catBreeds)]
+                    for(let i = 0; i < catBreeds.length; i++){
+                        catBreedOption = catBreedOptions.find(catBreedOption => JSON.parse(catBreedOption).label === catBreeds[i])
+                        catBreedSelectOptions.push(catBreedOption)
+                    }
+                    console.log(catBreedSelectOptions)
+                }
+
+                let dogBreedSelectOptions = []
+                if(dogBreedOptions && result[0].BreedsOfDog){
+                    let dogBreeds = result[0].BreedsOfDog.split(',')
+                    dogBreeds = [...new Set(dogBreeds)]
+                    
+                    for(let i = 0; i < dogBreeds.length; i++){
+                        dogBreedOption = dogBreedOptions.find(dogBreedOption => JSON.parse(dogBreedOption).label === dogBreeds[i])
+                        dogBreedSelectOptions.push(dogBreedOption)
+                    } 
+                    console.log(dogBreedSelectOptions)
+                }
+
+                res.status(200).json({petType:type, petAge: age, petSize: size, colors: colorSelectOptions, dogBreeds: dogBreedSelectOptions, catBreeds: catBreedSelectOptions})
             }
         }
     )
@@ -267,3 +330,4 @@ module.exports = router
 // JOIN DogBreeds ON DogBreeds.dog_id = Dog.dog_id
 // JOIN Cat ON Cat.pet_id = Pet.pet_id
 // JOIN CatBreeds ON CatBreeds.cat_id = Cat.cat_id
+//,  GROUP_CONCAT(DogBreed.dog_breed_name SEPARATOR ','), GROUP_CONCAT(CatBreed.cat_breed_name SEPARATOR ',')
