@@ -18,9 +18,10 @@ import useSizeOptions from '../DropdownOptions/useSizeOptions'
 import useCatBreedOptions from '../DropdownOptions/useCatBreedOptions'
 import useDogBreedOptions from '../DropdownOptions/useDogBreedOptions'
 
-function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge}) {
+function EditPetDetails({display, updateProfile, profile, onClose, updatePetType, updatePetBreed, recievedPetAge, recievedPetSize, recievedPetType}) {
 
     console.log(recievedPetAge)
+    console.log(recievedPetSize)
     const [petName, setPetName] = useState('');
     const [petType,setPetType] = useState([]);  //set this to already existing pet type stored in db for real version
     const [dogBreed, setDogBreed] = useState([]);
@@ -75,7 +76,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         onChange={updatePetType}
                         options= {typeOptions}
                         theme={SelectCustomTheme}
-                        //value = pet Type
+                        value={recievedPetType}
                         placeholder="Select Pet Type"
                         isSearchable
                     />
@@ -124,7 +125,7 @@ function EditPetDetails({display, updateProfile, profile, onClose, updatePetType
                         options={sizeOptions}
                         theme={SelectCustomTheme}
                         placeholder="Select Pet Size"
-                        //value = pet size
+                        value={recievedPetSize}
                         isSearchable
                     />
                 </div>

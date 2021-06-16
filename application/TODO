@@ -58,4 +58,6 @@ create mapping function to map database data to react-select options
 
 fix offcenter loading icon on profile
 
-fix profile button height
+fix profile button height --DONE
+
+possibly implement useContext for profile component

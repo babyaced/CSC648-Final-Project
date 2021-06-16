@@ -1,4 +1,5 @@
 const express = require('express');
+const { restart } = require('nodemon');
 const connection = require('../db');
 const router = express.Router();
 
@@ -234,26 +235,46 @@ router.post('/api/name',(req, res)=>{
 
 router.get('/api/pet-details', (req,res) =>{
     console.log('GET /api/pet-details')
-    console.log(req.query)
+    // console.log(req.query)
     const {petID, typeOptions, colorOptions,ageOptions, sizeOptions, dogBreedOptions, catBreedOptions} = req.query;
-    console.log(typeOptions)
-    console.log(colorOptions)
-    console.log(ageOptions)
-    console.log(sizeOptions)
-    console.log(dogBreedOptions)
-    console.log(catBreedOptions)
+    console.log(Array.isArray(typeOptions))
+    console.log(Array.isArray(colorOptions))
+    console.log(Array.isArray(ageOptions))
+    console.log(Array.isArray(sizeOptions))
+    console.log(Array.isArray(dogBreedOptions))
+    console.log(Array.isArray(catBreedOptions))
     console.log('petID: ', petID)
     connection.query(`
-        SELECT Pet.type_id, Pet.size_id, Pet.age_id
+        SELECT PetType.pet_type_name, Size.size_name, Age.age_name
         FROM Pet
+        JOIN PetType ON PetType.pet_type_id = Pet.type_id
+        JOIN Size ON Size.size_id = Pet.size_id
+        JOIN Age ON Age.age_id = Pet.age_id
         WHERE Pet.pet_id = ?`,[petID],
         function(err, result){
             if(err){
-                //console.log(err)
+                console.error(err)
             }
             else{
-                //console.log(result)
-                res.send({value: 1, label: 'Baby'})
+                console.log(result.age_name)
+                console.log(result.pet_type_name)
+                console.log(result.size_name)
+
+                let age
+                if(ageOptions && result[0]){
+                    age = ageOptions.find(ageOption => JSON.parse(ageOption).label === result[0].age_name)
+                }
+
+                let type
+                if(typeOptions && result[0]){
+                    type = typeOptions.find(typeOption => JSON.parse(typeOption).label === result[0].pet_type_name)
+                }
+
+                let size
+                if(sizeOptions && result[0]){
+                    size = sizeOptions.find(sizeOption => JSON.parse(sizeOption).label === result[0].size_name)
+                }
+                res.status(200).json({petType:type, petAge: age, petSize: size})
             }
         }
     )
