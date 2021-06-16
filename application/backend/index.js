@@ -50,7 +50,7 @@ app.use(express.json());
 
 app.use(session({
      key: "userId",
-     secret: "zooble",
+     secret: "zoou",
      resave: false,
      saveUninitialized: false,
      store: sessionStore,
