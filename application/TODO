@@ -61,3 +61,5 @@ fix offcenter loading icon on profile
 fix profile button height --DONE
 
 possibly implement useContext for profile component
+
+fix image attached state for mobile attach image button

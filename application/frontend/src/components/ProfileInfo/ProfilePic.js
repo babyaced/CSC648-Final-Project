@@ -11,8 +11,10 @@ import styles from './ProfilePic.module.css'
 
 //make this into environment variable before deploying!
 const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
+const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
 function ProfilePic({profile, isSelfView}) {
+    console.log(apiGatewayURL)
 
     //states
     const [loading, setLoading] = useState(false);
@@ -30,7 +32,7 @@ function ProfilePic({profile, isSelfView}) {
         setLoading(true);
         axios.get(apiGatewayURL)  //first get the presigned s3 url
             .then((response) =>{
-                let presignedFileURL =  'https://csc648groupproject.s3-us-west-2.amazonaws.com/' + response.data.photoFilename;  //save this url to add to database later
+                let presignedFileURL =  s3URL + response.data.photoFilename;  //save this url to add to database later
                 axios.put(response.data.uploadURL, acceptedFile[0],config).then((response) =>{  //upload the file to s3
                     axios.post('/api/profile-pic',{
                         photoLink: presignedFileURL,
