@@ -18,9 +18,11 @@ import SelectCustomTheme from '../../../mods/SelectCustomTheme'
 import useWindowSize from '../../Hooks/useWindowSize'
 
 
-const apiGatewayURL = 'https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL';
+const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
+const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
 function CreatePostCard({displayName, profilePic, tagOptions}) {
+    console.log(apiGatewayURL)
     const history = useHistory()
 
     const windowSize = useWindowSize()
@@ -99,7 +101,7 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
             //try to upload photo first
             axios.get(apiGatewayURL)  //first get the presigned s3 url
             .then((response) =>{
-                let presignedFileURL =  'https://csc648groupproject.s3-us-west-2.amazonaws.com/' + response.data.photoFilename;  //save this url to add to database later
+                let presignedFileURL =  s3URL + response.data.photoFilename;  //save this url to add to database later
                 axios.put(response.data.uploadURL, myFiles[0],config).then((response) =>{  //upload the file to s3
                     axios.post('/api/upload-post',{
                         postBody: createdPostBody,
