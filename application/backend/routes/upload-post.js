@@ -12,40 +12,41 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
     const photoLink = req.body.photoLink;
     //console.log("Photo Link: ", photoLink);
 
-    connection.query(`INSERT INTO Post (body, reg_user_id, like_count, comment_count) 
+    connection.query(`INSERT INTO Post (body, reg_user_id, like_count, comment_count, flag_count) 
     VALUES 
-    ('${postBody}', '${req.session.reg_user_id}', 
+    (?, ?, 
      0, 
-     0)`, 
+     0, 0)`, [postBody, req.session.reg_user_id],
      (error, insertedPost) => {
         if (error) {
             console.error(error);
             res.status(500).json(error);
         } else {
-            //console.log(insertedPost)
+            console.log(insertedPost)
 
             if(photoLink){
-                connection.query(`INSERT INTO Photo (link, post_id) VALUES ('${photoLink}','${insertedPost.insertId}')`, (error, photo) => {
+                connection.query(`INSERT INTO Photo (link, post_id) VALUES (?,?)`, [photoLink, insertedPost.insertId],
+                (error, photo) => {
                     if (error) {
                         console.error(error);
                     }
-                    //console.log("image was inserted!")
+                    console.log("image was inserted!")
                 });
             }
             else{
-                //console.log("post was inserted (no image)!")
+                console.log("post was inserted (no image)!")
 
             }
 
             if(req.body.taggedPets){
                 for(let i = 0; i < req.body.taggedPets.length; i++){
-                    connection.query(`INSERT INTO PostTag (post_id, pet_id) VALUES ('${insertedPost.insertId}', '${req.body.taggedPets[i].value}')`,
+                    connection.query(`INSERT INTO PostTag (post_id, pet_id) VALUES (?, ?)`, [insertedPost.insertId, req.body.taggedPets[i].value],
                         function (err,insertedTag){
                             if(err){
                                 //console.log(err);
                             }
                             else{
-                                //console.log('InsertedTag: ', insertedTag);
+                                console.log('InsertedTag: ', insertedTag);
                             }
                         })
                 }

@@ -9,7 +9,7 @@ router.post('/api/flag-unflag', (req,res) =>{
     //console.log(postToFlag)
     //console.log(req.session.reg_user_id)
 
-    connection.query(`INSERT INTO PostFlag (reg_user_id, post_id) VALUES ('${req.session.reg_user_id}', '${postToFlag}')`,
+    connection.query(`INSERT INTO PostFlag (reg_user_id, post_id) VALUES (?, ?)`, [req.session.reg_user_id, postToFlag],
         function(err, result){
             if(err){
                 //console.log(err)
@@ -17,8 +17,8 @@ router.post('/api/flag-unflag', (req,res) =>{
                     //console.log(1062);
                     connection.query(
                         `DELETE FROM PostFlag
-                        WHERE (PostFlag.reg_user_id = '${req.session.reg_user_id}'
-                        AND PostFlag.post_id = '${postToFlag}')`,
+                        WHERE (PostFlag.reg_user_id = ?
+                        AND PostFlag.post_id = ?)`, [req.session.reg_user_id, postToFlag],
                         function(err,deleteResult){
                             if(err){
                                 //console.log(err);

@@ -9,12 +9,12 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
 
     connection.query(
         `INSERT INTO Follow (follower_id, reg_user_id) 
-         VALUES ('${req.session.reg_user_id}',
+         VALUES (?,
                 (SELECT RegisteredUser.reg_user_id 
                  FROM RegisteredUser
                  JOIN Account ON Account.user_id = RegisteredUser.user_id
-                 WHERE Account.account_id = '${accountId}'
-                 ))`, 
+                 WHERE Account.account_id = ?
+                 ))`, [req.session.reg_user_id,accountId],
         function(err, follow){  //anytime we use the currently logged in user's information we use the id stored in session
             if (err) {
                 console.error(err);
@@ -22,12 +22,12 @@ router.post("/api/follow-unfollow-user", (req, res) => { // follow user
                         //console.log(1062);
                         connection.query(
                             `DELETE FROM Follow 
-                            WHERE Follow.reg_user_id = '${accountId}' 
+                            WHERE Follow.reg_user_id = ? 
                             AND Follow.follower_id = (SELECT RegisteredUser.reg_user_id 
                                 FROM RegisteredUser
                                 JOIN Account ON Account.user_id = RegisteredUser.user_id
-                                WHERE Account.account_id = '${req.session.reg_user_id}'
-                                )`,
+                                WHERE Account.account_id = ?
+                                )`,[accountId, req.session.reg_user_id],
                             function(err, result){
                                 if(err){
                                     //console.log(err);
@@ -87,8 +87,8 @@ router.get("/api/followers", (req,res) =>{
             FROM RegisteredUser
             JOIN Account ON RegisteredUser.user_id = Account.user_id
             JOIN Profile ON Account.account_id = Profile.account_id
-            WHERE Profile.profile_id = '${profileID}')
-        `,
+            WHERE Profile.profile_id = ?)
+        `, [profileID],
         function(err, followers){
             if(err){
                 //console.log(err);
@@ -118,8 +118,8 @@ router.get("/api/following", (req,res) =>{
           FROM RegisteredUser
           JOIN Account ON RegisteredUser.user_id = Account.user_id
           JOIN Profile ON Account.account_id = Profile.account_id
-          WHERE Profile.profile_id = '${profileID}')
-        `,
+          WHERE Profile.profile_id = ?)
+        `, [profileID],
          function(err, followings){
             if(err){
                 //console.log(err);

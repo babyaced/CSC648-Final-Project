@@ -8,8 +8,9 @@ import PostModal from '../../Modals/PostModal'
 function ImageContainer({previews, profile, title, selfView}) {
     // console.log('previews',previews);
     const [postModalDisplay, setPostModalDisplay] = useState(false);
-    const [imageStack, setImageStack] = useState();
     const [selectedPost,setSelectedPost] = useState({});
+
+    console.log("previews:", previews);
 
     let history = useHistory();
 
@@ -52,20 +53,24 @@ function ImageContainer({previews, profile, title, selfView}) {
         <>
                 <h2>{title}</h2>
                 <div className={styles['preview-stack']} >
-                    {limitedPreviews.length == 0 && placeholder}
+                    {limitedPreviews.length === 0 && placeholder}
                     {limitedPreviews.length > 0 && limitedPreviews.map((preview, index) => {
-                            let displayPostModal = (
-                                <div onClick={() => presentPostModal(index)} key={preview.photo_id}>
-                                        <img src={preview.link} alt="No Image Found" />
-                                </div>
-                            )
-                            if (title === 'My Siblings' || title === 'My Pets' || title === 'Pets')
+                            let displayPostModal;
+                            if (title === 'Siblings' || title === 'My Pets' || title === 'Pets'){
                                 displayPostModal = (
                                     <div className={styles.previewCard} onClick={ () => history.push("/Profile/" + preview.profile_id)} key={preview.profile_id}>
-                                            <img src={preview.profile_pic_link} alt="No Image Found"/>
+                                            <img src={preview.profile_pic_link} alt="Not Found"/>
                                             <div className={styles.previewCardNamePlate} >{previews[index].display_name}</div>
                                     </div>
                                 )
+                            }
+                            else{
+                                displayPostModal = (
+                                    <div onClick={() => presentPostModal(index)} key={preview.photo_id}>
+                                            <img src={preview.link} alt="Not Found" />
+                                    </div>
+                                )
+                            }
                             return displayPostModal
                     })}
                     {seeAll}

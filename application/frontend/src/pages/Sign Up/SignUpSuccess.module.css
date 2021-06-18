@@ -1,0 +1,37 @@
+.signup-success-container{
+    box-shadow: var(--elevation-1);
+    border-radius: 7.5px;
+    margin: 5rem auto auto auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+/* Sign Up Success */
+.signup-success-container  img{
+    margin: 2rem;
+}
+
+.signup-success-container h3{
+    margin: 2rem;
+    text-align: center;
+}
+
+.signup-success-container button{
+    width: 150px;
+    max-width: 60%;
+    text-align: center;
+    padding: 0.5rem 2rem;
+    color: white;
+    background-color: var(--primary-clr);
+
+    font-family: var(--ff-primary);
+    box-shadow: var(--elevation-1);
+    font-size: var(--h4);
+    border: none;
+    border-radius: 7.5px;
+    cursor: pointer;
+    transition: .15s ease-in-out;
+    grid-area: submit-btn;
+    margin-bottom: 2rem;
+}

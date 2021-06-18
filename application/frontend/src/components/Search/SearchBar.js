@@ -40,10 +40,15 @@ const libraries = ["places"]
 
 function SearchBar({cssClass, closeMobileSearchBar}) {
 
-  let typeOptions = useTypeOptions();
-  let businessCategoryOptions = useBusinessCategoryOptions();
-  let dogBreedOptions = useDogBreedOptions();
-  let catBreedOptions = useCatBreedOptions();
+  let [typeOptions] = useTypeOptions();
+  let [businessCategoryOptions] = useBusinessCategoryOptions();
+  let [dogBreedOptions] = useDogBreedOptions();
+  let [catBreedOptions] = useCatBreedOptions();
+
+  console.log('TypeOptions: ',typeOptions);
+  console.log('BusinessCategoryOptions: ',businessCategoryOptions);
+  console.log('dogBreedOptions: ',dogBreedOptions);
+  console.log('catBreedOptions: ',catBreedOptions);
 
   const history = useHistory();
   const windowSize = useWindowSize();
@@ -97,15 +102,15 @@ function SearchBar({cssClass, closeMobileSearchBar}) {
   function useCategoryMatch(searchTerm){
     const throttledTerm = useThrottle(searchTerm, 100);  //need to throttle function because it runs whenever searchTerm is set
     let filters = [];
-    if(searchCategory == 'Pets'){
+    if(searchCategory === 'Pets'){
       //set autocompletable prefilters to pet type and breed
       filters = typeOptions.concat(dogBreedOptions,catBreedOptions);
     }
-    if(searchCategory == 'Shelters'){
+    if(searchCategory === 'Shelters'){
       //set autocompletable prefilters to pet type
       filters = typeOptions;
     }
-    if(searchCategory == 'Businesses'){
+    if(searchCategory === 'Businesses'){
       //set autocompletable prefilters to business type
       filters = businessCategoryOptions;
     }

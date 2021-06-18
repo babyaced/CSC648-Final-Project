@@ -41,17 +41,17 @@ router.get("/api/posts",(req,res)=>{
          (SELECT 
           Follow.reg_user_id
           FROM Follow
-          WHERE Follow.follower_id = '${req.session.reg_user_id}'
+          WHERE Follow.follower_id = ?
           UNION
             SELECT RegisteredUser.reg_user_id
             FROM RegisteredUser
-            WHERE RegisteredUser.reg_user_id = '${req.session.reg_user_id}'
+            WHERE RegisteredUser.reg_user_id = ?
           )
           AND Profile.pet_id IS NULL
           ORDER BY Post.timestamp DESC
           LIMIT 10
           OFFSET ${offset}
-        `,
+        `, [req.session.reg_user_id, req.session.reg_user_id],
         function(err, posts){
             if(err){
                 //console.log(err);

@@ -11,7 +11,7 @@ router.post("/api/edit-post", (req, res) => { // edit a post
     const postID = req.body.postId;
     //const imageLink = req.body.imageLink;
 
-    connection.query(`UPDATE Post SET body = '${postBody}' WHERE post_id = '${postID}'`, (error, post, fields) => {
+    connection.query(`UPDATE Post SET body = ? WHERE post_id = ?`,[postBody, postID],(error, post) => {
         if (error) {
             console.error('An error occurred while executing the query');
             res.status(500).json(error);

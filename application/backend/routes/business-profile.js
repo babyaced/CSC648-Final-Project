@@ -11,9 +11,9 @@ router.get('/api/hours', (req,res)=>{
          JOIN Business ON HoursOfOperation.business_id = Business.business_id
          JOIN RegisteredUser ON Business.reg_user_id =  RegisteredUser.reg_user_id
          JOIN Account ON RegisteredUser.user_id = Account.user_id
-         JOIN Profile ON Profile.profile_id = '${profileID}'
+         JOIN Profile ON Profile.profile_id = ?
          WHERE Account.account_id = Profile.account_id
-        `, 
+        `,[profileID],
         function(err,hours){
             if(err){
                 // //console.log(err)
@@ -121,9 +121,9 @@ router.get('/api/business-address', (req,res)=>{
          FROM Address
          JOIN RegisteredUser ON Address.reg_user_id =  RegisteredUser.reg_user_id
          JOIN Account ON RegisteredUser.user_id = Account.user_id
-         JOIN Profile ON Profile.profile_id = '${req.query.profileID}'
+         JOIN Profile ON Profile.profile_id = ?
          WHERE Account.account_id = Profile.account_id
-        `, 
+        `, [req.query.profileID],
         function(err,address){
             if(err){
                 // //console.log(err)
@@ -143,9 +143,9 @@ router.get('/api/business-phone-number', (req,res)=>{
          FROM Business
          JOIN RegisteredUser ON Business.reg_user_id =  RegisteredUser.reg_user_id
          JOIN Account ON RegisteredUser.user_id = Account.user_id
-         JOIN Profile ON Profile.profile_id = '${req.query.profileID}'
+         JOIN Profile ON Profile.profile_id = ?
          WHERE Account.account_id = Profile.account_id
-        `, 
+        `,[req.query.profileID],
         function(err,number){
             if(err){
                 // //console.log(err)

@@ -54,7 +54,9 @@ function Profile({appUser}) {
             setSelfView(responses[0].data.selfView)
             setAdminView(responses[0].data.adminView)
             setFetchedPhotoPosts(responses[1].data)
+            console.log('fetchedPets: ',responses[2].data)
             setFetchedPets(responses[2].data)
+            console.log('taggedPosts: ',responses[3].data)
             setTaggedPosts(responses[3].data)
             setFollowingStatus(responses[4].data)
             setLoading(false);
@@ -113,7 +115,7 @@ function Profile({appUser}) {
                         updateProfile={updateProfileHandler}
                 />
             </div>
-            {(fetchedProfile.type == 'Admin' || fetchedProfile.type == 'PetOwner' || fetchedProfile.type == 'Shelter') &&
+            {(fetchedProfile.type ==='Admin' || fetchedProfile.type === 'PetOwner' || fetchedProfile.type === 'Shelter') &&
                 <>
                     <div className={styles['photo-previews']}>
                         <ImageContainer title='Photos' previews={fetchedPhotoPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />
@@ -123,7 +125,7 @@ function Profile({appUser}) {
                     </div>
                 </>
             }
-            {fetchedProfile.type == 'Pet' && 
+            {fetchedProfile.type === 'Pet' && 
                 <>
                     <div className={styles['photo-previews']}>
                         <ImageContainer title='Photos' previews={taggedPosts} selfView={selfView} type={fetchedProfile.type} profile={fetchedProfile} />
