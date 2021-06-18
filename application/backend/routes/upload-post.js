@@ -12,11 +12,11 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
     const photoLink = req.body.photoLink;
     //console.log("Photo Link: ", photoLink);
 
-    connection.query(`INSERT INTO Post (body, reg_user_id, like_count, comment_count) 
+    connection.query(`INSERT INTO Post (body, reg_user_id, like_count, comment_count, flag_count) 
     VALUES 
     (?, ?, 
      0, 
-     0)`, [postBody, req.session.reg_user_id],
+     0, 0)`, [postBody, req.session.reg_user_id],
      (error, insertedPost) => {
         if (error) {
             console.error(error);
