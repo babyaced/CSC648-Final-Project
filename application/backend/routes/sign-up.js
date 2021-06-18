@@ -56,7 +56,7 @@ router.post("/api/sign-up", (req,res) =>{
                                                             connection.query(`INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,[insertedUser.insertId, 1], //create new account in database with returned user_id  and assign role of pet owner//registered user entry and profile automatically created 
                                                             function(err,account){
                                                                 if(err){
-                                                                    console.log(err);
+                                                                    console.log('INSERT INTO Account', err);
                                                                     // res.status(500).json(err);
                                                                 }
                                                                 //console.log('Account Created');
