@@ -150,7 +150,7 @@ function SignUpPage2(props) {
     const valid = validateForm();
 
     if (valid) {
-      type == "business"
+      type === "business"
         ? Axios.post(
           "/api/sign-up/business",
           {
@@ -170,9 +170,9 @@ function SignUpPage2(props) {
           { withCredentials: true }
         )
           .then((response) => {
-            // if(response.data.affectedRows === 1){
-            history.push("/SignUpSuccess");
-            // }
+            if (response.data === 'success') {
+              history.push("/SignUpSuccess");
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -196,7 +196,7 @@ function SignUpPage2(props) {
           { withCredentials: true }
         )
           .then((response) => {
-            if (response.data.affectedRows === 1) {
+            if (response.data === 'success') {
               history.push("/SignUpSuccess");
             }
           })
