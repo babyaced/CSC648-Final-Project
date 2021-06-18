@@ -53,9 +53,9 @@ function SignUpPage2(props) {
   let state = props.location.state;
   let type = props.location.type;
 
-  let typeOptions;
-  const [businessCategoryOptions] = useBusinessCategoryOptions;
-  const [petTypeOptions] = useTypeOptions;
+  let typeOptions = [];
+  const [businessCategoryOptions] = useBusinessCategoryOptions();
+  const [petTypeOptions] = useTypeOptions();
   type === "business"
     ? (typeOptions = businessCategoryOptions)
     : (typeOptions = petTypeOptions);
@@ -152,57 +152,57 @@ function SignUpPage2(props) {
     if (valid) {
       type == "business"
         ? Axios.post(
-            "/api/sign-up/business",
-            {
-              email: state.email,
-              firstName: state.firstName,
-              lastName: state.lastName,
-              uname: state.username,
-              password: state.password,
-              redonePassword: state.redonePassword,
-              businessName: businessName,
-              phoneNumber: phoneNumber,
-              address: address,
-              latitude: latitude,
-              longitude: longitude,
-              type: selectedBusinessType.value,
-            },
-            { withCredentials: true }
-          )
-            .then((response) => {
-              // if(response.data.affectedRows === 1){
-              history.push("/SignUpSuccess");
-              // }
-            })
-            .catch((error) => {
-              console.log(error);
-            })
+          "/api/sign-up/business",
+          {
+            email: state.email,
+            firstName: state.firstName,
+            lastName: state.lastName,
+            uname: state.username,
+            password: state.password,
+            redonePassword: state.redonePassword,
+            businessName: businessName,
+            phoneNumber: phoneNumber,
+            address: address,
+            latitude: latitude,
+            longitude: longitude,
+            type: selectedBusinessType.value,
+          },
+          { withCredentials: true }
+        )
+          .then((response) => {
+            // if(response.data.affectedRows === 1){
+            history.push("/SignUpSuccess");
+            // }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
         : Axios.post(
-            "/api/sign-up/shelter",
-            {
-              email: state.email,
-              firstName: state.firstName,
-              lastName: state.lastName,
-              uname: state.username,
-              password: state.password,
-              redonePassword: state.redonePassword,
-              businessName: businessName,
-              phoneNumber: phoneNumber,
-              address: address,
-              latitude: latitude,
-              longitude: longitude,
-              petTypes: selectedPetTypes,
-            },
-            { withCredentials: true }
-          )
-            .then((response) => {
-              if (response.data.affectedRows === 1) {
-                history.push("/SignUpSuccess");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          "/api/sign-up/shelter",
+          {
+            email: state.email,
+            firstName: state.firstName,
+            lastName: state.lastName,
+            uname: state.username,
+            password: state.password,
+            redonePassword: state.redonePassword,
+            businessName: businessName,
+            phoneNumber: phoneNumber,
+            address: address,
+            latitude: latitude,
+            longitude: longitude,
+            petTypes: selectedPetTypes,
+          },
+          { withCredentials: true }
+        )
+          .then((response) => {
+            if (response.data.affectedRows === 1) {
+              history.push("/SignUpSuccess");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
   }
 
@@ -356,7 +356,7 @@ function SignUpPage2(props) {
                   isSearchable
                   // isMulti
                   components={animatedComponents}
-                  // required
+                // required
                 />
               </>
             ) : (
@@ -379,7 +379,7 @@ function SignUpPage2(props) {
                   isSearchable
                   // isMulti
                   components={animatedComponents}
-                  // required
+                // required
                 />
               </>
             )}

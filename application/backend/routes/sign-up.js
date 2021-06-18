@@ -37,122 +37,124 @@ router.post("/api/sign-up", (req, res) => {
                     console.log(err)
                     res.status(500).json(err);
                 }
-                let userEmails
-                conn.query("SELECT user_id FROM User WHERE email=?", [givenEmail],  //check if email is taken)
-                    function (err, result) {
-                        if (err) {
-                            return conn.rollback(function () {
-                                console.log(err)
-                                res.status(500).json(err);
-                            })
-                        }
-                        else {
-                            // console.log(result.length);
-                            userEmails = result
-                            let userUsernames
-                            if (userEmails.length === 0) {
-                                conn.query("SELECT username FROM Credentials WHERE username=?", [givenUsername],
-                                    function (err, result) {  //check if username is taken
-                                        if (err) {
-                                            return conn.rollback(function () {
-                                                console.log(err)
-                                                res.status(500).json(err);
-                                            })
-                                        }
-                                        else {
-                                            userUsernames = result
-                                            let insertedUserID
-                                            if (userUsernames.length === 0) {
-                                                if (passwordValidate(givenPassword)) {  //if password is valid
-                                                    if (givenPassword === givenResubmitted) {  //if password and confirmed password match
-                                                        const hash = bcrypt.hashSync(givenPassword, 10);
-
-                                                        conn.query(
-                                                            `INSERT INTO User (email,first_name, last_name) VALUES (?,?,?)`,
-                                                            [givenEmail, givenFirstName, givenLastName],
-                                                            function (err, result) {
-                                                                if (err) {
-                                                                    return conn.rollback(function () {
-                                                                        console.log(err)
-                                                                        res.status(500).json(err);
-                                                                    })
-                                                                }
-                                                                else {
-                                                                    insertedUserID = result.insertId
-                                                                    let insertedAccountID
-                                                                    conn.query(
-                                                                        `INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,
-                                                                        [insertedUserID, 1], //create new account in database with returned user_id  and assign role of pet owner//registered user entry and profile automatically created
-                                                                        function (err, result) {
-                                                                            if (err) {
-                                                                                return conn.rollback(function () {
-                                                                                    console.log(err)
-                                                                                    res.status(500).json(err);
-                                                                                })
-                                                                            }
-                                                                            else {
-                                                                                insertedAccountID = result.insertId;
-                                                                                conn.query(
-                                                                                    `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
-                                                                                    [insertedAccountID, givenUsername, hash],
-                                                                                    function (err, result) {
-                                                                                        if (err) {
-                                                                                            return conn.rollback(function () {
-                                                                                                console.log(err)
-                                                                                                res.status(500).json(err);
-                                                                                            })
-                                                                                        }
-                                                                                        else {
-                                                                                            conn.query(
-                                                                                                `UPDATE Profile SET Profile.display_name = ? , Profile.type = ? WHERE  Profile.account_id = ?`,
-                                                                                                [givenFirstName, "PetOwner", insertedAccountID],
-                                                                                                function (err, result) {
-                                                                                                    if (err) {
-                                                                                                        return conn.rollback(function () {
-                                                                                                            console.log(err)
-                                                                                                            res.status(500).json(err);
-                                                                                                        })
-                                                                                                    }
-                                                                                                    else {
-                                                                                                        conn.commit(function (err) {
-                                                                                                            if (err) {
-                                                                                                                return conn.rollback(function () {
-                                                                                                                    res.status(500).json(err);
-                                                                                                                })
-                                                                                                            }
-                                                                                                            else {
-                                                                                                                console.log('success')
-                                                                                                                res.status(200).json("success")
-                                                                                                            }
-                                                                                                        })
-                                                                                                    }
-                                                                                                }
-                                                                                            );
-                                                                                        }
-                                                                                    }
-                                                                                )
-                                                                            }
-                                                                        }
-                                                                    )
-
-                                                                }
-                                                            }
-                                                        )
-                                                    }
-                                                    else { res.status(400).json("passwords not matching"); }
-                                                }
-                                                else { res.status(400).json("password requirements"); }
-                                            }
-                                            else { res.status(400).json("exists"); }
-
-                                        }
-                                    }
-                                )
+                else {
+                    let userEmails
+                    conn.query("SELECT user_id FROM User WHERE email=?", [givenEmail],  //check if email is taken)
+                        function (err, result) {
+                            if (err) {
+                                return conn.rollback(function () {
+                                    console.log(err)
+                                    res.status(500).json(err);
+                                })
                             }
-                            else { res.status(400).json("exists"); }
+                            else {
+                                // console.log(result.length);
+                                userEmails = result
+                                let userUsernames
+                                if (userEmails.length === 0) {
+                                    conn.query("SELECT username FROM Credentials WHERE username=?", [givenUsername],
+                                        function (err, result) {  //check if username is taken
+                                            if (err) {
+                                                return conn.rollback(function () {
+                                                    console.log(err)
+                                                    res.status(500).json(err);
+                                                })
+                                            }
+                                            else {
+                                                userUsernames = result
+                                                let insertedUserID
+                                                if (userUsernames.length === 0) {
+                                                    if (passwordValidate(givenPassword)) {  //if password is valid
+                                                        if (givenPassword === givenResubmitted) {  //if password and confirmed password match
+                                                            const hash = bcrypt.hashSync(givenPassword, 10);
+
+                                                            conn.query(
+                                                                `INSERT INTO User (email,first_name, last_name) VALUES (?,?,?)`,
+                                                                [givenEmail, givenFirstName, givenLastName],
+                                                                function (err, result) {
+                                                                    if (err) {
+                                                                        return conn.rollback(function () {
+                                                                            console.log(err)
+                                                                            res.status(500).json(err);
+                                                                        })
+                                                                    }
+                                                                    else {
+                                                                        insertedUserID = result.insertId
+                                                                        let insertedAccountID
+                                                                        conn.query(
+                                                                            `INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,
+                                                                            [insertedUserID, 1], //create new account in database with returned user_id  and assign role of pet owner//registered user entry and profile automatically created
+                                                                            function (err, result) {
+                                                                                if (err) {
+                                                                                    return conn.rollback(function () {
+                                                                                        console.log(err)
+                                                                                        res.status(500).json(err);
+                                                                                    })
+                                                                                }
+                                                                                else {
+                                                                                    insertedAccountID = result.insertId;
+                                                                                    conn.query(
+                                                                                        `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
+                                                                                        [insertedAccountID, givenUsername, hash],
+                                                                                        function (err, result) {
+                                                                                            if (err) {
+                                                                                                return conn.rollback(function () {
+                                                                                                    console.log(err)
+                                                                                                    res.status(500).json(err);
+                                                                                                })
+                                                                                            }
+                                                                                            else {
+                                                                                                conn.query(
+                                                                                                    `UPDATE Profile SET Profile.display_name = ? , Profile.type = ? WHERE  Profile.account_id = ?`,
+                                                                                                    [givenFirstName, "PetOwner", insertedAccountID],
+                                                                                                    function (err, result) {
+                                                                                                        if (err) {
+                                                                                                            return conn.rollback(function () {
+                                                                                                                console.log(err)
+                                                                                                                res.status(500).json(err);
+                                                                                                            })
+                                                                                                        }
+                                                                                                        else {
+                                                                                                            conn.commit(function (err) {
+                                                                                                                if (err) {
+                                                                                                                    return conn.rollback(function () {
+                                                                                                                        res.status(500).json(err);
+                                                                                                                    })
+                                                                                                                }
+                                                                                                                else {
+                                                                                                                    console.log('success')
+                                                                                                                    res.status(200).json("success")
+                                                                                                                }
+                                                                                                            })
+                                                                                                        }
+                                                                                                    }
+                                                                                                );
+                                                                                            }
+                                                                                        }
+                                                                                    )
+                                                                                }
+                                                                            }
+                                                                        )
+
+                                                                    }
+                                                                }
+                                                            )
+                                                        }
+                                                        else { res.status(400).json("passwords not matching"); }
+                                                    }
+                                                    else { res.status(400).json("password requirements"); }
+                                                }
+                                                else { res.status(400).json("exists"); }
+
+                                            }
+                                        }
+                                    )
+                                }
+                                else { res.status(400).json("exists"); }
+                            }
                         }
-                    }
-                )
+                    )
+                }
             });
         }
     })
@@ -174,156 +176,190 @@ router.post("/api/sign-up/business", (req, res) => {
     const givenLongitude = req.body.longitude;
     const givenBusinessType = req.body.type;
 
-    //console.log(givenEmail)
-    //console.log(givenFirstName)
-    //console.log(givenLastName)
-    //console.log(givenPassword)
-    //console.log(givenResubmitted)
-    //console.log(givenUsername)
-    //console.log(givenBusinessName)
-    //console.log(givenPhoneNumber)
-    //console.log(givenAddress)
-    //console.log(givenLatitude)
-    //console.log(givenLongitude)
-    //console.log(givenBusinessType)
-
-    var userId;
-
-    connection.query(
-        "SELECT user_id FROM User WHERE email=?",
-        givenEmail, //check if email is taken
-        function (err, users, field) {
-            if (users.length === 0) {
-                connection.query(
-                    "SELECT username FROM Credentials WHERE username=?",
-                    givenUsername,
-                    function (err, usernames, field) {
-                        //check if username is taken
-                        if (usernames.length === 0) {
-                            if (passwordValidate(givenPassword)) {
-                                //if password is valid
-                                if (givenPassword === givenResubmitted) {
-                                    //if password and confirmed password match
-                                    const hash = bcrypt.hashSync(givenPassword, 10);
-
-                                    connection.query(
-                                        `INSERT INTO User (email,first_name, last_name) VALUES (?,?, ?)`,
-                                        [givenEmail, givenFirstName, givenLastName],
-                                        function (err, insertedUser) {
+    connection.getConnection(function (err, conn) {
+        if (err) { res.status(500).json(err) }
+        else {
+            conn.beginTransaction(function (err) {
+                if (err) {
+                    console.log(err)
+                    res.status(500).json(err);
+                }
+                else {
+                    let userEmails
+                    conn.query("SELECT user_id FROM User WHERE email=?", [givenEmail],  //check if email is taken)
+                        function (err, result) {
+                            if (err) {
+                                return conn.rollback(function () {
+                                    console.log(err)
+                                    res.status(500).json(err);
+                                })
+                            }
+                            else {
+                                // console.log(result.length);
+                                userEmails = result
+                                let userUsernames
+                                if (userEmails.length === 0) {
+                                    conn.query("SELECT username FROM Credentials WHERE username=?", [givenUsername],
+                                        function (err, result) {  //check if username is taken
                                             if (err) {
-                                                res.status(500).json(err);
-                                            } else {
-                                                //console.log('User Created');
-                                                //console.log(insertedUser.insertId); //user id of newly created user
-                                                userId = insertedUser.insertId;
-                                                connection.query(
-                                                    `INSERT INTO Account (user_id, role_id)  VALUES  (?, 2)`,
-                                                    [insertedUser.insertId], //create new account in database with returned user_id //registered user entry and profile automatically created
-                                                    function (err, account) {
-                                                        if (err) {
-                                                            res.status(500).json(err);
-                                                        }
-                                                        //console.log('Account Created');
-                                                        let accountId = account.insertId;
-                                                        //console.log(account.insertId); //account id of newly created account
-                                                        connection.query(
-                                                            `INSERT INTO Credentials (acct_id, username, password) VALUES (?, ?, ?)`,
-                                                            [account.insertId, givenUsername, hash],
-                                                            function (err, insertedCredentials) {
-                                                                if (err) {
-                                                                    res.status(500).json(err);
-                                                                }
-                                                                //console.log('Credentials Created');
-                                                                //console.log(insertedCredentials.insertId);
-                                                                connection.query(
-                                                                    `INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES (?, ?, ?,(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`,
-                                                                    [
-                                                                        givenAddress,
-                                                                        givenLatitude,
-                                                                        givenLongitude,
-                                                                        userId,
-                                                                    ],
-                                                                    function (err, insertedAddress) {
-                                                                        if (err) {
-                                                                            //console.log(err);
-                                                                        }
-                                                                        //console.log('Address Inserted');
-                                                                        //console.log(insertedAddress.insertId);
-                                                                        connection.query(
-                                                                            `INSERT INTO Business (name, phone_num, reg_user_id) VALUES (?, ?, (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`,
-                                                                            [
-                                                                                givenBusinessName,
-                                                                                givenPhoneNumber,
-                                                                                userId,
-                                                                            ],
-                                                                            function (err, insertedBusiness) {
-                                                                                if (err) {
-                                                                                    //console.log(err);
-                                                                                    // res.status(500).json(err);
-                                                                                }
-                                                                                //console.log('Business Created');
-                                                                                //console.log(insertedBusiness.insertId);
-                                                                                connection.query(
-                                                                                    `INSERT INTO Commerce (business_id, business_type_id) VALUES (?, ?)`,
-                                                                                    [
-                                                                                        insertedBusiness.insertId,
-                                                                                        givenBusinessType,
-                                                                                    ],
-                                                                                    function (err, insertedCommerce) {
-                                                                                        if (err) {
-                                                                                            //console.log(err);
-                                                                                            // res.status(500).json(err);
-                                                                                        }
-                                                                                        //console.log('Commerce Created');
-                                                                                        //console.log(insertedCommerce.insertId);
-                                                                                        connection.query(
-                                                                                            `UPDATE Profile SET Profile.display_name = ?, Profile.type = 'Business' WHERE  Profile.account_id = ?`,
-                                                                                            [givenBusinessName, accountId],
-                                                                                            function (
-                                                                                                err,
-                                                                                                updatedDisplayName
-                                                                                            ) {
-                                                                                                if (err) {
-                                                                                                    //console.log(err);
-                                                                                                }
-                                                                                                //console.log('Updated Display Name');
-                                                                                            }
-                                                                                        );
-                                                                                    }
-                                                                                );
-                                                                            }
-                                                                        );
+                                                return conn.rollback(function () {
+                                                    console.log(err)
+                                                    res.status(500).json(err);
+                                                })
+                                            }
+                                            else {
+                                                userUsernames = result
+                                                let insertedUserID
+                                                if (userUsernames.length === 0) {
+                                                    if (passwordValidate(givenPassword)) {  //if password is valid
+                                                        if (givenPassword === givenResubmitted) {  //if password and confirmed password match
+                                                            const hash = bcrypt.hashSync(givenPassword, 10);
+
+                                                            conn.query(
+                                                                `INSERT INTO User (email,first_name, last_name) VALUES (?,?,?)`,
+                                                                [givenEmail, givenFirstName, givenLastName],
+                                                                function (err, result) {
+                                                                    if (err) {
+                                                                        return conn.rollback(function () {
+                                                                            console.log(err)
+                                                                            res.status(500).json(err);
+                                                                        })
                                                                     }
-                                                                );
-                                                            }
-                                                        );
+                                                                    else {
+                                                                        insertedUserID = result.insertId
+                                                                        let insertedAccountID
+                                                                        conn.query(
+                                                                            `INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,
+                                                                            [insertedUserID, 2], //create new account in database with returned user_id  and assign role of pet owner//registered user entry and profile automatically created
+                                                                            function (err, result) {
+                                                                                if (err) {
+                                                                                    return conn.rollback(function () {
+                                                                                        console.log(err)
+                                                                                        res.status(500).json(err);
+                                                                                    })
+                                                                                }
+                                                                                else {
+                                                                                    insertedAccountID = result.insertId;
+                                                                                    conn.query(
+                                                                                        `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
+                                                                                        [insertedAccountID, givenUsername, hash],
+                                                                                        function (err, result) {
+                                                                                            if (err) {
+                                                                                                return conn.rollback(function () {
+                                                                                                    console.log(err)
+                                                                                                    res.status(500).json(err);
+                                                                                                })
+                                                                                            }
+                                                                                            else {
+                                                                                                conn.query(
+                                                                                                    `INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES (?, ?, ?,(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`,
+                                                                                                    [
+                                                                                                        givenAddress,
+                                                                                                        givenLatitude,
+                                                                                                        givenLongitude,
+                                                                                                        insertedUserID,
+                                                                                                    ],
+                                                                                                    function (err, result) {
+                                                                                                        if (err) {
+                                                                                                            return conn.rollback(function () {
+                                                                                                                console.log(err)
+                                                                                                                res.status(500).json(err);
+                                                                                                            })
+                                                                                                        }
+                                                                                                        else {
+                                                                                                            let insertedBusinessID
+                                                                                                            conn.query(
+                                                                                                                `INSERT INTO Business (name, phone_num, reg_user_id) VALUES (?, ?, (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`,
+                                                                                                                [
+                                                                                                                    givenBusinessName,
+                                                                                                                    givenPhoneNumber,
+                                                                                                                    insertedUserID,
+                                                                                                                ],
+                                                                                                                function (err, result) {
+                                                                                                                    if (err) {
+                                                                                                                        return conn.rollback(function () {
+                                                                                                                            console.log(err)
+                                                                                                                            res.status(500).json(err);
+                                                                                                                        })
+                                                                                                                    }
+                                                                                                                    insertedBusinessID = result
+                                                                                                                    conn.query(
+                                                                                                                        `INSERT INTO Commerce (business_id, business_type_id) VALUES (?, ?)`,
+                                                                                                                        [
+                                                                                                                            insertedBusinessID,
+                                                                                                                            givenBusinessType,
+                                                                                                                        ],
+                                                                                                                        function (err, insertedCommerce) {
+                                                                                                                            if (err) {
+                                                                                                                                return conn.rollback(function () {
+                                                                                                                                    console.log(err)
+                                                                                                                                    res.status(500).json(err);
+                                                                                                                                })
+                                                                                                                            }
+                                                                                                                            else {
+                                                                                                                                connection.query(
+                                                                                                                                    `UPDATE Profile SET Profile.display_name = ?, Profile.type = 'Business' WHERE  Profile.account_id = ?`,
+                                                                                                                                    [givenBusinessName, insertedAccountID],
+                                                                                                                                    function (
+                                                                                                                                        err,
+                                                                                                                                        updatedDisplayName
+                                                                                                                                    ) {
+                                                                                                                                        if (err) {
+                                                                                                                                            return conn.rollback(function () {
+                                                                                                                                                console.log(err)
+                                                                                                                                                res.status(500).json(err);
+                                                                                                                                            })
+                                                                                                                                        }
+                                                                                                                                        else {
+                                                                                                                                            conn.commit(function (err) {
+                                                                                                                                                if (err) {
+                                                                                                                                                    return conn.rollback(function () {
+                                                                                                                                                        res.status(500).json(err);
+                                                                                                                                                    })
+                                                                                                                                                }
+                                                                                                                                                else {
+                                                                                                                                                    console.log('success')
+                                                                                                                                                    res.status(200).json("success")
+                                                                                                                                                }
+                                                                                                                                            })
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                )
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    )
+                                                                                                                }
+                                                                                                            )
+                                                                                                        }
+                                                                                                    }
+                                                                                                )
+                                                                                            }
+                                                                                        }
+                                                                                    )
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                }
+                                                            )
+                                                        }
+                                                        else { res.status(400).json("passwords not matching"); }
                                                     }
-                                                );
-                                                res.status(200).json(insertedUser);
+                                                    else { res.status(400).json("password requirements"); }
+                                                }
+                                                else { res.status(400).json("exists"); }
                                             }
                                         }
-                                    );
-                                } else {
-                                    //console.log("Passwords do not match.");
-                                    res.status(400).json("passwords not matching");
+                                    )
                                 }
-                            } else {
-                                //console.log("Password must have SUCH AND SUCH values")
-                                res.status(400).json("password requirements");
+                                else { res.status(400).json("exists"); }
                             }
-                        } else if (usernames.length != 0) {
-                            //if username is taken
-                            //console.log("Username already taken")
-                            res.status(400).json("exists");
                         }
-                    }
-                );
-            } else if (users.length != 0) {
-                //console.log("User does exist")
-                res.status(400).json("exists");
-            }
+                    )
+                }
+            })
         }
-    );
+    })
 });
 
 router.post("/api/sign-up/shelter", (req, res) => {
@@ -533,31 +569,35 @@ router.post("/api/sign-up/validate", (req, res) => {
                     givenUsername,
                     function (err, usernames) {
                         //check if username is taken
-                        if (err)
+                        if (err) {
+                            console.log(err)
+                            res.status(500).json(err);
+                        }
+                        else {
                             if (usernames.length === 0) {
-                                //console.log(err);
-                                //if username isn't taken
+
                                 if (givenPassword === givenResubmitted) {
                                     if (passwordValidate(givenPassword)) {
                                         //if password is valid
                                         res.status(200).json("valid");
-                                    } else {
-                                        //password doesn't meet requirements
-                                        //console.log("Password must have SUCH AND SUCH values")
+                                    }
+                                    else {
                                         res.status(400).json("password requirements");
                                     }
-                                } else {
-                                    //console.log("Passwords do not match.");
+                                }
+                                else {
                                     res.status(400).json("passwords not matching");
                                 }
-                            } else if (usernames.length != 0) {
-                                //username is taken
+                            }
+                            else if (usernames.length != 0) {
                                 //console.log("Username is taken")
                                 res.status(400).json("exists");
                             }
+                        }
                     }
                 );
-            } else if (users.length != 0) {
+            }
+            else if (users.length != 0) {
                 //console.log("Email is taken")
                 res.status(400).json("exists");
             }
