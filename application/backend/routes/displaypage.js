@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const connection = require('../db');
+const connection = require("../db");
 
 // router.get("/api/user/:user", (req, res) => {
 //     var userInfo = {userResults:[]}
@@ -107,4 +107,4 @@ const connection = require('../db');
 //     });
 // });
 
-module.exports = router
+module.exports = router;

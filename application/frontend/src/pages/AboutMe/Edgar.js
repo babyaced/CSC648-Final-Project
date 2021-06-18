@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from './AboutMe.module.css'
+import styles from "./AboutMe.module.css";
 
 function Edgar() {
   return (
@@ -14,7 +14,7 @@ function Edgar() {
           learning about technology or computer science. I enjoy hanging out
           friends or going on hikes
         </div>
-        <img className={styles["about-me-img"]}/>
+        <img className={styles["about-me-img"]} />
       </div>
     </div>
   );

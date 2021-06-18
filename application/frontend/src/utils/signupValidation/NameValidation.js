@@ -1,17 +1,16 @@
-import React from 'react'
+import React from "react";
 
-function NameValidation(firstName,name) {
-    let nameErr = "";
+function NameValidation(firstName, name) {
+  let nameErr = "";
 
-    if (!name){
-        if(firstName)
-            nameErr = "Please enter your first name"
-        else{
-            nameErr = "Please enter your last name"
-        }
+  if (!name) {
+    if (firstName) nameErr = "Please enter your first name";
+    else {
+      nameErr = "Please enter your last name";
     }
+  }
 
-    return (nameErr)
+  return nameErr;
 }
 
-export default NameValidation
+export default NameValidation;

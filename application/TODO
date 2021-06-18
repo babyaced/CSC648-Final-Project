@@ -68,6 +68,12 @@ fix edit pet details not working
 
 remove followers functionality for pets
 
-fix sign up confirmation ui
+fix sign up confirmation ui --DONE
 
 fixed fetching of pet's tagged posts --DONE
+
+fix search.js queries
+
+edit remove image button style in create post card
+
+fix positions of dropdown account menu
