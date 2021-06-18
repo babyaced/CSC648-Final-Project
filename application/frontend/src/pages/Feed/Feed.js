@@ -109,7 +109,7 @@ function Feed({appUser}) {
                 <div className={`${styles["follower-feed-container"]} ${"container"}`}>
                     <div className={styles["follower-feed-header"]}/>
                     <CreatePostCard displayName={createPostDisplayName} profilePic={createPostProfilePic} tagOptions={taggablePets}/>
-                    {feedPosts.length == 0 &&
+                    {feedPosts.length === 0 &&
                         <>
                             <div className={styles['follower-feed-no-posts-placeholder-header']}>
                                 No Feed Posts to show :(

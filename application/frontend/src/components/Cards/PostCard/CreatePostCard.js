@@ -142,6 +142,7 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
                 postBody: createdPostBody,
                 taggedPets: taggedPets
             }).then((response) =>{
+                console.log('response: ',response);
                 setCreatedPostBody('');
                 setTaggedPets([]);
                 setLoading(false);
@@ -161,7 +162,7 @@ function CreatePostCard({displayName, profilePic, tagOptions}) {
 
     return (
         <form className={styles["create-post-card"]} onSubmit={submitPost}>
-            <img className={styles["new-post-profile-pic"]} src={profilePic} />
+            <img className={styles["new-post-profile-pic"]} src={profilePic} alt='Created Post User'/>
             <div className={styles["new-post-name"]}>{displayName}</div>
             <textarea value={createdPostBody} maxLength="255" required className={styles["follower-feed-new-post-body"]} placeholder="Update your followers on what's going on with you and your pets"  onChange={e => setCreatedPostBody(e.target.value)}/>
             <div className={styles['follower-feed-new-post-tag-dropdown']}>

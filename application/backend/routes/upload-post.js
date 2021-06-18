@@ -22,7 +22,7 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
             console.error(error);
             res.status(500).json(error);
         } else {
-            //console.log(insertedPost)
+            console.log(insertedPost)
 
             if(photoLink){
                 connection.query(`INSERT INTO Photo (link, post_id) VALUES (?,?)`, [photoLink, insertedPost.insertId],
@@ -30,11 +30,11 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
                     if (error) {
                         console.error(error);
                     }
-                    //console.log("image was inserted!")
+                    console.log("image was inserted!")
                 });
             }
             else{
-                //console.log("post was inserted (no image)!")
+                console.log("post was inserted (no image)!")
 
             }
 
@@ -46,7 +46,7 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
                                 //console.log(err);
                             }
                             else{
-                                //console.log('InsertedTag: ', insertedTag);
+                                console.log('InsertedTag: ', insertedTag);
                             }
                         })
                 }

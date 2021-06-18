@@ -3,7 +3,7 @@ import { useHistory } from 'react-router'
 
 import CheckMark from '../../assets/images/thirdparty/undraw_checkbox.svg'
 
-import styles from './SignUpPage.module.css'
+import styles from './SignUpSuccess.module.css'
 
 function SignUpSuccess() {
     const history= useHistory();
@@ -14,14 +14,10 @@ function SignUpSuccess() {
 
 
     return (
-        <div className={styles['signup-container']}>
-            <img className={styles['signup-container-check']} src={CheckMark}/>
-            <div className={styles['signup-container-header']}>
-                Your Account was Successfully Created! You can now Login
-            </div>
-            <div className={styles['btn-container']}>
-                <button type='submit' className={styles['submit-btn-2']} onClick={OnClickHandler}>Login</button>
-            </div>
+        <div className={`${styles['signup-success-container']} ${'small-container'}`}>
+            <img className={styles['signup-container-check']} src={CheckMark} alt="Sign Up Check Mark"/>
+            <h3>Your Account was Successfully Created! You can now Login</h3>
+            <button type='submit' className={styles['submit-btn-2']} onClick={OnClickHandler}>Login</button>
         </div>
     )
 }
