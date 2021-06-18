@@ -8,7 +8,7 @@ router.get("/api/get-profile-pic", (req,res) =>{
         `SELECT Profile.profile_pic_link
          FROM Profile
          JOIN Credentials ON Credentials.acct_id = Profile.account_id
-         WHERE Credentials.username = '${req.session.username}'`,
+         WHERE Credentials.username = ?`, [req.session.username],
         function(err,link){
             if(err){}
                 //console.log(err);
@@ -27,7 +27,7 @@ router.get("/api/profile", (req,res) =>{
         `SELECT Profile.profile_pic_link, Profile.display_name, Profile.about_me, Profile.type, Profile.account_id, Profile.profile_id, Pet.reg_user_id,Profile.pet_id
          FROM Profile
          LEFT JOIN Pet ON Profile.pet_id = Pet.pet_id
-         WHERE Profile.profile_id = '${req.query.profileID}'`,
+         WHERE Profile.profile_id = ?`, [req.query.profileID],
          function(err, profile){
              if(err){
                 //console.log(err);
@@ -75,7 +75,7 @@ router.get("/api/photo-posts", (req,res) =>{
          JOIN RegisteredUser ON Post.reg_user_id = RegisteredUser.reg_user_id
          JOIN Account ON RegisteredUser.user_id = Account.user_id
          JOIN Profile ON Account.account_id = Profile.account_id
-         WHERE Profile.profile_id = '${req.query.profileID}'`,
+         WHERE Profile.profile_id = ?`, [req.query.profileID],
         function(err, photoPosts){
             if(err){
                //console.log(err);
@@ -96,9 +96,9 @@ router.post("/api/profile-pic", (req,res) =>{
         connection.query(`
         UPDATE Profile 
         JOIN Pet ON Pet.pet_id = Profile.pet_id 
-        SET profile_pic_link = '${photoLink}'
-        WHERE Profile.profile_id = ${profileID}
-        AND Pet.reg_user_id = ${req.session.profile_id}`,
+        SET profile_pic_link = ?
+        WHERE Profile.profile_id = ? 
+        AND Pet.reg_user_id = ?`, [photoLink, profileID, req.session.profile_id],
             function(err, result){
                 if(err){
                     //console.log(err)
@@ -132,7 +132,7 @@ router.get("/api/profile-display-name", (req,res) =>{
     //console.log("GET /api/profile-display-name")
     connection.query(`SELECT Profile.display_name
      FROM Profile
-     WHERE Profile.profile_id = '${req.query.profileID}'`,
+     WHERE Profile.profile_id = ?`, [req.query.profileID],
         function(err, results){
             if(err){
                 //console.log(err)
@@ -196,8 +196,8 @@ router.post('/api/name',(req, res)=>{
             }
             conn.query(`
             UPDATE Profile
-            SET Profile.display_name = '${newFirstName}'
-            WHERE Profile.profile_id = ${req.session.profile_id}`,
+            SET Profile.display_name = ?
+            WHERE Profile.profile_id = ?`, [newFirstName, req.session.profile_id],
             function(err,result){
                 if(err){
                     return conn.rollback(function(){
@@ -209,8 +209,8 @@ router.post('/api/name',(req, res)=>{
                 UPDATE User
                 JOIN Account ON Account.user_id = User.user_id
                 JOIN Profile ON Profile.account_id = Account.account_id
-                SET User.first_name = '${newFirstName}'
-                WHERE Profile.profile_id = ${req.session.profile_id}`,
+                SET User.first_name = ?
+                WHERE Profile.profile_id = ?`, [newFirstName,req.session.profile_id],
                 function(err,result){
                     if(err){
                         return conn.rollback(function(){

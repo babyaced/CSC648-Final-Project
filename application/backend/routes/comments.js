@@ -9,7 +9,7 @@ router.post("/api/comment", (req, res) => { // comment on a post
     const commentBody = req.body.body;
     const postID = req.body.postId;
 
-    connection.query(`INSERT INTO PostComment (body, reg_user_id, timestamp, like_count, post_id) VALUES ('${commentBody}','${req.session.reg_user_id}', NOW(), 0, '${postID}')`, 
+    connection.query(`INSERT INTO PostComment (body, reg_user_id, timestamp, like_count, post_id) VALUES (?,?,?,?,?)`, [commentBody, req.session.reg_user_id, NOW(), 0, postID],
     (error, comment) => {
         if (error) {
             // console.error(error);
@@ -33,7 +33,7 @@ router.get("/api/comments", (req,res) =>{
         LEFT JOIN RegisteredUser ON PostComment.reg_user_id = RegisteredUser.reg_user_id
         LEFT JOIN Account ON RegisteredUser.user_id = Account.user_id
         LEFT JOIN Profile ON Account.account_id = Profile.account_id
-        WHERE PostComment.post_id = '${req.query.post_id}'`,
+        WHERE PostComment.post_id = ?`,[req.query.post_id] ,
         function(err, comments){
             if(err){}
                 // //console.log(err);

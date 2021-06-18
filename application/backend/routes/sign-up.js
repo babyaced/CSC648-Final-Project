@@ -143,7 +143,8 @@ router.post('/api/sign-up/business', (req,res) =>{
                                                 if(givenPassword === givenResubmitted){  //if password and confirmed password match
                                                     const hash = bcrypt.hashSync(givenPassword, 10);
 
-                                                    connection.query(`INSERT INTO User (email,first_name, last_name) VALUES ('${givenEmail}','${givenFirstName}', '${givenLastName}')`, function(err, insertedUser){
+                                                    connection.query(`INSERT INTO User (email,first_name, last_name) VALUES (?,?, ?)`, [givenEmail, givenFirstName, givenLastName],
+                                                    function(err, insertedUser){
                                                         if(err){
                                                             res.status(500).json(err);
                                                         }
@@ -151,7 +152,7 @@ router.post('/api/sign-up/business', (req,res) =>{
                                                             //console.log('User Created');
                                                             //console.log(insertedUser.insertId); //user id of newly created user
                                                             userId = insertedUser.insertId;
-                                                            connection.query(`INSERT INTO Account (user_id, role_id)  VALUES  ('${insertedUser.insertId}', 2)`, //create new account in database with returned user_id //registered user entry and profile automatically created
+                                                            connection.query(`INSERT INTO Account (user_id, role_id)  VALUES  (?, 2)`, [insertedUser.insertId], //create new account in database with returned user_id //registered user entry and profile automatically created
                                                             function(err,account){
                                                                 if(err){
                                                                     res.status(500).json(err);
@@ -159,21 +160,21 @@ router.post('/api/sign-up/business', (req,res) =>{
                                                                 //console.log('Account Created');
                                                                 let accountId = account.insertId;
                                                                 //console.log(account.insertId); //account id of newly created account
-                                                                connection.query(`INSERT INTO Credentials (acct_id, username, password) VALUES ('${account.insertId}', '${givenUsername}', '${hash}')`, 
+                                                                connection.query(`INSERT INTO Credentials (acct_id, username, password) VALUES (?, ?, ?)`, [account.insertId, givenUsername, hash],
                                                                 function(err,insertedCredentials){
                                                                     if(err){
                                                                         res.status(500).json(err);
                                                                     }
                                                                     //console.log('Credentials Created');
                                                                     //console.log(insertedCredentials.insertId);
-                                                                    connection.query(`INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES ('${givenAddress}', '${givenLatitude}', '${givenLongitude}',(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ${userId}))`,
+                                                                    connection.query(`INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES (?, ?, ?,(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`, [givenAddress, givenLatitude,givenLongitude, userId],
                                                                     function(err, insertedAddress){
                                                                         if(err){
                                                                             //console.log(err);
                                                                         }
                                                                         //console.log('Address Inserted');
                                                                         //console.log(insertedAddress.insertId);
-                                                                        connection.query(`INSERT INTO Business (name, phone_num, reg_user_id) VALUES ('${givenBusinessName}', '${givenPhoneNumber}', (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ${userId}))`,
+                                                                        connection.query(`INSERT INTO Business (name, phone_num, reg_user_id) VALUES (?, ?, (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`, [givenBusinessName, givenPhoneNumber, userId],
                                                                         function(err, insertedBusiness){
                                                                             if(err){
                                                                                 //console.log(err);
@@ -181,7 +182,7 @@ router.post('/api/sign-up/business', (req,res) =>{
                                                                             }
                                                                             //console.log('Business Created');
                                                                             //console.log(insertedBusiness.insertId);
-                                                                            connection.query(`INSERT INTO Commerce (business_id, business_type_id) VALUES ('${insertedBusiness.insertId}', '${givenBusinessType}')`,
+                                                                            connection.query(`INSERT INTO Commerce (business_id, business_type_id) VALUES (?, ?)`, [insertedBusiness.insertId, givenBusinessType],
                                                                             function(err, insertedCommerce){
                                                                                 if(err){
                                                                                     //console.log(err);
@@ -189,7 +190,7 @@ router.post('/api/sign-up/business', (req,res) =>{
                                                                                 }
                                                                                 //console.log('Commerce Created');
                                                                                 //console.log(insertedCommerce.insertId);
-                                                                                connection.query(`UPDATE Profile SET Profile.display_name = '${givenBusinessName}', Profile.type = 'Business' WHERE  Profile.account_id = '${accountId}'`,
+                                                                                connection.query(`UPDATE Profile SET Profile.display_name = ?, Profile.type = 'Business' WHERE  Profile.account_id = ?`, [givenBusinessName, accountId],
                                                                                 function(err, updatedDisplayName){
                                                                                     if(err){
                                                                                         //console.log(err);
@@ -268,7 +269,8 @@ router.post('/api/sign-up/shelter', (req,res) =>{
                                                 if(givenPassword === givenResubmitted){  //if password and confirmed password match
                                                     const hash = bcrypt.hashSync(givenPassword, 10);
 
-                                                    connection.query(`INSERT INTO User (email,first_name, last_name) VALUES ('${givenEmail}','${givenFirstName}', '${givenLastName}')`, function(err, insertedUser){
+                                                    connection.query(`INSERT INTO User (email,first_name, last_name) VALUES (?,?, ?)`, [givenEmail, givenFirstName, givenLastName],
+                                                    function(err, insertedUser){
                                                         if(err){
                                                             //console.log(err);
                                                         }
@@ -276,7 +278,7 @@ router.post('/api/sign-up/shelter', (req,res) =>{
                                                             //console.log('User Created');
                                                             //console.log(insertedUser.insertId); //user id of newly created user
                                                             userId = insertedUser.insertId;
-                                                            connection.query(`INSERT INTO Account (user_id, role_id)  VALUES  ('${insertedUser.insertId}', 3)`, //create new account in database with returned user_id //registered user entry and profile automatically created
+                                                            connection.query(`INSERT INTO Account (user_id, role_id)  VALUES  (?, 3)`, [insertedUser.insertId],//create new account in database with returned user_id //registered user entry and profile automatically created
                                                             function(err,account){
                                                                 if(err){
                                                                     //console.log(err);
@@ -284,20 +286,20 @@ router.post('/api/sign-up/shelter', (req,res) =>{
                                                                 //console.log('Account Created');
                                                                 let accountId = account.insertId;
                                                                 //console.log(account.insertId); //account id of newly created account
-                                                                connection.query(`INSERT INTO Credentials (acct_id, username, password) VALUES ('${account.insertId}', '${givenUsername}', '${hash}')`, 
+                                                                connection.query(`INSERT INTO Credentials (acct_id, username, password) VALUES (?, ?, ?)`, [account.insertId, givenUsername, hash],
                                                                 function(err,insertedCredentials){
                                                                     if(err){
                                                                         //console.log(err);
                                                                     }
                                                                     //console.log('Credentials Created');
                                                                     //console.log(insertedCredentials.insertId);
-                                                                    connection.query(`INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES ('${givenAddress}', '${givenLatitude}', '${givenLongitude}',(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ${userId}))`,
+                                                                    connection.query(`INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES (?, ?, ?,(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`, [givenAddress, givenLatitude, givenLongitude, userId],
                                                                     function(err, insertedAddress){
                                                                         if(err){
                                                                             //console.log(err);
                                                                         }
                                                                         //console.log('Address Inserted');
-                                                                        connection.query(`INSERT INTO Business (name, phone_num, reg_user_id) VALUES ('${givenBusinessName}', '${givenPhoneNumber}', (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ${userId}))`,
+                                                                        connection.query(`INSERT INTO Business (name, phone_num, reg_user_id) VALUES (?, ?, (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`, [givenBusinessName, givenPhoneNumber,  userId],
                                                                         function(err, insertedBusiness){
                                                                             if(err){
                                                                                 //console.log(err);
@@ -305,7 +307,7 @@ router.post('/api/sign-up/shelter', (req,res) =>{
                                                                             }
                                                                             //console.log('Business Created');
                                                                             //console.log(insertedBusiness.insertId);
-                                                                            connection.query(`INSERT INTO Shelter (business_id) VALUES ('${insertedBusiness.insertId}')`,
+                                                                            connection.query(`INSERT INTO Shelter (business_id) VALUES (?)`,[insertedBusiness.insertId],
                                                                             function(err, insertedShelter){
                                                                                 if(err){
                                                                                     //console.log(err);
@@ -314,7 +316,7 @@ router.post('/api/sign-up/shelter', (req,res) =>{
                                                                                 //console.log('Shelter Created');
                                                                                 //console.log(insertedShelter.insertId);
                                                                                 for(let i = 0; i < givenPetTypes.length; i++){
-                                                                                    connection.query(`INSERT INTO ShelterTypes (shelter_id, type_id) VALUES ('${insertedShelter.insertId}', ${givenPetTypes[i].value})`,
+                                                                                    connection.query(`INSERT INTO ShelterTypes (shelter_id, type_id) VALUES (?, ?)`, [insertedShelter.insertId, givenPetTypes[i].value],
                                                                                     function(err, insertedPetType){
                                                                                         if(err){
                                                                                             //console.log(err);
@@ -324,9 +326,10 @@ router.post('/api/sign-up/shelter', (req,res) =>{
                                                                                 }
                                                                                 connection.query(
                                                                                     `UPDATE Profile 
-                                                                                     SET Profile.display_name = '${givenBusinessName}', 
+                                                                                     SET Profile.display_name = ?, 
                                                                                      Profile.type = 'Shelter' 
-                                                                                     WHERE  Profile.account_id = '${accountId}'`, //can try to add this code to the profile create trigger?
+                                                                                     WHERE  Profile.account_id = ?`, //can try to add this code to the profile create trigger?
+                                                                                     [givenBusinessName, accountId],
                                                                                 function(err, updatedDisplayName){
                                                                                     if(err){
                                                                                         //console.log(err);

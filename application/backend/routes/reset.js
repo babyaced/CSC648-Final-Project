@@ -30,7 +30,7 @@ router.post("/api/reset/:token", (req,res) =>{
     }
 
     if(givenEmail.length > 0){
-        connection.query(`SELECT user_id FROM User WHERE email= '${givenEmail}'`, 
+        connection.query(`SELECT user_id FROM User WHERE email= ?`, [givenEmail],
                         (error, post, fields) => {
                                             if(passwordValidate(givenPassword)){  //if password is valid
                                                 if(givenPassword === givenResubmitted){  //if password and confirmed password match
@@ -46,7 +46,7 @@ router.post("/api/reset/:token", (req,res) =>{
                                                         } 
                                                     )
 
-                                                    connection.query(`UPDATE Credentials SET password = '${hash}' WHERE email= '${givenEmail}'`,
+                                                    connection.query(`UPDATE Credentials SET password = ? WHERE email= ?`, [hash, givenEmail],
                                                         function(err,insertedCredentials){
                                                             if(err){
                                                                 res.status(500).json(err);

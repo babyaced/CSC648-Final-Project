@@ -19,8 +19,8 @@ router.get("/api/posts-admin",(req,res)=>{
          AND Profile.pet_id IS NULL
          ORDER BY Post.flag_count DESC
          LIMIT 10
-         OFFSET ${offset}
-        `,
+         OFFSET ?
+        `,[offset],
         function(err, posts){
             if(err){
                 // //console.log(err);
@@ -43,8 +43,8 @@ router.post("/api/delete-post",(req,res)=>{
         connection.query(
             `DELETE
             FROM Post
-            WHERE Post.post_id = ${postID}
-            `,
+            WHERE Post.post_id = ?
+            `,[postID],
             function(err, result){
                 if(err){}
                     // //console.log(err);
@@ -67,8 +67,8 @@ router.post("/api/ban-user",(req,res) =>{
              FROM User
              JOIN Account ON Account.user_id = User.user_id
              JOIN Profile ON Profile.account_id = Account.account_id
-             WHERE Profile.profile_id = ${profileID}
-            `,
+             WHERE Profile.profile_id = ?
+            `, [profileID],
             function(err, result){
                 if(err){
                     // //console.log(err);

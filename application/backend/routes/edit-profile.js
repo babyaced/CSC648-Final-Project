@@ -10,8 +10,8 @@ router.post("/api/about-me", (req,res) =>{
     //console.log("POST /api/edit-about-me")
     connection.query(
         `UPDATE Profile
-         SET about_me = '${newAboutMe}'
-         WHERE profile_id = '${profileID}' `,
+         SET about_me = ?
+         WHERE profile_id = ?`,[newAboutMe,profileID],
          function (err, result){
              if(err){
                  //console.log(err);
@@ -28,8 +28,8 @@ router.post('/api/address',(req,res)=>{
     const {newAddress, newLatitude, newLongitude} = req.body;
     connection.query(
         `UPDATE Address
-         SET address = '${newAddress}', latitude = '${newLatitude}', longitude = '${newLongitude}'
-         WHERE Address.reg_user_id= '${req.session.reg_user_id}'`,
+         SET address = ?, latitude = ?, longitude = ?
+         WHERE Address.reg_user_id= ?`, [newAddress,newLatitude, newLongitude,req.session.reg_user_id],
          function(err, result){
              if(err){
                  //console.log(err);
@@ -45,21 +45,19 @@ router.post('/api/address',(req,res)=>{
 router.post('/api/hours', (req,res) =>{
     const {newSunOpen, newSunClose, newMonOpen, newMonClose,newTueOpen, newTueClose, newWedOpen, newWedClose, newThuOpen, newThuClose, newFriOpen, newFriClose, newSatOpen, newSatClose} = req.body;
     //console.log('newSunOpen' +newSunOpen);
-    
-    const query = 
-    `UPDATE HoursOfOperation
-     JOIN Business ON HoursOfOperation.business_id = Business.business_id
-     SET sun_open='${newSunOpen}', sun_close='${newSunClose}',
-        mon_open='${newMonOpen}', mon_close='${newMonClose}',
-        tue_open='${newTueOpen}', tue_close='${newTueClose}',
-        wed_open='${newWedOpen}', wed_close='${newWedClose}',
-        thu_open='${newThuOpen}', thu_close='${newThuClose}',
-        fri_open='${newFriOpen}', fri_close='${newFriClose}',
-        sat_open='${newSatOpen}', sat_close='${newSatClose}'
-    WHERE Business.reg_user_id = '${req.session.reg_user_id}'`
-        
+   
     //console.log(query);
-    connection.query(query,
+    connection.query( `UPDATE HoursOfOperation
+    JOIN Business ON HoursOfOperation.business_id = Business.business_id
+    SET sun_open=?, sun_close=?,
+       mon_open=?, mon_close=?,
+       tue_open=?, tue_close=?,
+       wed_open=?, wed_close=?,
+       thu_open=?, thu_close=?,
+       fri_open=?, fri_close=?,
+       sat_open=?, sat_close=?
+   WHERE Business.reg_user_id = ?`,
+   [newSunOpen,newSunClose, newMonOpen, newMonClose, newTueOpen, newTueClose, newWedOpen, newWedClose, newThuOpen, newThuClose, newFriOpen, newFriClose, newSatOpen, newSatClose, req.session.reg_user_id],
          function(err, result){
             if(err){
                 //console.log(err);
@@ -77,8 +75,8 @@ router.post('/api/phone-number', (req,res) =>{
     const {newPhoneNumber} = req.body;
     connection.query(
         `UPDATE Business
-         SET phone_num= '${newPhoneNumber}'
-         WHERE Business.reg_user_id = '${req.session.reg_user_id}'`,
+         SET phone_num= ?
+         WHERE Business.reg_user_id = ?`, [newPhoneNumber, req.session.reg_user_id],
          function(err, result){
             if(err){
                 //console.log(err);

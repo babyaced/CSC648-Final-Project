@@ -14,9 +14,9 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
 
     connection.query(`INSERT INTO Post (body, reg_user_id, like_count, comment_count) 
     VALUES 
-    ('${postBody}', '${req.session.reg_user_id}', 
+    (?, ?, 
      0, 
-     0)`, 
+     0)`, [postBody, req.session.reg_user_id],
      (error, insertedPost) => {
         if (error) {
             console.error(error);
@@ -25,7 +25,8 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
             //console.log(insertedPost)
 
             if(photoLink){
-                connection.query(`INSERT INTO Photo (link, post_id) VALUES ('${photoLink}','${insertedPost.insertId}')`, (error, photo) => {
+                connection.query(`INSERT INTO Photo (link, post_id) VALUES (?,?)`, [photoLink, insertedPost.insertId],
+                (error, photo) => {
                     if (error) {
                         console.error(error);
                     }
@@ -39,7 +40,7 @@ router.post("/api/upload-post", (req, res) => { // uploading a post
 
             if(req.body.taggedPets){
                 for(let i = 0; i < req.body.taggedPets.length; i++){
-                    connection.query(`INSERT INTO PostTag (post_id, pet_id) VALUES ('${insertedPost.insertId}', '${req.body.taggedPets[i].value}')`,
+                    connection.query(`INSERT INTO PostTag (post_id, pet_id) VALUES (?, ?)`, [insertedPost.insertId, req.body.taggedPets[i].value],
                         function (err,insertedTag){
                             if(err){
                                 //console.log(err);
