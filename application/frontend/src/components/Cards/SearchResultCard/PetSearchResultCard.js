@@ -19,6 +19,7 @@ function PetSearchResultCard({ searchResult, panTo, index }) {
       <img
         className={styles["search-result-pic"]}
         src={searchResult.profile_pic_link}
+        alt={searchResult.display_name}
       />
       <Link
         className={styles["profile-link"]}
@@ -35,15 +36,15 @@ function PetSearchResultCard({ searchResult, panTo, index }) {
       </Link>
       <img
         className={styles["search-result-marker"]}
-        src={`https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${
-          index + 1
-        }.png`}
+        src={`https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${index + 1
+          }.png`}
         onClick={() => {
           panTo({
             lat: parseFloat(searchResult.latitude),
             lng: parseFloat(searchResult.longitude),
           });
         }}
+        alt="marker"
       />
     </li>
   );

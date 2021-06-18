@@ -17,9 +17,7 @@ function PetOwnerSearchResultCard({ searchResult }) {
         className={styles["profile-link"]}
         to={"/Profile/" + searchResult.profile_id}
       >
-        <span className={styles["search-result-name"]}>
-          {searchResult.display_name}
-        </span>
+        <h3>{searchResult.display_name}</h3>
       </Link>
     </li>
   );
