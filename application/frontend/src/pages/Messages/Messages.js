@@ -3,17 +3,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 //Import UI Components
-import Tab from "../../components/UI/Tab/Tab.js"
+import Tab from "../../components/UI/Tab/Tab.js";
 import RecievedMessage from "../../components/Modals/RecievedMessage";
 import SentMessage from "../../components/Modals/SentMessage";
 import AddIcon from "../../assets/icons/created/AddWhite.svg";
 import SendMessage from "../../components/Modals/SendMessage";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import MessageCard from "../../components/Cards/MessageCard/MessageCard"
+import MessageCard from "../../components/Cards/MessageCard/MessageCard";
 
 //Import CSS
 import styles from "./Messages.module.css";
-
 
 function Messages() {
   const [recievedMessageModalDisplay, setRecievedMessageModalDisplay] =
@@ -64,7 +63,6 @@ function Messages() {
     const getFollows = axios.get("/api/following");
 
     Promise.all([getFollowers, getFollows]).then((responses) => {
-
       const followers = responses[0].data;
       const follows = responses[1].data;
 
@@ -136,7 +134,11 @@ function Messages() {
         {selectedTab === 0 &&
           recievedMessages.map((recievedMessage) => (
             <>
-              <MessageCard key={recievedMessage.message_id}  message={recievedMessage} viewModal={() => viewRecievedMessageModal(recievedMessage)}/>
+              <MessageCard
+                key={recievedMessage.message_id}
+                message={recievedMessage}
+                viewModal={() => viewRecievedMessageModal(recievedMessage)}
+              />
             </>
           ))}
         {selectedTab === 1 && sentMessages.length == 0 && (
@@ -147,53 +149,56 @@ function Messages() {
         {selectedTab === 1 &&
           sentMessages.map((sentMessage) => (
             <>
-              <MessageCard key={sentMessage.message_id} message={sentMessage} viewModal={() => viewSentMessageModal(sentMessage)}/>
+              <MessageCard
+                key={sentMessage.message_id}
+                message={sentMessage}
+                viewModal={() => viewSentMessageModal(sentMessage)}
+              />
             </>
           ))}
         <button
           className={styles["new-message-button"]}
           onClick={() => setSendMessageModalDisplay(true)}
         >
-          <span className={styles['new-message-text']}>New Message</span>
-          <img src={AddIcon}/>
+          <span className={styles["new-message-text"]}>New Message</span>
+          <img src={AddIcon} />
         </button>
       </>
     );
 
   return (
     <>
-      {loading ? <Spinner/> :
+      {loading ? (
+        <Spinner />
+      ) : (
         <>
           <div className={`${styles["messages-container"]} ${"container"}`}>
             <div className={styles["container-header"]}>
               <div className={styles["messages-header"]}>Messages</div>
-              <div className={styles["tabs"]}>
-                {tabs}
-              </div>
+              <div className={styles["tabs"]}>{tabs}</div>
+            </div>
+            <div className={styles["recieved-messages-container"]}>
+              {messages}
+            </div>
           </div>
-          <div className={styles["recieved-messages-container"]}>
-            {messages}
-          </div>
-        </div>
-        <RecievedMessage
-          display={recievedMessageModalDisplay}
-          updateSentMessages={updateSentMessages}
-          onClose={() => setRecievedMessageModalDisplay(false)}
-          selectedMessage={selectedMessage}
-        ></RecievedMessage>
-        <SentMessage
-          display={sentMessageModalDisplay}
-          onClose={() => setSentMessageModalDisplay(false)}
-          selectedMessage={selectedMessage}
-        ></SentMessage>
-        <SendMessage
-          display={sendMessageModalDisplay}
-          onClose={() => setSendMessageModalDisplay(false)}
-          recipientOptions={possibleMessageRecipients}
-        />
-      </>
-      }
-      
+          <RecievedMessage
+            display={recievedMessageModalDisplay}
+            updateSentMessages={updateSentMessages}
+            onClose={() => setRecievedMessageModalDisplay(false)}
+            selectedMessage={selectedMessage}
+          ></RecievedMessage>
+          <SentMessage
+            display={sentMessageModalDisplay}
+            onClose={() => setSentMessageModalDisplay(false)}
+            selectedMessage={selectedMessage}
+          ></SentMessage>
+          <SendMessage
+            display={sendMessageModalDisplay}
+            onClose={() => setSendMessageModalDisplay(false)}
+            recipientOptions={possibleMessageRecipients}
+          />
+        </>
+      )}
     </>
   );
 }

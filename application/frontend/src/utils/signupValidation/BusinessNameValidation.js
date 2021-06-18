@@ -1,11 +1,11 @@
 function BusinessNameValidation(businessName) {
-    let businessNameErr = "";
+  let businessNameErr = "";
 
-    if (!businessName){
-        businessNameErr = "Please enter your business's name"
-    }
+  if (!businessName) {
+    businessNameErr = "Please enter your business's name";
+  }
 
-    return (businessNameErr)
+  return businessNameErr;
 }
 
-export default BusinessNameValidation
+export default BusinessNameValidation;

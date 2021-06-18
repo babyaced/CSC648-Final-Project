@@ -1,12 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const connection = require('../db');
+const connection = require("../db");
 
 // router.get("/api/photos", (req,res) =>{
 //     //console.log(req.query);
 //     //console.log("GET /api/photos")
 //     connection.query(
-//         `SELECT Post.post_id, 
+//         `SELECT Post.post_id,
 //          FROM Photo
 //          LEFT JOIN Post ON Photo.post_id = Post.post_id
 //          JOIN RegisteredUser ON Post.reg_user_id = RegisteredUser.reg_user_id
@@ -25,4 +25,4 @@ const connection = require('../db');
 //     )
 // })
 
-module.exports = router
+module.exports = router;

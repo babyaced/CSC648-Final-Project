@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
 function PasswordValidation(password) {
-    let passwordErr = "";
+  let passwordErr = "";
 
-    if (!password){
-        passwordErr = "Please enter a Password"
-    }
+  if (!password) {
+    passwordErr = "Please enter a Password";
+  }
 
-    return (passwordErr)
+  return passwordErr;
 }
 
-export default PasswordValidation
+export default PasswordValidation;

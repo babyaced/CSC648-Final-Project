@@ -1,12 +1,8 @@
-import React from 'react'
-import styles from './PrimaryButton.module.css'
+import React from "react";
+import styles from "./PrimaryButton.module.css";
 
 function PrimaryButton() {
-    return (
-        <button className={styles.PrimaryButton}>
-            
-        </button>
-    )
+  return <button className={styles.PrimaryButton}></button>;
 }
 
-export default PrimaryButton
+export default PrimaryButton;

@@ -1,11 +1,11 @@
 function PhoneNumberValidation(phoneNumber) {
-    let phoneNumberErr = "";
+  let phoneNumberErr = "";
 
-    if (!phoneNumber){
-        phoneNumberErr = "Please enter your business's phone number"
-    }
+  if (!phoneNumber) {
+    phoneNumberErr = "Please enter your business's phone number";
+  }
 
-    return (phoneNumberErr)
+  return phoneNumberErr;
 }
 
-export default PhoneNumberValidation
+export default PhoneNumberValidation;

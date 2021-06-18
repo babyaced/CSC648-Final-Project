@@ -1,17 +1,16 @@
-import React from 'react'
+import React from "react";
 
 function EmailValidation(email) {
-    let emailErr = "";
-    console.log('email: ', email);
+  let emailErr = "";
+  console.log("email: ", email);
 
-    if(!email){
-        emailErr = 'Please enter an Email';
-    }
-    else if(!email.includes('@')){
-        emailErr = 'Invalid Email';
-    }
+  if (!email) {
+    emailErr = "Please enter an Email";
+  } else if (!email.includes("@")) {
+    emailErr = "Invalid Email";
+  }
 
-    return (emailErr)
+  return emailErr;
 }
 
-export default EmailValidation
+export default EmailValidation;
