@@ -65,3 +65,9 @@ possibly implement useContext for profile component
 fix image attached state for mobile attach image button
 
 fix edit pet details not working
+
+remove followers functionality for pets
+
+fix sign up confirmation ui
+
+fixed fetching of pet's tagged posts

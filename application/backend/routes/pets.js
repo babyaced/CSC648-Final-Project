@@ -21,7 +21,7 @@ router.get("/api/current-user-pets",(req,res)=>{
 })
 
 router.get("/api/pets",(req,res)=>{
-    //console.log("/api/pets");
+    console.log("/api/pets");
 
     const {profileID} = req.query;
 

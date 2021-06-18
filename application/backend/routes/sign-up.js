@@ -47,7 +47,8 @@ router.post("/api/sign-up", (req,res) =>{
                                                     connection.query(`INSERT INTO User (email,first_name, last_name) VALUES (?,?,?)`, [givenEmail,givenFirstName, givenLastName],
                                                     function(err, insertedUser){
                                                         if(err){
-                                                            res.status(500).json(err);
+                                                            console.log(err);
+                                                            // res.status(500).json(err);
                                                         }
                                                         else{
                                                             //console.log('User Created');
@@ -55,8 +56,8 @@ router.post("/api/sign-up", (req,res) =>{
                                                             connection.query(`INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,[insertedUser.insertId, 1], //create new account in database with returned user_id  and assign role of pet owner//registered user entry and profile automatically created 
                                                             function(err,account){
                                                                 if(err){
-                                                                    //console.log(err);
-                                                                    res.status(500).json(err);
+                                                                    console.log(err);
+                                                                    // res.status(500).json(err);
                                                                 }
                                                                 //console.log('Account Created');
                                                                 //console.log(account.insertId); //account id of newly created account
@@ -64,8 +65,8 @@ router.post("/api/sign-up", (req,res) =>{
                                                                 connection.query(`INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,[account.insertId, givenUsername, hash],
                                                                 function(err,insertedCredentials){
                                                                     if(err){
-                                                                        //console.log(err);
-                                                                        res.status(500).json(err);
+                                                                        console.log(err);
+                                                                        // res.status(500).json(err);
                                                                     }
                                                                     //console.log('Credentials Created');
                                                                     //console.log(insertedCredentials.insertId);

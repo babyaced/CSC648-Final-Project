@@ -124,7 +124,7 @@ router.post("/api/create-pet-profile",(req,res)=>{
 })
 
 router.get("/api/tagged-posts", (req,res) =>{
-    //console.log("GET /api/tagged-posts");
+    console.log("GET /api/tagged-posts");
 
     connection.query(
         `SELECT * 
