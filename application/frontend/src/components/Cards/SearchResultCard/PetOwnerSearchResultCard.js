@@ -11,6 +11,7 @@ function PetOwnerSearchResultCard({ searchResult }) {
       <img
         className={styles["search-result-pic"]}
         src={searchResult.profile_pic_link}
+        alt={searchResult.display_name}
       />
       <Link
         className={styles["profile-link"]}
