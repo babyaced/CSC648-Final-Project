@@ -43,11 +43,11 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
         .then(response =>{
             setLoading(false);
             onClose();
-            update()
+            // update()
         })
         .catch(err =>{
             setLoading(false);
-            update()
+            // update()
             //display error to user
         })
         // remove later when the setLoading is working in the then block 
@@ -130,7 +130,7 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                             isSearchable
                         />
                     </div>
-                    {petType && petType.label == 'Dog' && <div className={styles['edit-pet-details-breed']}>
+                    {petType && petType.label === 'Dog' && <div className={styles['edit-pet-details-breed']}>
                         <label for="breed">Breed</label>
                         <Select id="breed" name="pet_breed"
                             // onChange={props.updatePetBreed}
@@ -144,7 +144,7 @@ function AddAPet({display,onClose, typeOptions,dogBreedOptions,catBreedOptions,c
                             components={animatedComponents}
                         />
                     </div>}
-                    {petType && petType.label == 'Cat' && <div className={styles['edit-pet-details-breed']}>
+                    {petType && petType.label === 'Cat' && <div className={styles['edit-pet-details-breed']}>
                         <label for="breed">Breed</label>
                         <Select id="breed" name="pet_breed"
                             // onChange={props.updatePetBreed}
