@@ -377,7 +377,7 @@ function SignUpPage2(props) {
                   theme={SelectCustomTheme}
                   styles={customStyles}
                   isSearchable
-                  // isMulti
+                  isMulti
                   components={animatedComponents}
                 // required
                 />

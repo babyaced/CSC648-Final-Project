@@ -24,7 +24,7 @@ function useSizeOptions() {
     axios
       .get("/api/sizes") //get pet sizes from database
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         localCache = response.data;
         setSizeOptions(localCache);
         setStatus("loaded");

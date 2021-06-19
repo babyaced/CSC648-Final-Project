@@ -54,6 +54,7 @@ const distanceOptions = [
 ];
 
 function MapSearch(props) {
+  console.log('rerendering')
   let state = props.location.state;
 
   const [typeOptions] = useTypeOptions();
@@ -97,7 +98,7 @@ function MapSearch(props) {
   //For storing searchOptions
   const [searchCategory, setSearchCategory] = useState();
   const [searchTerm, setSearchTerm] = useState();
-  const [resultsSortOption, setResultsSortOption] = useState("");
+
   const [searchDistance, setSearchDistance] = useState({
     value: 5,
     label: "Driving Distance (5 Miles)",
@@ -127,21 +128,10 @@ function MapSearch(props) {
 
   function search() {
     setLoading(true);
-    // const searchResultsContainerNode = searchResultsContainerRef.current
-    // if(state.searchCategoryParam === 'Pet Owners'){ //change to pet owner results layout
-    //     if(searchResultsContainerNode){
-    //         searchResultsContainerNode.classList.remove(styles['map-search-results-container'])
-    //         searchResultsContainerNode.classList.add(styles['map-search-results-container-petOwners'])
-    //     }
-    // }
-    // else{
-    //     if(searchResultsContainerNode){
-    //         searchResultsContainerNode.classList.remove(styles['map-search-results-container-petOwners'])
-    //         searchResultsContainerNode.classList.add(styles['map-search-results-container'])
-    //     }
-    // }
 
     if (state.searchTermParam || state.searchCategoryParam || state.prefilter) {
+
+
       setSearchCategory(state.searchCategoryParam);
       setSearchTerm(state.searchTermParam);
 
@@ -264,14 +254,14 @@ function MapSearch(props) {
 
           if (
             petTypeFilters.length > 0 &&
-            !petTypeFilters.some((petType) => petType.label == "Cat")
+            !petTypeFilters.some((petType) => petType.label === "Cat")
           ) {
             catBreedFilterValues = [];
           }
 
           if (
             petTypeFilters.length > 0 &&
-            !petTypeFilters.some((petType) => petType.label == "Dog")
+            !petTypeFilters.some((petType) => petType.label === "Dog")
           ) {
             dogBreedFilterValues = [];
           }
@@ -300,6 +290,8 @@ function MapSearch(props) {
             searchDistance: searchDistance.value,
             searchPage: currentPage,
           };
+          break;
+        default:
           break;
       }
 
@@ -389,9 +381,8 @@ function MapSearch(props) {
                           lng: parseFloat(searchResult.longitude),
                         }}
                         icon={{
-                          url: `https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${
-                            index + 1
-                          }.png`,
+                          url: `https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${index + 1
+                            }.png`,
                         }}
                       />
                     </>
@@ -442,7 +433,7 @@ function MapSearch(props) {
                 </button>
               </span>
             </div>
-            {searchCategory == "Businesses" && (
+            {searchCategory === "Businesses" && (
               <>
                 <div className={styles["filter-business-categories"]}>
                   <label for="business-categories">Categories</label>
@@ -456,11 +447,12 @@ function MapSearch(props) {
                     isSearchable
                     isMulti
                     components={animatedComponents}
+                    value={businessCategoryFilters}
                   />
                 </div>
               </>
             )}
-            {searchCategory == "Pets" && (
+            {searchCategory === "Pets" && (
               <>
                 <div className={styles["filter-pet-types"]}>
                   <label for="pet-types">Types</label>
@@ -474,6 +466,7 @@ function MapSearch(props) {
                     isSearchable
                     isMulti
                     components={animatedComponents}
+                    value={petTypeFilters}
                   />
                 </div>
                 <div className={styles["filter-pet-size"]}>
@@ -488,6 +481,7 @@ function MapSearch(props) {
                     isSearchable
                     isMulti
                     components={animatedComponents}
+                    value={petSizeFilters}
                   />
                 </div>
                 <div className={styles["filter-pet-colors"]}>
@@ -502,6 +496,7 @@ function MapSearch(props) {
                     isSearchable
                     isMulti
                     components={animatedComponents}
+                    value={petColorFilters}
                   />
                 </div>
                 <div className={styles["filter-pet-age"]}>
@@ -516,10 +511,11 @@ function MapSearch(props) {
                     isSearchable
                     isMulti
                     components={animatedComponents}
+                    value={petAgeFilters}
                   />
                 </div>
                 {petTypeFilters.length > 0 &&
-                  petTypeFilters.some((petType) => petType.label == "Dog") && (
+                  petTypeFilters.some((petType) => petType.label === "Dog") && (
                     <div className={styles["filter-pet-breed"]}>
                       <label for="dog-breed">Dog Breeds</label>
                       <Select
@@ -532,12 +528,13 @@ function MapSearch(props) {
                         isSearchable
                         isMulti
                         components={animatedComponents}
+                        value={dogBreedFilters}
                       />
                     </div>
                   )}
 
                 {petTypeFilters.length > 0 &&
-                  petTypeFilters.some((petType) => petType.label == "Cat") && (
+                  petTypeFilters.some((petType) => petType.label === "Cat") && (
                     <div className={styles["filter-pet-breed"]}>
                       <label for="cat-breed">Cat Breeds</label>
                       <Select
@@ -550,12 +547,13 @@ function MapSearch(props) {
                         isSearchable
                         isMulti
                         components={animatedComponents}
+                        value={catBreedFilters}
                       />
                     </div>
                   )}
               </>
             )}
-            {searchCategory == "Shelters" && (
+            {searchCategory === "Shelters" && (
               <>
                 <div className={styles["filter-shelter-pets"]}>
                   <label for="shelter-pet-types">Available Types of Pets</label>
@@ -569,6 +567,7 @@ function MapSearch(props) {
                     isSearchable
                     isMulti
                     components={animatedComponents}
+                    value={shelterPetTypeFilters}
                   />
                 </div>
               </>
@@ -584,6 +583,7 @@ function MapSearch(props) {
                 theme={SelectCustomTheme}
                 isSearchable
                 components={animatedComponents}
+                value={searchDistance}
               />
             </div>
             <button

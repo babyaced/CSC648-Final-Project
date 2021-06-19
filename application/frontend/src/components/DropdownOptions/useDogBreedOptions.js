@@ -24,7 +24,7 @@ function useDogBreedOptions() {
     axios
       .get("/api/dog-breeds") //get pet DogBreeds from database
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         localCache = response.data;
         setDogBreedOptions(localCache);
         setStatus("loaded");
