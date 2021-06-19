@@ -39,13 +39,13 @@ function EditPetDetails({
   console.log(recievedDogBreeds);
   console.log(recievedCatBreeds);
 
-  const [petName, setPetName] = useState("");
-  const [petType, setPetType] = useState([]); //set this to already existing pet type stored in db for real version
-  const [dogBreed, setDogBreed] = useState([]);
-  const [petColors, setPetColors] = useState([]);
-  const [petSize, setPetSize] = useState([]);
-  const [catBreed, setCatBreed] = useState([]);
-  const [petAge, setPetAge] = useState([]);
+  const [petName, setPetName] = useState(profile.display_name);
+  const [petType, setPetType] = useState(recievedPetType); //set this to already existing pet type stored in db for real version
+  const [dogBreed, setDogBreed] = useState(recievedDogBreeds);
+  const [petColors, setPetColors] = useState(recievedPetColors);
+  const [petSize, setPetSize] = useState(recievedPetSize);
+  const [catBreed, setCatBreed] = useState(recievedCatBreeds);
+  const [petAge, setPetAge] = useState(recievedPetAge);
 
   const [typeOptions] = useTypeOptions();
 
@@ -59,6 +59,19 @@ function EditPetDetails({
 
   const [ageOptions] = useAgeOptions();
 
+  useEffect(() => {
+    setPetName(profile.display_name)
+  }, [profile])
+
+  useEffect(() => {
+    setPetType(recievedPetType)
+    setDogBreed(recievedDogBreeds)
+    setPetColors(recievedPetColors)
+    setPetSize(recievedPetSize)
+    setCatBreed(recievedCatBreeds);
+    setPetAge(recievedPetAge);
+  }, [recievedCatBreeds, recievedDogBreeds, recievedPetAge, recievedPetColors, recievedPetSize, recievedPetType])
+
   //function updatePet(){
   //     axios.post('/api/edit-pet',{})
   //     .then((response) =>{
@@ -68,6 +81,14 @@ function EditPetDetails({
 
   //     })
   // }
+
+  console.log(petName)
+  console.log(petType)
+  console.log(dogBreed)
+  console.log(petColors)
+  console.log(petSize)
+  console.log(catBreed)
+  console.log(petAge)
 
   const animatedComponents = makeAnimated();
 
@@ -84,7 +105,7 @@ function EditPetDetails({
             id="name"
             name="pet_name"
             maxLength="25"
-            value={profile.display_name}
+            value={petName}
             placeholder="Name"
             onChange={(event) => updateProfile("userName", event.target.value)}
           />
@@ -97,12 +118,12 @@ function EditPetDetails({
             onChange={updatePetType}
             options={typeOptions}
             theme={SelectCustomTheme}
-            value={recievedPetType}
+            value={petType}
             placeholder="Select Pet Type"
             isSearchable
           />
         </div>
-        <div className={styles["edit-pet-details-breed"]}>
+        {/* <div className={styles["edit-pet-details-breed"]}>
           <label for="breed">Breed</label>
           <Select
             id="breed"
@@ -113,10 +134,10 @@ function EditPetDetails({
             placeholder="Select Dog Breed"
             isSearchable
             isMulti
-            // value = pet breed
+            // value = {petBreed}
             components={animatedComponents}
           />
-        </div>
+        </div> */}
         <div className={styles["edit-pet-details-color"]}>
           <label for="color">Color(s)</label>
           <Select
@@ -127,7 +148,7 @@ function EditPetDetails({
             theme={SelectCustomTheme}
             placeholder="Select Pet Color(s)"
             isSearchable
-            value={recievedPetColors}
+            value={petColors}
             isMulti
           />
         </div>
@@ -139,7 +160,7 @@ function EditPetDetails({
             onChange={setPetAge}
             options={ageOptions}
             theme={SelectCustomTheme}
-            value={recievedPetAge}
+            value={petAge}
             placeholder="Select Pet Age"
             isSearchable
           />
@@ -153,11 +174,11 @@ function EditPetDetails({
             options={sizeOptions}
             theme={SelectCustomTheme}
             placeholder="Select Pet Size"
-            value={recievedPetSize}
+            value={petSize}
             isSearchable
           />
         </div>
-        <div className={styles["edit-pet-details-breed"]}>
+        {petType && petType.label === "Dog" && <div className={styles["edit-pet-details-breed"]}>
           <label for="breed">Breed</label>
           <Select
             id="breed"
@@ -169,10 +190,10 @@ function EditPetDetails({
             placeholder="Select Dog Breed"
             isSearchable
             isMulti
-            value={recievedDogBreeds}
+            value={dogBreed}
             components={animatedComponents}
           />
-        </div>
+        </div>}
         {petType && petType.label === "Cat" && (
           <div className={styles["edit-pet-details-breed"]}>
             <label for="breed">Breed</label>
@@ -181,12 +202,12 @@ function EditPetDetails({
               name="pet_breed"
               // onChange={updatePetBreed}
               onChange={setCatBreed}
-              options={catBreedOptions()}
+              options={catBreedOptions}
               theme={SelectCustomTheme}
               placeholder="Select Cat Breed"
               isSearchable
               isMulti
-              value={recievedCatBreeds}
+              value={catBreed}
               components={animatedComponents}
             />
           </div>
