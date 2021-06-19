@@ -24,7 +24,7 @@ function useCatBreedOptions() {
     axios
       .get("/api/cat-breeds") //get pet CatBreeds from database
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         localCache = response.data;
         setCatBreedOptions(localCache);
         setStatus("loaded");

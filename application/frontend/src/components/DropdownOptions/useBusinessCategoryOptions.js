@@ -24,7 +24,7 @@ function useBusinessCategoryOptions() {
     axios
       .get("/api/business-types") //get pet BusinessCategorys from database
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         localCache = response.data;
         setBusinessCategoryOptions(localCache);
         setStatus("loaded");

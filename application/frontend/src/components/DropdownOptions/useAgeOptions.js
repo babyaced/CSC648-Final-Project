@@ -23,7 +23,7 @@ function useAgeOptions() {
     axios
       .get("/api/ages") //get pet types from database
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         localCache = response.data;
         setAgeOptions(localCache);
         setStatus("loaded");

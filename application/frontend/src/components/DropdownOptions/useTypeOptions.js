@@ -24,7 +24,7 @@ function useTypeOptions() {
     axios
       .get("/api/pet-types") //get pet types from database
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         localCache = response.data;
         setTypeOptions(localCache);
         setStatus("loaded");
