@@ -63,6 +63,7 @@ function EditPetDetails({
     setPetName(profile.display_name)
   }, [profile])
 
+  //FIX THIS URGENTLY
   useEffect(() => {
     setPetType(recievedPetType)
     setDogBreed(recievedDogBreeds)

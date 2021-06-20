@@ -24,15 +24,10 @@ import useAgeOptions from "../DropdownOptions/useAgeOptions";
 import useSizeOptions from "../DropdownOptions/useSizeOptions";
 import useDogBreedOptions from "../DropdownOptions/useDogBreedOptions";
 import useCatBreedOptions from "../DropdownOptions/useCatBreedOptions";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
-function ProfileInfo({
-  profile,
-  appUser,
-  isSelfView,
-  updateProfile,
-  followingStatus,
-  isAdminView,
-}) {
+function ProfileInfo() {
+  const { profile, updateProfileHandler, appUser, editName } = useContext(ProfileContext)
   const [typeOptions] = useTypeOptions();
   const [colorOptions] = useColorOptions();
   const [ageOptions] = useAgeOptions();
@@ -109,7 +104,7 @@ function ProfileInfo({
 
   const [editing, setEditing] = useState(false);
 
-  const [follow, setFollow] = useState(followingStatus); // update this from backend
+  const [follow, setFollow] = useState(profile.followingStatus); // update this from backend
 
   const [petType, setPetType] = useState({});
   const [petBreeds, setPetBreed] = useState([{}]);
@@ -124,20 +119,16 @@ function ProfileInfo({
 
   const redirectContext = useContext(RedirectPathContext);
 
-  const [displayName, setDisplayName] = useState(profile.display_name);
-
-  const [profileType, setProfileType] = useState(profile.type);
-
   function editHandler() {
-    profileType === "Pet" ? setEditPetDetailsDisplay(true) : setEditing(true);
+    profile.type === "Pet" ? setEditPetDetailsDisplay(true) : setEditing(true);
   }
 
   function cancelEditHandler() {
     axios
       .post("/api/name", {
-        newFirstName: displayName,
+        newFirstName: profile.displayName,
       })
-      .then((res) => {});
+      .then((res) => { });
 
     setEditing(false);
   }
@@ -177,13 +168,13 @@ function ProfileInfo({
 
   let nameDisplay = null;
   let buttons = null;
-  switch (profileType) {
+  switch (profile.type) {
     case "Shelter":
     case "Business":
     case "PetOwner":
       buttons = (
         <>
-          {!isSelfView ? (
+          {!profile.selfView ? (
             <FollowMenu
               followingProfileOwnerFlag={follow}
               profile={profile}
@@ -197,7 +188,7 @@ function ProfileInfo({
               Followers
             </button>
           )}
-          {!isSelfView && (
+          {!profile.selfView && (
             <button className={styles.Button} onClick={sendAMessage}>
               Message
             </button>
@@ -209,7 +200,7 @@ function ProfileInfo({
       nameDisplay = (
         <>
           <div style={{ display: "flex" }}>
-            <h1 className={styles.UserName}>{displayName}</h1>
+            <h1 className={styles.UserName}>{profile.displayName}</h1>
             {/* <h3 style={{marginLeft: '10px'}} >
                             {petType.value ? petType.value : 'Type'}
                             /
@@ -220,7 +211,7 @@ function ProfileInfo({
       );
       buttons = (
         <>
-          {!isSelfView ? (
+          {!profile.selfView ? (
             <FollowMenu
               followingProfileOwnerFlag={follow}
               profile={profile}
@@ -234,7 +225,7 @@ function ProfileInfo({
               Followers
             </button>
           )}
-          {!isSelfView && (
+          {!profile.selfView && (
             <>
               <button
                 className={styles.Button}
@@ -257,20 +248,20 @@ function ProfileInfo({
   return (
     <div className={styles["profile-header"]}>
       <div className={styles["profile-pic-container"]}>
-        <ProfilePic isSelfView={isSelfView} profile={profile} />
+        <ProfilePic isSelfView={profile.selfView} profile={profile.profileInfo} />
       </div>
       <div className={styles["display-name-container"]}>
         <h1 className={styles["display-name"]}>
           <input
-            value={displayName}
+            value={profile.displayName}
             readOnly={!editing}
             maxLength="25"
-            onChange={(event) => setDisplayName(event.target.value)}
+            onChange={(event) => editName(event.target.value)}
           />
         </h1>
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
-        {isSelfView && !editing && (
+        {profile.selfView && !editing && (
           <EditButton
             style={{ fontSize: "var(--h5)" }}
             edit
@@ -279,7 +270,7 @@ function ProfileInfo({
             Edit
           </EditButton>
         )}
-        {isSelfView && editing && (
+        {profile.selfView && editing && (
           <EditButton
             style={{ fontSize: "var(--h5)" }}
             save
@@ -291,7 +282,7 @@ function ProfileInfo({
       </div>
       <div className={styles["button-container"]}>
         {buttons}
-        {isAdminView && !isSelfView && (
+        {profile.adminView && !profile.selfView && (
           <button
             className={styles["ban-button"]}
             onClick={() => setDeletionModalDisplay(true)}
@@ -302,10 +293,10 @@ function ProfileInfo({
       </div>
 
       {/* Modals */}
-      {profileType == "Pet" && (
+      {profile.type === "Pet" && (
         <EditPetDetails
           display={editPetDetailsDisplay}
-          updateProfile={updateProfile}
+          updateProfile={updateProfileHandler}
           profile={profile}
           onClose={() => setEditPetDetailsDisplay(false)}
           updatePetType={setPetType}

@@ -76,7 +76,7 @@ function ProfilePic({ profile, isSelfView }) {
       <img
         className={styles["profile-pic"]}
         src={profilePic}
-        alt="No Image Found"
+        alt="Profile Pic"
       />
       {isSelfView && (
         <div className={styles["editable-profile-pic-overlay"]}>
