@@ -51,6 +51,16 @@ function Profile({ appUser }) {
               </div>
             </>
           )}
+        {(profile.profileType === "Business" && (
+          <>
+            <div className={styles["photo-previews"]}>
+              <ImageContainer
+                title="Photos"
+                previews={profile.fetchedPhotoPosts}
+              />
+            </div>
+          </>
+        ))}
         {profile.profileType === "Pet" && (
           <>
             <div className={styles["photo-previews"]}>

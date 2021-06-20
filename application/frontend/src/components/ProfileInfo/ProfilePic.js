@@ -22,7 +22,7 @@ function ProfilePic() {
   //states
   const [loading, setLoading] = useState(false);
 
-  const onDrop = useCallback((acceptedFile) => {
+  const onDrop = (acceptedFile) => {
     let config = {
       headers: {
         "Content-type": "image/jpeg", //configure headers for put request to s3 bucket
@@ -63,7 +63,7 @@ function ProfilePic() {
       .catch((err) => {
         setLoading(false);
       });
-  });
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     //props for dropzone for
