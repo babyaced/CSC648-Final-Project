@@ -22,7 +22,9 @@ import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 function EditPetDetails({ display, onClose }) {
   console.log('editPetDetailsDisplay: ', display)
 
-  const { profile, typeOptions, colorOptions, ageOptions, sizeOptions, dogBreedOptions, catBreedOptions, editName } = useContext(ProfileContext)
+  const { profile, typeOptions, colorOptions, ageOptions, sizeOptions, dogBreedOptions, catBreedOptions, editName, editPetDetails } = useContext(ProfileContext)
+
+  console.log('editPetDetails Profile: ', profile)
 
 
   //function updatePet(){
@@ -34,6 +36,15 @@ function EditPetDetails({ display, onClose }) {
 
   //     })
   // }
+
+  //Holds the values that will be edited in the profile context when the form is submitted
+  const [localPetName, setLocalPetName] = useState(profile.displayName)
+  const [localPetType, setLocalPetType] = useState(profile.petType)
+  const [localPetAge, setLocalPetAge] = useState(profile.petAge)
+  const [localPetSize, setLocalPetSize] = useState(profile.petSize)
+  const [localPetColors, setLocalPetColors] = useState(profile.petColors)
+  const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds)
+  const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds)
 
   const animatedComponents = makeAnimated();
 
@@ -50,9 +61,9 @@ function EditPetDetails({ display, onClose }) {
             id="name"
             name="pet_name"
             maxLength="25"
-            value={profile.displayName}
+            value={localPetName}
             placeholder="Name"
-            onChange={(event) => editName(event.target.value)}
+            onChange={(event) => setLocalPetName(event.target.value)}
           />
         </div>
         <div className={styles["edit-pet-details-type"]}>
@@ -60,10 +71,10 @@ function EditPetDetails({ display, onClose }) {
           <Select
             id="type"
             name="pet_type"
-            // onChange={updatePetType}
+            onChange={setLocalPetType}
             options={typeOptions}
             theme={SelectCustomTheme}
-            value={profile.petType}
+            value={localPetType}
             placeholder="Select Pet Type"
             isSearchable
           />
@@ -88,12 +99,12 @@ function EditPetDetails({ display, onClose }) {
           <Select
             id="color"
             name="pet_color"
-            // onChange={setPetColors}
+            onChange={setLocalPetColors}
             options={colorOptions}
             theme={SelectCustomTheme}
             placeholder="Select Pet Color(s)"
             isSearchable
-            value={profile.petColors}
+            value={localPetColors}
             isMulti
           />
         </div>
@@ -102,10 +113,10 @@ function EditPetDetails({ display, onClose }) {
           <Select
             id="age"
             name="pet_age"
-            // onChange={setPetAge}
+            onChange={setLocalPetAge}
             options={ageOptions}
             theme={SelectCustomTheme}
-            value={profile.petAge}
+            value={localPetAge}
             placeholder="Select Pet Age"
             isSearchable
           />
@@ -115,11 +126,11 @@ function EditPetDetails({ display, onClose }) {
           <Select
             id="size"
             name="pet_size"
-            // onChange={setPetSize}
+            onChange={setLocalPetSize}
             options={sizeOptions}
             theme={SelectCustomTheme}
             placeholder="Select Pet Size"
-            value={profile.petSize}
+            value={localPetSize}
             isSearchable
           />
         </div>
@@ -128,14 +139,13 @@ function EditPetDetails({ display, onClose }) {
           <Select
             id="breed"
             name="pet_breed"
-            // onChange={updatePetBreed}
-            // onChange={setDogBreed}
+            onChange={setLocalDogBreeds}
             options={dogBreedOptions}
             theme={SelectCustomTheme}
             placeholder="Select Dog Breed"
             isSearchable
             isMulti
-            value={profile.dogBreed}
+            value={localDogBreeds}
             components={animatedComponents}
           />
         </div>}
@@ -145,14 +155,13 @@ function EditPetDetails({ display, onClose }) {
             <Select
               id="breed"
               name="pet_breed"
-              // onChange={updatePetBreed}
-              // onChange={setCatBreed}
+              onChange={setLocalCatBreeds}
               options={catBreedOptions}
               theme={SelectCustomTheme}
               placeholder="Select Cat Breed"
               isSearchable
               isMulti
-              value={profile.catBreed}
+              value={localCatBreeds}
               components={animatedComponents}
             />
           </div>

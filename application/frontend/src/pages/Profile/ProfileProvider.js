@@ -151,8 +151,8 @@ export const ProfileProvider = ({ appUser, children }) => {
                         petSize: {},
                         petAge: {},
                         petColors: [],
-                        dogBreed: [],
-                        catBreed: []
+                        dogBreeds: [],
+                        catBreeds: []
                     }
 
                     //console.log('fetchedProfile: ', fetchedProfile)
