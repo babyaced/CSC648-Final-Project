@@ -268,10 +268,18 @@ export const ProfileProvider = ({ appUser, children }) => {
         })
     }, [dispatch])
 
-    const editPetDetails = useCallback(() => {
-        //console.log('newPetDetails')
+    const editPetDetails = useCallback((newPetDetails) => {
+        console.log('newPetDetails', newPetDetails)
         dispatch({
             type: PET_DETAILS_EDIT,
+            payload: {
+                newPetType: newPetDetails.newType,
+                newPetAge: newPetDetails.newAge,
+                newPetSize: newPetDetails.newSize,
+                newPetColors: newPetDetails.newColors,
+                newDogBreeds: newPetDetails.newCatBreeds,
+                newCatBreeds: newPetDetails.newCatBreeds
+            }
         })
     }, [dispatch])
 

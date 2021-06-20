@@ -32,15 +32,28 @@ function EditPetDetails({ display, onClose }) {
 
   console.log('editPetDetails Profile.catBreeds: ', profile.catBreeds)
 
-  //function updatePet(){
-  //     axios.post('/api/edit-pet',{})
-  //     .then((response) =>{
+  function updatePetDetails(event) {
+    event.preventDefault()
+    editPetDetails(
+      {
+        newName: localPetName,
+        newType: localPetType,
+        newAge: localPetAge,
+        newSize: localPetSize,
+        newColors: localPetColors,
+        newDogBreeds: localDogBreeds,
+        newCatBreeds: localCatBreeds
+      }
+    )
+    onClose();
+    //  axios.post('/api/edit-pet',{})
+    //  .then((response) =>{
 
-  //     })
-  //     .catch((err) =>{
+    //  })
+    //  .catch((err) =>{
 
-  //     })
-  // }
+    //  })
+  }
 
 
   //Holds the values that will be edited in the profile context when the form is submitted
@@ -59,7 +72,7 @@ function EditPetDetails({ display, onClose }) {
       <div className={styles["edit-pet-details-header"]}>
         Edit Pet Information
       </div>
-      <div className={styles["edit-pet-details-container"]}>
+      <form className={styles["edit-pet-details-container"]} onSubmit={updatePetDetails}>
         <div className={styles["edit-pet-details-name"]}>
           <label for="name">Name</label>
           <input
@@ -140,7 +153,7 @@ function EditPetDetails({ display, onClose }) {
             isSearchable
           />
         </div>
-        {profile.petType && profile.petType.label === "Dog" && <div className={styles["edit-pet-details-breed"]}>
+        {localPetType && localPetType.label === "Dog" && <div className={styles["edit-pet-details-breed"]}>
           <label for="breed">Breed</label>
           <Select
             id="breed"
@@ -155,7 +168,7 @@ function EditPetDetails({ display, onClose }) {
             components={animatedComponents}
           />
         </div>}
-        {profile.petType && profile.petType.label === "Cat" && (
+        {localPetType && localPetType.label === "Cat" && (
           <div className={styles["edit-pet-details-breed"]}>
             <label for="breed">Breed</label>
             <Select
@@ -172,10 +185,10 @@ function EditPetDetails({ display, onClose }) {
             />
           </div>
         )}
-        <button className={styles["edit-pet-details-submit"]} onClick={onClose}>
+        <button className={styles["edit-pet-details-submit"]} type="submit">
           Submit
         </button>
-      </div>
+      </form>
     </Modal>
   );
 }
