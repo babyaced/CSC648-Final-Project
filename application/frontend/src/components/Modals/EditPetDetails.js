@@ -20,6 +20,7 @@ import useDogBreedOptions from "../DropdownOptions/useDogBreedOptions";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function EditPetDetails({ display, onClose }) {
+  console.log('editPetDetailsDisplay: ', display)
 
   const { profile, typeOptions, colorOptions, ageOptions, sizeOptions, dogBreedOptions, catBreedOptions, editName } = useContext(ProfileContext)
 

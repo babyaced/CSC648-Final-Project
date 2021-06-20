@@ -44,9 +44,11 @@ function ProfileInfo() {
   const location = useLocation();
 
   function editHandler() {
-    //console.log(profile.profileType)
-    //console.log('clicked')
-    profile.profileType === "Pet" ? setEditPetDetailsDisplay(true) : setEditing(true);
+    console.log(profile.profileType)
+    console.log('clicked')
+    profile.profileType === "Pet" ?
+      setEditPetDetailsDisplay(true) :
+      setEditing(true);
   }
 
   function cancelEditHandler() {
@@ -214,7 +216,7 @@ function ProfileInfo() {
       </div>
 
       {/* Modals */}
-      {profile.type === "Pet" && (
+      {profile.profileType === "Pet" && (
         <EditPetDetails
           display={editPetDetailsDisplay}
           onClose={() => setEditPetDetailsDisplay(false)}
