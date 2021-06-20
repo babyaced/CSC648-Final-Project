@@ -44,50 +44,40 @@ function Profile({ appUser }) {
             updateProfile={updateProfileHandler}
           />
         </div>
-        {/* {(profile.profileInfo.type === "Admin" ||
-          profile.profileInfo.type === "PetOwner" ||
-          profile.profileInfo.type === "Shelter") && (
+        {(profile.profileType === "Admin" ||
+          profile.profileType === "PetOwner" ||
+          profile.profileType === "Shelter") && (
             <>
               <div className={styles["photo-previews"]}>
                 <ImageContainer
                   title="Photos"
                   previews={profile.fetchedPhotoPosts}
-                  selfView={profile.selfView}
-                  type={profile.profileInfo.type}
-                  profile={profile.profileInfo}
                 />
               </div>
               <div className={styles["pet-previews"]}>
                 <ImageContainer
                   title="Pets"
                   previews={profile.fetchedPets}
-                  type={profile.profileInfo.type}
-                  profile={profile.profileInfo}
                 />
               </div>
             </>
           )}
-        {profile.profileInfo.type === "Pet" && (
+        {profile.profileType === "Pet" && (
           <>
             <div className={styles["photo-previews"]}>
               <ImageContainer
                 title="Photos"
                 previews={profile.taggedPosts}
-                selfView={profile.selfView}
-                type={profile.profileInfo.type}
-                profile={profile.profileInfo}
               />
             </div>
             <div className={styles["pet-previews"]}>
               <ImageContainer
                 title="Siblings"
                 previews={profile.fetchedPets}
-                type={profile.profileInfo.type}
-                profile={profile.profileInfo}
               />
             </div>
           </>
-        )} */}
+        )}
       </>
 
     </div>

@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import styles from "./ImageContainer.module.css";
 
 import PostModal from "../../Modals/PostModal";
+import { ProfileContext } from "../../../pages/Profile/ProfileProvider";
 
-function ImageContainer({ previews, profile, title, selfView }) {
+function ImageContainer({ title, previews }) {
   // console.log('previews',previews);
+
+  const { profile } = useContext(ProfileContext)
   const [postModalDisplay, setPostModalDisplay] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
 
+  console.log('profile: imageContainer: ', profile)
   console.log("previews:", previews);
 
   let history = useHistory();
@@ -37,23 +41,23 @@ function ImageContainer({ previews, profile, title, selfView }) {
         <h3>No Photos to show</h3>
       </div>
     );
-    selfView //this won't work because the user will still able to go to photos/:profileId by directUrl, it will be better to check ownership on the page itself
+    profile.selfView //this won't work because the user will still able to go to photos/:profileId by directUrl, it will be better to check ownership on the page itself
       ? (seeAll = (
-          <Link
-            className={styles["see-all-link"]}
-            to={"/Photos/" + profile.profile_id}
-          >
-            See All
-          </Link>
-        ))
+        <Link
+          className={styles["see-all-link"]}
+          to={"/Photos/" + profile.profile_id}
+        >
+          See All
+        </Link>
+      ))
       : (seeAll = (
-          <Link
-            className={styles["see-all-link"]}
-            to={"/Photos/" + profile.profile_id}
-          >
-            See All
-          </Link>
-        ));
+        <Link
+          className={styles["see-all-link"]}
+          to={"/Photos/" + profile.profile_id}
+        >
+          See All
+        </Link>
+      ));
   } else if (title === "My Pets") {
     placeholder = (
       <div className={styles.EmptyDiv}>
@@ -105,7 +109,7 @@ function ImageContainer({ previews, profile, title, selfView }) {
                 >
                   <img src={preview.profile_pic_link} alt="Not Found" />
                   <div className={styles.previewCardNamePlate}>
-                    {previews[index].display_name}
+                    {limitedPreviews[index].display_name}
                   </div>
                 </div>
               );
