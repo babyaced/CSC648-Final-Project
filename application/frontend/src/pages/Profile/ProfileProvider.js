@@ -53,14 +53,33 @@ const reducer = (state, action) => {
     }
 
     if (action.type === INITIALIZE_PET_DETAILS) {
+        console.log('action.payload.petColors', action.payload.petColors)
+        console.log('action.payload.catBreeds', action.payload.catBreeds)
+        console.log('action.payload.dogBreeds', action.payload.dogBreeds)
+        let colorsArray = []
+        let i
+        for (i = 0; i < action.payload.petColors.length; i++) {
+            colorsArray.push(JSON.parse(action.payload.petColors[i]));
+        }
+        let catBreedsArray = []
+        for (i = 0; i < action.payload.catBreeds.length; i++) {
+            catBreedsArray.push(JSON.parse(action.payload.catBreeds[i]));
+        }
         //console.log('action', action)
+        let dogBreedsArray = []
+        for (i = 0; i < action.payload.dogBreeds.length; i++) {
+            dogBreedsArray.push(JSON.parse(action.payload.dogBreeds[i]));
+        }
+
+
+
         return Object.assign({}, state, {
-            petType: action.payload.petType,
-            petAge: action.payload.petAge,
-            petSize: action.payload.petSize,
-            petColors: action.payload.petColors,
-            dogBreeds: action.payload.dogBreeds,
-            catBreeds: action.payload.catBreeds
+            petType: JSON.parse(action.payload.petType),
+            petAge: JSON.parse(action.payload.petAge),
+            petSize: JSON.parse(action.payload.petSize),
+            petColors: colorsArray,
+            dogBreeds: dogBreedsArray,
+            catBreeds: catBreedsArray
         })
     }
 

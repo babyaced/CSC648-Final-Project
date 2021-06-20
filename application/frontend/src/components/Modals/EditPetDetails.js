@@ -11,12 +11,6 @@ import axios from "axios";
 
 import SelectCustomTheme from "../../mods/SelectCustomTheme";
 
-import useTypeOptions from "../DropdownOptions/useTypeOptions";
-import useColorOptions from "../DropdownOptions/useColorOptions";
-import useAgeOptions from "../DropdownOptions/useAgeOptions";
-import useSizeOptions from "../DropdownOptions/useSizeOptions";
-import useCatBreedOptions from "../DropdownOptions/useCatBreedOptions";
-import useDogBreedOptions from "../DropdownOptions/useDogBreedOptions";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function EditPetDetails({ display, onClose }) {
@@ -48,11 +42,12 @@ function EditPetDetails({ display, onClose }) {
   //     })
   // }
 
+
   //Holds the values that will be edited in the profile context when the form is submitted
   const [localPetName, setLocalPetName] = useState(profile.displayName)
-  const [localPetType, setLocalPetType] = useState(JSON.parse(profile.petType))
-  const [localPetAge, setLocalPetAge] = useState(JSON.parse(profile.petAge))
-  const [localPetSize, setLocalPetSize] = useState(JSON.parse(profile.petSize))
+  const [localPetType, setLocalPetType] = useState(profile.petType)
+  const [localPetAge, setLocalPetAge] = useState(profile.petAge)
+  const [localPetSize, setLocalPetSize] = useState(profile.petSize)
   const [localPetColors, setLocalPetColors] = useState(profile.petColors)
   const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds)
   const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds)

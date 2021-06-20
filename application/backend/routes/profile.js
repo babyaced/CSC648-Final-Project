@@ -355,7 +355,7 @@ router.get("/api/pet-details", (req, res) => {
           petType: type,
           petAge: age,
           petSize: size,
-          colors: colorSelectOptions,
+          petColors: colorSelectOptions,
           dogBreeds: dogBreedSelectOptions,
           catBreeds: catBreedSelectOptions,
         });
