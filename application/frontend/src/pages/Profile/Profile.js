@@ -30,14 +30,7 @@ function Profile({ appUser }) {
     <div className={`${styles["Profile"]} ${"wide-container"}`}>
       <>
         <div className={styles["profile-info"]}>
-          <ProfileInfo
-            appUser={appUser}
-            isSelfView={profile.selfView}
-            profile={profile.profileInfo}
-            updateProfile={updateProfileHandler}
-            followingStatus={profile.followingStatus}
-            isAdminView={profile.adminView}
-          />
+          <ProfileInfo />
         </div>
         <div className={styles["about-me"]}>
           <AboutMe
@@ -51,7 +44,7 @@ function Profile({ appUser }) {
             updateProfile={updateProfileHandler}
           />
         </div>
-        {(profile.profileInfo.type === "Admin" ||
+        {/* {(profile.profileInfo.type === "Admin" ||
           profile.profileInfo.type === "PetOwner" ||
           profile.profileInfo.type === "Shelter") && (
             <>
@@ -94,7 +87,7 @@ function Profile({ appUser }) {
               />
             </div>
           </>
-        )}
+        )} */}
       </>
 
     </div>

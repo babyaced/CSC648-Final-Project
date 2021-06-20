@@ -1,5 +1,5 @@
 //Import Libraries
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 
@@ -8,17 +8,19 @@ import Loader from "../UI/Spinner/ButtonLoader";
 
 //Import CSS
 import styles from "./ProfilePic.module.css";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 //make this into environment variable before deploying!
 const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
-function ProfilePic({ profile, isSelfView }) {
+function ProfilePic() {
   console.log(apiGatewayURL);
+
+  const { profile, editProfilePic } = useContext(ProfileContext)
 
   //states
   const [loading, setLoading] = useState(false);
-  const [profilePic, setProfilePic] = useState(profile.profile_pic_link);
 
   const onDrop = useCallback((acceptedFile) => {
     let config = {
@@ -43,7 +45,7 @@ function ProfilePic({ profile, isSelfView }) {
                 profileType: profile.type,
               })
               .then((response) => {
-                setProfilePic(presignedFileURL);
+                editProfilePic(presignedFileURL);
                 setLoading(false);
               })
               .catch((err) => {
@@ -52,7 +54,7 @@ function ProfilePic({ profile, isSelfView }) {
           })
           .catch((err) => {
             setLoading(false);
-            if (err.response.status == 403) {
+            if (err.response.status === 403) {
               //display error message to user
             }
             //break out of this function //presigned s3 url will automatically expire so no harm done
@@ -75,10 +77,10 @@ function ProfilePic({ profile, isSelfView }) {
     <>
       <img
         className={styles["profile-pic"]}
-        src={profilePic}
+        src={profile.profilePic}
         alt="Profile Pic"
       />
-      {isSelfView && (
+      {profile.selfView && (
         <div className={styles["editable-profile-pic-overlay"]}>
           <section>
             <div {...getRootProps()}>

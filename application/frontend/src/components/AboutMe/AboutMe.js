@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import EditAddress from "../../components/Modals/EditAddress";
 
@@ -10,25 +10,21 @@ import styles from "./AboutMe.module.css";
 import EditBusinessHours from "../../components/Modals/EditBusinessHours";
 import axios from "axios";
 import BusinessInfo from "./BusinessInfo";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 const shelterProfileTabs = ["About", "Contact Info"]; //, "Recent Posts"]
 const businessProfileTabs = ["About", "Business Info"]; //, "Recent Posts"]
 const petOwnerProfileTabs = ["About"]; //, "Recent Posts"]
 
-function AboutMe({
-  aboutMeBody,
-  profile,
-  updateProfile,
-  isSelfView,
-  address,
-  phoneNumber,
-  hours,
-  profileID,
-}) {
+function AboutMe() {
   //not sure if these need to have state yet
   let latitude;
   let longitude;
   //not sure if these need to have state yet
+
+  const { profile, profileID, editAboutMe } = useContext(ProfileContext);
+  console.log('profile', profile)
+  console.log('profileID', profileID)
 
   const [selected, setSelected] = useState("About");
   const [changing, setChanging] = useState(false);
@@ -37,7 +33,6 @@ function AboutMe({
   const [editHoursDisplay, setEditHoursDisplay] = useState(false);
   const [editAddressDisplay, setEditAddressDisplay] = useState(false);
 
-  const [aboutMeContent, setAboutMeContent] = useState(aboutMeBody);
   const [phone, setPhone] = useState();
   const [location, setLocation] = useState();
   const [hoursState, setHoursState] = useState({});
@@ -49,21 +44,21 @@ function AboutMe({
         .then((response) => {
           setHoursState(response.data);
         })
-        .catch((err) => {});
+        .catch((err) => { });
 
       axios
         .get("/api/business-address", { params: { profileID: profileID } })
         .then((response) => {
           setLocation(response.data.address);
         })
-        .catch((err) => {});
+        .catch((err) => { });
 
       axios
         .get("/api/business-phone-number", { params: { profileID: profileID } })
         .then((response) => {
           setPhone(response.data.phone_num);
         })
-        .catch((err) => {});
+        .catch((err) => { });
     }
   }, [profileID]);
 
@@ -78,8 +73,8 @@ function AboutMe({
   function submitAboutMeEdit() {
     axios
       .post("/api/about-me", {
-        newAboutMe: aboutMeContent,
-        profileID: profile.profile_id,
+        newAboutMe: profile.aboutMe,
+        profileID: profileID,
       })
       .then((response) => {
         console.log(response);
@@ -156,12 +151,11 @@ function AboutMe({
         <>
           <textarea
             className={styles["text-area"]}
-            placeholder="Write down something to share with others😃"
-            value={aboutMeContent}
-            onChange={(event) => setAboutMeContent(event.target.value)}
+            value={profile.aboutMe}
+            onChange={(event) => editAboutMe(event.target.value)}
             readOnly={!changing || !(labelSelected === "about")}
           />
-          {isSelfView &&
+          {profile.selfView &&
             (labelSelected !== "about" ? (
               <EditButton
                 style={{ fontSize: "var(--h5)" }}
@@ -191,7 +185,7 @@ function AboutMe({
         <BusinessInfo
           hoursState={hoursState}
           displayEditHoursModal={displayEditHoursModal}
-          isSelfView={isSelfView}
+          isSelfView={profile.selfView}
           labelSelected={labelSelected}
           phone={phone}
           phoneSetter={phoneSetter}

@@ -309,6 +309,8 @@ function ProfileInfo() {
           recievedCatBreeds={recievedCatBreeds}
         />
       )}
+
+      {/* Modals */}
       <SendProfileMessage
         display={sendAMessageDisplay}
         profile={profile}

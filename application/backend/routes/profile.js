@@ -58,6 +58,7 @@ router.get("/api/profile", (req, res) => {
         //if the logged in user is an admin
         adminViewFlag = true;
       }
+      console.log('profile[0]', profile[0])
       let response = {
         profile: profile[0],
         selfView: selfViewFlag,

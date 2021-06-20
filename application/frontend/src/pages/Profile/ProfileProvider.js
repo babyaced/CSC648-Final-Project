@@ -15,6 +15,8 @@ const INITIALIZE = 'INITIALIZE'
 
 //SELF VIEW
 
+const ABOUT_ME_EDIT = 'ABOUT_ME_EDIT'
+
 //Pet Owner Profile
 const NAME_EDIT = 'NAME_EDIT'
 
@@ -22,7 +24,10 @@ const NAME_EDIT = 'NAME_EDIT'
 const PET_TYPE_EDIT = 'PET_TYPE_EDIT'
 const PET_BREED_EDIT = 'PET_BREED_EDIT'
 
+const PROFILE_PIC_EDIT = 'PROFILE_PIC_EDIT'
+
 //Business Profile
+const HOURS_EDIT = 'HOURS_EDIT'
 const ADDRESS_EDIT = 'ADDRESS_EDIT'
 
 //Shelter Profile
@@ -50,9 +55,18 @@ const reducer = (state, action) => {
 
     }
 
+    if (action.type === PROFILE_PIC_EDIT) {
+        return Object.assign({}, state, { profilePic: action.payload.newURL })
+    }
+
     if (action.type === NAME_EDIT) {
         console.log('action', action)
         return Object.assign({}, state, { displayName: action.payload.newName })
+    }
+
+    if (action.type === ABOUT_ME_EDIT) {
+        console.log('action', action)
+        return Object.assign({}, state, { aboutMe: action.payload.newAboutMe })
     }
 }
 
@@ -64,8 +78,8 @@ export const ProfileProvider = ({ appUser, children }) => {
     // const [dogBreedOptions] = useDogBreedOptions();
     // const [catBreedOptions] = useCatBreedOptions();
 
-
     const { profileID } = useParams();
+    console.log('profileID: ', profileID)
 
     const [loading, setLoading] = useState(true);
 
@@ -76,19 +90,11 @@ export const ProfileProvider = ({ appUser, children }) => {
     //Get initial profile state from database here
     useEffect(() => {
         setLoading(true)
-        const getProfile = axios.get("/api/profile", { params: { profileID: profileID }, });
-        const getPhotoPosts = axios.get("/api/photo-posts", {
-            params: { profileID: profileID },
-        });
-        const getCurrentUserPets = axios.get("/api/pets", {
-            params: { profileID: profileID },
-        });
-        const getTaggedPosts = axios.get("/api/tagged-posts", {
-            params: { profileID: profileID },
-        });
-        const getIsFollowing = axios.get("/api/is-following", {
-            params: { profileID: profileID },
-        });
+        const getProfile = axios.get("/api/profile", { params: { profileID: profileID } });
+        const getPhotoPosts = axios.get("/api/photo-posts", { params: { profileID: profileID } });
+        const getCurrentUserPets = axios.get("/api/pets", { params: { profileID: profileID } });
+        const getTaggedPosts = axios.get("/api/tagged-posts", { params: { profileID: profileID } });
+        const getIsFollowing = axios.get("/api/is-following", { params: { profileID: profileID } });
 
         Promise.all([
             getProfile,
@@ -103,13 +109,16 @@ export const ProfileProvider = ({ appUser, children }) => {
                     history.push("/Feed");
                 }
 
-                console.log('display name: ', responses[0].data.profile.display_name)
+                console.log('responses[0].data.profile: ', responses[0].data.profile)
 
                 let fetchedProfile =
                 {
                     displayName: responses[0].data.profile.display_name,
-                    aboutMe: responses[0].data.profile.aboutMe,
-                    profileInfo: responses[0].data.profile,
+                    aboutMe: responses[0].data.profile.about_me,
+                    profilePic: responses[0].data.profile.profile_pic_link,
+                    profileType: responses[0].data.type,
+                    profileId: responses[0].data.profile.profile_id,
+                    accountId: responses[0].data.profile.account_id,
                     selfView: responses[0].data.selfView,
                     adminView: responses[0].data.adminView,
                     fetchedPhotoPosts: responses[1].data,
@@ -150,6 +159,30 @@ export const ProfileProvider = ({ appUser, children }) => {
         })
     }, [dispatch])
 
+    const editProfilePic = useCallback(newURL => {
+        console.log('newURL', newURL)
+        dispatch({
+            type: NAME_EDIT,
+            payload: { newURL }
+        })
+    }, [dispatch])
+
+    const editHours = useCallback(newHours => {
+        console.log('newHours', newHours)
+        dispatch({
+            type: HOURS_EDIT,
+            payload: { newHours }
+        })
+    }, [dispatch])
+
+    const editAboutMe = useCallback(newAboutMe => {
+        console.log('newHours', newAboutMe)
+        dispatch({
+            type: ABOUT_ME_EDIT,
+            payload: { newAboutMe }
+        })
+    }, [dispatch])
+
     const [userProfile, setUserProfile] = useState();
 
     function updateProfileHandler(type, value) {
@@ -169,7 +202,7 @@ export const ProfileProvider = ({ appUser, children }) => {
         }
     }
 
-    const provisions = { profile, loading, profileID, editPetType, editName, updateProfileHandler, appUser }
+    const provisions = { profile, loading, profileID, editPetType, editName, updateProfileHandler, appUser, editProfilePic, editAboutMe }
 
     return (<>
         {loading && <Spinner />}
