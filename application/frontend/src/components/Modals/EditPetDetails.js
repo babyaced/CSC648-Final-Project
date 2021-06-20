@@ -26,6 +26,17 @@ function EditPetDetails({ display, onClose }) {
 
   console.log('editPetDetails Profile: ', profile)
 
+  console.log('editPetDetails Profile.petType: ', profile.petType)
+
+  console.log('editPetDetails Profile.petSize: ', profile.petSize)
+
+  console.log('editPetDetails Profile.petAge: ', profile.petAge)
+
+  console.log('editPetDetails Profile.petColors: ', profile.petColors)
+
+  console.log('editPetDetails Profile.dogBreeds: ', profile.dogBreeds)
+
+  console.log('editPetDetails Profile.catBreeds: ', profile.catBreeds)
 
   //function updatePet(){
   //     axios.post('/api/edit-pet',{})
@@ -39,9 +50,9 @@ function EditPetDetails({ display, onClose }) {
 
   //Holds the values that will be edited in the profile context when the form is submitted
   const [localPetName, setLocalPetName] = useState(profile.displayName)
-  const [localPetType, setLocalPetType] = useState(profile.petType)
-  const [localPetAge, setLocalPetAge] = useState(profile.petAge)
-  const [localPetSize, setLocalPetSize] = useState(profile.petSize)
+  const [localPetType, setLocalPetType] = useState(JSON.parse(profile.petType))
+  const [localPetAge, setLocalPetAge] = useState(JSON.parse(profile.petAge))
+  const [localPetSize, setLocalPetSize] = useState(JSON.parse(profile.petSize))
   const [localPetColors, setLocalPetColors] = useState(profile.petColors)
   const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds)
   const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds)
