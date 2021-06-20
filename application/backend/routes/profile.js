@@ -246,7 +246,7 @@ router.post("/api/name", (req, res) => {
 
 router.get("/api/pet-details", (req, res) => {
   console.log("GET /api/pet-details");
-  // console.log(req.query)
+  console.log(req.query)
   const {
     petID,
     typeOptions,
