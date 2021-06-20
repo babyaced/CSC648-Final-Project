@@ -24,8 +24,6 @@ function Profile({ appUser }) {
 
   // switch profile type by changing the userProfile Ex: shelterProfile, businessProfile, newBusinessProfile and petOwnerProfile
 
-
-
   return (
     <div className={`${styles["Profile"]} ${"wide-container"}`}>
       <>
@@ -33,16 +31,7 @@ function Profile({ appUser }) {
           <ProfileInfo />
         </div>
         <div className={styles["about-me"]}>
-          <AboutMe
-            aboutMeBody={profile.about_me}
-            hours={profile.hours}
-            phoneNumber={profile.phoneNumber}
-            address={profile.address}
-            isSelfView={profile.selfView}
-            profile={profile.profileInfo}
-            profileID={profileID}
-            updateProfile={updateProfileHandler}
-          />
+          <AboutMe />
         </div>
         {(profile.profileType === "Admin" ||
           profile.profileType === "PetOwner" ||
