@@ -35,23 +35,8 @@ function Profile({ appUser }) {
         </div>
         {(profile.profileType === "Admin" ||
           profile.profileType === "PetOwner" ||
-          profile.profileType === "Shelter") && (
-            <>
-              <div className={styles["photo-previews"]}>
-                <ImageContainer
-                  title="Photos"
-                  previews={profile.fetchedPhotoPosts}
-                />
-              </div>
-              <div className={styles["pet-previews"]}>
-                <ImageContainer
-                  title="Pets"
-                  previews={profile.fetchedPets}
-                />
-              </div>
-            </>
-          )}
-        {(profile.profileType === "Business" && (
+          profile.profileType === "Shelter" ||
+          profile.profileType === "Business") &&
           <>
             <div className={styles["photo-previews"]}>
               <ImageContainer
@@ -60,7 +45,19 @@ function Profile({ appUser }) {
               />
             </div>
           </>
-        ))}
+        }
+        {(profile.profileType === "Admin" ||
+          profile.profileType === "PetOwner" ||
+          profile.profileType === "Shelter") &&
+          <>
+            <div className={styles["pet-previews"]}>
+              <ImageContainer
+                title="Pets"
+                previews={profile.fetchedPets}
+              />
+            </div>
+          </>}
+
         {profile.profileType === "Pet" && (
           <>
             <div className={styles["photo-previews"]}>
