@@ -39,7 +39,7 @@ function NavBarRight({
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 
@@ -53,7 +53,7 @@ function NavBarRight({
   }
 
   if (windowSize.width > 450) {
-    console.log("closing mobile search bar");
+    //console.log("closing mobile search bar");
     closeMobileSearchBar();
   }
 

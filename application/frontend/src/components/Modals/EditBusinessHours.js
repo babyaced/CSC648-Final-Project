@@ -102,7 +102,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
         onClose();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 

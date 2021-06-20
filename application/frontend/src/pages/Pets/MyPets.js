@@ -60,7 +60,7 @@ function MyPets() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }, []);
 
@@ -71,7 +71,7 @@ function MyPets() {
         setDeletionModalDisplay(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 
@@ -111,7 +111,7 @@ function MyPets() {
         colorOptions={colorOptions}
         sizeOptions={sizeOptions}
         ageOptions={ageOptions}
-        // update={() => setUpdate(!update)}
+      // update={() => setUpdate(!update)}
       />
     </>
   );

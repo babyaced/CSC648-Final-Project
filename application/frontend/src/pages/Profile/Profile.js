@@ -15,12 +15,7 @@ import axios from "axios";
 import { ProfileContext } from './ProfileProvider';
 
 function Profile({ appUser }) {
-  const { profile, profileID, loading, updateProfileHandler } = useContext(ProfileContext)
-  console.log(loading);
-
-  if (profile) {
-    console.log(profile)
-  }
+  const { profile } = useContext(ProfileContext)
 
   // switch profile type by changing the userProfile Ex: shelterProfile, businessProfile, newBusinessProfile and petOwnerProfile
 

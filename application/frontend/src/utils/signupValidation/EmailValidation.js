@@ -2,7 +2,7 @@ import React from "react";
 
 function EmailValidation(email) {
   let emailErr = "";
-  console.log("email: ", email);
+  //console.log("email: ", email);
 
   if (!email) {
     emailErr = "Please enter an Email";

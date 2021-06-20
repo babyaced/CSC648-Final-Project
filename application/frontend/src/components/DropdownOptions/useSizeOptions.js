@@ -10,10 +10,10 @@ function useSizeOptions() {
 
   useEffect(() => {
     if (!localCache.length) {
-      console.log("fetching Size options from db");
+      //console.log("fetching Size options from db");
       requestSizeOptions();
     } else {
-      console.log("using Size options from cache");
+      //console.log("using Size options from cache");
       setSizeOptions(localCache);
     }
   }, []);
@@ -24,13 +24,13 @@ function useSizeOptions() {
     axios
       .get("/api/sizes") //get pet sizes from database
       .then((response) => {
-        //console.log(response);
+        ////console.log(response);
         localCache = response.data;
         setSizeOptions(localCache);
         setStatus("loaded");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
   return [sizeOptions, status];

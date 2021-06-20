@@ -28,11 +28,11 @@ function SendMessage({ display, onClose, profile, recipientOptions }) {
         recipientProfileID: recipient[0].value, //contains profile id
       })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         onClose();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         //display Error message e.g: try again
       });
   }

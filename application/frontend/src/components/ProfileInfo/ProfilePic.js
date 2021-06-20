@@ -15,7 +15,7 @@ const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
 function ProfilePic() {
-  console.log(apiGatewayURL);
+  //console.log(apiGatewayURL);
 
   const { profile, editProfilePic } = useContext(ProfileContext)
 

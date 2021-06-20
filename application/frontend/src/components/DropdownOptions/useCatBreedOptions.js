@@ -10,10 +10,10 @@ function useCatBreedOptions() {
 
   useEffect(() => {
     if (!localCache.length) {
-      console.log("fetching CatBreed options from db");
+      //console.log("fetching CatBreed options from db");
       requestCatBreedOptions();
     } else {
-      console.log("using CatBreed options from cache");
+      //console.log("using CatBreed options from cache");
       setCatBreedOptions(localCache);
     }
   }, []);
@@ -24,13 +24,13 @@ function useCatBreedOptions() {
     axios
       .get("/api/cat-breeds") //get pet CatBreeds from database
       .then((response) => {
-        //console.log(response);
+        ////console.log(response);
         localCache = response.data;
         setCatBreedOptions(localCache);
         setStatus("loaded");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
   return [catBreedOptions, status];

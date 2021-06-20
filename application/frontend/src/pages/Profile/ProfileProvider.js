@@ -46,14 +46,14 @@ const FOLLOW_USER = 'FOLLOW_USER'
 
 
 const reducer = (state, action) => {
-    console.log('state: ', state, 'action: ', action)
+    //console.log('state: ', state, 'action: ', action)
 
     if (action.type === INITIALIZE_PROFILE) {
         return Object.assign({}, state, action.payload.fetchedProfile)
     }
 
     if (action.type === INITIALIZE_PET_DETAILS) {
-        console.log('action', action)
+        //console.log('action', action)
         return Object.assign({}, state, {
             petType: action.payload.petType,
             petAge: action.payload.petAge,
@@ -80,12 +80,12 @@ const reducer = (state, action) => {
     }
 
     if (action.type === NAME_EDIT) {
-        console.log('action', action)
+        //console.log('action', action)
         return Object.assign({}, state, { displayName: action.payload.newName })
     }
 
     if (action.type === ABOUT_ME_EDIT) {
-        console.log('action', action)
+        //console.log('action', action)
         return Object.assign({}, state, { aboutMe: action.payload.newAboutMe })
     }
 }
@@ -99,11 +99,11 @@ export const ProfileProvider = ({ appUser, children }) => {
     const [catBreedOptions] = useCatBreedOptions();
 
     const { profileID } = useParams();
-    console.log('profileID: ', profileID)
+    //console.log('profileID: ', profileID)
 
     const [loading, setLoading] = useState(true);
 
-    console.log('profile id from profile provider', profileID)
+    //console.log('profile id from profile provider', profileID)
     const history = useHistory();
 
 
@@ -120,12 +120,17 @@ export const ProfileProvider = ({ appUser, children }) => {
 
             Promise.all([getProfile, getPhotoPosts, getCurrentUserPets, getTaggedPosts, getIsFollowing])
                 .then((responses) => {
+                    console.log('responses[0].data', responses[0].data)
+                    console.log('responses[1].data', responses[1].data)
+                    console.log('responses[2].data', responses[2].data)
+                    console.log('responses[3].data', responses[3].data)
+                    console.log('responses[4].data', responses[4].data)
                     if (!responses[0].data.profile) {
                         //if the profile doesn't exist, redirect user
                         history.push("/Feed");
                     }
 
-                    console.log('responses[0].data.profile: ', responses[0].data.profile)
+                    //console.log('responses[0].data.profile: ', responses[0].data.profile)
 
                     fetchedProfile =
                     {
@@ -150,7 +155,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                         catBreed: []
                     }
 
-                    console.log('fetchedProfile: ', fetchedProfile)
+                    //console.log('fetchedProfile: ', fetchedProfile)
                     dispatch({
                         type: INITIALIZE_PROFILE,
                         payload: { fetchedProfile }
@@ -158,7 +163,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                 })
                 .then(() => {
                     if (fetchedProfile.petId) {
-                        console.log('fetchedProfile.petId: ', fetchedProfile.petId)
+                        //console.log('fetchedProfile.petId: ', fetchedProfile.petId)
                         axios.get("/api/pet-details", {
                             params: {
                                 petID: fetchedProfile.petId,
@@ -171,7 +176,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                             }
                         })
                             .then((res) => {
-                                console.log('res.data: ', res.data)
+                                //console.log('res.data: ', res.data)
                                 dispatch({
                                     type: INITIALIZE_PET_DETAILS,
                                     payload: {
@@ -187,7 +192,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                             })
                             .then(() => setLoading(false))
                             .catch((err) => {
-                                console.log(err)
+                                //console.log(err)
                             })
                     }
                     else {
@@ -203,7 +208,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
     const [profile, dispatch] = useReducer(reducer, null);
 
-    console.log('profile: ', profile)
+    //console.log('profile: ', profile)
 
     const editPetType = useCallback(newPetType => {
         dispatch({
@@ -213,7 +218,7 @@ export const ProfileProvider = ({ appUser, children }) => {
     }, [dispatch])
 
     const editName = useCallback(newName => {
-        console.log('newName', newName)
+        //console.log('newName', newName)
         dispatch({
             type: NAME_EDIT,
             payload: { newName }
@@ -221,7 +226,7 @@ export const ProfileProvider = ({ appUser, children }) => {
     }, [dispatch])
 
     const editProfilePic = useCallback(newURL => {
-        console.log('newURL', newURL)
+        //console.log('newURL', newURL)
         dispatch({
             type: NAME_EDIT,
             payload: { newURL }
@@ -229,7 +234,7 @@ export const ProfileProvider = ({ appUser, children }) => {
     }, [dispatch])
 
     const editHours = useCallback(newHours => {
-        console.log('newHours', newHours)
+        //console.log('newHours', newHours)
         dispatch({
             type: HOURS_EDIT,
             payload: { newHours }
@@ -237,7 +242,7 @@ export const ProfileProvider = ({ appUser, children }) => {
     }, [dispatch])
 
     const editAboutMe = useCallback(newAboutMe => {
-        console.log('newHours', newAboutMe)
+        //console.log('newHours', newAboutMe)
         dispatch({
             type: ABOUT_ME_EDIT,
             payload: { newAboutMe }
@@ -245,7 +250,7 @@ export const ProfileProvider = ({ appUser, children }) => {
     }, [dispatch])
 
     const editPetDetails = useCallback(() => {
-        console.log('newPetDetails')
+        //console.log('newPetDetails')
         dispatch({
             type: PET_DETAILS_EDIT,
         })
@@ -253,24 +258,8 @@ export const ProfileProvider = ({ appUser, children }) => {
 
     const [userProfile, setUserProfile] = useState();
 
-    function updateProfileHandler(type, value) {
-        if (type === "address" || type === "phone" || type === "hours") {
-            setUserProfile(() => ({
-                ...userProfile,
-                contactInfo: {
-                    ...userProfile.contactInfo,
-                    [type]: value,
-                },
-            }));
-        } else {
-            setUserProfile(() => ({
-                ...userProfile,
-                [type]: value,
-            }));
-        }
-    }
 
-    const provisions = { profile, loading, profileID, editPetType, editName, updateProfileHandler, appUser, editProfilePic, editAboutMe, typeOptions, sizeOptions, ageOptions, colorOptions, dogBreedOptions, catBreedOptions, editPetDetails }
+    const provisions = { profile, loading, profileID, editPetType, editName, appUser, editProfilePic, editAboutMe, typeOptions, sizeOptions, ageOptions, colorOptions, dogBreedOptions, catBreedOptions, editPetDetails }
 
     return (<>
         {loading && <Spinner />}

@@ -21,7 +21,7 @@ const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
 function CreatePostCard({ displayName, profilePic, tagOptions }) {
-  console.log(apiGatewayURL);
+  //console.log(apiGatewayURL);
   const history = useHistory();
 
   const windowSize = useWindowSize();
@@ -151,7 +151,7 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
           taggedPets: taggedPets,
         })
         .then((response) => {
-          console.log("response: ", response);
+          //console.log("response: ", response);
           setCreatedPostBody("");
           setTaggedPets([]);
           setLoading(false);

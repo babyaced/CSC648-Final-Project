@@ -27,7 +27,8 @@ import useCatBreedOptions from "../DropdownOptions/useCatBreedOptions";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function ProfileInfo() {
-  const { profile, updateProfileHandler, appUser, editName } = useContext(ProfileContext)
+  const { profile, appUser, editName } = useContext(ProfileContext)
+  console.log('profile in profileInfo', profile)
 
 
   const [editing, setEditing] = useState(false);
@@ -43,6 +44,8 @@ function ProfileInfo() {
   const location = useLocation();
 
   function editHandler() {
+    //console.log(profile.profileType)
+    //console.log('clicked')
     profile.profileType === "Pet" ? setEditPetDetailsDisplay(true) : setEditing(true);
   }
 
@@ -74,7 +77,7 @@ function ProfileInfo() {
         history.push("/Feed");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 
@@ -185,22 +188,17 @@ function ProfileInfo() {
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
         {profile.selfView && !editing && (
-          <EditButton
-            style={{ fontSize: "var(--h5)" }}
-            edit
-            clicked={() => editHandler()}
+          <button
+            onClick={() => editHandler()}
           >
             Edit
-          </EditButton>
+          </button>
         )}
         {profile.selfView && editing && (
-          <EditButton
-            style={{ fontSize: "var(--h5)" }}
-            save
-            clicked={cancelEditHandler}
+          <button onClick={cancelEditHandler}
           >
             Save
-          </EditButton>
+          </button>
         )}
       </div>
       <div className={styles["button-container"]}>

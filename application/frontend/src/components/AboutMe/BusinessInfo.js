@@ -19,8 +19,8 @@ function BusinessInfo({
   changingInfoHandler,
   cancelEditingHandler,
 }) {
-  console.log("phone: ", phone);
-  console.log("hoursState: ", hoursState);
+  //console.log("phone: ", phone);
+  //console.log("hoursState: ", hoursState);
   return (
     <div className={styles["business-info-container"]}>
       <div className={styles["address-container"]}>

@@ -9,10 +9,10 @@ function useAgeOptions() {
 
   useEffect(() => {
     if (!localCache.length) {
-      console.log("fetching Age options from db");
+      //console.log("fetching Age options from db");
       requestAgeOptions();
     } else {
-      console.log("using Age options from cache");
+      //console.log("using Age options from cache");
       setAgeOptions(localCache);
     }
   }, []);
@@ -23,13 +23,13 @@ function useAgeOptions() {
     axios
       .get("/api/ages") //get pet types from database
       .then((response) => {
-        // console.log(response);
+        // //console.log(response);
         localCache = response.data;
         setAgeOptions(localCache);
         setStatus("loaded");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
   return [ageOptions, status];

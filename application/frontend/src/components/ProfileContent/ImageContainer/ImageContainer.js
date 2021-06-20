@@ -7,14 +7,14 @@ import PostModal from "../../Modals/PostModal";
 import { ProfileContext } from "../../../pages/Profile/ProfileProvider";
 
 function ImageContainer({ title, previews }) {
-  // console.log('previews',previews);
+  // //console.log('previews',previews);
 
   const { profile } = useContext(ProfileContext)
   const [postModalDisplay, setPostModalDisplay] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
 
-  console.log('profile: imageContainer: ', profile)
-  console.log("previews:", previews);
+  //console.log('profile: imageContainer: ', profile)
+  //console.log("previews:", previews);
 
   let history = useHistory();
 
@@ -83,8 +83,8 @@ function ImageContainer({ title, previews }) {
 
   if (limitedPreviews.length === 0) seeAll = null;
 
-  console.log('placeholder:', placeholder)
-  console.log('seeAll', seeAll)
+  //console.log('placeholder:', placeholder)
+  //console.log('seeAll', seeAll)
 
   return (
     <>
