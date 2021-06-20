@@ -38,7 +38,7 @@ function AboutMe() {
   const [hoursState, setHoursState] = useState({});
 
   useEffect(() => {
-    if (profile.type === "Business") {
+    if (profile.profileType === "Business") {
       axios
         .get("/api/hours", { params: { profileID: profileID } })
         .then((response) => {
@@ -116,7 +116,7 @@ function AboutMe() {
   }
 
   let profileTabs = null;
-  switch (profile.type) {
+  switch (profile.profileType) {
     case "Shelter":
       profileTabs = shelterProfileTabs;
       break;
@@ -140,7 +140,7 @@ function AboutMe() {
       section={tab}
       selected={selected}
       clicked={onTabClickHandler}
-      accountType={profile.type}
+      accountType={profile.profileType}
     />
   ));
 

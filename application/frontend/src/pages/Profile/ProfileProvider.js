@@ -116,7 +116,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                     displayName: responses[0].data.profile.display_name,
                     aboutMe: responses[0].data.profile.about_me,
                     profilePic: responses[0].data.profile.profile_pic_link,
-                    profileType: responses[0].data.type,
+                    profileType: responses[0].data.profile.type,
                     profileId: responses[0].data.profile.profile_id,
                     accountId: responses[0].data.profile.account_id,
                     selfView: responses[0].data.selfView,
