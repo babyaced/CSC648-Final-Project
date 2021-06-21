@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-//Import Icons
-import arrow from "../../assets/icons/created/ArrowWhite.svg";
-
 import styles from "./FollowMenu.module.css";
 
 //used to detect if there was a click outside the account menu to close it

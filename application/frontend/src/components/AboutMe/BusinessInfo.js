@@ -18,16 +18,16 @@ function BusinessInfo({
   const { profile, editPhoneNumber } = useContext(ProfileContext);
 
   function submitPhoneEdit() {
-    // axios
-    //   .post("/api/phone-number", {
-    //     newPhoneNumber: ,
-    //   })
-    //   .then((response) => {
-    //     //console.log(response);
-    //   })
-    //   .catch((err) => {
-    //     //console.log(err);
-    //   });
+    axios
+      .post("/api/phone-number", {
+        newPhoneNumber: profile.phoneNumber,
+      })
+      .then((response) => {
+        //console.log(response);
+      })
+      .catch((err) => {
+        //console.log(err);
+      });
   }
 
   console.log("Profile in BusinessInfo", profile);
@@ -64,6 +64,7 @@ function BusinessInfo({
           onKeyPress={(event) => {
             if (event.key === "Enter") {
               cancelEditingHandler();
+              submitPhoneEdit();
             }
           }}
           onChange={(event) => editPhoneNumber(event.target.value)}
@@ -73,6 +74,7 @@ function BusinessInfo({
             save
             clicked={() => {
               cancelEditingHandler();
+              submitPhoneEdit();
             }}
           >
             Save
@@ -85,7 +87,6 @@ function BusinessInfo({
             edit
             clicked={() => {
               displayEditHoursModal();
-              changingInfoHandler("hours");
             }}
           >
             Edit

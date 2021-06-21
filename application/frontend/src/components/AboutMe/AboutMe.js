@@ -22,8 +22,7 @@ function AboutMe() {
   let longitude;
   //not sure if these need to have state yet
 
-  const { profile, profileID, editAboutMe, editPhoneNumber } =
-    useContext(ProfileContext);
+  const { profile, profileID, editAboutMe } = useContext(ProfileContext);
   //console.log('profile', profile)
   //console.log('profileID', profileID)
 
@@ -33,10 +32,6 @@ function AboutMe() {
 
   const [editHoursDisplay, setEditHoursDisplay] = useState(false);
   const [editAddressDisplay, setEditAddressDisplay] = useState(false);
-
-  const [phone, setPhone] = useState();
-  const [location, setLocation] = useState();
-  const [hoursState, setHoursState] = useState({});
 
   function displayEditHoursModal() {
     setEditHoursDisplay(true);
@@ -56,12 +51,8 @@ function AboutMe() {
         //console.log(response);
       })
       .catch((err) => {
-        //console.log(err);
+        console.log(err);
       });
-  }
-
-  function phoneSetter(newPhoneNumber) {
-    setPhone(newPhoneNumber);
   }
 
   function onTabClickHandler(id) {
@@ -170,6 +161,7 @@ function AboutMe() {
       <EditBusinessHours
         display={editHoursDisplay}
         onClose={() => {
+          cancelEditingHandler();
           setEditHoursDisplay(false);
         }}
       />

@@ -45,63 +45,46 @@ function EditBusinessHours({ display, onClose }) {
 
   function submitHoursEdit(event) {
     event.preventDefault();
-    // axios
-    //   .post("/api/hours", {
-    //     newSunOpen: sundayStart["value"],
-    //     newSunClose: sundayEnd["value"],
-    //     newMonOpen: mondayStart["value"],
-    //     newMonClose: mondayEnd["value"],
-    //     newTueOpen: tuesdayStart["value"],
-    //     newTueClose: tuesdayEnd["value"],
-    //     newWedOpen: wednesdayStart["value"],
-    //     newWedClose: wednesdayEnd["value"],
-    //     newThuOpen: thursdayStart["value"],
-    //     newThuClose: thursdayEnd["value"],
-    //     newFriOpen: fridayStart["value"],
-    //     newFriClose: fridayEnd["value"],
-    //     newSatOpen: saturdayStart["value"],
-    //     newSatClose: saturdayEnd["value"],
-    //   })
-    //   .then((response) => {
-    //     // setHours({
-    //     //   sun_open: sundayStart,
-    //     //   sun_close: sundayEnd,
-    //     //   mon_open: mondayStart,
-    //     //   mon_close: mondayEnd,
-    //     //   tue_open: tuesdayStart,
-    //     //   tue_close: tuesdayEnd,
-    //     //   wed_open: wednesdayStart,
-    //     //   wed_close: wednesdayEnd,
-    //     //   thu_open: thursdayStart,
-    //     //   thu_close: thursdayEnd,
-    //     //   fri_open: fridayStart,
-    //     //   fri_close: fridayEnd,
-    //     //   sat_open: saturdayStart,
-    //     //   sat_close: saturdayEnd,
-    //     // });
-    //     onClose();
-    //   })
-    //   .catch((err) => {
-    //     //console.log(err);
-    //   });
-
-    editHours({
-      sun_open: sundayStart,
-      sun_close: sundayEnd,
-      mon_open: mondayStart,
-      mon_close: mondayEnd,
-      tue_open: tuesdayStart,
-      tue_close: tuesdayEnd,
-      wed_open: wednesdayStart,
-      wed_close: wednesdayEnd,
-      thu_open: thursdayStart,
-      thu_close: thursdayEnd,
-      fri_open: fridayStart,
-      fri_close: fridayEnd,
-      sat_open: saturdayStart,
-      sat_close: saturdayEnd,
-    });
-    onClose();
+    axios
+      .post("/api/hours", {
+        newSunOpen: sundayStart["value"],
+        newSunClose: sundayEnd["value"],
+        newMonOpen: mondayStart["value"],
+        newMonClose: mondayEnd["value"],
+        newTueOpen: tuesdayStart["value"],
+        newTueClose: tuesdayEnd["value"],
+        newWedOpen: wednesdayStart["value"],
+        newWedClose: wednesdayEnd["value"],
+        newThuOpen: thursdayStart["value"],
+        newThuClose: thursdayEnd["value"],
+        newFriOpen: fridayStart["value"],
+        newFriClose: fridayEnd["value"],
+        newSatOpen: saturdayStart["value"],
+        newSatClose: saturdayEnd["value"],
+      })
+      .then((response) => {
+        editHours({
+          sun_open: sundayStart,
+          sun_close: sundayEnd,
+          mon_open: mondayStart,
+          mon_close: mondayEnd,
+          tue_open: tuesdayStart,
+          tue_close: tuesdayEnd,
+          wed_open: wednesdayStart,
+          wed_close: wednesdayEnd,
+          thu_open: thursdayStart,
+          thu_close: thursdayEnd,
+          fri_open: fridayStart,
+          fri_close: fridayEnd,
+          sat_open: saturdayStart,
+          sat_close: saturdayEnd,
+        });
+        onClose();
+      })
+      .catch((err) => {
+        console.log(err);
+        //display error message
+      });
   }
 
   return (
