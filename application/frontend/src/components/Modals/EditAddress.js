@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "./Modal";
 
 import axios from "axios";
@@ -19,28 +19,32 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 //For Address Editing
 
 function EditAddress({ display, onClose, setAddressState }) {
-  const [address, setAddress] = useState("");
+  const { profile, editAddress } = useContext(ProfileContext);
+  const [address, setAddress] = useState(profile.address);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
   function submitAddressEdit() {
-    axios
-      .post("/api/address", {
-        newAddress: address,
-        newLatitude: latitude,
-        newLongitude: longitude,
-      })
-      .then((response) => {
-        setAddressState(address);
-        onClose();
-      })
-      .catch((err) => {
-        //console.log(err);
-        //show error message in modal
-      });
+    // axios
+    //   .post("/api/address", {
+    //     newAddress: address,
+    //     newLatitude: latitude,
+    //     newLongitude: longitude,
+    //   })
+    //   .then((response) => {
+    //     setAddressState(address);
+    //     onClose();
+    //   })
+    //   .catch((err) => {
+    //     //console.log(err);
+    //     //show error message in modal
+    //   });
+    editAddress(address);
+    onClose();
   }
 
   //Use Places Autocomplete call
@@ -80,7 +84,7 @@ function EditAddress({ display, onClose, setAddressState }) {
           <ComboboxInput
             className={styles["edit-address-input"]}
             value={value}
-            placeholder="Start Typing your Shelter's Address"
+            placeholder="Start Typing an Address"
             onChange={(e) => {
               setValue(e.target.value);
               //record lat lng to store in database

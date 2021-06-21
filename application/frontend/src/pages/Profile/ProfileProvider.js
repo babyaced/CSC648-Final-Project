@@ -38,6 +38,7 @@ const PROFILE_PIC_EDIT = "PROFILE_PIC_EDIT";
 const HOURS_EDIT = "HOURS_EDIT";
 const ADDRESS_EDIT = "ADDRESS_EDIT";
 const INIT_BIZ_DETAILS = "INIT";
+const PHONE_NUM_EDIT = "PHONE_NUM_EDIT";
 
 //Shelter Profile
 const SHELTERED_PET_TYPES_EDIT = "SHELTERED_PET_TYPES_EDIT";
@@ -57,6 +58,20 @@ const reducer = (state, action) => {
 
   if (action.type === INIT_PROFILE) {
     return Object.assign({}, state, action.payload.fetchedProfile);
+  }
+
+  if (action.type === PROFILE_PIC_EDIT) {
+    return Object.assign({}, state, { profilePic: action.payload.newURL });
+  }
+
+  if (action.type === NAME_EDIT) {
+    //console.log('action', action)
+    return Object.assign({}, state, { displayName: action.payload.newName });
+  }
+
+  if (action.type === ABOUT_ME_EDIT) {
+    //console.log('action', action)
+    return Object.assign({}, state, { aboutMe: action.payload.newAboutMe });
   }
 
   if (action.type === INIT_PET_DETAILS) {
@@ -88,14 +103,6 @@ const reducer = (state, action) => {
     });
   }
 
-  if (action.type === INIT_BIZ_DETAILS) {
-    return Object.assign({}, state, {
-      hours: action.payload.hours,
-      address: action.payload.address,
-      phoneNumber: action.payload.phoneNumber,
-    });
-  }
-
   if (action.type === PET_DETAILS_EDIT) {
     return Object.assign({}, state, {
       petType: action.payload.newPetType,
@@ -107,24 +114,30 @@ const reducer = (state, action) => {
     });
   }
 
+  if (action.type === INIT_BIZ_DETAILS) {
+    return Object.assign({}, state, {
+      hours: action.payload.hours,
+      address: action.payload.address,
+      phoneNumber: action.payload.phoneNumber,
+    });
+  }
+
+  if (action.type === PHONE_NUM_EDIT) {
+    return Object.assign({}, state, {
+      phoneNumber: action.payload.phoneNumber,
+    });
+  }
+
   if (action.type === HOURS_EDIT) {
     return Object.assign({}, state, {
       hours: action.payload.newHours,
     });
   }
 
-  if (action.type === PROFILE_PIC_EDIT) {
-    return Object.assign({}, state, { profilePic: action.payload.newURL });
-  }
-
-  if (action.type === NAME_EDIT) {
-    //console.log('action', action)
-    return Object.assign({}, state, { displayName: action.payload.newName });
-  }
-
-  if (action.type === ABOUT_ME_EDIT) {
-    //console.log('action', action)
-    return Object.assign({}, state, { aboutMe: action.payload.newAboutMe });
+  if (action.type === ADDRESS_EDIT) {
+    return Object.assign({}, state, {
+      address: action.payload.newAddress,
+    });
   }
 };
 
@@ -348,6 +361,28 @@ export const ProfileProvider = ({ appUser, children }) => {
     [dispatch]
   );
 
+  const editAddress = useCallback(
+    (newAddress) => {
+      console.log("newAddress", newAddress);
+      dispatch({
+        type: ADDRESS_EDIT,
+        payload: { newAddress },
+      });
+    },
+    [dispatch]
+  );
+
+  const editPhoneNumber = useCallback(
+    (newPhoneNumber) => {
+      console.log("newPhoneNumber", newPhoneNumber);
+      dispatch({
+        type: PHONE_NUM_EDIT,
+        payload: { newPhoneNumber },
+      });
+    },
+    [dispatch]
+  );
+
   const editAboutMe = useCallback(
     (newAboutMe) => {
       //console.log('newHours', newAboutMe)
@@ -394,8 +429,8 @@ export const ProfileProvider = ({ appUser, children }) => {
     editAboutMe,
     editPetDetails,
     editHours,
-    // editAddress,
-    // editPhoneNumber
+    editAddress,
+    editPhoneNumber,
   };
 
   return (

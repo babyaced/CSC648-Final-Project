@@ -17,9 +17,8 @@ function BusinessInfo({
   changingInfoHandler,
   cancelEditingHandler,
 }) {
-
-  const { profile } = useContext(ProfileContext)
-  console.log('Profile in BusinessInfo', profile)
+  const { profile, editPhoneNumber } = useContext(ProfileContext);
+  console.log("Profile in BusinessInfo", profile);
   return (
     <div className={styles["business-info-container"]}>
       <div className={styles["address-container"]}>
@@ -55,14 +54,13 @@ function BusinessInfo({
               cancelEditingHandler();
             }
           }}
-          onChange={(event) => phoneSetter(event.target.value)}
+          onChange={(event) => editPhoneNumber(event.target.value)}
         />
         {labelSelected === "phone number" && (
           <EditButton
             save
             clicked={() => {
               cancelEditingHandler();
-              submitPhoneEdit();
             }}
           >
             Save

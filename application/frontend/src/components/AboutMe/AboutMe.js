@@ -22,7 +22,8 @@ function AboutMe() {
   let longitude;
   //not sure if these need to have state yet
 
-  const { profile, profileID, editAboutMe } = useContext(ProfileContext);
+  const { profile, profileID, editAboutMe, editPhoneNumber } =
+    useContext(ProfileContext);
   //console.log('profile', profile)
   //console.log('profileID', profileID)
 
