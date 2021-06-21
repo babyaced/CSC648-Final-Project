@@ -1,26 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styles from "./BusinessInfo.module.css";
 
 //import UI Components
 import EditButton from "../Buttons/EditButton";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function BusinessInfo({
-  hoursState,
   displayEditHoursModal,
   displayEditAddressModal,
   isSelfView,
   labelSelected,
-  phone,
   phoneSetter,
   submitPhoneEdit,
-  location,
   changing,
   changingInfoHandler,
   cancelEditingHandler,
 }) {
-  //console.log("phone: ", phone);
-  //console.log("hoursState: ", hoursState);
+
+  const { profile } = useContext(ProfileContext)
+  console.log('Profile in BusinessInfo', profile)
   return (
     <div className={styles["business-info-container"]}>
       <div className={styles["address-container"]}>
@@ -32,7 +31,7 @@ function BusinessInfo({
         <label for="tab-address">Address:</label>
         <textarea
           id="tab-address"
-          value={location}
+          value={profile.address}
           readOnly={!changing || !(labelSelected === "address")}
           className={styles["address-text-area"]}
         />
@@ -48,7 +47,7 @@ function BusinessInfo({
           id="phone"
           type="tel"
           // value={`(${phone.substring(0,3)}) ${phone.substring(3,6)}-${phone.substring(6,10)}`}
-          value={phone}
+          value={profile.phoneNumber}
           readOnly={!changing || !(labelSelected === "phone number")}
           maxLength="10"
           onKeyPress={(event) => {
@@ -84,7 +83,7 @@ function BusinessInfo({
         )}
         <label>Hours:</label>
         <table className={styles["hours-table"]}>
-          {Object.keys(hoursState).map((key, index) => {
+          {Object.keys(profile.hours).map((key, index) => {
             if (index % 2 === 1) return null;
 
             let day = key.substr(0, 3);
@@ -95,11 +94,11 @@ function BusinessInfo({
                   {day[0].toUpperCase() + day.substring(1)}:{" "}
                 </th>
                 <td className={styles["hours-table-cell"]}>
-                  {hoursState[key].value !== "00:00:00" ? (
+                  {profile.hours[key].value !== "00:00:00" ? (
                     <span>
-                      {hoursState[key].label +
+                      {profile.hours[key].label +
                         " - " +
-                        hoursState[day + "_close"].label}
+                        profile.hours[day + "_close"].label}
                     </span>
                   ) : (
                     <span>Closed</span>

@@ -37,31 +37,6 @@ function AboutMe() {
   const [location, setLocation] = useState();
   const [hoursState, setHoursState] = useState({});
 
-  useEffect(() => {
-    if (profile.profileType === "Business") {
-      axios
-        .get("/api/hours", { params: { profileID: profileID } })
-        .then((response) => {
-          setHoursState(response.data);
-        })
-        .catch((err) => { });
-
-      axios
-        .get("/api/business-address", { params: { profileID: profileID } })
-        .then((response) => {
-          setLocation(response.data.address);
-        })
-        .catch((err) => { });
-
-      axios
-        .get("/api/business-phone-number", { params: { profileID: profileID } })
-        .then((response) => {
-          setPhone(response.data.phone_num);
-        })
-        .catch((err) => { });
-    }
-  }, [profileID]);
-
   function displayEditHoursModal() {
     setEditHoursDisplay(true);
   }
@@ -183,7 +158,6 @@ function AboutMe() {
     case "Business Info":
       content = (
         <BusinessInfo
-          hoursState={hoursState}
           displayEditHoursModal={displayEditHoursModal}
           isSelfView={profile.selfView}
           labelSelected={labelSelected}
@@ -191,7 +165,6 @@ function AboutMe() {
           phoneSetter={phoneSetter}
           displayEditAddressModal={displayEditAddressModal}
           submitPhoneEdit={submitPhoneEdit}
-          location={location}
           changing={changing}
           changingInfoHandler={changingInfoHandler}
           cancelEditingHandler={cancelEditingHandler}

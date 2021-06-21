@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 
 import BaseSelect from "react-select";
@@ -10,33 +10,8 @@ import styles from "./EditBusinessHours.module.css";
 
 import SelectCustomTheme from "../../mods/SelectCustomTheme";
 
-const hourOptions = [
-  { value: "00:00:00", label: "Closed" },
-  { value: "01:00:00", label: "1:00 AM" },
-  { value: "02:00:00", label: "2:00 AM" },
-  { value: "03:00:00", label: "3:00 AM" },
-  { value: "04:00:00", label: "4:00 AM" },
-  { value: "05:00:00", label: "5:00 AM" },
-  { value: "06:00:00", label: "6:00 AM" },
-  { value: "07:00:00", label: "7:00 AM" },
-  { value: "08:00:00", label: "8:00 AM" },
-  { value: "09:00:00", label: "9:00 AM" },
-  { value: "10:00:00", label: "10:00 AM" },
-  { value: "11:00:00", label: "11:00 AM" },
-  { value: "12:00:00", label: "12:00 PM" },
-  { value: "13:00:00", label: "1:00 PM" },
-  { value: "14:00:00", label: "2:00 PM" },
-  { value: "15:00:00", label: "3:00 PM" },
-  { value: "16:00:00", label: "4:00 PM" },
-  { value: "17:00:00", label: "5:00 PM" },
-  { value: "18:00:00", label: "6:00 PM" },
-  { value: "19:00:00", label: "7:00 PM" },
-  { value: "20:00:00", label: "8:00 PM" },
-  { value: "21:00:00", label: "9:00 PM" },
-  { value: "22:00:00", label: "10:00 PM" },
-  { value: "23:00:00", label: "11:00 PM" },
-  { value: "24:00:00", label: "12:00 AM" },
-];
+import HourOptions from "../DropdownOptions/hourOptions";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 const Select = (props) => (
   <FixRequiredSelect
@@ -47,22 +22,24 @@ const Select = (props) => (
 );
 
 function EditBusinessHours({ display, onClose, hours, setHours }) {
+  const { profile } = useContext(ProfileContext);
+  console.log('profile.hours: ', profile.hours)
   //convert hours into hour options usable as values for react-select
-  const [sundayStart, setSundayStart] = useState(hours.sun_open);
-  const [mondayStart, setMondayStart] = useState(hours.mon_open);
-  const [tuesdayStart, setTuesdayStart] = useState(hours.tue_open);
-  const [wednesdayStart, setWednesdayStart] = useState(hours.wed_open);
-  const [thursdayStart, setThursdayStart] = useState(hours.thu_open);
-  const [fridayStart, setFridayStart] = useState(hours.fri_open);
-  const [saturdayStart, setSaturdayStart] = useState(hours.sat_open);
+  const [sundayStart, setSundayStart] = useState(profile.hours.sun_open);
+  const [mondayStart, setMondayStart] = useState(profile.hours.mon_open);
+  const [tuesdayStart, setTuesdayStart] = useState(profile.hours.tue_open);
+  const [wednesdayStart, setWednesdayStart] = useState(profile.hours.wed_open);
+  const [thursdayStart, setThursdayStart] = useState(profile.hours.thu_open);
+  const [fridayStart, setFridayStart] = useState(profile.hours.fri_open);
+  const [saturdayStart, setSaturdayStart] = useState(profile.hours.sat_open);
 
-  const [sundayEnd, setSundayEnd] = useState(hours.sun_close);
-  const [mondayEnd, setMondayEnd] = useState(hours.mon_close);
-  const [tuesdayEnd, setTuesdayEnd] = useState(hours.tue_close);
-  const [wednesdayEnd, setWednesdayEnd] = useState(hours.wed_close);
-  const [thursdayEnd, setThursdayEnd] = useState(hours.thu_close);
-  const [fridayEnd, setFridayEnd] = useState(hours.fri_close);
-  const [saturdayEnd, setSaturdayEnd] = useState(hours.sat_close);
+  const [sundayEnd, setSundayEnd] = useState(profile.hours.sun_close);
+  const [mondayEnd, setMondayEnd] = useState(profile.hours.mon_close);
+  const [tuesdayEnd, setTuesdayEnd] = useState(profile.hours.tue_close);
+  const [wednesdayEnd, setWednesdayEnd] = useState(profile.hours.wed_close);
+  const [thursdayEnd, setThursdayEnd] = useState(profile.hours.thu_close);
+  const [fridayEnd, setFridayEnd] = useState(profile.hours.fri_close);
+  const [saturdayEnd, setSaturdayEnd] = useState(profile.hours.sat_close);
 
   function submitHoursEdit() {
     axios
@@ -121,7 +98,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="sunday-start"
             name="sunday_start"
             onChange={(event) => setSundayStart([event])}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -135,7 +112,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="sunday-end"
             name="sunday_end"
             onChange={setSundayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable
@@ -149,7 +126,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="monday-start"
             name="monday_start"
             onChange={setMondayStart}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -163,7 +140,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="monday-end"
             name="monday_end"
             onChange={setMondayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable
@@ -177,7 +154,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="tuesday-start"
             name="tuesday_start"
             onChange={setTuesdayStart}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -191,7 +168,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="tuesday-end"
             name="tuesday_end"
             onChange={setTuesdayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable
@@ -205,7 +182,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="wednesday-start"
             name="wednesday_start"
             onChange={setWednesdayStart}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -219,7 +196,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="wednesday-end"
             name="wednesday_end"
             onChange={setWednesdayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable
@@ -233,7 +210,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="thursday-start"
             name="thursday_start"
             onChange={setThursdayStart}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -247,7 +224,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="thursday-end"
             name="thursday_end"
             onChange={setThursdayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable
@@ -261,7 +238,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="friday-start"
             name="friday_start"
             onChange={setFridayStart}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -275,7 +252,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="friday-end"
             name="friday_end"
             onChange={setFridayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable
@@ -289,7 +266,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="saturday-start"
             name="saturday_start"
             onChange={setSaturdayStart}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
             isSearchable
@@ -304,7 +281,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             id="saturday-end"
             name="saturday_end"
             onChange={setSaturdayEnd}
-            options={hourOptions}
+            options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Closing Hours"
             isSearchable

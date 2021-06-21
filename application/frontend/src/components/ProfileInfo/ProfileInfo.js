@@ -1,29 +1,19 @@
 import { useContext, useState, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 //css
-import arrow from "../../assets/icons/created/Arrow.svg";
 import styles from "./ProfileInfo.module.css";
 
 //component
 import SendProfileMessage from "../../components/Modals/SendProfileMessage";
 import EditPetDetails from "../Modals/EditPetDetails";
-import EditButton from "../Buttons/EditButton";
 import LoginRequired from "../Modals/LoginRequired";
 
-//context
-import { RedirectPathContext } from "../../context/redirect-path";
 
 import axios from "axios";
 import ConfirmDeletion from "../Modals/ConfirmDeletion";
 import ProfilePic from "./ProfilePic";
 import FollowMenu from "./FollowMenu";
-import useTypeOptions from "../DropdownOptions/useTypeOptions";
-import useColorOptions from "../DropdownOptions/useColorOptions";
-import useAgeOptions from "../DropdownOptions/useAgeOptions";
-import useSizeOptions from "../DropdownOptions/useSizeOptions";
-import useDogBreedOptions from "../DropdownOptions/useDogBreedOptions";
-import useCatBreedOptions from "../DropdownOptions/useCatBreedOptions";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function ProfileInfo() {
@@ -129,11 +119,12 @@ function ProfileInfo() {
         <>
           <div style={{ display: "flex" }}>
             <h1 className={styles.UserName}>{profile.displayName}</h1>
-            {/* <h3 style={{marginLeft: '10px'}} >
-                            {petType.value ? petType.value : 'Type'}
-                            /
-                            {petBreeds[0].value ? petBreeds[0].value : 'Breed'}
-                        </h3> */}
+            <h3>
+              the
+              {profile.petType.value ? profile.petType.value : 'Type'}
+              {/* /
+                {profile.petBreeds[1].value ? profilepetBreeds[0].value : 'Breed'} */}
+            </h3>
           </div>
         </>
       );
@@ -187,6 +178,10 @@ function ProfileInfo() {
             onChange={(event) => editName(event.target.value)}
           />
         </h1>
+        <h3>
+          the
+          {profile.petType.value ? profile.petType.label : 'Type'}
+        </h3>
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
         {profile.selfView && !editing && (

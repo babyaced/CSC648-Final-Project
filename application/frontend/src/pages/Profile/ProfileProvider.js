@@ -11,8 +11,8 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 export const ProfileContext = createContext();
 
-const INITIALIZE_PROFILE = 'INITIALIZE_PROFILE'
-const INITIALIZE_PET_DETAILS = 'INITIALIZE_PET_DETAILS'
+const INIT_PROFILE = 'INIT_PROFILE'
+const INIT_PET_DETAILS = 'INIT_PET_DETAILS'
 
 //SELF VIEW
 
@@ -30,6 +30,7 @@ const PROFILE_PIC_EDIT = 'PROFILE_PIC_EDIT'
 //Business Profile
 const HOURS_EDIT = 'HOURS_EDIT'
 const ADDRESS_EDIT = 'ADDRESS_EDIT'
+const INIT_BIZ_DETAILS = 'INIT'
 
 //Shelter Profile
 const SHELTERED_PET_TYPES_EDIT = 'SHELTERED_PET_TYPES_EDIT'
@@ -48,11 +49,11 @@ const FOLLOW_USER = 'FOLLOW_USER'
 const reducer = (state, action) => {
     //console.log('state: ', state, 'action: ', action)
 
-    if (action.type === INITIALIZE_PROFILE) {
+    if (action.type === INIT_PROFILE) {
         return Object.assign({}, state, action.payload.fetchedProfile)
     }
 
-    if (action.type === INITIALIZE_PET_DETAILS) {
+    if (action.type === INIT_PET_DETAILS) {
         console.log('action.payload.petColors', action.payload.petColors)
         console.log('action.payload.catBreeds', action.payload.catBreeds)
         console.log('action.payload.dogBreeds', action.payload.dogBreeds)
@@ -80,6 +81,14 @@ const reducer = (state, action) => {
             petColors: colorsArray,
             dogBreeds: dogBreedsArray,
             catBreeds: catBreedsArray
+        })
+    }
+
+    if (action.type === INIT_BIZ_DETAILS) {
+        return Object.assign({}, state, {
+            hours: action.payload.hours,
+            address: action.payload.address,
+            phoneNumber: action.payload.phoneNumber,
         })
     }
 
@@ -166,22 +175,48 @@ export const ProfileProvider = ({ appUser, children }) => {
                         fetchedPets: responses[2].data,
                         taggedPosts: responses[3].data,
                         followingStatus: responses[4].data,
+                        // Pet Specific Profile Info
                         petType: {},
                         petSize: {},
                         petAge: {},
                         petColors: [],
                         dogBreeds: [],
-                        catBreeds: []
+                        catBreeds: [],
+                        // Business Specific Profile Info
+                        address: '',
+                        hours: '',
+                        phoneNumber: ''
                     }
 
                     //console.log('fetchedProfile: ', fetchedProfile)
                     dispatch({
-                        type: INITIALIZE_PROFILE,
+                        type: INIT_PROFILE,
                         payload: { fetchedProfile }
                     })
                 })
                 .then(() => {
-                    if (fetchedProfile.petId) {
+                    if (fetchedProfile.profileType === 'Business') {
+                        const getHours = axios.get("/api/hours", { params: { profileID: profileID } })
+                        const getAddress = axios.get("/api/business-address", { params: { profileID: profileID } })
+                        const getPhoneNumber = axios.get("/api/business-phone-number", { params: { profileID: profileID } })
+
+
+                        Promise.all([getHours, getAddress, getPhoneNumber])
+                            .then((responses) => {
+                                dispatch({
+                                    type: INIT_BIZ_DETAILS,
+                                    payload: {
+                                        hours: responses[0].data,
+                                        address: responses[1].data.address,
+                                        phoneNumber: responses[2].data.phone_num
+                                    }
+                                })
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    }
+                    else if (fetchedProfile.petId) {
                         //console.log('fetchedProfile.petId: ', fetchedProfile.petId)
                         axios.get("/api/pet-details", {
                             params: {
@@ -197,7 +232,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                             .then((res) => {
                                 //console.log('res.data: ', res.data)
                                 dispatch({
-                                    type: INITIALIZE_PET_DETAILS,
+                                    type: INIT_PET_DETAILS,
                                     payload: {
                                         petType: res.data.petType,
                                         petAge: res.data.petAge,
@@ -209,15 +244,12 @@ export const ProfileProvider = ({ appUser, children }) => {
                                 })
 
                             })
-                            .then(() => setLoading(false))
                             .catch((err) => {
-                                //console.log(err)
+                                console.log(err)
                             })
                     }
-                    else {
-                        setLoading(false);
-                    }
                 })
+                .then(() => setLoading(false))
                 .catch((err) => {
                     setLoading(false);
                     //display error message to user
@@ -282,8 +314,6 @@ export const ProfileProvider = ({ appUser, children }) => {
             }
         })
     }, [dispatch])
-
-    const [userProfile, setUserProfile] = useState();
 
 
     const provisions = { profile, loading, profileID, editPetType, editName, appUser, editProfilePic, editAboutMe, typeOptions, sizeOptions, ageOptions, colorOptions, dogBreedOptions, catBreedOptions, editPetDetails }
