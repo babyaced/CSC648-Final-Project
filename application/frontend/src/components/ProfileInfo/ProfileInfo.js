@@ -15,6 +15,8 @@ import ProfilePic from "./ProfilePic";
 import FollowMenu from "./FollowMenu";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
+import EditButton from "../Buttons/EditButton";
+
 function ProfileInfo() {
   const { profile, appUser, editName } = useContext(ProfileContext);
   console.log("profile in profileInfo", profile);
@@ -179,14 +181,16 @@ function ProfileInfo() {
             onChange={(event) => editName(event.target.value)}
           />
         </h1>
-        <h3>
+        <span className={styles["display-name-subtitle"]}>
           the
           {profile.petType.value ? profile.petType.label : "Type"}
-        </h3>
+        </span>
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
         {profile.selfView && !editing && (
-          <button onClick={() => editHandler()}>Edit</button>
+          <EditButton edit clicked={() => editHandler()}>
+            Edit
+          </EditButton>
         )}
         {profile.selfView && editing && (
           <button onClick={cancelEditHandler}>Save</button>

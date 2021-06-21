@@ -17,11 +17,6 @@ const businessProfileTabs = ["About", "Business Info"]; //, "Recent Posts"]
 const petOwnerProfileTabs = ["About"]; //, "Recent Posts"]
 
 function AboutMe() {
-  //not sure if these need to have state yet
-  let latitude;
-  let longitude;
-  //not sure if these need to have state yet
-
   const { profile, profileID, editAboutMe } = useContext(ProfileContext);
   //console.log('profile', profile)
   //console.log('profileID', profileID)

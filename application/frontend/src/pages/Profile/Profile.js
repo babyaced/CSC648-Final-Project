@@ -1,21 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useContext } from "react";
 
 // Import components
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
-import ProfileContent from "../../components/ProfileContent/ProfileContent";
 import AboutMe from "../../components/AboutMe/AboutMe";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import { RedirectPathContext } from "../../context/redirect-path";
 import ImageContainer from "../../components/ProfileContent/ImageContainer/ImageContainer";
 
 import styles from "./Profile.module.css";
-import axios from "axios";
 
-import { ProfileContext } from './ProfileProvider';
+import { ProfileContext } from "./ProfileProvider";
 
 function Profile({ appUser }) {
-  const { profile } = useContext(ProfileContext)
+  const { profile } = useContext(ProfileContext);
 
   // switch profile type by changing the userProfile Ex: shelterProfile, businessProfile, newBusinessProfile and petOwnerProfile
 
@@ -31,7 +26,7 @@ function Profile({ appUser }) {
         {(profile.profileType === "Admin" ||
           profile.profileType === "PetOwner" ||
           profile.profileType === "Shelter" ||
-          profile.profileType === "Business") &&
+          profile.profileType === "Business") && (
           <>
             <div className={styles["photo-previews"]}>
               <ImageContainer
@@ -40,37 +35,28 @@ function Profile({ appUser }) {
               />
             </div>
           </>
-        }
+        )}
         {(profile.profileType === "Admin" ||
           profile.profileType === "PetOwner" ||
-          profile.profileType === "Shelter") &&
+          profile.profileType === "Shelter") && (
           <>
             <div className={styles["pet-previews"]}>
-              <ImageContainer
-                title="Pets"
-                previews={profile.fetchedPets}
-              />
+              <ImageContainer title="Pets" previews={profile.fetchedPets} />
             </div>
-          </>}
+          </>
+        )}
 
         {profile.profileType === "Pet" && (
           <>
             <div className={styles["photo-previews"]}>
-              <ImageContainer
-                title="Photos"
-                previews={profile.taggedPosts}
-              />
+              <ImageContainer title="Photos" previews={profile.taggedPosts} />
             </div>
             <div className={styles["pet-previews"]}>
-              <ImageContainer
-                title="Siblings"
-                previews={profile.fetchedPets}
-              />
+              <ImageContainer title="Siblings" previews={profile.fetchedPets} />
             </div>
           </>
         )}
       </>
-
     </div>
   );
 }
