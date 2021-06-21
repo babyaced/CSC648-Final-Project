@@ -185,8 +185,6 @@ function AboutMe() {
       {/* Modals */}
       <EditBusinessHours
         display={editHoursDisplay}
-        hours={hoursState}
-        setHours={setHoursState}
         onClose={() => {
           cancelEditingHandler();
           setEditHoursDisplay(false);

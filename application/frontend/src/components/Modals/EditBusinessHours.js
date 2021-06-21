@@ -21,9 +21,9 @@ const Select = (props) => (
   />
 );
 
-function EditBusinessHours({ display, onClose, hours, setHours }) {
+function EditBusinessHours({ display, onClose }) {
   const { profile } = useContext(ProfileContext);
-  console.log('profile.hours: ', profile.hours)
+  console.log('profile.hours: ', profile.hours.sun_open)
   //convert hours into hour options usable as values for react-select
   const [sundayStart, setSundayStart] = useState(profile.hours.sun_open);
   const [mondayStart, setMondayStart] = useState(profile.hours.mon_open);
@@ -41,46 +41,47 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
   const [fridayEnd, setFridayEnd] = useState(profile.hours.fri_close);
   const [saturdayEnd, setSaturdayEnd] = useState(profile.hours.sat_close);
 
-  function submitHoursEdit() {
-    axios
-      .post("/api/hours", {
-        newSunOpen: sundayStart["value"],
-        newSunClose: sundayEnd["value"],
-        newMonOpen: mondayStart["value"],
-        newMonClose: mondayEnd["value"],
-        newTueOpen: tuesdayStart["value"],
-        newTueClose: tuesdayEnd["value"],
-        newWedOpen: wednesdayStart["value"],
-        newWedClose: wednesdayEnd["value"],
-        newThuOpen: thursdayStart["value"],
-        newThuClose: thursdayEnd["value"],
-        newFriOpen: fridayStart["value"],
-        newFriClose: fridayEnd["value"],
-        newSatOpen: saturdayStart["value"],
-        newSatClose: saturdayEnd["value"],
-      })
-      .then((response) => {
-        setHours({
-          sun_open: sundayStart,
-          sun_close: sundayEnd,
-          mon_open: mondayStart,
-          mon_close: mondayEnd,
-          tue_open: tuesdayStart,
-          tue_close: tuesdayEnd,
-          wed_open: wednesdayStart,
-          wed_close: wednesdayEnd,
-          thu_open: thursdayStart,
-          thu_close: thursdayEnd,
-          fri_open: fridayStart,
-          fri_close: fridayEnd,
-          sat_open: saturdayStart,
-          sat_close: saturdayEnd,
-        });
-        onClose();
-      })
-      .catch((err) => {
-        //console.log(err);
-      });
+  function submitHoursEdit(event) {
+    event.preventDefault()
+    // axios
+    //   .post("/api/hours", {
+    //     newSunOpen: sundayStart["value"],
+    //     newSunClose: sundayEnd["value"],
+    //     newMonOpen: mondayStart["value"],
+    //     newMonClose: mondayEnd["value"],
+    //     newTueOpen: tuesdayStart["value"],
+    //     newTueClose: tuesdayEnd["value"],
+    //     newWedOpen: wednesdayStart["value"],
+    //     newWedClose: wednesdayEnd["value"],
+    //     newThuOpen: thursdayStart["value"],
+    //     newThuClose: thursdayEnd["value"],
+    //     newFriOpen: fridayStart["value"],
+    //     newFriClose: fridayEnd["value"],
+    //     newSatOpen: saturdayStart["value"],
+    //     newSatClose: saturdayEnd["value"],
+    //   })
+    //   .then((response) => {
+    //     // setHours({
+    //     //   sun_open: sundayStart,
+    //     //   sun_close: sundayEnd,
+    //     //   mon_open: mondayStart,
+    //     //   mon_close: mondayEnd,
+    //     //   tue_open: tuesdayStart,
+    //     //   tue_close: tuesdayEnd,
+    //     //   wed_open: wednesdayStart,
+    //     //   wed_close: wednesdayEnd,
+    //     //   thu_open: thursdayStart,
+    //     //   thu_close: thursdayEnd,
+    //     //   fri_open: fridayStart,
+    //     //   fri_close: fridayEnd,
+    //     //   sat_open: saturdayStart,
+    //     //   sat_close: saturdayEnd,
+    //     // });
+    //     onClose();
+    //   })
+    //   .catch((err) => {
+    //     //console.log(err);
+    //   });
   }
 
   return (
@@ -97,7 +98,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
           <Select
             id="sunday-start"
             name="sunday_start"
-            onChange={(event) => setSundayStart([event])}
+            onChange={setSundayStart}
             options={HourOptions}
             theme={SelectCustomTheme}
             placeholder="Opening Hours"
@@ -290,7 +291,7 @@ function EditBusinessHours({ display, onClose, hours, setHours }) {
             required
           />
         </div>
-        <button className={styles["edit-business-hours-submit"]}>Submit</button>
+        <button className={styles["edit-business-hours-submit"]} type='submit'>Submit</button>
       </form>
     </Modal>
   );
