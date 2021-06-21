@@ -22,8 +22,10 @@ const Select = (props) => (
 );
 
 function EditBusinessHours({ display, onClose }) {
-  const { profile } = useContext(ProfileContext);
-  console.log('profile.hours: ', profile.hours.sun_open)
+  const { profile, editHours } = useContext(ProfileContext);
+
+  console.log(profile.hours);
+
   //convert hours into hour options usable as values for react-select
   const [sundayStart, setSundayStart] = useState(profile.hours.sun_open);
   const [mondayStart, setMondayStart] = useState(profile.hours.mon_open);
@@ -42,7 +44,7 @@ function EditBusinessHours({ display, onClose }) {
   const [saturdayEnd, setSaturdayEnd] = useState(profile.hours.sat_close);
 
   function submitHoursEdit(event) {
-    event.preventDefault()
+    event.preventDefault();
     // axios
     //   .post("/api/hours", {
     //     newSunOpen: sundayStart["value"],
@@ -82,6 +84,24 @@ function EditBusinessHours({ display, onClose }) {
     //   .catch((err) => {
     //     //console.log(err);
     //   });
+
+    editHours({
+      sun_open: sundayStart,
+      sun_close: sundayEnd,
+      mon_open: mondayStart,
+      mon_close: mondayEnd,
+      tue_open: tuesdayStart,
+      tue_close: tuesdayEnd,
+      wed_open: wednesdayStart,
+      wed_close: wednesdayEnd,
+      thu_open: thursdayStart,
+      thu_close: thursdayEnd,
+      fri_open: fridayStart,
+      fri_close: fridayEnd,
+      sat_open: saturdayStart,
+      sat_close: saturdayEnd,
+    });
+    onClose();
   }
 
   return (
@@ -291,7 +311,9 @@ function EditBusinessHours({ display, onClose }) {
             required
           />
         </div>
-        <button className={styles["edit-business-hours-submit"]} type='submit'>Submit</button>
+        <button className={styles["edit-business-hours-submit"]} type="submit">
+          Submit
+        </button>
       </form>
     </Modal>
   );
