@@ -5,8 +5,10 @@ const connection = require("../db");
 
 router.post("/api/follow-unfollow-user", (req, res) => {
   // follow user
-  //console.log("POST /api/follow-unfollow-user");
+  console.log("POST /api/follow-unfollow-user");
   const { accountId } = req.body;
+
+  console.log(req.session.reg_user_id);
 
   connection.query(
     `INSERT INTO Follow (follower_id, reg_user_id) 

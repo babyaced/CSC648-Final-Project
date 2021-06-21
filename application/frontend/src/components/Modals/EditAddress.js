@@ -22,27 +22,26 @@ import usePlacesAutocomplete, {
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 //For Address Editing
 
-function EditAddress({ display, onClose, setAddressState }) {
+function EditAddress({ display, onClose }) {
   const { profile, editAddress } = useContext(ProfileContext);
   const [address, setAddress] = useState(profile.address);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
   function submitAddressEdit() {
-    // axios
-    //   .post("/api/address", {
-    //     newAddress: address,
-    //     newLatitude: latitude,
-    //     newLongitude: longitude,
-    //   })
-    //   .then((response) => {
-    //     setAddressState(address);
-    //     onClose();
-    //   })
-    //   .catch((err) => {
-    //     //console.log(err);
-    //     //show error message in modal
-    //   });
+    axios
+      .post("/api/address", {
+        newAddress: address,
+        newLatitude: latitude,
+        newLongitude: longitude,
+      })
+      .then((response) => {
+        onClose();
+      })
+      .catch((err) => {
+        console.log(err);
+        //show error message in modal
+      });
     editAddress(address);
     onClose();
   }

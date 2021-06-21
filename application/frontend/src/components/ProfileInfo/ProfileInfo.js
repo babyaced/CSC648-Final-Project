@@ -9,7 +9,6 @@ import SendProfileMessage from "../../components/Modals/SendProfileMessage";
 import EditPetDetails from "../Modals/EditPetDetails";
 import LoginRequired from "../Modals/LoginRequired";
 
-
 import axios from "axios";
 import ConfirmDeletion from "../Modals/ConfirmDeletion";
 import ProfilePic from "./ProfilePic";
@@ -17,9 +16,8 @@ import FollowMenu from "./FollowMenu";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function ProfileInfo() {
-  const { profile, appUser, editName } = useContext(ProfileContext)
-  console.log('profile in profileInfo', profile)
-
+  const { profile, appUser, editName } = useContext(ProfileContext);
+  console.log("profile in profileInfo", profile);
 
   const [editing, setEditing] = useState(false);
 
@@ -34,11 +32,11 @@ function ProfileInfo() {
   const location = useLocation();
 
   function editHandler() {
-    console.log(profile.profileType)
-    console.log('clicked')
-    profile.profileType === "Pet" ?
-      setEditPetDetailsDisplay(true) :
-      setEditing(true);
+    console.log(profile.profileType);
+    console.log("clicked");
+    profile.profileType === "Pet"
+      ? setEditPetDetailsDisplay(true)
+      : setEditing(true);
   }
 
   function cancelEditHandler() {
@@ -46,7 +44,7 @@ function ProfileInfo() {
       .post("/api/name", {
         newFirstName: profile.displayName,
       })
-      .then((res) => { });
+      .then((res) => {});
 
     setEditing(false);
   }
@@ -76,7 +74,7 @@ function ProfileInfo() {
   function onFollowHandler() {
     if (appUser) {
       axios.post("/api/follow-unfollow-user", {
-        accountId: profile.account_id,
+        accountId: profile.accountId,
       });
       setFollow(!follow);
     } else {
@@ -121,7 +119,7 @@ function ProfileInfo() {
             <h1 className={styles.UserName}>{profile.displayName}</h1>
             <h3>
               the
-              {profile.petType.value ? profile.petType.value : 'Type'}
+              {profile.petType.value ? profile.petType.value : "Type"}
               {/* /
                 {profile.petBreeds[1].value ? profilepetBreeds[0].value : 'Breed'} */}
             </h3>
@@ -167,7 +165,10 @@ function ProfileInfo() {
   return (
     <div className={styles["profile-header"]}>
       <div className={styles["profile-pic-container"]}>
-        <ProfilePic isSelfView={profile.selfView} profile={profile.profileInfo} />
+        <ProfilePic
+          isSelfView={profile.selfView}
+          profile={profile.profileInfo}
+        />
       </div>
       <div className={styles["display-name-container"]}>
         <h1 className={styles["display-name"]}>
@@ -180,22 +181,15 @@ function ProfileInfo() {
         </h1>
         <h3>
           the
-          {profile.petType.value ? profile.petType.label : 'Type'}
+          {profile.petType.value ? profile.petType.label : "Type"}
         </h3>
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
         {profile.selfView && !editing && (
-          <button
-            onClick={() => editHandler()}
-          >
-            Edit
-          </button>
+          <button onClick={() => editHandler()}>Edit</button>
         )}
         {profile.selfView && editing && (
-          <button onClick={cancelEditHandler}
-          >
-            Save
-          </button>
+          <button onClick={cancelEditHandler}>Save</button>
         )}
       </div>
       <div className={styles["button-container"]}>
