@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 
 import styles from "./BusinessInfo.module.css";
 
@@ -9,20 +10,31 @@ import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 function BusinessInfo({
   displayEditHoursModal,
   displayEditAddressModal,
-  isSelfView,
   labelSelected,
-  phoneSetter,
-  submitPhoneEdit,
   changing,
   changingInfoHandler,
   cancelEditingHandler,
 }) {
   const { profile, editPhoneNumber } = useContext(ProfileContext);
+
+  function submitPhoneEdit() {
+    // axios
+    //   .post("/api/phone-number", {
+    //     newPhoneNumber: ,
+    //   })
+    //   .then((response) => {
+    //     //console.log(response);
+    //   })
+    //   .catch((err) => {
+    //     //console.log(err);
+    //   });
+  }
+
   console.log("Profile in BusinessInfo", profile);
   return (
     <div className={styles["business-info-container"]}>
       <div className={styles["address-container"]}>
-        {isSelfView && labelSelected !== "address" && (
+        {profile.selfView && labelSelected !== "address" && (
           <EditButton edit clicked={() => displayEditAddressModal()}>
             Edit
           </EditButton>
@@ -34,7 +46,7 @@ function BusinessInfo({
           readOnly={!changing || !(labelSelected === "address")}
           className={styles["address-text-area"]}
         />
-        {isSelfView && labelSelected !== "phone number" && (
+        {profile.selfView && labelSelected !== "phone number" && (
           <EditButton edit clicked={() => changingInfoHandler("phone number")}>
             Edit
           </EditButton>
@@ -68,7 +80,7 @@ function BusinessInfo({
         )}
       </div>
       <div className={styles["hours-container"]}>
-        {isSelfView && labelSelected !== "hours" && (
+        {profile.selfView && labelSelected !== "hours" && (
           <EditButton
             edit
             clicked={() => {

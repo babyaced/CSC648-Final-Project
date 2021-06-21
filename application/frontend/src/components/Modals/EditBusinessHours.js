@@ -198,7 +198,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-wednesday-hours-start"]}>
-          <label for="wednesday-start">Wednesday Start</label>
+          <label for="wednesday-start">Wednesday Opening</label>
           <Select
             id="wednesday-start"
             name="wednesday_start"
@@ -226,7 +226,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-thursday-hours-start"]}>
-          <label for="thursday-start">Thursday Start</label>
+          <label for="thursday-start">Thursday Opening</label>
           <Select
             id="thursday-start"
             name="thursday_start"
@@ -240,7 +240,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-thursday-hours-end"]}>
-          <label for="thursday-end">Thursday End</label>
+          <label for="thursday-end">Thursday Closing</label>
           <Select
             id="thursday-end"
             name="thursday_end"
@@ -254,7 +254,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-friday-hours-start"]}>
-          <label for="friday-start">Friday Start</label>
+          <label for="friday-start">Friday Opening</label>
           <Select
             id="friday-start"
             name="friday_start"
@@ -268,7 +268,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-friday-hours-end"]}>
-          <label for="friday-end">Friday End</label>
+          <label for="friday-end">Friday Closing</label>
           <Select
             id="friday-end"
             name="friday_end"
@@ -282,7 +282,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-saturday-hours-start"]}>
-          <label for="saturday-start">Saturday Start</label>
+          <label for="saturday-start">Saturday Opening</label>
           <Select
             id="saturday-start"
             name="saturday_start"
@@ -297,7 +297,7 @@ function EditBusinessHours({ display, onClose }) {
           />
         </div>
         <div className={styles["edit-saturday-hours-end"]}>
-          <label for="saturday-end">Saturday End</label>
+          <label for="saturday-end">Saturday Closing</label>
           <Select
             id="saturday-end"
             name="saturday_end"

@@ -60,19 +60,6 @@ function AboutMe() {
       });
   }
 
-  function submitPhoneEdit() {
-    axios
-      .post("/api/phone-number", {
-        newPhoneNumber: phone,
-      })
-      .then((response) => {
-        //console.log(response);
-      })
-      .catch((err) => {
-        //console.log(err);
-      });
-  }
-
   function phoneSetter(newPhoneNumber) {
     setPhone(newPhoneNumber);
   }
@@ -160,12 +147,8 @@ function AboutMe() {
       content = (
         <BusinessInfo
           displayEditHoursModal={displayEditHoursModal}
-          isSelfView={profile.selfView}
           labelSelected={labelSelected}
-          phone={phone}
-          phoneSetter={phoneSetter}
           displayEditAddressModal={displayEditAddressModal}
-          submitPhoneEdit={submitPhoneEdit}
           changing={changing}
           changingInfoHandler={changingInfoHandler}
           cancelEditingHandler={cancelEditingHandler}
@@ -187,13 +170,11 @@ function AboutMe() {
       <EditBusinessHours
         display={editHoursDisplay}
         onClose={() => {
-          cancelEditingHandler();
           setEditHoursDisplay(false);
         }}
       />
       <EditAddress
         display={editAddressDisplay}
-        setAddressState={setLocation}
         onClose={() => setEditAddressDisplay(false)}
       />
     </>
