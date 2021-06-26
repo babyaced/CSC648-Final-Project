@@ -52,6 +52,8 @@ function Messages() {
         setRecievedMessages(responses[0].data);
         setSentMessages(responses[1].data);
         setLoading(false);
+
+        console.log(responses[1].data);
       })
       .catch((err) => {
         setLoading(false);
@@ -93,8 +95,8 @@ function Messages() {
     });
   }
 
-  function updateSentMessages(newSentMessage) {
-    // setSentMessages([...sentMessages, newSentMessage]);
+  function updateSentMessagesState(newSentMessage) {
+    setSentMessages([...sentMessages, newSentMessage]);
   }
 
   useEffect(() => {
@@ -181,9 +183,10 @@ function Messages() {
               {messages}
             </div>
           </div>
+          {/* Modals */}
           <RecievedMessage
             display={recievedMessageModalDisplay}
-            updateSentMessages={updateSentMessages}
+            updateSentMessages={updateSentMessagesState}
             onClose={() => setRecievedMessageModalDisplay(false)}
             selectedMessage={selectedMessage}
           ></RecievedMessage>
@@ -196,7 +199,9 @@ function Messages() {
             display={sendMessageModalDisplay}
             onClose={() => setSendMessageModalDisplay(false)}
             recipientOptions={possibleMessageRecipients}
+            updateSentMessagesState={updateSentMessagesState}
           />
+          {/* Modals */}
         </>
       )}
     </>

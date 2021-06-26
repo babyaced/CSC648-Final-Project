@@ -24,6 +24,7 @@ const INIT_PET_DETAILS = "INIT_PET_DETAILS";
 //SELF VIEW
 
 const ABOUT_ME_EDIT = "ABOUT_ME_EDIT";
+const PIC_EDIT = "PIC_EDIT";
 
 //Pet Owner Profile
 const NAME_EDIT = "NAME_EDIT";
@@ -31,9 +32,6 @@ const NAME_EDIT = "NAME_EDIT";
 //Pet Profile
 const PET_DETAILS_EDIT = "PET_TYPE_EDIT";
 const PET_BREED_EDIT = "PET_BREED_EDIT";
-
-const PROFILE_PIC_EDIT = "PROFILE_PIC_EDIT";
-
 //Business Profile
 const HOURS_EDIT = "HOURS_EDIT";
 const ADDRESS_EDIT = "ADDRESS_EDIT";
@@ -60,7 +58,7 @@ const reducer = (state, action) => {
     return Object.assign({}, state, action.payload.fetchedProfile);
   }
 
-  if (action.type === PROFILE_PIC_EDIT) {
+  if (action.type === PIC_EDIT) {
     return Object.assign({}, state, { profilePic: action.payload.newURL });
   }
 
@@ -337,7 +335,7 @@ export const ProfileProvider = ({ appUser, children }) => {
     (newURL) => {
       //console.log('newURL', newURL)
       dispatch({
-        type: NAME_EDIT,
+        type: PIC_EDIT,
         payload: { newURL },
       });
     },

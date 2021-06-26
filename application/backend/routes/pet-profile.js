@@ -84,7 +84,7 @@ router.post("/api/create-pet-profile", (req, res) => {
                 });
               }
               console.log("success!");
-              return res.status(200).json("success");
+              return res.status(200).json({ data: insertedProfile.insertId });
             });
           } else if (catBreed.length !== 0 && petType.label == "Cat") {
             const insertedCat = await connection
@@ -110,7 +110,7 @@ router.post("/api/create-pet-profile", (req, res) => {
                 });
               }
               console.log("success!");
-              return res.status(200).json("success");
+              return res.status(200).json({ data: insertedProfile.insertId });
             });
           } else {
             conn.commit(function (err) {
@@ -121,7 +121,12 @@ router.post("/api/create-pet-profile", (req, res) => {
                 });
               }
               console.log("success!");
-              return res.status(200).json("success");
+              return res.status(200).json({
+                display_name: name,
+                profile_id: insertedProfile.insertId,
+                profile_pic_link:
+                  "https://csc648groupproject.s3-us-west-2.amazonaws.com/DefaultProfilePic.svg",
+              });
             });
           }
         } catch (err) {
@@ -273,12 +278,13 @@ router.post("/api/pet-details", (req, res) => {
   //first check if the logged in user is the owner
   connection.getConnection(function (err, conn) {
     if (err) {
-      //console.log(err)
-      res.status(500).json(err);
+      console.error(err);
+      return res.status(500).json(err);
     }
     conn.beginTransaction(async function (err) {
       if (err) {
-        res.status(500).json(err);
+        console.error(err);
+        return res.status(500).json(err);
       }
       console.log(newName, petProfileID, req.session.reg_user_id);
       try {

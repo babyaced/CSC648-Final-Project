@@ -54,7 +54,7 @@ function PostModal({ display, onClose, selectedPost }) {
   let displayComment = <Spinner />;
 
   if (!loading) {
-    if (comments.length == 0)
+    if (comments.length === 0)
       displayComment = (
         <li className={styles["post-comments-placeholder"]}>No Comments yet</li>
       );
@@ -70,13 +70,14 @@ function PostModal({ display, onClose, selectedPost }) {
       {selectedPost.link && (
         <div className={styles["post-container"]}>
           <div className={styles["post-image"]}>
-            <img src={selectedPost.link} />
+            <img src={selectedPost.link} alt={selectedPost.link} />
           </div>
           <div className={styles["post-content"]}>
             <div className={styles["post-detail"]}>
               <img
                 className={styles["post-detail-pic"]}
                 src={selectedPost.profile_pic_link}
+                alt={selectedPost.profile_pic_link}
               />
               <div className={styles["post-detail-name"]}>
                 <h5>{selectedPost.display_name}</h5>
@@ -112,6 +113,7 @@ function PostModal({ display, onClose, selectedPost }) {
               <img
                 className={styles["post-detail-pic"]}
                 src={selectedPost.profile_pic_link}
+                alt={selectedPost.profile_pic_link}
               />
               <div className={styles["post-detail-name"]}>
                 <h3>{selectedPost.display_name}</h3>

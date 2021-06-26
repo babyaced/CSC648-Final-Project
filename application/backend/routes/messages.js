@@ -17,11 +17,13 @@ router.post("/api/reply", (req, res) => {
     ],
     function (err, result) {
       if (err) {
-        //console.log(err);
+        console.error(err);
         res.status(500).json(err);
       } else {
         //console.log(result)
-        res.status(200).json(result);
+        res.status(200).json({
+          body: req.body.replyBody,
+        });
       }
     }
   );
@@ -112,35 +114,58 @@ router.post("/api/message-profile", (req, res) => {
 
 //for sending a message to a follower or with a username on the messages page
 router.post("/api/message", (req, res) => {
-  //console.log(req.body);
-  //console.log(req.session.reg_user_id);
-  //console.log("POST /api/message")
-  connection.query(
-    `INSERT INTO Message (subject, body, sender_id, recipient_id, timestamp) 
-        VALUES (?, ?, ?, 
-        (SELECT RegisteredUser.reg_user_id
-         FROM RegisteredUser
-         JOIN User ON RegisteredUser.user_id = User.user_id
-         JOIN Account ON User.user_id = Account.user_id
-         JOIN Profile ON Profile.account_id = Account.account_id
-         WHERE Profile.profile_id = ?), 
-         NOW())`,
-    [
-      req.body.messageSubject,
-      req.body.messageBody,
-      req.session.reg_user_id,
-      req.body.recipientProfileID,
-    ],
-    function (err, result) {
-      if (err) {
-        //console.log(err);
-        res.status(500).json(err);
-      } else {
-        //console.log(result);
-        res.status(200).json(result);
-      }
+  console.log("POST /api/message");
+  const { messageSubject, messageBody, recipientProfileID } = req.body;
+  async function sendMessage() {
+    try {
+      const [insertedMessage, insertedMessageFields] = await connection
+        .promise()
+        .query(
+          `INSERT INTO Message (subject, body, sender_id, recipient_id, timestamp) 
+            VALUES (?, ?, ?, 
+            (SELECT RegisteredUser.reg_user_id
+             FROM RegisteredUser
+             JOIN User ON RegisteredUser.user_id = User.user_id
+             JOIN Account ON User.user_id = Account.user_id
+             JOIN Profile ON Profile.account_id = Account.account_id
+             WHERE Profile.profile_id = ?), 
+             NOW())`,
+          [
+            messageSubject,
+            messageBody,
+            req.session.reg_user_id,
+            recipientProfileID,
+          ]
+        );
+
+      console.log("insertedMessage: ", insertedMessage);
+      console.log("insertedMessageFields: ", insertedMessageFields);
+
+      const [insertedMessageInfo, _] = await connection.promise().query(
+        `SELECT Profile.display_name, Profile.profile_pic_link, Message.timestamp
+          FROM Message
+          JOIN Profile ON Profile.profile_id = ?
+          WHERE Message.message_id = ?
+        `,
+        [recipientProfileID, insertedMessage.insertId]
+      );
+
+      console.log("insertedMessageInfo: ", insertedMessageInfo);
+
+      return res.status(200).json({
+        message_id: insertedMessage.insertId,
+        subject: messageSubject,
+        body: messageBody,
+        profile_pic_link: insertedMessageInfo[0].profile_pic_link,
+        display_name: insertedMessageInfo[0].display_name,
+        timestamp: insertedMessageInfo[0].timestamp,
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json(err);
     }
-  );
+  }
+  sendMessage();
 });
 
 // router.get("/api/replies", (req,res) =>{

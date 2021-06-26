@@ -11,7 +11,11 @@ function MessageCard({ message, viewModal }) {
       className={styles["message"]}
       onClick={() => viewModal()}
     >
-      <img className={styles["message-pic"]} src={message.profile_pic_link} />
+      <img
+        className={styles["message-pic"]}
+        src={message.profile_pic_link}
+        alt={message.display_name}
+      />
       <div className={styles["message-subject"]}>{message.subject}</div>
       <div className={styles["message-timestamp"]}>
         {new Date(message.timestamp).toLocaleString()}

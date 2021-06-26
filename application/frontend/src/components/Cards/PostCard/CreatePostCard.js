@@ -20,7 +20,12 @@ import useWindowSize from "../../Hooks/useWindowSize";
 const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
-function CreatePostCard({ displayName, profilePic, tagOptions }) {
+function CreatePostCard({
+  displayName,
+  profilePic,
+  tagOptions,
+  updateFeedPostsState,
+}) {
   //console.log(apiGatewayURL);
   const history = useHistory();
 
@@ -103,7 +108,9 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
     if (myFiles.length !== 0) {
       //try to upload photo first
       axios
-        .get(apiGatewayURL) //first get the presigned s3 url
+        .get(
+          "https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL"
+        ) //first get the presigned s3 url
         .then((response) => {
           let presignedFileURL = s3URL + response.data.photoFilename; //save this url to add to database later
           axios
@@ -116,14 +123,13 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
                   photoLink: presignedFileURL,
                   taggedPets: taggedPets,
                 })
-                .then((response) => {
+                .then((res) => {
+                  console.log("res.data: ", res.data);
                   removeAll();
                   setCreatedPostBody("");
                   setTaggedPets([]);
+                  updateFeedPostsState(res.data);
                   setLoading(false);
-                  setTimeout(() => {
-                    history.push("/");
-                  }, 1000);
                 })
                 .catch((err) => {
                   setLoading(false);
@@ -131,7 +137,7 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
             })
             .catch((err) => {
               setLoading(false);
-              if (err.response.status == 403) {
+              if (err.response.status === 403) {
                 //display error message to user
               }
               //break out of this function //presigned s3 url will automatically expire so no harm done
@@ -150,14 +156,12 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
           postBody: createdPostBody,
           taggedPets: taggedPets,
         })
-        .then((response) => {
-          //console.log("response: ", response);
+        .then((res) => {
+          console.log("res.data: ", res.data);
           setCreatedPostBody("");
           setTaggedPets([]);
+          updateFeedPostsState(res.data);
           setLoading(false);
-          setTimeout(() => {
-            history.push("/");
-          }, 2000);
         })
         .catch((err) => {
           setLoading(false);
@@ -216,6 +220,7 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
                 className={styles["attach-image-preview"]}
                 src={myFiles[0].preview}
                 onClick={removeAll}
+                alt="attach"
               />
               <button
                 className={styles["delete-attached-image-button"]}

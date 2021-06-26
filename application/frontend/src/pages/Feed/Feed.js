@@ -21,18 +21,19 @@ import { RedirectPathContext } from "../../context/redirect-path";
 
 function Feed({ appUser }) {
   const history = useHistory();
-  if (appUser.role == 4) {
+  if (appUser.role === 4) {
     history.push("/AdminFeed");
   }
-
-  //loading UI
-  const [loading, setLoading] = useState(false);
 
   const redirectContext = useContext(RedirectPathContext);
 
   const [offset, setOffset] = useState(0);
-  const { feedPosts, hasMore, postsLoading, error } = useFeed(offset, false); //custom hook for loading posts
-  const [posts, setPosts] = useState([...feedPosts]);
+  const [newPost, setNewPost] = useState({});
+  const { feedPosts, hasMore, postsLoading, error } = useFeed(
+    offset,
+    false,
+    newPost
+  ); //custom hook for loading posts
 
   const [createPostDisplayName, setCreatePostDisplayName] = useState("");
   const [createPostProfilePic, setCreatePostProfilePic] = useState("");
@@ -53,7 +54,11 @@ function Feed({ appUser }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          setOffset((prevOffset) => prevOffset + 10);
+          console.log("entries[0].isIntersecting");
+          console.log("offset", offset);
+          if (hasMore) {
+            setOffset((prevOffset) => prevOffset + 10);
+          }
         }
       });
       if (node) observer.current.observe(node);
@@ -61,6 +66,10 @@ function Feed({ appUser }) {
     [postsLoading, hasMore]
   );
 
+  function updateFeedPostsState(createdPost) {
+    console.log("createdPost: ", createdPost);
+    setNewPost(createdPost);
+  }
   //runs on refresh
   useEffect(() => {
     //get profile pic and name of user  //
@@ -105,6 +114,7 @@ function Feed({ appUser }) {
     setPostModalDisplay(false);
   }
 
+  // console.log(feedPosts);
   return (
     <>
       {redirectContext.loading ? (
@@ -116,6 +126,7 @@ function Feed({ appUser }) {
             displayName={createPostDisplayName}
             profilePic={createPostProfilePic}
             tagOptions={taggablePets}
+            updateFeedPostsState={updateFeedPostsState}
           />
           {feedPosts.length === 0 && (
             <>

@@ -5,9 +5,13 @@ function ButtonLoader() {
     <span>
       <i
         className="fa fa-circle-o-notch fa-spin"
-        style={{ marginRight: "5px", paddingRight: "0" }}
+        style={{
+          marginRight: "5px",
+          paddingRight: "0",
+          color: "var(--color-neutral-100)",
+        }}
       />
-      Sending
+      Uploading
     </span>
   );
 }

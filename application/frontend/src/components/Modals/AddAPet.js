@@ -50,12 +50,11 @@ function AddAPet({
         catBreed: catBreed,
         size: petSize,
       })
-      .then((response) => {
+      .then((res) => {
+        console.log("res.data: ", res.data);
         setLoading(false);
         onClose();
-        updatePetsState({
-          name: petName,
-        });
+        updatePetsState(res.data);
       })
       .catch((err) => {
         setLoading(false);

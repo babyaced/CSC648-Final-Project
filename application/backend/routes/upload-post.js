@@ -5,62 +5,94 @@ const connection = require("../db");
 
 router.post("/api/upload-post", (req, res) => {
   // uploading a post
-  //console.log("/api/upload-post");
-  const postBody = req.body.postBody;
-  //console.log("Post Body: ", postBody);
-  const username = req.session.username; //username for currently logged in user on browser
-  //console.log("Username: ", username);
-  const photoLink = req.body.photoLink;
-  //console.log("Photo Link: ", photoLink);
+  const { postBody, photoLink } = req.body;
 
-  connection.query(
-    `INSERT INTO Post (body, reg_user_id, like_count, comment_count, flag_count) 
-    VALUES 
-    (?, ?, 
-     0, 
-     0, 0)`,
-    [postBody, req.session.reg_user_id],
-    (error, insertedPost) => {
-      if (error) {
-        console.error(error);
-        res.status(500).json(error);
-      } else {
-        console.log(insertedPost);
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      console.error(err);
+      return res.status(500).json(err);
+    }
+    conn.beginTransaction(async function (err) {
+      if (err) {
+        console.error(err);
+        return res.status(500).json(err);
+      }
+      try {
+        const [insertedPost, _] = await conn.promise().query(
+          `INSERT INTO Post (body, reg_user_id, like_count, comment_count, flag_count) 
+          VALUES 
+          (?, ?, 
+           0, 
+           0, 0)`,
+          [postBody, req.session.reg_user_id]
+        );
+        console.log("insertedPost: ", insertedPost);
 
         if (photoLink) {
-          connection.query(
-            `INSERT INTO Photo (link, post_id) VALUES (?,?)`,
-            [photoLink, insertedPost.insertId],
-            (error, photo) => {
-              if (error) {
-                console.error(error);
-              }
-              console.log("image was inserted!");
-            }
-          );
-        } else {
-          console.log("post was inserted (no image)!");
+          const [insertedPhoto, _] = await conn
+            .promise()
+            .query(`INSERT INTO Photo (link, post_id) VALUES (?,?)`, [
+              photoLink,
+              insertedPost.insertId,
+            ]);
+          console.log("insertedPhoto: ", insertedPhoto);
         }
 
         if (req.body.taggedPets) {
           for (let i = 0; i < req.body.taggedPets.length; i++) {
-            connection.query(
-              `INSERT INTO PostTag (post_id, pet_id) VALUES (?, ?)`,
-              [insertedPost.insertId, req.body.taggedPets[i].value],
-              function (err, insertedTag) {
-                if (err) {
-                  //console.log(err);
-                } else {
-                  console.log("InsertedTag: ", insertedTag);
-                }
-              }
-            );
+            const [insertedPet, _] = await conn
+              .promise()
+              .query(`INSERT INTO PostTag (post_id, pet_id) VALUES (?, ?)`, [
+                insertedPost.insertId,
+                req.body.taggedPets[i].value,
+              ]);
+            console.log("insertedPet: ", insertedPet);
           }
         }
-        res.status(200).json(insertedPost);
+        conn.commit(async function (err) {
+          if (err) {
+            return conn.rollback(function () {
+              console.error(err);
+              return res.status(500).json(err);
+            });
+          } else {
+            console.log("insertedPost.insertId: ", insertedPost.insertId);
+            console.log("req.session.reg_user_id: ", req.session.reg_user_id);
+            const [insertedPostInfo, insertedPostInfoFields] = await conn
+              .promise()
+              .query(
+                `SELECT Profile.display_name, Profile.profile_id, Profile.profile_pic_link, Post.timestamp, Photo.link
+                FROM Post
+                LEFT JOIN RegisteredUser ON Post.reg_user_id = RegisteredUser.reg_user_id
+                LEFT JOIN Account ON Account.user_id = RegisteredUser.user_id
+                LEFT JOIN Photo ON Photo.post_id = Post.post_id
+                LEFT JOIN Profile ON Profile.account_id = Account.account_id
+                WHERE Post.post_id = ?
+                AND Post.reg_user_id = ?
+                AND Profile.pet_id IS NULL`,
+                [insertedPost.insertId, req.session.reg_user_id]
+              );
+            console.log("insertedPostInfo[0]: ", insertedPostInfo[0]);
+            return res.status(200).json({
+              post_id: insertedPost.insertId,
+              body: postBody,
+              display_name: insertedPostInfo[0].display_name,
+              timestamp: insertedPostInfo[0].timestamp,
+              link: insertedPostInfo[0].link,
+              profile_pic_link: insertedPostInfo[0].profile_pic_link,
+              profile_id: insertedPostInfo[0].profile_id,
+            });
+          }
+        });
+      } catch (err) {
+        console.error(err);
+        return conn.rollback(function () {
+          console.error(err);
+          return res.status(500).json(err);
+        });
       }
-    }
-  );
+    });
+  });
 });
 
 module.exports = router;

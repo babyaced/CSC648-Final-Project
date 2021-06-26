@@ -58,6 +58,7 @@ function MyPets() {
       .then((responses) => {
         setMyPets(responses[0].data);
         setLoading(false);
+        console.log("myPets: ", myPets);
       })
       .catch((err) => {
         //console.log(err);
@@ -73,6 +74,10 @@ function MyPets() {
       .catch((err) => {
         //console.log(err);
       });
+  }
+
+  function updatePetsState(newPet) {
+    setMyPets([...myPets, newPet]);
   }
 
   return (
@@ -111,7 +116,7 @@ function MyPets() {
         colorOptions={colorOptions}
         sizeOptions={sizeOptions}
         ageOptions={ageOptions}
-      // update={() => setUpdate(!update)}
+        updatePetsState={updatePetsState}
       />
     </>
   );
