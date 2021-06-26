@@ -184,7 +184,7 @@ function ProfileInfo() {
         {profile.profileType === "Pet" && (
           <span className={styles["display-name-subtitle"]}>
             the
-            {profile.petType.value ? profile.petType.label : "Type"}
+            {profile.petType.value ? " " + profile.petType.label : "Type"}
           </span>
         )}
       </div>
