@@ -13,11 +13,13 @@ function SendProfileMessage({ display, onClose, profile }) {
   function sendMessage(event) {
     event.preventDefault();
 
+    console.log(profile);
+
     axios
       .post("/api/message-profile", {
         messageSubject: subject,
         messageBody: body,
-        recipientAccountID: profile.account_id,
+        recipientAccountID: profile.accountId,
       })
       .then((response) => {
         //console.log(response);
