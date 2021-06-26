@@ -13,10 +13,10 @@ function ForgotPassword({ display, onClose }) {
         email: email,
       })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 

@@ -38,6 +38,7 @@ import MapSearch from "./pages/MapSearch/MapSearch.js";
 
 import axios from "axios";
 import Spinner from "./components/UI/Spinner/Spinner";
+import { ProfileProvider } from "./pages/Profile/ProfileProvider";
 
 const App = () => {
   const [appUser, setAppUser] = useState();
@@ -111,18 +112,14 @@ const App = () => {
             </Route>
             <Route path="/shelter-signup2" exact component={SignUpPage2} />
             <Route path="/business-signup2" exact component={SignUpPage2} />
-            <Route path="/Edgar" component={Edgar} />
-            <Route path="/Daniel" component={Daniel} />
-            <Route path="/Em" component={Em} />
-            <Route path="/Sabrina" component={Sabrina} />
-            <Route path="/Wenjie" component={Wenjie} />
-            <Route path="/Cameron" component={Cameron} />
-            <Route path="/Wameedh" component={Wameedh} />
+
 
             {/* Public Pages */}
             <Route path="/MapSearch" component={MapSearch} />
             <Route exact path="/Profile/:profileID">
-              <ProfilePage appUser={appUser} />
+              <ProfileProvider appUser={appUser}>
+                <ProfilePage />
+              </ProfileProvider>
             </Route>
             <Route path="/Photos/:profileID" component={Photos} />
             <Route path="/Followers/:profileID" component={Followers} />
@@ -139,9 +136,7 @@ const App = () => {
             <PrivateRoute path="/MyPets">
               <MyPets />
             </PrivateRoute>
-            <PrivateRoute path="/Pets/:profileID">
-              <Pets />
-            </PrivateRoute>
+            <Route path="/Pets/:profileID" component={Pets} />
             {/* <Route path="/ExploreUsers" component={ExploreUsers}/> */}
 
             <Route path="/SignUpSuccess" component={SignUpSuccess} />
@@ -154,6 +149,13 @@ const App = () => {
             </Route>
 
             {/* <Redirect to="/" /> */}
+            <Route path="/Edgar" component={Edgar} />
+            <Route path="/Daniel" component={Daniel} />
+            <Route path="/Em" component={Em} />
+            <Route path="/Sabrina" component={Sabrina} />
+            <Route path="/Wenjie" component={Wenjie} />
+            <Route path="/Cameron" component={Cameron} />
+            <Route path="/Wameedh" component={Wameedh} />
           </Switch>
         </Router>
       )}

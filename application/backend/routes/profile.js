@@ -58,6 +58,7 @@ router.get("/api/profile", (req, res) => {
         //if the logged in user is an admin
         adminViewFlag = true;
       }
+      console.log('profile[0]', profile[0])
       let response = {
         profile: profile[0],
         selfView: selfViewFlag,
@@ -245,7 +246,7 @@ router.post("/api/name", (req, res) => {
 
 router.get("/api/pet-details", (req, res) => {
   console.log("GET /api/pet-details");
-  // console.log(req.query)
+  console.log(req.query)
   const {
     petID,
     typeOptions,
@@ -354,7 +355,7 @@ router.get("/api/pet-details", (req, res) => {
           petType: type,
           petAge: age,
           petSize: size,
-          colors: colorSelectOptions,
+          petColors: colorSelectOptions,
           dogBreeds: dogBreedSelectOptions,
           catBreeds: catBreedSelectOptions,
         });

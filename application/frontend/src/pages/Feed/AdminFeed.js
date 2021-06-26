@@ -102,7 +102,7 @@ function AdminFeed({ appUser }) {
         setDeletionModalDisplay(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 

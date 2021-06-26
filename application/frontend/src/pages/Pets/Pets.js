@@ -24,7 +24,7 @@ function Pets() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }, [profileID]);
 

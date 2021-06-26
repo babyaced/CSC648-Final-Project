@@ -190,7 +190,7 @@ router.post("/api/sign-up/business", (req, res) => {
                         function (err, result) {
                             if (err) {
                                 return conn.rollback(function () {
-                                    console.log(err)
+                                    console.log('SELECT user_id', err)
                                     res.status(500).json(err);
                                 })
                             }
@@ -203,7 +203,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                         function (err, result) {  //check if username is taken
                                             if (err) {
                                                 return conn.rollback(function () {
-                                                    console.log(err)
+                                                    console.log('SELECT username', err)
                                                     res.status(500).json(err);
                                                 })
                                             }
@@ -221,7 +221,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                 function (err, result) {
                                                                     if (err) {
                                                                         return conn.rollback(function () {
-                                                                            console.log(err)
+                                                                            console.log('INSERT INTO User', err)
                                                                             res.status(500).json(err);
                                                                         })
                                                                     }
@@ -234,7 +234,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                             function (err, result) {
                                                                                 if (err) {
                                                                                     return conn.rollback(function () {
-                                                                                        console.log(err)
+                                                                                        console.log('INSERT INTO Account', err)
                                                                                         res.status(500).json(err);
                                                                                     })
                                                                                 }
@@ -246,7 +246,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                                         function (err, result) {
                                                                                             if (err) {
                                                                                                 return conn.rollback(function () {
-                                                                                                    console.log(err)
+                                                                                                    console.log('INSERT INTO Credentials', err)
                                                                                                     res.status(500).json(err);
                                                                                                 })
                                                                                             }
@@ -262,7 +262,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                                                     function (err, result) {
                                                                                                         if (err) {
                                                                                                             return conn.rollback(function () {
-                                                                                                                console.log(err)
+                                                                                                                console.log('INSERT INTO Address', err)
                                                                                                                 res.status(500).json(err);
                                                                                                             })
                                                                                                         }
@@ -278,11 +278,13 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                                                                 function (err, result) {
                                                                                                                     if (err) {
                                                                                                                         return conn.rollback(function () {
-                                                                                                                            console.log(err)
+                                                                                                                            console.log('INSERT INTO Business', err)
                                                                                                                             res.status(500).json(err);
                                                                                                                         })
                                                                                                                     }
-                                                                                                                    insertedBusinessID = result
+                                                                                                                    insertedBusinessID = result.insertId
+                                                                                                                    console.log(insertedBusinessID)
+                                                                                                                    console.log(givenBusinessType)
                                                                                                                     conn.query(
                                                                                                                         `INSERT INTO Commerce (business_id, business_type_id) VALUES (?, ?)`,
                                                                                                                         [
@@ -292,7 +294,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                                                                         function (err, insertedCommerce) {
                                                                                                                             if (err) {
                                                                                                                                 return conn.rollback(function () {
-                                                                                                                                    console.log(err)
+                                                                                                                                    console.log('INSERT INTO Commerce', err)
                                                                                                                                     res.status(500).json(err);
                                                                                                                                 })
                                                                                                                             }
@@ -306,7 +308,7 @@ router.post("/api/sign-up/business", (req, res) => {
                                                                                                                                     ) {
                                                                                                                                         if (err) {
                                                                                                                                             return conn.rollback(function () {
-                                                                                                                                                console.log(err)
+                                                                                                                                                console.log('UPDATE Profile', err)
                                                                                                                                                 res.status(500).json(err);
                                                                                                                                             })
                                                                                                                                         }

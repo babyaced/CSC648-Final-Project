@@ -29,10 +29,10 @@ function PostModal({ display, onClose, selectedPost }) {
         postId: selectedPost.post_id,
       })
       .then((response) => {
-        console.log("Response: ", response);
+        //console.log("Response: ", response);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
 
     getComments(); //refresh so the user knows their comment has posted

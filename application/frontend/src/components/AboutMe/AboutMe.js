@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import EditAddress from "../../components/Modals/EditAddress";
 
@@ -10,25 +10,16 @@ import styles from "./AboutMe.module.css";
 import EditBusinessHours from "../../components/Modals/EditBusinessHours";
 import axios from "axios";
 import BusinessInfo from "./BusinessInfo";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 const shelterProfileTabs = ["About", "Contact Info"]; //, "Recent Posts"]
 const businessProfileTabs = ["About", "Business Info"]; //, "Recent Posts"]
 const petOwnerProfileTabs = ["About"]; //, "Recent Posts"]
 
-function AboutMe({
-  aboutMeBody,
-  profile,
-  updateProfile,
-  isSelfView,
-  address,
-  phoneNumber,
-  hours,
-  profileID,
-}) {
-  //not sure if these need to have state yet
-  let latitude;
-  let longitude;
-  //not sure if these need to have state yet
+function AboutMe() {
+  const { profile, profileID, editAboutMe } = useContext(ProfileContext);
+  //console.log('profile', profile)
+  //console.log('profileID', profileID)
 
   const [selected, setSelected] = useState("About");
   const [changing, setChanging] = useState(false);
@@ -36,36 +27,6 @@ function AboutMe({
 
   const [editHoursDisplay, setEditHoursDisplay] = useState(false);
   const [editAddressDisplay, setEditAddressDisplay] = useState(false);
-
-  const [aboutMeContent, setAboutMeContent] = useState(aboutMeBody);
-  const [phone, setPhone] = useState();
-  const [location, setLocation] = useState();
-  const [hoursState, setHoursState] = useState({});
-
-  useEffect(() => {
-    if (profile.type === "Business") {
-      axios
-        .get("/api/hours", { params: { profileID: profileID } })
-        .then((response) => {
-          setHoursState(response.data);
-        })
-        .catch((err) => {});
-
-      axios
-        .get("/api/business-address", { params: { profileID: profileID } })
-        .then((response) => {
-          setLocation(response.data.address);
-        })
-        .catch((err) => {});
-
-      axios
-        .get("/api/business-phone-number", { params: { profileID: profileID } })
-        .then((response) => {
-          setPhone(response.data.phone_num);
-        })
-        .catch((err) => {});
-    }
-  }, [profileID]);
 
   function displayEditHoursModal() {
     setEditHoursDisplay(true);
@@ -78,32 +39,15 @@ function AboutMe({
   function submitAboutMeEdit() {
     axios
       .post("/api/about-me", {
-        newAboutMe: aboutMeContent,
-        profileID: profile.profile_id,
+        newAboutMe: profile.aboutMe,
+        profileID: profileID,
       })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  function submitPhoneEdit() {
-    axios
-      .post("/api/phone-number", {
-        newPhoneNumber: phone,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function phoneSetter(newPhoneNumber) {
-    setPhone(newPhoneNumber);
   }
 
   function onTabClickHandler(id) {
@@ -121,7 +65,7 @@ function AboutMe({
   }
 
   let profileTabs = null;
-  switch (profile.type) {
+  switch (profile.profileType) {
     case "Shelter":
       profileTabs = shelterProfileTabs;
       break;
@@ -145,7 +89,7 @@ function AboutMe({
       section={tab}
       selected={selected}
       clicked={onTabClickHandler}
-      accountType={profile.type}
+      accountType={profile.profileType}
     />
   ));
 
@@ -156,12 +100,11 @@ function AboutMe({
         <>
           <textarea
             className={styles["text-area"]}
-            placeholder="Write down something to share with others😃"
-            value={aboutMeContent}
-            onChange={(event) => setAboutMeContent(event.target.value)}
+            value={profile.aboutMe}
+            onChange={(event) => editAboutMe(event.target.value)}
             readOnly={!changing || !(labelSelected === "about")}
           />
-          {isSelfView &&
+          {profile.selfView &&
             (labelSelected !== "about" ? (
               <EditButton
                 style={{ fontSize: "var(--h5)" }}
@@ -189,15 +132,9 @@ function AboutMe({
     case "Business Info":
       content = (
         <BusinessInfo
-          hoursState={hoursState}
           displayEditHoursModal={displayEditHoursModal}
-          isSelfView={isSelfView}
           labelSelected={labelSelected}
-          phone={phone}
-          phoneSetter={phoneSetter}
           displayEditAddressModal={displayEditAddressModal}
-          submitPhoneEdit={submitPhoneEdit}
-          location={location}
           changing={changing}
           changingInfoHandler={changingInfoHandler}
           cancelEditingHandler={cancelEditingHandler}
@@ -218,8 +155,6 @@ function AboutMe({
       {/* Modals */}
       <EditBusinessHours
         display={editHoursDisplay}
-        hours={hoursState}
-        setHours={setHoursState}
         onClose={() => {
           cancelEditingHandler();
           setEditHoursDisplay(false);
@@ -227,7 +162,6 @@ function AboutMe({
       />
       <EditAddress
         display={editAddressDisplay}
-        setAddressState={setLocation}
         onClose={() => setEditAddressDisplay(false)}
       />
     </>

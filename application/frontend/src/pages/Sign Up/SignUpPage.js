@@ -15,7 +15,7 @@ import PasswordValidation from "../../utils/signupValidation/PasswordValidation"
 import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 function SignUpPage({ type }) {
-  console.log("type: ", type);
+  //console.log("type: ", type);
   //form states
   const [email, setEmail] = useState("");
   const [uname, setUname] = useState("");
@@ -64,7 +64,7 @@ function SignUpPage({ type }) {
     event.preventDefault();
 
     const valid = validateForm();
-    console.log("valid form: ", valid);
+    //console.log("valid form: ", valid);
     if (valid) {
       Axios.post(
         "/api/sign-up",
@@ -86,20 +86,20 @@ function SignUpPage({ type }) {
         .catch((error) => {
           if (error.response.data === "exists") {
             setError("An Account using that Email or Username already exists");
-            console.log(error);
+            //console.log(error);
           } else if (error.response.data === "passwords not matching") {
             setError("The Passwords Entered Do Not Match");
-            console.log(error);
+            //console.log(error);
           } else if (error.response.data === "password requirements") {
             setError(
               "Your Password Must Have at least 8 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character"
             );
-            console.log(error);
+            //console.log(error);
           }
-          console.log(error);
+          //console.log(error);
         });
     } else {
-      console.log("invalid form");
+      //console.log("invalid form");
     }
   }
 
@@ -133,10 +133,10 @@ function SignUpPage({ type }) {
         type: "shelter",
       });
 
-    console.log(nextPage);
+    //console.log(nextPage);
 
     const valid = validateForm();
-    console.log("valid form: ", valid);
+    //console.log("valid form: ", valid);
 
     if (valid) {
       Axios.post(
@@ -150,7 +150,7 @@ function SignUpPage({ type }) {
         { withCredentials: true }
       )
         .then((response) => {
-          console.log(response)
+          //console.log(response)
           history.push(nextPage);
         })
         .catch((error) => {
@@ -168,12 +168,12 @@ function SignUpPage({ type }) {
   }
 
   function validateForm() {
-    console.log("First Name: ", firstName);
-    console.log("Last Name: ", lastName);
-    console.log("Email: ", email);
-    console.log("uname: ", uname);
-    console.log("Password: ", password);
-    console.log("Redone Password: ", redonePassword);
+    //console.log("First Name: ", firstName);
+    //console.log("Last Name: ", lastName);
+    //console.log("Email: ", email);
+    //console.log("uname: ", uname);
+    //console.log("Password: ", password);
+    //console.log("Redone Password: ", redonePassword);
 
     let fNameErr = NameValidation(true, firstName);
     let lNameErr = NameValidation(false, lastName);
@@ -203,7 +203,7 @@ function SignUpPage({ type }) {
       return false;
     }
 
-    console.log("no errors");
+    //console.log("no errors");
     return true;
   }
 
@@ -230,9 +230,9 @@ function SignUpPage({ type }) {
   //Decide if password not matching message is displayed
   let passwordMatchStyle = "same";
   if (passwordChecking && password !== redonePassword) {
-    console.log("Password Checking on");
+    //console.log("Password Checking on");
     if (redonePassword.length == 0 || password.length == 0) {
-      console.log("but password length is 0");
+      //console.log("but password length is 0");
       passwordMatchStyle = "same";
       setPasswordChecking(false);
     } else {

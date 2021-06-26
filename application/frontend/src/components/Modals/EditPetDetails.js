@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Modal from "./Modal";
 
@@ -11,84 +11,59 @@ import axios from "axios";
 
 import SelectCustomTheme from "../../mods/SelectCustomTheme";
 
-import useTypeOptions from "../DropdownOptions/useTypeOptions";
-import useColorOptions from "../DropdownOptions/useColorOptions";
-import useAgeOptions from "../DropdownOptions/useAgeOptions";
-import useSizeOptions from "../DropdownOptions/useSizeOptions";
-import useCatBreedOptions from "../DropdownOptions/useCatBreedOptions";
-import useDogBreedOptions from "../DropdownOptions/useDogBreedOptions";
+import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
-function EditPetDetails({
-  display,
-  updateProfile,
-  profile,
-  onClose,
-  updatePetType,
-  updatePetBreed,
-  recievedPetAge,
-  recievedPetSize,
-  recievedPetType,
-  recievedPetColors,
-  recievedDogBreeds,
-  recievedCatBreeds,
-}) {
-  console.log(recievedPetAge);
-  console.log(recievedPetSize);
-  console.log(recievedPetType);
-  console.log(recievedPetColors);
-  console.log(recievedDogBreeds);
-  console.log(recievedCatBreeds);
+function EditPetDetails({ display, onClose }) {
+  console.log('editPetDetailsDisplay: ', display)
 
-  const [petName, setPetName] = useState(profile.display_name);
-  const [petType, setPetType] = useState(recievedPetType); //set this to already existing pet type stored in db for real version
-  const [dogBreed, setDogBreed] = useState(recievedDogBreeds);
-  const [petColors, setPetColors] = useState(recievedPetColors);
-  const [petSize, setPetSize] = useState(recievedPetSize);
-  const [catBreed, setCatBreed] = useState(recievedCatBreeds);
-  const [petAge, setPetAge] = useState(recievedPetAge);
+  const { profile, typeOptions, colorOptions, ageOptions, sizeOptions, dogBreedOptions, catBreedOptions, editName, editPetDetails } = useContext(ProfileContext)
 
-  const [typeOptions] = useTypeOptions();
+  console.log('editPetDetails Profile: ', profile)
 
-  const [dogBreedOptions] = useDogBreedOptions();
+  console.log('editPetDetails Profile.petType: ', profile.petType)
 
-  const [catBreedOptions] = useCatBreedOptions();
+  console.log('editPetDetails Profile.petSize: ', profile.petSize)
 
-  const [colorOptions] = useColorOptions();
+  console.log('editPetDetails Profile.petAge: ', profile.petAge)
 
-  const [sizeOptions] = useSizeOptions();
+  console.log('editPetDetails Profile.petColors: ', profile.petColors)
 
-  const [ageOptions] = useAgeOptions();
+  console.log('editPetDetails Profile.dogBreeds: ', profile.dogBreeds)
 
-  useEffect(() => {
-    setPetName(profile.display_name)
-  }, [profile])
+  console.log('editPetDetails Profile.catBreeds: ', profile.catBreeds)
 
-  useEffect(() => {
-    setPetType(recievedPetType)
-    setDogBreed(recievedDogBreeds)
-    setPetColors(recievedPetColors)
-    setPetSize(recievedPetSize)
-    setCatBreed(recievedCatBreeds);
-    setPetAge(recievedPetAge);
-  }, [recievedCatBreeds, recievedDogBreeds, recievedPetAge, recievedPetColors, recievedPetSize, recievedPetType])
+  function updatePetDetails(event) {
+    event.preventDefault()
+    editPetDetails(
+      {
+        newName: localPetName,
+        newType: localPetType,
+        newAge: localPetAge,
+        newSize: localPetSize,
+        newColors: localPetColors,
+        newDogBreeds: localDogBreeds,
+        newCatBreeds: localCatBreeds
+      }
+    )
+    onClose();
+    //  axios.post('/api/edit-pet',{})
+    //  .then((response) =>{
 
-  //function updatePet(){
-  //     axios.post('/api/edit-pet',{})
-  //     .then((response) =>{
+    //  })
+    //  .catch((err) =>{
 
-  //     })
-  //     .catch((err) =>{
+    //  })
+  }
 
-  //     })
-  // }
 
-  console.log(petName)
-  console.log(petType)
-  console.log(dogBreed)
-  console.log(petColors)
-  console.log(petSize)
-  console.log(catBreed)
-  console.log(petAge)
+  //Holds the values that will be edited in the profile context when the form is submitted
+  const [localPetName, setLocalPetName] = useState(profile.displayName)
+  const [localPetType, setLocalPetType] = useState(profile.petType)
+  const [localPetAge, setLocalPetAge] = useState(profile.petAge)
+  const [localPetSize, setLocalPetSize] = useState(profile.petSize)
+  const [localPetColors, setLocalPetColors] = useState(profile.petColors)
+  const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds)
+  const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds)
 
   const animatedComponents = makeAnimated();
 
@@ -97,7 +72,7 @@ function EditPetDetails({
       <div className={styles["edit-pet-details-header"]}>
         Edit Pet Information
       </div>
-      <div className={styles["edit-pet-details-container"]}>
+      <form className={styles["edit-pet-details-container"]} onSubmit={updatePetDetails}>
         <div className={styles["edit-pet-details-name"]}>
           <label for="name">Name</label>
           <input
@@ -105,9 +80,9 @@ function EditPetDetails({
             id="name"
             name="pet_name"
             maxLength="25"
-            value={petName}
+            value={localPetName}
             placeholder="Name"
-            onChange={(event) => updateProfile("userName", event.target.value)}
+            onChange={(event) => setLocalPetName(event.target.value)}
           />
         </div>
         <div className={styles["edit-pet-details-type"]}>
@@ -115,10 +90,10 @@ function EditPetDetails({
           <Select
             id="type"
             name="pet_type"
-            onChange={updatePetType}
+            onChange={setLocalPetType}
             options={typeOptions}
             theme={SelectCustomTheme}
-            value={petType}
+            value={localPetType}
             placeholder="Select Pet Type"
             isSearchable
           />
@@ -143,12 +118,12 @@ function EditPetDetails({
           <Select
             id="color"
             name="pet_color"
-            onChange={setPetColors}
+            onChange={setLocalPetColors}
             options={colorOptions}
             theme={SelectCustomTheme}
             placeholder="Select Pet Color(s)"
             isSearchable
-            value={petColors}
+            value={localPetColors}
             isMulti
           />
         </div>
@@ -157,10 +132,10 @@ function EditPetDetails({
           <Select
             id="age"
             name="pet_age"
-            onChange={setPetAge}
+            onChange={setLocalPetAge}
             options={ageOptions}
             theme={SelectCustomTheme}
-            value={petAge}
+            value={localPetAge}
             placeholder="Select Pet Age"
             isSearchable
           />
@@ -170,52 +145,50 @@ function EditPetDetails({
           <Select
             id="size"
             name="pet_size"
-            onChange={setPetSize}
+            onChange={setLocalPetSize}
             options={sizeOptions}
             theme={SelectCustomTheme}
             placeholder="Select Pet Size"
-            value={petSize}
+            value={localPetSize}
             isSearchable
           />
         </div>
-        {petType && petType.label === "Dog" && <div className={styles["edit-pet-details-breed"]}>
+        {localPetType && localPetType.label === "Dog" && <div className={styles["edit-pet-details-breed"]}>
           <label for="breed">Breed</label>
           <Select
             id="breed"
             name="pet_breed"
-            // onChange={updatePetBreed}
-            onChange={setDogBreed}
+            onChange={setLocalDogBreeds}
             options={dogBreedOptions}
             theme={SelectCustomTheme}
             placeholder="Select Dog Breed"
             isSearchable
             isMulti
-            value={dogBreed}
+            value={localDogBreeds}
             components={animatedComponents}
           />
         </div>}
-        {petType && petType.label === "Cat" && (
+        {localPetType && localPetType.label === "Cat" && (
           <div className={styles["edit-pet-details-breed"]}>
             <label for="breed">Breed</label>
             <Select
               id="breed"
               name="pet_breed"
-              // onChange={updatePetBreed}
-              onChange={setCatBreed}
+              onChange={setLocalCatBreeds}
               options={catBreedOptions}
               theme={SelectCustomTheme}
               placeholder="Select Cat Breed"
               isSearchable
               isMulti
-              value={catBreed}
+              value={localCatBreeds}
               components={animatedComponents}
             />
           </div>
         )}
-        <button className={styles["edit-pet-details-submit"]} onClick={onClose}>
+        <button className={styles["edit-pet-details-submit"]} type="submit">
           Submit
         </button>
-      </div>
+      </form>
     </Modal>
   );
 }

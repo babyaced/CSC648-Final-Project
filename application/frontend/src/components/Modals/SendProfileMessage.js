@@ -20,11 +20,11 @@ function SendProfileMessage({ display, onClose, profile }) {
         recipientAccountID: profile.account_id,
       })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         onClose();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         //display Error message e.g: try again
       });
   }

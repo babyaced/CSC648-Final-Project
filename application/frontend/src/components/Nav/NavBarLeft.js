@@ -11,7 +11,7 @@ import useWindowSize from "../Hooks/useWindowSize";
 function NavBarLeft({ appUser }) {
   const windowSize = useWindowSize();
 
-  // console.log('windowSize: ',windowSize);
+  // //console.log('windowSize: ',windowSize);
 
   return (
     <span className={styles["navbar-left"]}>
