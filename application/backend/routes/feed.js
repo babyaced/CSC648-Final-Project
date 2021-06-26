@@ -25,11 +25,12 @@ router.get("/api/feed-user", (req, res) => {
 router.get("/api/posts", (req, res) => {
   const { offset } = req.query;
   //console.log(offset)
-  //console.log("/api/posts");
+  console.log("GET /api/posts");
   let username = req.session.username;
   let postsWithLikes = []; //array for holding objects with posts and likes
+  console.log("offset:", offset);
   connection.query(
-    `SELECT Profile.profile_id, Post.post_id, Post.timestamp, Post.body, Post.like_count, Profile.display_name, Profile.profile_pic_link, Profile.pet_id, Photo.link, Post.like_count
+    `SELECT Profile.profile_id, Profile.pet_id, Post.post_id, Post.timestamp, Post.body, Post.like_count, Profile.display_name, Profile.profile_pic_link, Profile.pet_id, Photo.link, Post.like_count
          FROM Post
          LEFT JOIN Photo ON Post.post_id = Photo.post_id
          LEFT JOIN RegisteredUser ON RegisteredUser.reg_user_id = Post.reg_user_id
@@ -58,7 +59,7 @@ router.get("/api/posts", (req, res) => {
         //console.log(err);
         res.status(500).json(err);
       } else {
-        //console.log(posts)
+        console.log(posts);
         res.status(200).json(posts);
       }
     }

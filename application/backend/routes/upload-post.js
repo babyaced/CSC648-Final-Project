@@ -49,13 +49,20 @@ router.post("/api/upload-post", (req, res) => {
             console.log("insertedPet: ", insertedPet);
           }
         }
+        console.log("insertedPost.insertId", insertedPost.insertId);
+        const insertedPostInfo = await connection.promise().query(
+          `SELECT Profile.display_name, Profile.profile_id, Profile.profile_pic_link, Post.timestamp, Post.link
+           FROM Post
+           JOIN Profile ON 
+           WHERE Post.post_id = ?`,
+          [insertedPost.insertId]
+        );
         return res.status(200).json({
-          // petType: type,
-          // petAge: age,
-          // petSize: size,
-          // petColors: colorSelectOptions,
-          // dogBreeds: dogBreedSelectOptions,
-          // catBreeds: catBreedSelectOptions,
+          post_id: insertedPost.insertId,
+          body: postBody,
+          display_name: insertedPostInfo[0].display_name,
+          timestamp: insertedPostInfo[0].timestamp,
+          link: insertedPostInfo[0].link,
         });
       } catch (err) {
         console.error(err);

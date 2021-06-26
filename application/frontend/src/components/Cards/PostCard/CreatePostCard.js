@@ -20,7 +20,12 @@ import useWindowSize from "../../Hooks/useWindowSize";
 const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
-function CreatePostCard({ displayName, profilePic, tagOptions }) {
+function CreatePostCard({
+  displayName,
+  profilePic,
+  tagOptions,
+  updateFeedPostsState,
+}) {
   //console.log(apiGatewayURL);
   const history = useHistory();
 
@@ -116,10 +121,11 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
                   photoLink: presignedFileURL,
                   taggedPets: taggedPets,
                 })
-                .then((response) => {
+                .then((res) => {
                   removeAll();
                   setCreatedPostBody("");
                   setTaggedPets([]);
+                  updateFeedPostsState(res.data);
                   setLoading(false);
                   setTimeout(() => {
                     history.push("/");
@@ -131,7 +137,7 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
             })
             .catch((err) => {
               setLoading(false);
-              if (err.response.status == 403) {
+              if (err.response.status === 403) {
                 //display error message to user
               }
               //break out of this function //presigned s3 url will automatically expire so no harm done
@@ -216,6 +222,7 @@ function CreatePostCard({ displayName, profilePic, tagOptions }) {
                 className={styles["attach-image-preview"]}
                 src={myFiles[0].preview}
                 onClick={removeAll}
+                alt="attach"
               />
               <button
                 className={styles["delete-attached-image-button"]}

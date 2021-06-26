@@ -49,13 +49,19 @@ function Feed({ appUser }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          setOffset((prevOffset) => prevOffset + 10);
+          console.log("entries[0].isIntersecting");
+          console.log("offset", offset);
+          if (hasMore) {
+            setOffset((prevOffset) => prevOffset + 10);
+          }
         }
       });
       if (node) observer.current.observe(node);
     },
     [postsLoading, hasMore]
   );
+
+  function updateFeedPostsState() {}
 
   //runs on refresh
   useEffect(() => {
@@ -101,7 +107,7 @@ function Feed({ appUser }) {
     setPostModalDisplay(false);
   }
 
-  console.log(feedPosts);
+  // console.log(feedPosts);
   return (
     <>
       {redirectContext.loading ? (
@@ -113,6 +119,7 @@ function Feed({ appUser }) {
             displayName={createPostDisplayName}
             profilePic={createPostProfilePic}
             tagOptions={taggablePets}
+            updateFeedPostsState={updateFeedPostsState}
           />
           {feedPosts.length === 0 && (
             <>
