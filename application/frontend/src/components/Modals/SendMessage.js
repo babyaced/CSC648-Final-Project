@@ -10,7 +10,13 @@ import SelectCustomTheme from "../../mods/SelectCustomTheme.js";
 
 const { Option } = components;
 
-function SendMessage({ display, onClose, profile, recipientOptions }) {
+function SendMessage({
+  display,
+  onClose,
+  profile,
+  recipientOptions,
+  updateSentMessagesState,
+}) {
   const [sendSuccess, setSendSuccess] = useState(false);
 
   const [subject, setSubject] = useState("");
@@ -28,8 +34,9 @@ function SendMessage({ display, onClose, profile, recipientOptions }) {
         recipientProfileID: recipient[0].value, //contains profile id
       })
       .then((response) => {
-        //console.log(response);
+        console.log(response.data);
         onClose();
+        updateSentMessagesState(response.data);
       })
       .catch((err) => {
         //console.log(err);
