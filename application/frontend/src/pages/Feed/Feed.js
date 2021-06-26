@@ -28,7 +28,12 @@ function Feed({ appUser }) {
   const redirectContext = useContext(RedirectPathContext);
 
   const [offset, setOffset] = useState(0);
-  const { feedPosts, hasMore, postsLoading, error } = useFeed(offset, false); //custom hook for loading posts
+  const [newPost, setNewPost] = useState({});
+  const { feedPosts, hasMore, postsLoading, error } = useFeed(
+    offset,
+    false,
+    newPost
+  ); //custom hook for loading posts
 
   const [createPostDisplayName, setCreatePostDisplayName] = useState("");
   const [createPostProfilePic, setCreatePostProfilePic] = useState("");
@@ -61,8 +66,10 @@ function Feed({ appUser }) {
     [postsLoading, hasMore]
   );
 
-  function updateFeedPostsState() {}
-
+  function updateFeedPostsState(createdPost) {
+    console.log("createdPost: ", createdPost);
+    setNewPost(createdPost);
+  }
   //runs on refresh
   useEffect(() => {
     //get profile pic and name of user  //

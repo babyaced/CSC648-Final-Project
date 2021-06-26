@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useFeed(offset, admin) {
+function useFeed(offset, admin, newPost) {
   const [feedPosts, setFeedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -42,6 +42,22 @@ function useFeed(offset, admin) {
         });
     }
   }, [offset]);
+
+  //Handle when a new post is created by the user
+  useEffect(() => {
+    let empty = true;
+    for (var i in newPost) {
+      empty = false;
+    }
+
+    if (!empty) {
+      setFeedPosts((prevPosts) => {
+        return [...new Set([newPost, ...prevPosts])];
+      });
+    } else {
+      console.log("empty");
+    }
+  }, [newPost]);
 
   return { loading, error, hasMore, feedPosts };
 }

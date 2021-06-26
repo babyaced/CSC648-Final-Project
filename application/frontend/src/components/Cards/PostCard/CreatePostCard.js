@@ -122,14 +122,12 @@ function CreatePostCard({
                   taggedPets: taggedPets,
                 })
                 .then((res) => {
+                  console.log("res.data: ", res.data);
                   removeAll();
                   setCreatedPostBody("");
                   setTaggedPets([]);
                   updateFeedPostsState(res.data);
                   setLoading(false);
-                  setTimeout(() => {
-                    history.push("/");
-                  }, 1000);
                 })
                 .catch((err) => {
                   setLoading(false);
@@ -156,14 +154,12 @@ function CreatePostCard({
           postBody: createdPostBody,
           taggedPets: taggedPets,
         })
-        .then((response) => {
-          //console.log("response: ", response);
+        .then((res) => {
+          console.log("res.data: ", res.data);
           setCreatedPostBody("");
           setTaggedPets([]);
+          updateFeedPostsState(res.data);
           setLoading(false);
-          setTimeout(() => {
-            history.push("/");
-          }, 2000);
         })
         .catch((err) => {
           setLoading(false);
