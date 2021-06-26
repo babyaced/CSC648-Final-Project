@@ -28,6 +28,7 @@ function useFeed(offset, admin) {
       axios
         .get("/api/posts", { params: { offset } })
         .then((res) => {
+          console.log("res.data: ", res.data);
           setFeedPosts((prevPosts) => {
             return [...new Set([...prevPosts, ...res.data])];
           });

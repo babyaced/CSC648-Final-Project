@@ -21,18 +21,14 @@ import { RedirectPathContext } from "../../context/redirect-path";
 
 function Feed({ appUser }) {
   const history = useHistory();
-  if (appUser.role == 4) {
+  if (appUser.role === 4) {
     history.push("/AdminFeed");
   }
-
-  //loading UI
-  const [loading, setLoading] = useState(false);
 
   const redirectContext = useContext(RedirectPathContext);
 
   const [offset, setOffset] = useState(0);
   const { feedPosts, hasMore, postsLoading, error } = useFeed(offset, false); //custom hook for loading posts
-  const [posts, setPosts] = useState([...feedPosts]);
 
   const [createPostDisplayName, setCreatePostDisplayName] = useState("");
   const [createPostProfilePic, setCreatePostProfilePic] = useState("");
@@ -105,6 +101,7 @@ function Feed({ appUser }) {
     setPostModalDisplay(false);
   }
 
+  console.log(feedPosts);
   return (
     <>
       {redirectContext.loading ? (
