@@ -193,17 +193,9 @@ export const ProfileProvider = ({ appUser, children }) => {
         getIsFollowing,
       ])
         .then((responses) => {
-          //   console.log("responses[0].data", responses[0].data);
-          //   console.log("responses[1].data", responses[1].data);
-          //   console.log("responses[2].data", responses[2].data);
-          //   console.log("responses[3].data", responses[3].data);
-          //   console.log("responses[4].data", responses[4].data);
           if (!responses[0].data.profile) {
-            //if the profile doesn't exist, redirect user
             history.push("/Feed");
           }
-
-          //console.log('responses[0].data.profile: ', responses[0].data.profile)
 
           fetchedProfile = {
             displayName: responses[0].data.profile.display_name,
@@ -297,6 +289,8 @@ export const ProfileProvider = ({ appUser, children }) => {
               .catch((err) => {
                 console.log(err);
               });
+          } else {
+            setLoading(false);
           }
         })
         .catch((err) => {

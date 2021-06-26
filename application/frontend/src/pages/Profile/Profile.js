@@ -12,6 +12,8 @@ import { ProfileContext } from "./ProfileProvider";
 function Profile({ appUser }) {
   const { profile } = useContext(ProfileContext);
 
+  console.log("profile:", profile);
+
   // switch profile type by changing the userProfile Ex: shelterProfile, businessProfile, newBusinessProfile and petOwnerProfile
 
   return (

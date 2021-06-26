@@ -23,7 +23,7 @@ function AddAPet({
   colorOptions,
   sizeOptions,
   ageOptions,
-  update,
+  updatePetsState,
 }) {
   //States to be set and sent to db
   const [petName, setPetName] = useState("");
@@ -43,7 +43,7 @@ function AddAPet({
     axios
       .post("/api/create-pet-profile", {
         name: petName,
-        type: petType,
+        petType: petType,
         age: petAge,
         color: petColor,
         dogBreed: dogBreed,
@@ -53,7 +53,9 @@ function AddAPet({
       .then((response) => {
         setLoading(false);
         onClose();
-        // update()
+        updatePetsState({
+          name: petName,
+        });
       })
       .catch((err) => {
         setLoading(false);

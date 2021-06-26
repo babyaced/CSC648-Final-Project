@@ -14,56 +14,73 @@ import SelectCustomTheme from "../../mods/SelectCustomTheme";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function EditPetDetails({ display, onClose }) {
-  console.log('editPetDetailsDisplay: ', display)
+  console.log("editPetDetailsDisplay: ", display);
 
-  const { profile, typeOptions, colorOptions, ageOptions, sizeOptions, dogBreedOptions, catBreedOptions, editName, editPetDetails } = useContext(ProfileContext)
+  const {
+    profile,
+    typeOptions,
+    colorOptions,
+    ageOptions,
+    sizeOptions,
+    dogBreedOptions,
+    catBreedOptions,
+    editPetDetails,
+    profileID,
+  } = useContext(ProfileContext);
 
-  console.log('editPetDetails Profile: ', profile)
+  console.log("editPetDetails Profile: ", profile);
 
-  console.log('editPetDetails Profile.petType: ', profile.petType)
+  console.log("editPetDetails Profile.petType: ", profile.petType);
 
-  console.log('editPetDetails Profile.petSize: ', profile.petSize)
+  console.log("editPetDetails Profile.petSize: ", profile.petSize);
 
-  console.log('editPetDetails Profile.petAge: ', profile.petAge)
+  console.log("editPetDetails Profile.petAge: ", profile.petAge);
 
-  console.log('editPetDetails Profile.petColors: ', profile.petColors)
+  console.log("editPetDetails Profile.petColors: ", profile.petColors);
 
-  console.log('editPetDetails Profile.dogBreeds: ', profile.dogBreeds)
+  console.log("editPetDetails Profile.dogBreeds: ", profile.dogBreeds);
 
-  console.log('editPetDetails Profile.catBreeds: ', profile.catBreeds)
+  console.log("editPetDetails Profile.catBreeds: ", profile.catBreeds);
 
   function updatePetDetails(event) {
-    event.preventDefault()
-    editPetDetails(
-      {
+    event.preventDefault();
+    console.log("updating pet details");
+    axios
+      .post("/api/pet-details", {
         newName: localPetName,
-        newType: localPetType,
+        newPetType: localPetType,
         newAge: localPetAge,
         newSize: localPetSize,
         newColors: localPetColors,
         newDogBreeds: localDogBreeds,
-        newCatBreeds: localCatBreeds
-      }
-    )
-    onClose();
-    //  axios.post('/api/edit-pet',{})
-    //  .then((response) =>{
-
-    //  })
-    //  .catch((err) =>{
-
-    //  })
+        newCatBreeds: localCatBreeds,
+        petProfileID: profileID,
+      })
+      .then((response) => {})
+      .then(() => {
+        editPetDetails({
+          petProfileID: profileID,
+          newName: localPetName,
+          newType: localPetType,
+          newAge: localPetAge,
+          newSize: localPetSize,
+          newColors: localPetColors,
+          newDogBreeds: localDogBreeds,
+          newCatBreeds: localCatBreeds,
+        });
+        onClose();
+      })
+      .catch((err) => {});
   }
 
-
   //Holds the values that will be edited in the profile context when the form is submitted
-  const [localPetName, setLocalPetName] = useState(profile.displayName)
-  const [localPetType, setLocalPetType] = useState(profile.petType)
-  const [localPetAge, setLocalPetAge] = useState(profile.petAge)
-  const [localPetSize, setLocalPetSize] = useState(profile.petSize)
-  const [localPetColors, setLocalPetColors] = useState(profile.petColors)
-  const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds)
-  const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds)
+  const [localPetName, setLocalPetName] = useState(profile.displayName);
+  const [localPetType, setLocalPetType] = useState(profile.petType);
+  const [localPetAge, setLocalPetAge] = useState(profile.petAge);
+  const [localPetSize, setLocalPetSize] = useState(profile.petSize);
+  const [localPetColors, setLocalPetColors] = useState(profile.petColors);
+  const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds);
+  const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds);
 
   const animatedComponents = makeAnimated();
 
@@ -72,7 +89,10 @@ function EditPetDetails({ display, onClose }) {
       <div className={styles["edit-pet-details-header"]}>
         Edit Pet Information
       </div>
-      <form className={styles["edit-pet-details-container"]} onSubmit={updatePetDetails}>
+      <form
+        className={styles["edit-pet-details-container"]}
+        onSubmit={updatePetDetails}
+      >
         <div className={styles["edit-pet-details-name"]}>
           <label for="name">Name</label>
           <input
@@ -153,21 +173,23 @@ function EditPetDetails({ display, onClose }) {
             isSearchable
           />
         </div>
-        {localPetType && localPetType.label === "Dog" && <div className={styles["edit-pet-details-breed"]}>
-          <label for="breed">Breed</label>
-          <Select
-            id="breed"
-            name="pet_breed"
-            onChange={setLocalDogBreeds}
-            options={dogBreedOptions}
-            theme={SelectCustomTheme}
-            placeholder="Select Dog Breed"
-            isSearchable
-            isMulti
-            value={localDogBreeds}
-            components={animatedComponents}
-          />
-        </div>}
+        {localPetType && localPetType.label === "Dog" && (
+          <div className={styles["edit-pet-details-breed"]}>
+            <label for="breed">Breed</label>
+            <Select
+              id="breed"
+              name="pet_breed"
+              onChange={setLocalDogBreeds}
+              options={dogBreedOptions}
+              theme={SelectCustomTheme}
+              placeholder="Select Dog Breed"
+              isSearchable
+              isMulti
+              value={localDogBreeds}
+              components={animatedComponents}
+            />
+          </div>
+        )}
         {localPetType && localPetType.label === "Cat" && (
           <div className={styles["edit-pet-details-breed"]}>
             <label for="breed">Breed</label>
