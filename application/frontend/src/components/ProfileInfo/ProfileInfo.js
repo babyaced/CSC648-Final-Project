@@ -181,10 +181,12 @@ function ProfileInfo() {
             onChange={(event) => editName(event.target.value)}
           />
         </h1>
-        <span className={styles["display-name-subtitle"]}>
-          the
-          {profile.petType.value ? profile.petType.label : "Type"}
-        </span>
+        {profile.profileType === "Pet" && (
+          <span className={styles["display-name-subtitle"]}>
+            the
+            {profile.petType.value ? profile.petType.label : "Type"}
+          </span>
+        )}
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
         {profile.selfView && !editing && (
