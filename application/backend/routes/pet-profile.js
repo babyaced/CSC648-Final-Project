@@ -3,137 +3,136 @@ const connection = require("../db");
 const router = express.Router();
 
 router.post("/api/create-pet-profile", (req, res) => {
-  //console.log("POST /api/create-pet-profile");
-  //console.log("req.body: ", req.body);
+  console.log("POST /api/create-pet-profile");
+  console.log(req.body);
+  const { name, petType, age, color, size, dogBreed, catBreed } = req.body;
+
   let insertedPet;
 
-  // if(req.body.dogBreed.length != 0){
-  //     //console.log("Its a dog!")
-  // }
-  // else if(req.body.catBreed.length != 0){
-  //     //console.log("Its a cat!")
-  // }
-  // else{
-  //     //console.log("Its another pet!")
-  // }
-
   //MAKE THIS INTO A TRANSACTION LATER
-  connection.query(
-    `INSERT INTO Pet
-         (age_id, size_id, reg_user_id, name, type_id)
-         VALUES ('${req.body.age.value}','${req.body.size.value}','${req.session.reg_user_id}','${req.body.name}', '${req.body.type.value}')`,
-    function (err, userPet) {
-      if (err) {
-        //console.log(err);
-      } else {
-        //console.log("Inserted Pet successfully");
-        //console.log(userPet);
-        insertedPet = userPet;
-        connection.query(
-          `INSERT INTO Profile
-                      (display_name,about_me, account_id, pet_id, type)
-                      VALUES (?, ?, 
-                      (SELECT Account.account_id
-                        FROM Account
-                        JOIN RegisteredUser ON RegisteredUser.reg_user_id = ?
-                        WHERE Account.user_id = RegisteredUser.user_id),
-                      ?,
-                      'Pet')`,
-          [req.body.name, "", req.session.reg_user_id, userPet.insertId],
-          function (err, result) {
-            if (err) {
-              //console.log(err);
-            } else {
-              //console.log(result);
-              for (let i = 0; i < req.body.color.length; i++) {
-                connection.query(
-                  `INSERT INTO PetColor (pet_id,color_id) VALUES (?,?)`,
-                  [userPet.insertId, req.body.color[i].value],
-                  function (err, result) {
-                    if (err) {
-                      //console.log(err);
-                      //  res.status(500).json(err);
-                      //  res.end();
-                    } else {
-                      //console.log(req.body.color[i].label + " inserted")
-                    }
-                  }
-                );
-              }
-
-              if (
-                req.body.dogBreed.length !== 0 &&
-                req.body.type.label == "Dog"
-              ) {
-                connection.query(
-                  `INSERT INTO Dog (pet_id) VALUES (?)`,
-                  [userPet.insertId],
-                  function (err, insertedDog) {
-                    if (err) {
-                      //console.log(err);
-                      // res.status(500).json(err);
-                    } else {
-                      //console.log("Inserted Dog successfully");
-                      //console.log(insertedDog);
-                      for (let i = 0; i < req.body.dogBreed.length; i++) {
-                        connection.query(
-                          `INSERT INTO DogBreeds (dog_id, breed_id) VALUES (?,?)`,
-                          [insertedDog.insertId, req.body.dogBreed[i].value],
-                          function (err, insertedDogBreed) {
-                            if (err) {
-                              //console.log(err);
-                              // res.status(500).json(err);
-                            } else {
-                              //console.log("Dog Breed: ", req.body.dogBreed[i].label, " inserted");
-                            }
-                          }
-                        );
-                      }
-                      res.status(200).json(insertedDog);
-                    }
-                  }
-                );
-              } else if (
-                req.body.catBreed.length !== 0 &&
-                req.body.type.label == "Cat"
-              ) {
-                connection.query(
-                  `INSERT INTO Cat (pet_id) VALUES (?)`,
-                  [userPet.insertId],
-                  function (err, insertedCat) {
-                    if (err) {
-                      //console.log(err);
-                      // res.status(500).json(err);
-                    } else {
-                      //console.log("Inserted Cat successfully");
-                      //console.log(insertedCat);
-                      for (let i = 0; i < req.body.catBreed.length; i++) {
-                        connection.query(
-                          `INSERT INTO CatBreeds (cat_id, breed_id) VALUES (?,?)`,
-                          [insertedCat.insertId, req.body.catBreed[i].value],
-                          function (err, insertedCatBreed) {
-                            if (err) {
-                              //console.log(err);
-                            } else {
-                              //console.log("Cat Breed: ",req.body.catBreed[i].label, " inserted");
-                            }
-                          }
-                        );
-                      }
-                      res.status(200).json(insertedCat);
-                      // res.end();
-                    }
-                  }
-                );
-              } else {
-                res.status(200).json(insertedPet);
-              }
-            }
-          }
-        );
-      }
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      console.error(err);
+      return res.status(500).json(err);
     }
-  );
+    conn.beginTransaction(async function (err) {
+      if (err) {
+        return res.status(500).json(err);
+      } else {
+        try {
+          const [insertedPet, _] = await connection.promise().query(
+            `INSERT INTO Pet
+                 (age_id, size_id, reg_user_id, name, type_id)
+                 VALUES (?,?,?,?,?)`,
+            [
+              age.value,
+              size.value,
+              req.session.reg_user_id,
+              name,
+              petType.value,
+            ]
+          );
+          console.log("insertedPet: ", insertedPet);
+
+          console.log("insertedPet.insertId: ", insertedPet.insertId);
+
+          const insertedProfile = await connection.promise().query(
+            `INSERT INTO Profile
+                        (display_name,about_me, account_id, pet_id, type)
+                        VALUES (?, ?, 
+                        (SELECT Account.account_id
+                          FROM Account
+                          JOIN RegisteredUser ON RegisteredUser.reg_user_id = ?
+                          WHERE Account.user_id = RegisteredUser.user_id),
+                        ?,
+                        'Pet')`,
+            [name, "", req.session.reg_user_id, insertedPet.insertId]
+          );
+          console.log("insertedProfile: ", insertedProfile);
+
+          for (let i = 0; i < req.body.color.length; i++) {
+            const insertedColor = await connection
+              .promise()
+              .query(`INSERT INTO PetColor (pet_id,color_id) VALUES (?,?)`, [
+                insertedPet.insertId,
+                req.body.color[i].value,
+              ]);
+
+            console.log("insertedColor: ", insertedColor);
+          }
+          if (dogBreed.length !== 0 && petType.label == "Dog") {
+            const insertedDog = await connection
+              .promise()
+              .query(`INSERT INTO Dog (pet_id) VALUES (?)`, [
+                insertedPet.insertId,
+              ]);
+            console.log("insertedDog: ", insertedDog);
+            for (let i = 0; i < dogBreed.length; i++) {
+              const insertedDogBreed = await connection
+                .promise()
+                .query(
+                  `INSERT INTO DogBreeds (dog_id, breed_id) VALUES (?,?)`,
+                  [insertedDog.insertId, dogBreed[i].value]
+                );
+              console.log("insertedDogBreed: ", insertedDogBreed);
+            }
+            conn.commit(function (err) {
+              if (err) {
+                return conn.rollback(function () {
+                  console.error(err);
+                  return res.status(500).json(err);
+                });
+              }
+              console.log("success!");
+              return res.status(200).json("success");
+            });
+          } else if (catBreed.length !== 0 && petType.label == "Cat") {
+            const insertedCat = await connection
+              .promise()
+              .query(`INSERT INTO Cat (pet_id) VALUES (?)`, [
+                insertedPet.insertId,
+              ]);
+            console.log("insertedCat: ", insertedCat);
+            for (let i = 0; i < catBreed.length; i++) {
+              const insertedCatBreed = await connection
+                .promise()
+                .query(
+                  `INSERT INTO CatBreeds (cat_id, breed_id) VALUES (?,?)`,
+                  [insertedCat.insertId, catBreed[i].value]
+                );
+              console.log("insertedCatBreed: ", insertedCatBreed);
+            }
+            conn.commit(function (err) {
+              if (err) {
+                return conn.rollback(function () {
+                  console.error(err);
+                  return res.status(500).json(err);
+                });
+              }
+              console.log("success!");
+              return res.status(200).json("success");
+            });
+          } else {
+            conn.commit(function (err) {
+              if (err) {
+                return conn.rollback(function () {
+                  console.error(err);
+                  return res.status(500).json(err);
+                });
+              }
+              console.log("success!");
+              return res.status(200).json("success");
+            });
+          }
+        } catch (err) {
+          console.error(err);
+          return conn.rollback(function () {
+            return res.status(500).json(err);
+          });
+        }
+      }
+    });
+  });
 });
 
 router.get("/api/pet-details", (req, res) => {
@@ -537,6 +536,7 @@ router.post("/api/pet-details", (req, res) => {
             if (err) {
               return conn.rollback(function () {
                 console.error(err);
+                return res.status(500).json(err);
               });
             }
             console.log("success!");
@@ -546,6 +546,7 @@ router.post("/api/pet-details", (req, res) => {
       } catch (err) {
         console.error(err);
         return conn.rollback(function () {
+          console.error(err);
           return res.status(500).json(err);
         });
       }
