@@ -17,7 +17,7 @@ const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 function ProfilePic() {
   //console.log(apiGatewayURL);
 
-  const { profile, editProfilePic } = useContext(ProfileContext)
+  const { profile, editProfilePic } = useContext(ProfileContext);
 
   //states
   const [loading, setLoading] = useState(false);
@@ -28,15 +28,17 @@ function ProfilePic() {
         "Content-type": "image/jpeg", //configure headers for put request to s3 bucket
       },
     };
-
+    console.log("apiGatewayURL: ", apiGatewayURL);
     setLoading(true);
     axios
-      .get(apiGatewayURL) //first get the presigned s3 url
+      .get(
+        "https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL"
+      ) //first get the presigned s3 url
       .then((response) => {
         let presignedFileURL = s3URL + response.data.photoFilename; //save this url to add to database later
         axios
           .put(response.data.uploadURL, acceptedFile[0], config)
-          .then((response) => {
+          .then((res) => {
             //upload the file to s3
             axios
               .post("/api/profile-pic", {
@@ -44,7 +46,7 @@ function ProfilePic() {
                 profileID: profile.profile_id,
                 profileType: profile.type,
               })
-              .then((response) => {
+              .then((res) => {
                 editProfilePic(presignedFileURL);
                 setLoading(false);
               })

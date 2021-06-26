@@ -108,7 +108,9 @@ function CreatePostCard({
     if (myFiles.length !== 0) {
       //try to upload photo first
       axios
-        .get(apiGatewayURL) //first get the presigned s3 url
+        .get(
+          "https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL"
+        ) //first get the presigned s3 url
         .then((response) => {
           let presignedFileURL = s3URL + response.data.photoFilename; //save this url to add to database later
           axios
