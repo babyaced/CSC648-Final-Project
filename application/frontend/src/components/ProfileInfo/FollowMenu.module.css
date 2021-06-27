@@ -1,75 +1,73 @@
-
-
-.follow-unfollow-button{
-    cursor: pointer;
-    padding: 0.5rem 0 0.5rem 1rem;
-    min-width: 110px;
-    margin-left: 0;
-    font-size: var(--h5);
-    border-right: none;
-    border-radius: 7.5px 0 0 7.5px;
+.follow-unfollow-button {
+  cursor: pointer;
+  padding: 0.5rem 0 0.5rem 1rem;
+  min-width: 90px;
+  margin-left: 0;
+  font-size: var(--h5);
+  border-right: none;
+  border-radius: 7.5px 0 0 7.5px;
 }
 
-.follow-button{
-    background-color: var(--reversed-txt-clr);
-    border: solid var(--accent-color-2) 2px;
-    color: var(--accent-color-2);
-    transition: all .25s ease-in-out; 
+.follow-button {
+  background-color: var(--reversed-txt-clr);
+  border: solid var(--accent-color-2) 2px;
+  color: var(--accent-color-2);
+  transition: all 0.25s ease-in-out;
 }
 
-.unfollow-button{
-    background-color: #ccc;
-    border: 2px solid transparent;
-    color: #545454;
-    transition: all .25s ease-in-out; 
+.unfollow-button {
+  background-color: #ccc;
+  border: 2px solid transparent;
+  color: #545454;
+  transition: all 0.25s ease-in-out;
 }
 
-.dropdown-menu-button{
-    display: flex;
+.dropdown-menu-button {
+  display: flex;
 }
 
-.more-options-button:hover{
-    background-color: var(--color-secondary-300);
+.more-options-button:hover {
+  background-color: var(--color-secondary-300);
 }
 
-.more-options-button{
-    border: none;
-    width: 40px;
-    height: 100%;
-    background-color: var(--accent-color-2);;
-    border: solid var(--accent-color-2) 2px;
-    border-left: none;
-    border-radius: 0 7.5px 7.5px 0;
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
-    background-image: url('../../assets/icons/created/ArrowWhite.svg');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+.more-options-button {
+  border: none;
+  width: 40px;
+  height: 100%;
+  background-color: var(--accent-color-2);
+  border: solid var(--accent-color-2) 2px;
+  border-left: none;
+  border-radius: 0 7.5px 7.5px 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background-image: url("../../assets/icons/created/ArrowWhite.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 /* Follow Menu Dropdown */
 
-.dropdown-items{
-    opacity: 0;
-    transform: translate(-110px,-10px);
-    transition: all 0.25s cubic-bezier(.5,0,.5,1);
-    margin-top: 0px;
-    list-style: none;
-    border-radius: 7.5px;
-    position:absolute;
-    background-color: white;
-    box-shadow: var(--elevation-1);
-    z-index: -1;
-    padding: 0.5rem 0 0.5rem 1rem;
-    min-width: 150px;
-    font-family: var(--ff-secondary);
+.dropdown-items {
+  opacity: 0;
+  transform: translate(-110px, -10px);
+  transition: all 0.25s cubic-bezier(0.5, 0, 0.5, 1);
+  margin-top: 0px;
+  list-style: none;
+  border-radius: 7.5px;
+  position: absolute;
+  background-color: white;
+  box-shadow: var(--elevation-1);
+  z-index: -1;
+  padding: 0.5rem 0 0.5rem 1rem;
+  min-width: 150px;
+  font-family: var(--ff-secondary);
 }
 
-.menuVisible{
-    transform: translate(-110px,0px);
-    opacity:1;
-    z-index: 2;
+.menuVisible {
+  transform: translate(-110px, 0px);
+  opacity: 1;
+  z-index: 2;
 }
 
 /* .dropdown-items:hover{
@@ -78,10 +76,10 @@
     transform: translateY(0px);
 } */
 
-.dropdown-item{
-    padding-left: 0;
+.dropdown-item {
+  padding-left: 0;
 }
 
-.dropdown-item:hover{
-    color: var(--primary-clr);
+.dropdown-item:hover {
+  color: var(--primary-clr);
 }

@@ -69,7 +69,7 @@
   cursor: pointer;
   transition: 0.15s ease-in-out;
   padding: 0.5rem 1rem;
-  min-width: 150px;
+  min-width: 120px;
   font-size: var(--h5);
 }
 
@@ -97,14 +97,23 @@
 
 @media (max-width: 547px) {
   .profile-header {
-    grid-template-columns: 120px auto;
-    grid-template-rows: 60px 60px repeat(2, auto);
-    grid-template-areas:
-      "profile-pic display-name    "
-      "profile-pic save-edit-button"
-      "button-container button-container"
-      "button-container button-container";
-    grid-area: save-edit-button;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    width: 125px;
+    height: 125px;
+    position: relative;
+    margin: 0 auto;
+    grid-area: profile-pic;
+  }
+
+  .display-name-container {
+    margin: 0 auto;
+    width: 100%;
   }
 
   /* div.button-container button:nth-child(n){
