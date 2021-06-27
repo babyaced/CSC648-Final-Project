@@ -20,14 +20,11 @@
 
 .display-name-container {
   grid-area: display-name;
-  display: flex;
-  flex-flow: row wrap;
 }
 
 .display-name {
   font-weight: 600;
   font-family: var(--ff-primary);
-  white-space: nowrap;
 }
 
 .display-name input {
@@ -86,42 +83,26 @@
   border-radius: 7px;
 }
 
-.SideContainer-nameDiv {
-  display: flex;
-  justify-items: center;
-}
-
-.SideContainer-contaniner {
-  display: flex;
-}
-
-@media (max-width: 547px) {
+@media (max-width: 768px) {
   .profile-header {
     display: flex;
     flex-direction: column;
   }
 
   .profile-pic-container {
-    display: flex;
-    flex-direction: column;
-    width: 125px;
-    height: 125px;
-    position: relative;
+    width: 150px;
+    height: 150px;
     margin: 0 auto;
-    grid-area: profile-pic;
   }
 
   .display-name-container {
-    margin: 0 auto;
-    width: 100%;
+    margin-top: 1rem;
   }
+}
 
-  /* div.button-container button:nth-child(n){
-        margin-left: 0rem;
-        margin-top: 0.5rem;
-    }
-    
-    div.button-container button:first-child{
-        margin-left: 0rem;
-    } */
+@media (max-width: 450px) {
+  .profile-pic-container {
+    width: 125px;
+    height: 125px;
+  }
 }
