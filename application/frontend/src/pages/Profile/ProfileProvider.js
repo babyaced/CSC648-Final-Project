@@ -1,9 +1,21 @@
 import {
+  INIT_PROFILE,
+  PIC_EDIT,
+  NAME_EDIT,
+  ABOUT_ME_EDIT,
+  INIT_PET_DETAILS,
+  PET_DETAILS_EDIT,
+  INIT_BIZ_DETAILS,
+  PHONE_NUM_EDIT,
+  HOURS_EDIT,
+  ADDRESS_EDIT,
+} from "./ProfileActions";
+
+import {
   createContext,
   useCallback,
   useReducer,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -16,128 +28,9 @@ import useDogBreedOptions from "../../components/DropdownOptions/useDogBreedOpti
 import useCatBreedOptions from "../../components/DropdownOptions/useCatBreedOptions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
+import reducer from "./ProfileReducer";
+
 export const ProfileContext = createContext();
-
-const INIT_PROFILE = "INIT_PROFILE";
-const INIT_PET_DETAILS = "INIT_PET_DETAILS";
-
-//SELF VIEW
-
-const ABOUT_ME_EDIT = "ABOUT_ME_EDIT";
-const PIC_EDIT = "PIC_EDIT";
-
-//Pet Owner Profile
-const NAME_EDIT = "NAME_EDIT";
-
-//Pet Profile
-const PET_DETAILS_EDIT = "PET_TYPE_EDIT";
-const PET_BREED_EDIT = "PET_BREED_EDIT";
-//Business Profile
-const HOURS_EDIT = "HOURS_EDIT";
-const ADDRESS_EDIT = "ADDRESS_EDIT";
-const INIT_BIZ_DETAILS = "INIT";
-const PHONE_NUM_EDIT = "PHONE_NUM_EDIT";
-
-//Shelter Profile
-const SHELTERED_PET_TYPES_EDIT = "SHELTERED_PET_TYPES_EDIT";
-
-//VISITOR VIEW
-const FOLLOW_USER = "FOLLOW_USER";
-//Pet Owner Profile
-
-//Pet Profile
-
-//Business Profile
-
-//Shelter Profile
-
-const reducer = (state, action) => {
-  //console.log('state: ', state, 'action: ', action)
-
-  if (action.type === INIT_PROFILE) {
-    return Object.assign({}, state, action.payload.fetchedProfile);
-  }
-
-  if (action.type === PIC_EDIT) {
-    return Object.assign({}, state, { profilePic: action.payload.newURL });
-  }
-
-  if (action.type === NAME_EDIT) {
-    //console.log('action', action)
-    return Object.assign({}, state, { displayName: action.payload.newName });
-  }
-
-  if (action.type === ABOUT_ME_EDIT) {
-    //console.log('action', action)
-    return Object.assign({}, state, { aboutMe: action.payload.newAboutMe });
-  }
-
-  if (action.type === INIT_PET_DETAILS) {
-    console.log("action.payload.petColors", action.payload.petColors);
-    console.log("action.payload.catBreeds", action.payload.catBreeds);
-    console.log("action.payload.dogBreeds", action.payload.dogBreeds);
-    let colorsArray = [];
-    let i;
-    for (i = 0; i < action.payload.petColors.length; i++) {
-      colorsArray.push(JSON.parse(action.payload.petColors[i]));
-    }
-    let catBreedsArray = [];
-    for (i = 0; i < action.payload.catBreeds.length; i++) {
-      catBreedsArray.push(JSON.parse(action.payload.catBreeds[i]));
-    }
-    //console.log('action', action)
-    let dogBreedsArray = [];
-    for (i = 0; i < action.payload.dogBreeds.length; i++) {
-      dogBreedsArray.push(JSON.parse(action.payload.dogBreeds[i]));
-    }
-
-    return Object.assign({}, state, {
-      petType: JSON.parse(action.payload.petType),
-      petAge: JSON.parse(action.payload.petAge),
-      petSize: JSON.parse(action.payload.petSize),
-      petColors: colorsArray,
-      dogBreeds: dogBreedsArray,
-      catBreeds: catBreedsArray,
-    });
-  }
-
-  if (action.type === PET_DETAILS_EDIT) {
-    return Object.assign({}, state, {
-      petType: action.payload.newPetType,
-      petAge: action.payload.newPetAge,
-      petSize: action.payload.newPetSize,
-      petColors: action.payload.newPetColors,
-      dogBreeds: action.payload.newDogBreeds,
-      catBreeds: action.payload.newCatBreeds,
-    });
-  }
-
-  if (action.type === INIT_BIZ_DETAILS) {
-    return Object.assign({}, state, {
-      hours: action.payload.hours,
-      address: action.payload.address,
-      phoneNumber: action.payload.phoneNumber,
-    });
-  }
-
-  if (action.type === PHONE_NUM_EDIT) {
-    return Object.assign({}, state, {
-      phoneNumber: action.payload.phoneNumber,
-    });
-  }
-
-  if (action.type === HOURS_EDIT) {
-    return Object.assign({}, state, {
-      hours: action.payload.newHours,
-    });
-  }
-
-  if (action.type === ADDRESS_EDIT) {
-    return Object.assign({}, state, {
-      address: action.payload.newAddress,
-    });
-  }
-};
 
 export const ProfileProvider = ({ appUser, children }) => {
   const [typeOptions] = useTypeOptions();

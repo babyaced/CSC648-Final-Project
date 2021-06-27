@@ -1,4 +1,5 @@
-.post-container {
+.PhotoPostContainer,
+.TextPostContainer {
   display: flex;
   width: 1200px;
   max-width: 100%;
@@ -8,12 +9,12 @@
 }
 
 /* Image Half */
-.post-image {
+.PostPhotoContainer {
   flex-basis: 50%;
   background-color: black;
 }
 
-.post-image img {
+.PostPhotoContainer img {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -21,17 +22,26 @@
 }
 
 /* Post and Comments Half */
-.post-content {
+.PhotoPostContent,
+.TextPostContent {
   padding-top: 1rem;
-  flex-basis: 50%;
+
   box-shadow: var(--elevation-1);
   display: flex;
   flex-direction: column;
 }
 
+.PhotoPostContent {
+  flex-basis: 50%;
+}
+
+.TextPostContent {
+  flex-basis: 100%;
+}
+
 /*Post Detail*/
 
-.post-detail {
+.PostInfo {
   flex: 0 0 45px;
   grid-area: post-detail;
   margin-left: 1rem;
@@ -44,7 +54,7 @@
 }
 
 /* Profile Pic */
-.post-detail-pic {
+.PosterPic {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -52,12 +62,12 @@
   grid-area: post-detail-pic;
 }
 
-.post-detail-name {
+.PosterName {
   margin-left: 1rem;
   grid-area: post-detail-name;
 }
 
-.post-detail-timestamp {
+.PostTimestamp {
   margin-left: 1rem;
   grid-area: post-detail-timestamp;
   font-family: var(--ff-secondary);
@@ -66,14 +76,14 @@
 }
 
 /*Body*/
-.post-body {
+.PostBody {
   margin: 0.5rem 1rem;
   font-family: var(--ff-secondary);
 }
 
 /* Comments  */
 
-.post-comments {
+.PostComments {
   padding-left: 0;
   list-style: none;
   overflow: auto;
@@ -81,7 +91,7 @@
   margin-bottom: 0;
 }
 
-.post-leave-comment {
+.PostCommentBox {
   display: flex;
   width: 100%;
   flex: 0 1 40px;
@@ -89,7 +99,7 @@
   background-color: var(--color-text-inverted);
 }
 
-.post-leave-comment input {
+.PostCommentBox input {
   margin-left: 2.5%;
   flex-basis: 80%;
   border-radius: 7.5px;
@@ -97,7 +107,7 @@
   padding: 0.5rem 0.5rem;
 }
 
-.post-leave-comment button {
+.PostCommentBox button {
   flex-basis: 15%;
   margin: 0 2.5%;
   background-color: var(--primary-clr);
@@ -109,28 +119,24 @@
   transition: 0.15s ease-in-out;
 }
 
-.post-leave-comment button:hover {
+.PostCommentBox button:hover {
   opacity: 0.75;
 }
 
-.post-leave-comment span {
+.PostCommentBox span {
   font-size: 1em;
   font-family: var(--ff-primary);
   font-weight: 600;
 }
 
-.post-container-no-image {
-  width: 100%;
-}
-
-.post-comments-placeholder {
+.CommentsPlaceholder {
   font-family: var(--ff-secondary);
   color: var(--inactive-txt-clr);
   text-align: center;
 }
 
 @media (max-width: 768px) {
-  .post-image {
+  .PostPhotoContainer {
     flex-basis: 100%;
     height: 50%;
   }

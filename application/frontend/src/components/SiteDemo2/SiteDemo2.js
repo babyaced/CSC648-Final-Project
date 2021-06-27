@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useHistory } from "react-router";
 
 import styles from "./SiteDemo2.module.css";

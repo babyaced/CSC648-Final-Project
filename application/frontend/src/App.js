@@ -27,7 +27,6 @@ import MyPets from "./pages/Pets/MyPets";
 import Pets from "./pages/Pets/Pets";
 import ResetPage from "./pages/Reset/ResetPage";
 
-import AdminFeed from "./pages/Feed/AdminFeed.js";
 import Feed from "./pages/Feed/Feed.js";
 import Photos from "./pages/Photos/Photos";
 import Followers from "./pages/Followers/Followers";
@@ -113,7 +112,6 @@ const App = () => {
             <Route path="/shelter-signup2" exact component={SignUpPage2} />
             <Route path="/business-signup2" exact component={SignUpPage2} />
 
-
             {/* Public Pages */}
             <Route path="/MapSearch" component={MapSearch} />
             <Route exact path="/Profile/:profileID">
@@ -143,10 +141,6 @@ const App = () => {
             <Route path="/business/Register" component={ResetPage} />
 
             <Route path="/reset/:token" component={ResetPage} />
-
-            <Route path="/AdminFeed">
-              <AdminFeed appUser={appUser} />
-            </Route>
 
             {/* <Redirect to="/" /> */}
             <Route path="/Edgar" component={Edgar} />
