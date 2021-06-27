@@ -49,7 +49,7 @@ app.use(express.json());
 app.use(
   session({
     key: "userId",
-    secret: "zoou",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
