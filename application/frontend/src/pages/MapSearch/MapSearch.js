@@ -428,7 +428,7 @@ function MapSearch(props) {
           </div>
         )}
 
-        {filterOverlayDisplay && (
+        {filterOverlayDisplay && searchCategory !== "Pet Owners" && (
           <div className={styles["filters"]}>
             <div className={styles["header-container"]}>
               <span>
