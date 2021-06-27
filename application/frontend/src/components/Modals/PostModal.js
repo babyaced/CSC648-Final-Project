@@ -60,7 +60,7 @@ function PostModal({ display, onClose, selectedPost }) {
   if (!loading) {
     if (comments.length === 0)
       displayComment = (
-        <li className={styles["post-comments-placeholder"]}>No Comments yet</li>
+        <li className={styles.CommentsPlaceholder}>No Comments yet</li>
       );
     else {
       displayComment =
@@ -72,30 +72,27 @@ function PostModal({ display, onClose, selectedPost }) {
   return (
     <Modal display={display} onClose={onClose}>
       {selectedPost.link && (
-        <div className={styles["post-container"]}>
-          <div className={styles["post-image"]}>
+        <div className={styles.PhotoPostContainer}>
+          <div className={styles.PostPhotoContainer}>
             <img src={selectedPost.link} alt={selectedPost.link} />
           </div>
-          <div className={styles["post-content"]}>
-            <div className={styles["post-detail"]}>
+          <div className={styles.PhotoPostContent}>
+            <div className={styles.PostInfo}>
               <img
-                className={styles["post-detail-pic"]}
+                className={styles.PosterPic}
                 src={selectedPost.profile_pic_link}
                 alt={selectedPost.profile_pic_link}
               />
-              <div className={styles["post-detail-name"]}>
+              <div className={styles.PosterName}>
                 <h5>{selectedPost.display_name}</h5>
               </div>
-              <div className={styles["post-detail-timestamp"]}>
+              <div className={styles.PostTimestamp}>
                 {new Date(selectedPost.timestamp).toLocaleString()}
               </div>
             </div>
-            <div className={styles["post-body"]}>{selectedPost.body}</div>
-            <ul className={styles["post-comments"]}>{displayComment}</ul>
-            <form
-              className={styles["post-leave-comment"]}
-              onSubmit={submitComment}
-            >
+            <div className={styles.PostBody}>{selectedPost.body}</div>
+            <ul className={styles.PostComments}>{displayComment}</ul>
+            <form className={styles.CommentBox} onSubmit={submitComment}>
               <input
                 value={createdCommentBody}
                 maxLength="255"
@@ -111,29 +108,24 @@ function PostModal({ display, onClose, selectedPost }) {
         </div>
       )}
       {!selectedPost.link && (
-        <div className={styles["post-container-no-image"]}>
-          <div className={styles["post-content"]}>
-            <div className={styles["post-detail"]}>
+        <div className={styles.TextPostContainer}>
+          <div className={styles.TextPostContent}>
+            <div className={styles.PostInfo}>
               <img
-                className={styles["post-detail-pic"]}
+                className={styles.PosterPic}
                 src={selectedPost.profile_pic_link}
                 alt={selectedPost.profile_pic_link}
               />
-              <div className={styles["post-detail-name"]}>
+              <div className={styles.PosterName}>
                 <h3>{selectedPost.display_name}</h3>
               </div>
-              <div className={styles["post-detail-timestamp"]}>
+              <div className={styles.PostTimestamp}>
                 {new Date(selectedPost.timestamp).toLocaleString()}
               </div>
-              <div className={styles["post-detail-body"]}>
-                {selectedPost.body}
-              </div>
             </div>
-            <ul className={styles["post-comments"]}>{displayComment}</ul>
-            <form
-              className={styles["post-leave-comment"]}
-              onSubmit={submitComment}
-            >
+            <div className={styles.PostBody}>{selectedPost.body}</div>
+            <ul className={styles.PostComments}>{displayComment}</ul>
+            <form className={styles.PostCommentBox} onSubmit={submitComment}>
               <input
                 value={createdCommentBody}
                 maxLength="255"
