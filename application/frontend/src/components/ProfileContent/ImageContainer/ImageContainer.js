@@ -9,7 +9,7 @@ import { ProfileContext } from "../../../pages/Profile/ProfileProvider";
 function ImageContainer({ title, previews }) {
   // //console.log('previews',previews);
 
-  const { profile } = useContext(ProfileContext)
+  const { profile } = useContext(ProfileContext);
   const [postModalDisplay, setPostModalDisplay] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
 
@@ -35,46 +35,40 @@ function ImageContainer({ title, previews }) {
   let seeAll = null;
   let placeholder = null;
   if (title === "Photos") {
-    placeholder = (
-      <h3>No Photos</h3>
-    );
-    profile.selfView  //this won't work because the user will still able to go to photos/:profileId by directUrl, it will be better to check ownership on the page itself
+    placeholder = <h3>No Photos</h3>;
+    profile.selfView //this won't work because the user will still able to go to photos/:profileId by directUrl, it will be better to check ownership on the page itself
       ? (seeAll = (
-        <Link
-          className={styles["see-all-link"]}
-          to={"/Photos/" + profile.profile_id}
-        >
-          See All
-        </Link>
-      ))
+          <Link
+            className={styles["see-all-link"]}
+            to={"/Photos/" + profile.profileId}
+          >
+            See All
+          </Link>
+        ))
       : (seeAll = (
-        <Link
-          className={styles["see-all-link"]}
-          to={"/Photos/" + profile.profile_id}
-        >
-          See All
-        </Link>
-      ));
-  } else if (title === "Pets" || title === 'Siblings') {
-    placeholder = (
-      <h3>No Pets</h3>
-    );
+          <Link
+            className={styles["see-all-link"]}
+            to={"/Photos/" + profile.profileId}
+          >
+            See All
+          </Link>
+        ));
+  } else if (title === "Pets" || title === "Siblings") {
+    placeholder = <h3>No Pets</h3>;
     seeAll = (
       <Link
         className={styles["see-all-link"]}
-        to={"/Pets/" + profile.profile_id}
+        to={"/Pets/" + profile.profileId}
       >
         See All
       </Link>
     );
   } else {
-    placeholder = (
-      <h3>No Siblings to show</h3>
-    );
+    placeholder = <h3>No Siblings to show</h3>;
     seeAll = (
       <Link
         className={styles["see-all-link"]}
-        to={"/Pets/" + profile.profile_id}
+        to={"/Pets/" + profile.profileId}
       >
         See All
       </Link>

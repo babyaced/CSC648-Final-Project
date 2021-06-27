@@ -1,15 +1,20 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useLocation, useHistory, useParams } from "react-router-dom";
+//Import React Libraries
+import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 
-import styles from "./Photos.module.css";
-
-import PostModal from "../../components/Modals/PostModal";
-import EditButton from "../../components/Buttons/EditButton";
-
+//Import Other Libraries
 import axios from "axios";
 
+//Import Stylesheets
+import styles from "./Photos.module.css";
+
+//Import Compound Components
+import PostModal from "../../components/Modals/PostModal";
+
+//Import Atomic Components
 import Spinner from "../../components/UI/Spinner/Spinner";
 
+//Import Non-UI Components
 import { RedirectPathContext } from "../../context/redirect-path";
 
 function Photos() {
@@ -41,9 +46,6 @@ function Photos() {
       });
   }, [profileID]);
 
-  let location = useLocation();
-  let history = useHistory();
-
   const [postModalDisplay, setPostModalDisplay] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
 
@@ -56,19 +58,14 @@ function Photos() {
   }
 
   let displayEditing = (
-    <div className={`${styles["photos-container"]} ${"wide-container"}`}>
+    <div className={styles.PhotosContainer}>
       {photos.map((photoPost, index) => (
         <div
           key={photoPost.post_id}
-          className={styles.PhotoDiv}
+          className={styles.PhotoCard}
           onClick={() => presentPostModal(photoPost)}
         >
-          {/* <div onClick={() => deletePhoto(photo.pet_id)}> */}
-          <img
-            className={styles.Image}
-            src={photoPost.link}
-            alt="No Image Found"
-          />
+          <img src={photoPost.link} alt="Not Found" />
         </div>
       ))}
     </div>
@@ -76,13 +73,8 @@ function Photos() {
 
   let displayPhotos = (
     <div className={`${"wide-container"}`}>
-      <div className={styles.NameDiv}>
-        <div className={styles.NameDivLeft}>
-          <h1>{name + "'s Photos"}</h1>
-        </div>
-        <div className={styles.NameDivRight}>
-          {/* <button>filter</button> */}
-        </div>
+      <div className={styles.PhotosHeaderContainer}>
+        <h1>{name + "'s Photos"}</h1>
       </div>
       {displayEditing}
     </div>
@@ -95,6 +87,7 @@ function Photos() {
   return (
     <>
       {displayPhotos}
+      {/* Modals */}
       <PostModal
         display={postModalDisplay}
         onClose={closePostModal}
