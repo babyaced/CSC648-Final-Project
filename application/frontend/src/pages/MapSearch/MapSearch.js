@@ -4,6 +4,9 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import Axios from "axios";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+
+import useWindowSize from "../../components/Hooks/useWindowSize";
+
 import {
   GoogleMap,
   useLoadScript,
@@ -104,6 +107,8 @@ function MapSearch(props) {
     label: "Driving Distance (5 Miles)",
   });
 
+  const windowSize = useWindowSize();
+
   //For storing Map attributes
 
   //For Storing Search Results
@@ -130,8 +135,6 @@ function MapSearch(props) {
     setLoading(true);
 
     if (state.searchTermParam || state.searchCategoryParam || state.prefilter) {
-
-
       setSearchCategory(state.searchCategoryParam);
       setSearchTerm(state.searchTermParam);
 
@@ -358,47 +361,54 @@ function MapSearch(props) {
         className={styles["map-search-results-container"]}
       >
         <div className={styles["search-results-map"]}>
-          {state.lat && state.lng && (
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              zoom={14}
-              center={center}
-              options={options}
-              onLoad={onMapLoad}
-            >
-              {recievedSearchResults &&
-                recievedSearchResults.map(
-                  (
-                    searchResult,
-                    index //need to change index to something else later
-                  ) => (
-                    <>
-                      {/* <Marker position={{lat: state.lat, lng: state.lng}}/> */}
-                      <Marker
-                        key={index}
-                        position={{
-                          lat: parseFloat(searchResult.latitude),
-                          lng: parseFloat(searchResult.longitude),
-                        }}
-                        icon={{
-                          url: `https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${index + 1
+          {state.lat &&
+            state.lng &&
+            searchCategory !== "Pet Owners" &&
+            windowSize.width > 768 && (
+              <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                zoom={14}
+                center={center}
+                options={options}
+                onLoad={onMapLoad}
+              >
+                {recievedSearchResults &&
+                  recievedSearchResults.map(
+                    (
+                      searchResult,
+                      index //need to change index to something else later
+                    ) => (
+                      <>
+                        {/* <Marker position={{lat: state.lat, lng: state.lng}}/> */}
+                        <Marker
+                          key={index}
+                          position={{
+                            lat: parseFloat(searchResult.latitude),
+                            lng: parseFloat(searchResult.longitude),
+                          }}
+                          icon={{
+                            url: `https://csc648groupproject.s3-us-west-2.amazonaws.com/marker${
+                              index + 1
                             }.png`,
-                        }}
-                      />
-                    </>
-                  )
-                )}
-              {/* 
+                          }}
+                        />
+                      </>
+                    )
+                  )}
+                {/* 
                         {!recievedSearchResults &&
                             // <Marker position={{lat: state.lat, lng: state.lng}}/>
                         } */}
-            </GoogleMap>
-          )}
-          {!state.lat && !state.lng && (
-            <div className={styles["map-coming-soon"]}>
-              Location Results Feature Coming Soon
-            </div>
-          )}
+              </GoogleMap>
+            )}
+          {!state.lat &&
+            !state.lng &&
+            searchCategory === "Pet Owners" &&
+            windowSize.width > 768 && (
+              <div className={styles["map-coming-soon"]}>
+                Location Results Feature Coming Soon
+              </div>
+            )}
         </div>
         {loading && (
           <Spinner className={styles["map-search-results-loading"]} />
