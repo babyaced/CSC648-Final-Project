@@ -1,35 +1,31 @@
-.my-pets-header{
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--h0);
-    font-family: var(--ff-primary);
-    font-weight: 600;
-    margin: 10px;
+.my-pets-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--ff-primary);
+  font-weight: 600;
+  margin: 1rem;
 }
 
-.my-pets-header span{
-    align-self: flex-end;
-    font-size: initial;
-    font-family: inherit;
-    font-weight: initial;
-    cursor: pointer;
+.my-pets-header span {
+  align-self: flex-end;
+  font-size: initial;
+  font-family: inherit;
+  font-weight: initial;
+  cursor: pointer;
 }
 
-.my-pets-header span:hover{
-    color:rgb(20, 160, 160);
+.my-pets-header span:hover {
+  color: rgb(20, 160, 160);
 }
 
-.my-pets-container-pets{
-    display: flex;
-    flex-flow: row wrap;
-    gap: 2%;
+.my-pets-container-pets {
+  display: flex;
+  flex-flow: row wrap;
 }
 
-.my-pets-container-no-pets{
-    margin: 0 auto;
-    color: var(--inactive-txt-clr);
-    font-size: var(--h1);
-    font-family:var(--ff-primary);
+.my-pets-container-no-pets {
+  margin: 0 auto;
+  color: var(--inactive-txt-clr);
+  font-size: var(--h1);
+  font-family: var(--ff-primary);
 }
-
-
