@@ -45,13 +45,13 @@ function SearchResults({
                 </div>                 */}
       </div>
       <ul className={styles["search-results-list"]}>
-        {searchResults.length == 0 && (
+        {searchResults.length === 0 && (
           <li className={styles["no-results"]}>
             No {searchCategory} that Match your Search.
           </li>
         )}
-        {searchResults.length != 0 &&
-          searchCategory == "Pets" &&
+        {searchResults.length !== 0 &&
+          searchCategory === "Pets" &&
           searchResults.map((searchResult, index) => (
             <PetSearchResultCard
               key={searchResult.profile_id}
