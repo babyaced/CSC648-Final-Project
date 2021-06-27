@@ -128,7 +128,7 @@ function Messages() {
   if (!loading)
     messages = (
       <>
-        {selectedTab === 0 && recievedMessages.length == 0 && (
+        {selectedTab === 0 && recievedMessages.length === 0 && (
           <div className={styles["messages-container-no-messages"]}>
             You have no new messages :(
           </div>
@@ -143,7 +143,7 @@ function Messages() {
               />
             </>
           ))}
-        {selectedTab === 1 && sentMessages.length == 0 && (
+        {selectedTab === 1 && sentMessages.length === 0 && (
           <div className={styles["messages-container-no-messages"]}>
             You have no new messages :(
           </div>
