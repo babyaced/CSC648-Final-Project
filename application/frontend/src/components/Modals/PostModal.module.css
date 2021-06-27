@@ -91,7 +91,7 @@
   margin-bottom: 0;
 }
 
-.PostCommentBox {
+.CommentBox {
   display: flex;
   width: 100%;
   flex: 0 1 40px;
@@ -99,7 +99,7 @@
   background-color: var(--color-text-inverted);
 }
 
-.PostCommentBox input {
+.CommentBox input {
   margin-left: 2.5%;
   flex-basis: 80%;
   border-radius: 7.5px;
@@ -107,7 +107,7 @@
   padding: 0.5rem 0.5rem;
 }
 
-.PostCommentBox button {
+.CommentBox button {
   flex-basis: 15%;
   margin: 0 2.5%;
   background-color: var(--primary-clr);
@@ -119,12 +119,12 @@
   transition: 0.15s ease-in-out;
 }
 
-.PostCommentBox button:hover {
+.CommentBox button:hover {
   opacity: 0.75;
 }
 
-.PostCommentBox span {
-  font-size: 1em;
+.CommentBox span {
+  font-size: var(--base-size);
   font-family: var(--ff-primary);
   font-weight: 600;
 }

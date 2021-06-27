@@ -125,7 +125,7 @@ function PostModal({ display, onClose, selectedPost }) {
             </div>
             <div className={styles.PostBody}>{selectedPost.body}</div>
             <ul className={styles.PostComments}>{displayComment}</ul>
-            <form className={styles.PostCommentBox} onSubmit={submitComment}>
+            <form className={styles.CommentBox} onSubmit={submitComment}>
               <input
                 value={createdCommentBody}
                 maxLength="255"
