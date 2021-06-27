@@ -146,12 +146,12 @@ function ProfileInfo() {
           )}
           {!profile.selfView && (
             <>
-              <button
+              {/* <button
                 className={styles.Button}
                 onClick={() => history.push("/Profile/" + profile.reg_user_id)}
               >
                 My Owner
-              </button>
+              </button> */}
               <button className={styles.Button} onClick={sendAMessage}>
                 Message
               </button>
