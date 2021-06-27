@@ -174,18 +174,29 @@ function ProfileInfo() {
       </div>
       <div className={styles["display-name-container"]}>
         <h1 className={styles["display-name"]}>
-          <input
-            value={profile.displayName}
-            readOnly={!editing}
-            maxLength="25"
-            onChange={(event) => editName(event.target.value)}
-          />
+          {profile.profileType === "Pet" && (
+            <input
+              value={
+                profile.displayName +
+                " the" +
+                (profile.petType.value ? " " + profile.petType.label : "Type")
+              }
+              readOnly={!editing}
+              maxLength="25"
+              onChange={(event) => editName(event.target.value)}
+            />
+          )}
+          {profile.profileType !== "Pet" && (
+            <input
+              value={profile.displayName}
+              readOnly={!editing}
+              maxLength="25"
+              onChange={(event) => editName(event.target.value)}
+            />
+          )}
         </h1>
         {profile.profileType === "Pet" && (
-          <span className={styles["display-name-subtitle"]}>
-            the
-            {profile.petType.value ? " " + profile.petType.label : "Type"}
-          </span>
+          <div className={styles["display-name-subtitle"]}></div>
         )}
       </div>
       <div className={styles["save-edit-button-wrapper"]}>
