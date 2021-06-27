@@ -16,6 +16,8 @@ function PostModal({ display, onClose, selectedPost }) {
     //Real version will fetch comments associated with post id of post passed in
   ]);
 
+  console.log("comments: ", comments);
+
   useEffect(() => {
     getComments();
   }, [display]); //this will refresh if they close the modal and come back!
@@ -23,19 +25,21 @@ function PostModal({ display, onClose, selectedPost }) {
   function submitComment(event) {
     event.preventDefault();
 
+    console.log(createdCommentBody);
+
     axios
       .post("/api/comment", {
         body: createdCommentBody,
         postId: selectedPost.post_id,
       })
-      .then((response) => {
+      .then((res) => {
         //console.log("Response: ", response);
+        console.log(res.data);
+        setComments([...comments, res.data]);
       })
       .catch((err) => {
         //console.log(err);
       });
-
-    getComments(); //refresh so the user knows their comment has posted
   }
 
   function getComments() {

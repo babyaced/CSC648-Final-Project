@@ -146,12 +146,12 @@ function ProfileInfo() {
           )}
           {!profile.selfView && (
             <>
-              <button
+              {/* <button
                 className={styles.Button}
                 onClick={() => history.push("/Profile/" + profile.reg_user_id)}
               >
                 My Owner
-              </button>
+              </button> */}
               <button className={styles.Button} onClick={sendAMessage}>
                 Message
               </button>
@@ -164,78 +164,96 @@ function ProfileInfo() {
       buttons = null;
   }
 
+  // let bgImage = null;
+  // if () {
+  //   bgImage = profile.profilePic;
+  // }
+
   return (
-    <div className={styles["profile-header"]}>
-      <div className={styles["profile-pic-container"]}>
-        <ProfilePic
-          isSelfView={profile.selfView}
-          profile={profile.profileInfo}
-        />
-      </div>
-      <div className={styles["display-name-container"]}>
-        <h1 className={styles["display-name"]}>
-          <input
-            value={profile.displayName}
-            readOnly={!editing}
-            maxLength="25"
-            onChange={(event) => editName(event.target.value)}
+    <>
+      <div className={styles["profile-header"]}>
+        <div className={styles["profile-pic-container"]}>
+          <ProfilePic
+            isSelfView={profile.selfView}
+            profile={profile.profileInfo}
           />
-        </h1>
+        </div>
+        <div className={styles["display-name-container"]}>
+          <h1 className={styles["display-name"]}>
+            {profile.profileType === "Pet" && (
+              <input
+                value={
+                  profile.displayName +
+                  " the" +
+                  (profile.petType.value ? " " + profile.petType.label : "Type")
+                }
+                readOnly={!editing}
+                maxLength="25"
+                onChange={(event) => editName(event.target.value)}
+              />
+            )}
+            {profile.profileType !== "Pet" && (
+              <input
+                value={profile.displayName}
+                readOnly={!editing}
+                maxLength="25"
+                onChange={(event) => editName(event.target.value)}
+              />
+            )}
+          </h1>
+          {profile.profileType === "Pet" && (
+            <div className={styles["display-name-subtitle"]}></div>
+          )}
+        </div>
+        <div className={styles["save-edit-button-wrapper"]}>
+          {profile.selfView && !editing && (
+            <EditButton edit clicked={() => editHandler()}>
+              Edit
+            </EditButton>
+          )}
+          {profile.selfView && editing && (
+            <button onClick={cancelEditHandler}>Save</button>
+          )}
+        </div>
+        <div className={styles["button-container"]}>
+          {buttons}
+          {profile.adminView && !profile.selfView && (
+            <button
+              className={styles["ban-button"]}
+              onClick={() => setDeletionModalDisplay(true)}
+            >
+              Ban User
+            </button>
+          )}
+        </div>
+
+        {/* Modals */}
         {profile.profileType === "Pet" && (
-          <span className={styles["display-name-subtitle"]}>
-            the
-            {profile.petType.value ? " " + profile.petType.label : "Type"}
-          </span>
+          <EditPetDetails
+            display={editPetDetailsDisplay}
+            onClose={() => setEditPetDetailsDisplay(false)}
+          />
         )}
-      </div>
-      <div className={styles["save-edit-button-wrapper"]}>
-        {profile.selfView && !editing && (
-          <EditButton edit clicked={() => editHandler()}>
-            Edit
-          </EditButton>
-        )}
-        {profile.selfView && editing && (
-          <button onClick={cancelEditHandler}>Save</button>
-        )}
-      </div>
-      <div className={styles["button-container"]}>
-        {buttons}
-        {profile.adminView && !profile.selfView && (
-          <button
-            className={styles["ban-button"]}
-            onClick={() => setDeletionModalDisplay(true)}
-          >
-            Ban User
-          </button>
-        )}
-      </div>
 
-      {/* Modals */}
-      {profile.profileType === "Pet" && (
-        <EditPetDetails
-          display={editPetDetailsDisplay}
-          onClose={() => setEditPetDetailsDisplay(false)}
+        {/* Modals */}
+        <SendProfileMessage
+          display={sendAMessageDisplay}
+          profile={profile}
+          onClose={() => setSendAMessageDisplay(false)}
         />
-      )}
-
-      {/* Modals */}
-      <SendProfileMessage
-        display={sendAMessageDisplay}
-        profile={profile}
-        onClose={() => setSendAMessageDisplay(false)}
-      />
-      <LoginRequired
-        display={loginRequiredDisplay}
-        onClose={() => setLoginRequiredDisplay(false)}
-        redirect={location.pathname}
-      />
-      <ConfirmDeletion
-        display={deletionModalDisplay}
-        onClose={() => setDeletionModalDisplay(false)}
-        message={"Ban " + profile.display_name + "'s account ?"}
-        deleteAction={banUser}
-      />
-    </div>
+        <LoginRequired
+          display={loginRequiredDisplay}
+          onClose={() => setLoginRequiredDisplay(false)}
+          redirect={location.pathname}
+        />
+        <ConfirmDeletion
+          display={deletionModalDisplay}
+          onClose={() => setDeletionModalDisplay(false)}
+          message={"Ban " + profile.display_name + "'s account ?"}
+          deleteAction={banUser}
+        />
+      </div>
+    </>
   );
 }
 

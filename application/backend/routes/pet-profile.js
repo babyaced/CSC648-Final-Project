@@ -417,13 +417,13 @@ router.post("/api/pet-details", (req, res) => {
 
           if (currentPetType !== 1) {
             const insertedDog = await conn.promise().query(
-              `INSERT INTO Dog (pet_id) VALUES (
+              `INSERT INTO Dog (pet_id) VALUES ((
                 SELECT Pet.pet_id
                 FROM Pet
                 JOIN Profile ON Profile.pet_id = Pet.pet_id
                 WHERE Profile.profile_id = ?
                 AND Pet.reg_user_id = ?
-              )`,
+              ))`,
               [petProfileID, req.session.reg_user_id]
             );
             console.log("insertedDog", insertedDog);
@@ -478,8 +478,8 @@ router.post("/api/pet-details", (req, res) => {
             FROM Pet
             JOIN Profile ON Profile.pet_id = Pet.pet_id
             WHERE Profile.profile_id = ?
-            AND Pet.reg_user_id = ?)
-          )`,
+            AND Pet.reg_user_id = ?
+          ))`,
               [petProfileID, req.session.reg_user_id]
             );
             console.log("insertedCat", insertedCat);

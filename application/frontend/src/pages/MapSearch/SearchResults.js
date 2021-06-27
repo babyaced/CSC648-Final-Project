@@ -26,12 +26,14 @@ function SearchResults({
           <span className={styles["header"]}>
             <h2>Results</h2>
           </span>
-          <button
-            className={styles["filter-button"]}
-            onClick={displayFilterOverlay}
-          >
-            Filter
-          </button>
+          {searchCategory !== "Pet Owners" && (
+            <button
+              className={styles["filter-button"]}
+              onClick={displayFilterOverlay}
+            >
+              Filter
+            </button>
+          )}
         </span>
         {/* <div className={styles['sort-dropdown']}>
                     <span className={styles['sort-dropdown-label']}>Sort By:</span>

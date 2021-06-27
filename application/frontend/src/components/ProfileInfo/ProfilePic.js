@@ -43,8 +43,8 @@ function ProfilePic() {
             axios
               .post("/api/profile-pic", {
                 photoLink: presignedFileURL,
-                profileID: profile.profile_id,
-                profileType: profile.type,
+                profileID: profile.profileId,
+                profileType: profile.profileType,
               })
               .then((res) => {
                 editProfilePic(presignedFileURL);

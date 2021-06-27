@@ -1,125 +1,108 @@
 .profile-header {
-    display: grid;
-    grid-template-areas: 
-    'profile-pic display-name    '
-    'profile-pic save-edit-button' 
-    'profile-pic button-container';
-     grid-template-columns: 210px auto;
-     grid-template-rows: 70px 70px calc(70px - 2rem);
-     gap: 1rem;
+  display: grid;
+  grid-template-areas:
+    "profile-pic display-name    "
+    "profile-pic save-edit-button"
+    "profile-pic button-container";
+  grid-template-columns: 210px auto;
+  grid-template-rows: 70px 70px calc(70px - 2rem);
+  gap: 1rem;
 }
 
-.profile-pic-container{
-    display: flex; 
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    grid-area: profile-pic;
+.profile-pic-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  grid-area: profile-pic;
 }
 
-.display-name-container{
-    grid-area: display-name;
-    display: flex;
-    flex-flow: row wrap;
+.display-name-container {
+  grid-area: display-name;
 }
 
 .display-name {
-    font-weight: 600;
-    font-family: var(--ff-primary);
-    white-space: nowrap;
+  font-weight: 600;
+  font-family: var(--ff-primary);
 }
 
 .display-name input {
-    width: 100%;
-    outline: none;
-    border: solid var(--primary-clr) 2px;
-    border-radius:7.5px;
-    text-overflow: ellipsis;
-    font-size: var(--h4);
+  width: 100%;
+  outline: none;
+  border: solid var(--primary-clr) 2px;
+  border-radius: 7.5px;
+  text-overflow: ellipsis;
+  font-size: var(--h4);
 }
 
 .display-name input:read-only {
-    border: none;
-    outline: none;
-    background: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .button-container {
-    grid-area: button-container;
-    display: flex;
-    flex-flow: row wrap;
-    gap: 1rem;
+  grid-area: button-container;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
 }
 
-.button-container a{
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
+.button-container a {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
 }
 
 .Button {
-    background-color: var(--primary-clr);
-    color: var(--reversed-txt-clr);
-    border-radius:7.5px;
-    border: none;
-    text-align: center;
-    align-items: center;
-    outline: none;
-    cursor: pointer;
-    transition: .15s ease-in-out;
-    padding: 0.5rem 1rem;
-    min-width: 150px;
-    font-size: var(--h5);
+  background-color: var(--primary-clr);
+  color: var(--reversed-txt-clr);
+  border-radius: 7.5px;
+  border: none;
+  text-align: center;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  padding: 0.5rem 1rem;
+  min-width: 120px;
+  font-size: var(--h5);
 }
 
-.Button:hover{
-    background-color: var(--color-primary-300);
+.Button:hover {
+  background-color: var(--color-primary-300);
 }
 
 .ban-button {
-    margin-left: 1rem;
-    color: white;
-    background-color: red;
-    border: none;
-    cursor: pointer;
-    border-radius: 7px;
+  margin-left: 1rem;
+  color: white;
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
 }
 
-.SideContainer-nameDiv {
+@media (max-width: 768px) {
+  .profile-header {
     display: flex;
-    justify-items: center;
+    flex-direction: column;
+  }
+
+  .profile-pic-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+  }
+
+  .display-name-container {
+    margin-top: 1rem;
+  }
 }
 
-.SideContainer-contaniner {
-    display: flex;
-}
-
-.save-edit-button-wrapper{
-    grid-area: save-edit-button;
-}
-
-@media (max-width: 768px){
-    .profile-header{
-        grid-template-columns: 100px auto;
-    }
-}
-
-@media (max-width: 547px){
-    .profile-header{
-        grid-template-areas: 
-        'profile-pic display-name    '
-        'profile-pic ................' 
-        'button-container button-container'
-        'button-container button-container';
-    }
-
-    /* div.button-container button:nth-child(n){
-        margin-left: 0rem;
-        margin-top: 0.5rem;
-    }
-    
-    div.button-container button:first-child{
-        margin-left: 0rem;
-    } */
+@media (max-width: 450px) {
+  .profile-pic-container {
+    width: 125px;
+    height: 125px;
+  }
 }
