@@ -48,111 +48,62 @@ function SignUpPage({ type }) {
 
   const [passwordChecking, setPasswordChecking] = useState(false);
 
-  //states for sign up error display
-  const [error, setError] = useState(null);
-
   const history = useHistory();
-
-  function onSubmitFunction(event) {
-    //Conditionals for personal vs business/shelter sign up
-    type === "personal" ? signUp(event) : nextSignUpStep(event);
-  }
 
   function signUp(event) {
     event.preventDefault();
 
     const valid = validateForm();
     //console.log("valid form: ", valid);
+
     if (valid) {
-      Axios.post(
-        "/api/signup",
-        {
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          uname: uname,
-          password: password,
-          redonePassword: redonePassword,
-        },
-        { withCredentials: true }
-      )
+      let signUpObject = {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        uname: uname,
+        password: password,
+        redonePassword: redonePassword,
+        validateOnly: true,
+      };
+      //if signing up for personal account, go through with the sign up process now
+      if (type === "personal") {
+        signUpObject.validateOnly = false;
+      }
+      Axios.post("/api/signup", signUpObject, { withCredentials: true })
         .then((response) => {
           console.log(response.data);
-          if (response.data === "SUCCESS") {
-            console.log(response.data);
+          if (response.status === 201) {
             history.push("/SignUpSuccess");
+          } else if (response.status === 200) {
+            let nextPage;
+            type === "business"
+              ? (nextPage = {
+                  pathname: "/business-signup2",
+                  state: {
+                    email: email,
+                    username: uname,
+                    firstName: firstName,
+                    lastName: lastName,
+                    password: password,
+                    redonePassword: redonePassword,
+                  },
+                  type: "business",
+                })
+              : (nextPage = {
+                  pathname: "/shelter-signup2",
+                  state: {
+                    email: email,
+                    username: uname,
+                    firstName: firstName,
+                    lastName: lastName,
+                    password: password,
+                    redonePassword: redonePassword,
+                  },
+                  type: "shelter",
+                });
+            history.push(nextPage);
           }
-        })
-        .catch((error) => {
-          console.error(error);
-          if (error.response.status === 400) {
-            setEmailError(error.response.data.emailTakenError);
-            setUnameError(error.response.data.usernameTakenError);
-            setPasswordError(error.response.data.passwordRequirementsError);
-            setRedonePasswordError(
-              error.response.data.nonMatchingPasswordError
-            );
-          }
-          if (error.response.status === 500) {
-            setTermsError(
-              "An Unexpected Error Occured, Please try Submitting Again"
-            );
-          }
-        });
-    } else {
-      //console.log("invalid form");
-    }
-  }
-
-  function nextSignUpStep(event) {
-    event.preventDefault();
-
-    let nextPage;
-    type === "business"
-      ? (nextPage = {
-          pathname: "/business-signup2",
-          state: {
-            email: email,
-            username: uname,
-            firstName: firstName,
-            lastName: lastName,
-            password: password,
-            redonePassword: redonePassword,
-          },
-          type: "business",
-        })
-      : (nextPage = {
-          pathname: "/shelter-signup2",
-          state: {
-            email: email,
-            username: uname,
-            firstName: firstName,
-            lastName: lastName,
-            password: password,
-            redonePassword: redonePassword,
-          },
-          type: "shelter",
-        });
-
-    //console.log(nextPage);
-
-    const valid = validateForm();
-    //console.log("valid form: ", valid);
-
-    if (valid) {
-      Axios.post(
-        "/api/signup/validate",
-        {
-          email: email,
-          username: uname,
-          password: password,
-          redonePassword: redonePassword,
-        },
-        { withCredentials: true }
-      )
-        .then((response) => {
-          //console.log(response)
-          history.push(nextPage);
         })
         .catch((error) => {
           console.error(error);
@@ -230,7 +181,7 @@ function SignUpPage({ type }) {
   let passwordMatchStyle = "same";
   if (passwordChecking && password !== redonePassword) {
     //console.log("Password Checking on");
-    if (redonePassword.length == 0 || password.length == 0) {
+    if (redonePassword.length === 0 || password.length == 0) {
       //console.log("but password length is 0");
       passwordMatchStyle = "same";
       setPasswordChecking(false);
@@ -243,7 +194,7 @@ function SignUpPage({ type }) {
     <>
       <form
         className={`${styles["signup-container"]} ${"small-container"}`}
-        onSubmit={(e) => onSubmitFunction(e)}
+        onSubmit={(e) => signUp(e)}
       >
         <div className={styles["signup-header"]}>
           <h1>Sign Up</h1>
@@ -452,24 +403,24 @@ function SignUpPage({ type }) {
             <span className={styles["termsError"]}>{termsError}</span>
           </div>
         </div>
-        {type == "personal" && (
+        {type === "personal" && (
           <button className={styles["submit-btn"]} type="submit">
             Sign Up
           </button>
         )}
-        {type == "business" && (
+        {type === "business" && (
           <button className={styles["next-btn"]} type="submit">
             Next: Business Info
           </button>
         )}
-        {type == "shelter" && (
+        {type === "shelter" && (
           <button className={styles["next-btn"]} type="submit">
             Next: Shelter Info
           </button>
         )}
       </form>
       {/* Modals */}
-      {type == "personal" && (
+      {type === "personal" && (
         <>
           <TermsAndConditions
             display={termsAndConditionsDisplay}

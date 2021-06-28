@@ -28,6 +28,7 @@ router.post("/", (req, res) => {
   const givenLastName = req.body.lastName;
   const givenPassword = req.body.password;
   const givenResubmitted = req.body.redonePassword;
+  const validateOnly = req.body.validateOnly;
 
   let errorFlag = false;
 
@@ -82,7 +83,14 @@ router.post("/", (req, res) => {
                 "Passwords Not Matching";
             }
 
+            if (errorFlag) {
+              return res.status(400).json(errorResponseObject);
+            }
+
             if (!errorFlag) {
+              if (validateOnly) {
+                return res.status(200).json("SUCCESS");
+              }
               const hash = await bcrypt.hash(givenPassword, 10);
               console.log(hash);
 
@@ -121,11 +129,6 @@ router.post("/", (req, res) => {
               if (err) {
                 return conn.rollback(function () {
                   res.status(500).json(err);
-                });
-              }
-              if (errorFlag) {
-                return conn.rollback(function () {
-                  res.status(400).json(errorResponseObject);
                 });
               }
               return res.status(201).json("SUCCESS");
