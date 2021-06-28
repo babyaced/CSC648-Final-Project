@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../db");
 
-router.post("/api/like-unlike", (req, res) => {
+router.post("/", (req, res) => {
   //console.log("POST /api/like-unlike")
   const { postToLike } = req.body;
 
@@ -39,7 +39,7 @@ router.post("/api/like-unlike", (req, res) => {
   );
 });
 
-router.get("/api/likes", (req, res) => {
+router.get("/", (req, res) => {
   connection.query(
     `SELECT COUNT(PostLike.reg_user_id)
                   FROM PostLike

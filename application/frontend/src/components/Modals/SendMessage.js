@@ -28,7 +28,7 @@ function SendMessage({
     event.preventDefault();
 
     axios
-      .post("/api/message", {
+      .post("/api/message/messages-page", {
         messageSubject: subject,
         messageBody: body,
         recipientProfileID: recipient[0].value, //contains profile id

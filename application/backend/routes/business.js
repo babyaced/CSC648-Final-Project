@@ -3,7 +3,7 @@ const router = express.Router();
 
 const connection = require("../db");
 
-router.get("/api/hours", (req, res) => {
+router.get("/hours", (req, res) => {
   const { profileID } = req.query;
   connection.query(
     `SELECT sun_open, sun_close,mon_open, mon_close,tue_open, tue_close,wed_open, wed_close,thu_open, thu_close,fri_open, fri_close, sat_open, sat_close
@@ -115,7 +115,67 @@ router.get("/api/hours", (req, res) => {
   );
 });
 
-router.get("/api/business-address", (req, res) => {
+router.put("/hours", (req, res) => {
+  const {
+    newSunOpen,
+    newSunClose,
+    newMonOpen,
+    newMonClose,
+    newTueOpen,
+    newTueClose,
+    newWedOpen,
+    newWedClose,
+    newThuOpen,
+    newThuClose,
+    newFriOpen,
+    newFriClose,
+    newSatOpen,
+    newSatClose,
+  } = req.body;
+  //console.log('newSunOpen' +newSunOpen);
+
+  //console.log(query);
+  connection.query(
+    `UPDATE HoursOfOperation
+      JOIN Business ON HoursOfOperation.business_id = Business.business_id
+      SET sun_open=?, sun_close=?,
+         mon_open=?, mon_close=?,
+         tue_open=?, tue_close=?,
+         wed_open=?, wed_close=?,
+         thu_open=?, thu_close=?,
+         fri_open=?, fri_close=?,
+         sat_open=?, sat_close=?
+     WHERE Business.reg_user_id = ?`,
+    [
+      newSunOpen,
+      newSunClose,
+      newMonOpen,
+      newMonClose,
+      newTueOpen,
+      newTueClose,
+      newWedOpen,
+      newWedClose,
+      newThuOpen,
+      newThuClose,
+      newFriOpen,
+      newFriClose,
+      newSatOpen,
+      newSatClose,
+      req.session.reg_user_id,
+    ],
+    function (err, result) {
+      if (err) {
+        //console.log(err);
+        res.status(500).json(err);
+      } else {
+        //console.log(result);
+        res.status(200).json(result);
+      }
+    }
+  );
+});
+
+router.get("/address", (req, res) => {
   // //console.log('GET /api/business-address');
   connection.query(
     `SELECT address
@@ -138,7 +198,28 @@ router.get("/api/business-address", (req, res) => {
   );
 });
 
-router.get("/api/business-phone-number", (req, res) => {
+router.put("/address", (req, res) => {
+  const { newAddress, newLatitude, newLongitude } = req.body;
+  // //console.log('POST /api/address')
+  connection.query(
+    `UPDATE Address
+           SET address = ?, latitude= ?,longitude = ?
+           WHERE address.reg_user_id = ?
+          `,
+    [newAddress, newLatitude, newLongitude, req.session.reg_user_id],
+    function (err, result) {
+      if (err) {
+        // //console.log(err)
+        res.status(500).json(err);
+      } else {
+        // //console.log("result: ", result)
+        res.status(200).json(result);
+      }
+    }
+  );
+});
+
+router.get("/phone-number", (req, res) => {
   // //console.log('GET /api/business-address');
   connection.query(
     `SELECT phone_num
@@ -161,21 +242,19 @@ router.get("/api/business-phone-number", (req, res) => {
   );
 });
 
-router.post("/api/address", (req, res) => {
-  const { newAddress, newLatitude, newLongitude } = req.body;
-  // //console.log('POST /api/address')
+router.put("/phone-number", (req, res) => {
+  const { newPhoneNumber } = req.body;
   connection.query(
-    `UPDATE Address
-         SET address = ?, latitude= ?,longitude = ?
-         WHERE address.reg_user_id = ?
-        `,
-    [newAddress, newLatitude, newLongitude, req.session.reg_user_id],
+    `UPDATE Business
+           SET phone_num= ?
+           WHERE Business.reg_user_id = ?`,
+    [newPhoneNumber, req.session.reg_user_id],
     function (err, result) {
       if (err) {
-        // //console.log(err)
+        //console.log(err);
         res.status(500).json(err);
       } else {
-        // //console.log("result: ", result)
+        //console.log(result);
         res.status(200).json(result);
       }
     }

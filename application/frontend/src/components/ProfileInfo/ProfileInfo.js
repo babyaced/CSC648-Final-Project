@@ -43,7 +43,7 @@ function ProfileInfo() {
 
   function cancelEditHandler() {
     axios
-      .post("/api/name", {
+      .put("/api/profile/name", {
         newFirstName: profile.displayName,
       })
       .then((res) => {});
@@ -61,7 +61,7 @@ function ProfileInfo() {
 
   function banUser() {
     axios
-      .post("/api/ban-user", {
+      .post("/api/admin/ban", {
         profileID: profile.profile_id,
       })
       .then((res) => {
@@ -75,7 +75,7 @@ function ProfileInfo() {
 
   function onFollowHandler() {
     if (appUser) {
-      axios.post("/api/follow-unfollow-user", {
+      axios.post("/api/follow", {
         accountId: profile.accountId,
       });
       setFollow(!follow);

@@ -1,11 +1,6 @@
 require("dotenv").config({ path: __dirname + "/.env" });
 
-// //console.log(process.env.DB_HOST),
-// //console.log(process.env.DB_USER),
-// //console.log(process.env.DB_PASSWORD),
-// //console.log(process.env.DB_NAME)
 const express = require("express");
-
 const session = require("express-session");
 
 //DB Connection
@@ -14,25 +9,37 @@ const connection = require("./db");
 //Routes
 const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
-const signupRouter = require("./routes/sign-up.js");
+const signupRouter = require("./routes/signup.js");
+
 const searchRouter = require("./routes/search.js");
+
 const dropdownRouter = require("./routes/dropdown-options.js");
-const uploadPostRouter = require("./routes/upload-post.js");
-const editPostRouter = require("./routes/edit-post.js");
+
+const postRouter = require("./routes/post.js");
 const feedRouter = require("./routes/feed.js");
-const commentsRouter = require("./routes/comments.js");
-const followUserRouter = require("./routes/follow-unfollow-user.js");
-const petsRouter = require("./routes/pets.js");
-const likeRouter = require("./routes/like.js");
-const profileRouter = require("./routes/profile.js");
-const profileEditRouter = require("./routes/edit-profile.js");
-const petProfileRouter = require("./routes/pet-profile.js");
-const businessProfileRouter = require("./routes/business-profile.js");
-const resetPasswordRouter = require("./routes/reset-password.js");
-const adminRouter = require("./routes/admin.js");
-const resetRouter = require("./routes/reset.js");
-const messagesRouter = require("./routes/messages.js");
 const postsRouter = require("./routes/posts.js");
+
+const commentRouter = require("./routes/comment.js");
+const commentsRouter = require("./routes/comments.js");
+
+const messageRouter = require("./routes/message.js");
+const messagesRouter = require("./routes/messages.js");
+
+const followRouter = require("./routes/follow.js");
+const followsRouter = require("./routes/follows.js");
+
+const petRouter = require("./routes/pet.js");
+const petsRouter = require("./routes/pets.js");
+
+const businessRouter = require("./routes/business.js");
+
+const profileRouter = require("./routes/profile.js");
+
+const resetPasswordRouter = require("./routes/reset-password.js");
+
+const adminRouter = require("./routes/admin.js");
+
+const likeRouter = require("./routes/like.js");
 
 const app = express();
 
@@ -65,61 +72,54 @@ app.listen(5000, () => {
 });
 
 //Sign Up
-app.use(signupRouter);
+app.use("/api/signup", signupRouter);
 
 //Login
-app.use(loginRouter);
+app.use("/api/login", loginRouter);
 
 //Logout
-app.use(logoutRouter);
+app.use("/api/logout", logoutRouter);
 
 //Search
-app.use(searchRouter);
+app.use("/api/search", searchRouter);
 
 //Dropdown Options
-app.use(dropdownRouter);
+app.use("/api/dropdowns", dropdownRouter);
 
-//Upload Post
-app.use(uploadPostRouter);
-
-//Edit Post
-app.use(editPostRouter);
+//Create + Edit Post
+app.use("/api/post", postRouter);
+app.use("/api/posts", postsRouter);
 
 //Feed
-app.use(feedRouter);
+app.use("/api/feed", feedRouter);
 
-//Insert, Get Comments
-app.use(commentsRouter);
+//Get Comments
+app.use("/api/comment", commentRouter);
+app.use("/api/comments", commentsRouter);
 
-//send messages
-app.use(messagesRouter);
+//Get Messages
+app.use("/api/message", messageRouter);
+app.use("/api/messages", messagesRouter);
 
 // Follow a user
-app.use(followUserRouter);
+app.use("/api/follow", followRouter);
+app.use("/api/follows", followsRouter);
 
 //Pets Lists
-app.use(petsRouter);
+app.use("/api/pet", petRouter);
+app.use("/api/pets", petsRouter);
+
+//Profile
+app.use("/api/profile", profileRouter);
+
+//Business Profile Data and Edit Options
+app.use("/api/business", businessRouter);
+
+//Reset password
+app.use("/api/password-reset", resetPasswordRouter);
+
+//Admin Only Routes
+app.use("/api/admin", adminRouter);
 
 //Liking/unliking a post
 app.use(likeRouter);
-
-//Profile
-app.use(profileRouter);
-
-//Profile edit options
-app.use(profileEditRouter);
-
-//Pet Profile Data and Edit options
-app.use(petProfileRouter);
-
-//Business Profile Data and Edit Options
-app.use(businessProfileRouter);
-
-//Reset password
-app.use(resetPasswordRouter);
-
-//Reset password
-app.use(resetRouter);
-app.use(adminRouter);
-
-app.use(postsRouter);

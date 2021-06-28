@@ -3,7 +3,7 @@ const router = express.Router();
 
 const connection = require("../db");
 
-router.get("/api/business-types", (req, res) => {
+router.get("/business-types", (req, res) => {
   console.log("GET /api/business-types");
   connection.query(
     "SELECT * FROM BusinessType ORDER BY business_type_name",
@@ -25,7 +25,7 @@ router.get("/api/business-types", (req, res) => {
   );
 });
 
-router.get("/api/pet-types", (req, res) => {
+router.get("/pet-types", (req, res) => {
   console.log("GET /api/pet-types");
   connection.query(
     "SELECT * FROM PetType ORDER BY pet_type_name",
@@ -47,7 +47,7 @@ router.get("/api/pet-types", (req, res) => {
   );
 });
 
-router.get("/api/dog-breeds", (req, res) => {
+router.get("/dog-breeds", (req, res) => {
   console.log("GET /api/dog-breeds");
   connection.query(
     "SELECT * FROM DogBreed ORDER BY dog_breed_name",
@@ -70,7 +70,7 @@ router.get("/api/dog-breeds", (req, res) => {
   );
 });
 
-router.get("/api/cat-breeds", (req, res) => {
+router.get("/cat-breeds", (req, res) => {
   console.log("GET /api/cat-breeds");
   connection.query(
     "SELECT * FROM CatBreed ORDER BY cat_breed_name",
@@ -92,7 +92,7 @@ router.get("/api/cat-breeds", (req, res) => {
   );
 });
 
-router.get("/api/ages", (req, res) => {
+router.get("/ages", (req, res) => {
   console.log("GET /api/ages");
   connection.query("SELECT * FROM Age ORDER BY age_id", function (err, ages) {
     if (err) {
@@ -108,7 +108,7 @@ router.get("/api/ages", (req, res) => {
   });
 });
 
-router.get("/api/sizes", (req, res) => {
+router.get("/sizes", (req, res) => {
   console.log("GET /api/sizes");
   connection.query(
     "SELECT * FROM Size ORDER BY size_id",
@@ -130,7 +130,7 @@ router.get("/api/sizes", (req, res) => {
   );
 });
 
-router.get("/api/colors", (req, res) => {
+router.get("/colors", (req, res) => {
   connection.query(
     "SELECT * FROM Color ORDER BY color_name",
     function (err, colors) {

@@ -118,7 +118,7 @@ function CreatePostCard({
             .then((response) => {
               //upload the file to s3
               axios
-                .post("/api/upload-post", {
+                .post("/api/post", {
                   postBody: createdPostBody,
                   photoLink: presignedFileURL,
                   taggedPets: taggedPets,
@@ -152,7 +152,7 @@ function CreatePostCard({
       // setFeedPosts([...feedPosts, ])
     } else {
       axios
-        .post("/api/upload-post", {
+        .post("/api/post", {
           postBody: createdPostBody,
           taggedPets: taggedPets,
         })

@@ -19,9 +19,9 @@ function Pets() {
   useEffect(() => {
     setLoading(true);
 
-    const getPets = axios.get("/api/pets", { params: { profileID } });
+    const getPets = axios.get("/api/pets/profile", { params: { profileID } });
 
-    const getDisplayName = axios.get("/api/profile-display-name", {
+    const getDisplayName = axios.get("/api/profile/display-name", {
       params: { profileID },
     });
 

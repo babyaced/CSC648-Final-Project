@@ -9,7 +9,7 @@ function ForgotPassword({ display, onClose }) {
 
   function resetPassword() {
     axios
-      .post("/api/resetpassword", {
+      .post("/api/password-reset", {
         email: email,
       })
       .then((response) => {

@@ -22,7 +22,7 @@ function useColorOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/colors") //get pet Colors from database
+      .get("/api/dropdowns/colors") //get pet Colors from database
       .then((response) => {
         ////console.log(response);
         localCache = response.data;

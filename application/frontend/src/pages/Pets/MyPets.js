@@ -52,7 +52,7 @@ function MyPets() {
   useEffect(() => {
     setLoading(true);
 
-    const getCurrentUserPets = axios.get("/api/current-user-pets");
+    const getCurrentUserPets = axios.get("/api/pets/current-user");
 
     Promise.all([getCurrentUserPets])
       .then((responses) => {

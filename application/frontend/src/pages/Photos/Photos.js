@@ -27,9 +27,9 @@ function Photos() {
 
   useEffect(() => {
     redirectContext.updateLoading(true);
-    const getPhotos = axios.get("/api/photo-posts", { params: { profileID } });
+    const getPhotos = axios.get("/api/posts/photos", { params: { profileID } });
 
-    const getDisplayName = axios.get("/api/profile-display-name", {
+    const getDisplayName = axios.get("/api/profile/display-name", {
       params: { profileID },
     });
 

@@ -22,7 +22,7 @@ function useDogBreedOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/dog-breeds") //get pet DogBreeds from database
+      .get("/api/dropdowns/dog-breeds") //get pet DogBreeds from database
       .then((response) => {
         ////console.log(response);
         localCache = response.data;

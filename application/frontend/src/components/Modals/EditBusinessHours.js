@@ -46,7 +46,7 @@ function EditBusinessHours({ display, onClose }) {
   function submitHoursEdit(event) {
     event.preventDefault();
     axios
-      .post("/api/hours", {
+      .put("/api/business/hours", {
         newSunOpen: sundayStart["value"],
         newSunClose: sundayEnd["value"],
         newMonOpen: mondayStart["value"],
@@ -62,7 +62,7 @@ function EditBusinessHours({ display, onClose }) {
         newSatOpen: saturdayStart["value"],
         newSatClose: saturdayEnd["value"],
       })
-      .then((response) => {
+      .then((res) => {
         editHours({
           sun_open: sundayStart,
           sun_close: sundayEnd,

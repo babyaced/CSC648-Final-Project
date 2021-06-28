@@ -22,7 +22,7 @@ function useSizeOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/sizes") //get pet sizes from database
+      .get("/api/dropdowns/sizes") //get pet sizes from database
       .then((response) => {
         ////console.log(response);
         localCache = response.data;

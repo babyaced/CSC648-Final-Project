@@ -22,7 +22,7 @@ function useCatBreedOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/cat-breeds") //get pet CatBreeds from database
+      .get("/api/dropdowns/cat-breeds") //get pet CatBreeds from database
       .then((response) => {
         ////console.log(response);
         localCache = response.data;

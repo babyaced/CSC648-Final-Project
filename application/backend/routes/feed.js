@@ -2,7 +2,7 @@ const express = require("express");
 const connection = require("../db");
 const router = express.Router();
 
-router.get("/api/feed-user", (req, res) => {
+router.get("/user", (req, res) => {
   //console.log("/api/get-feed-user");
   //console.log('req.session.profile_id: ', req.session.profile_id)
 
@@ -22,7 +22,7 @@ router.get("/api/feed-user", (req, res) => {
   );
 });
 
-router.get("/api/posts", (req, res) => {
+router.get("/", (req, res) => {
   const { offset } = req.query;
   //console.log(offset)
   console.log("GET /api/posts");

@@ -17,9 +17,13 @@ function Followers() {
   const [following, setFollowing] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getFollowers = axios.get("/api/followers", { params: { profileID } }); // call to get followers
+  const getFollowers = axios.get("/api/follows/followers", {
+    params: { profileID },
+  }); // call to get followers
 
-  const getFollowing = axios.get("/api/following", { params: { profileID } }); //call to get followed Users (following)
+  const getFollowing = axios.get("/api/follows/following", {
+    params: { profileID },
+  }); //call to get followed Users (following)
 
   // const redirectContext = useContext(RedirectPathContext);
 

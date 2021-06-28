@@ -21,7 +21,7 @@ function useAgeOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/ages") //get pet types from database
+      .get("/api/dropdowns/ages") //get pet types from database
       .then((response) => {
         // //console.log(response);
         localCache = response.data;

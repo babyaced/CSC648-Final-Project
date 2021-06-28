@@ -46,7 +46,7 @@ function EditPetDetails({ display, onClose }) {
     event.preventDefault();
     console.log("updating pet details");
     axios
-      .post("/api/pet-details", {
+      .put("/api/pet", {
         newName: localPetName,
         newPetType: localPetType,
         newAge: localPetAge,
@@ -56,7 +56,6 @@ function EditPetDetails({ display, onClose }) {
         newCatBreeds: localCatBreeds,
         petProfileID: profileID,
       })
-      .then((response) => {})
       .then(() => {
         editPetDetails({
           petProfileID: profileID,

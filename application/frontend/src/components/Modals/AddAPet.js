@@ -41,7 +41,7 @@ function AddAPet({
     setLoading(true);
 
     axios
-      .post("/api/create-pet-profile", {
+      .post("/api/pet", {
         name: petName,
         petType: petType,
         age: petAge,

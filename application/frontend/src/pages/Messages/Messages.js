@@ -44,8 +44,8 @@ function Messages() {
   function getMessages() {
     //retrieve currently logged in user's messages
     setLoading(true);
-    const getSentMessages = axios.get("/api/sent-messages");
-    const getRecievedMessages = axios.get("/api/recieved-messages");
+    const getSentMessages = axios.get("/api/messages/sent");
+    const getRecievedMessages = axios.get("/api/messages/recieved");
 
     Promise.all([getRecievedMessages, getSentMessages])
       .then((responses) => {
@@ -61,8 +61,8 @@ function Messages() {
   }
 
   function getMessageRecipients() {
-    const getFollowers = axios.get("/api/followers");
-    const getFollows = axios.get("/api/following");
+    const getFollowers = axios.get("/api/follows/followers");
+    const getFollows = axios.get("/api/follows/following");
 
     Promise.all([getFollowers, getFollows]).then((responses) => {
       const followers = responses[0].data;
@@ -96,7 +96,7 @@ function Messages() {
   }
 
   function updateSentMessagesState(newSentMessage) {
-    setSentMessages([...sentMessages, newSentMessage]);
+    setSentMessages([newSentMessage, ...sentMessages]);
   }
 
   useEffect(() => {
