@@ -16,7 +16,7 @@ function SendProfileMessage({ display, onClose, profile }) {
     console.log(profile);
 
     axios
-      .post("/api/message-profile", {
+      .post("/api/profile-page", {
         messageSubject: subject,
         messageBody: body,
         recipientAccountID: profile.accountId,

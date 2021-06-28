@@ -22,7 +22,7 @@ function useBusinessCategoryOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/business-types") //get pet BusinessCategorys from database
+      .get("/api/dropdowns/business-types") //get pet BusinessCategorys from database
       .then((response) => {
         ////console.log(response);
         localCache = response.data;

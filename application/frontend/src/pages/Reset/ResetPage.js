@@ -41,7 +41,7 @@ function ResetPage() {
 
     // if(email && uname && firstName && lastName && password && redonePassword && acceptTerms){
     Axios.post(
-      "/api/reset/:token",
+      "/api/password-reset/:token",
       {
         email: email,
         password: password,

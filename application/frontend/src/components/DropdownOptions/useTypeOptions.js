@@ -22,7 +22,7 @@ function useTypeOptions() {
     setStatus("loading");
 
     axios
-      .get("/api/pet-types") //get pet types from database
+      .get("/api/dropdowns/pet-types") //get pet types from database
       .then((response) => {
         ////console.log(response);
         localCache = response.data;

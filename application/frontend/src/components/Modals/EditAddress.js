@@ -30,7 +30,7 @@ function EditAddress({ display, onClose }) {
 
   function submitAddressEdit() {
     axios
-      .post("/api/address", {
+      .put("/api/business/address", {
         newAddress: address,
         newLatitude: latitude,
         newLongitude: longitude,

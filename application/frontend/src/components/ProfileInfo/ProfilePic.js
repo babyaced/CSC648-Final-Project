@@ -41,7 +41,7 @@ function ProfilePic() {
           .then((res) => {
             //upload the file to s3
             axios
-              .post("/api/profile-pic", {
+              .post("/api/profile/profile-pic", {
                 photoLink: presignedFileURL,
                 profileID: profile.profileId,
                 profileType: profile.profileType,

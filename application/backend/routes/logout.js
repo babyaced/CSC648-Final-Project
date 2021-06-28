@@ -3,7 +3,7 @@ const router = express.Router();
 
 const connection = require("../db");
 
-router.post("/api/logout", (req, res) => {
+router.post("/", (req, res) => {
   //console.log("/api/logout")
   req.session.destroy((err) => {
     if (err) {

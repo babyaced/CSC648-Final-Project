@@ -3,7 +3,7 @@ const router = express.Router();
 
 const connection = require("../db");
 
-router.get("/api/posts-admin", (req, res) => {
+router.get("/flagged-posts", (req, res) => {
   const { offset } = req.query;
   // //console.log("/api/get-admin-feed-posts");
   let username = req.session.username;
@@ -33,7 +33,7 @@ router.get("/api/posts-admin", (req, res) => {
   );
 });
 
-router.post("/api/delete-post", (req, res) => {
+router.delete("/flagged-post", (req, res) => {
   // //console.log("POST /api/delete-post");
 
   const { postID } = req.body;
@@ -58,7 +58,7 @@ router.post("/api/delete-post", (req, res) => {
   }
 });
 
-router.post("/api/ban-user", (req, res) => {
+router.post("/ban", (req, res) => {
   // //console.log("POST /api/ban-user");
   const { profileID } = req.body;
   // //console.log(profileID)

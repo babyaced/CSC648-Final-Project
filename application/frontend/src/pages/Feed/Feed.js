@@ -75,8 +75,8 @@ function Feed({ appUser }) {
     //get profile pic and name of user  //
     redirectContext.updateLoading(true);
 
-    const getFeedUser = axios.get("/api/feed-user");
-    const getFeedUserPets = axios.get("/api/current-user-pets");
+    const getFeedUser = axios.get("/api/feed/user");
+    const getFeedUserPets = axios.get("/api/pets/current-user");
 
     Promise.all([getFeedUser, getFeedUserPets])
       .then((responses) => {

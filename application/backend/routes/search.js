@@ -31,12 +31,12 @@ function distance(lat1, lat2, lon1, lon2) {
   return c * r;
 }
 
-router.get("/api/search", (req, res) => {
+router.get("/", (req, res) => {
   var requestedSearchResults = { searchResults: [] };
   //console.log("/search");
   if (req.query.searchTerm) {
     var name = req.query.searchTerm.toLowerCase();
-    name = '%' + name + '%'
+    name = "%" + name + "%";
   } else {
     name = "%%";
   }
@@ -178,7 +178,7 @@ router.get("/api/search", (req, res) => {
     connection.query(query, function (err, results) {
       if (err) {
         console.log(err);
-        res.status(500).json(err)
+        res.status(500).json(err);
       } else {
         requestedSearchResults = results;
         console.log(requestedSearchResults);
@@ -227,8 +227,7 @@ router.get("/api/search", (req, res) => {
             OFFSET ${(searchPage - 1) * 10};`);
     } else {
       query.append(
-        SQL
-          `SELECT *,COUNT(*) OVER () as results_count, (3959 * acos(cos(radians(${searchLatitude}))* cos(radians(Address.latitude))* cos(radians(Address.longitude) - radians(${searchLongitude})) + sin(radians(${searchLatitude})) * sin(radians(Address.latitude)))) as distance 
+        SQL`SELECT *,COUNT(*) OVER () as results_count, (3959 * acos(cos(radians(${searchLatitude}))* cos(radians(Address.latitude))* cos(radians(Address.longitude) - radians(${searchLongitude})) + sin(radians(${searchLatitude})) * sin(radians(Address.latitude)))) as distance 
         FROM Business 
         LEFT JOIN Shelter ON Business.business_id = Shelter.business_id 
         LEFT JOIN Address ON Business.reg_user_id = Address.reg_user_id 
@@ -239,8 +238,7 @@ router.get("/api/search", (req, res) => {
         AND distance <  ${searchDistance} 
         AND Profile.pet_id IS NULL 
         LIMIT 10 
-        OFFSET ${(searchPage - 1) * 10
-          }`
+        OFFSET ${(searchPage - 1) * 10}`
       );
     }
     console.log("Query: ", query);
@@ -248,10 +246,10 @@ router.get("/api/search", (req, res) => {
     connection.query(query, function (err, results) {
       if (err) {
         console.log(err);
-        res.status(500).json(err)
+        res.status(500).json(err);
       } else {
         requestedSearchResults = results;
-        console.log('Business Search Results', requestedSearchResults);
+        console.log("Business Search Results", requestedSearchResults);
         res.status(200).json(requestedSearchResults);
       }
     });
@@ -307,10 +305,10 @@ router.get("/api/search", (req, res) => {
     connection.query(query, function (err, results) {
       if (err) {
         console.log(err);
-        res.status(500).json(err)
+        res.status(500).json(err);
       } else {
         requestedSearchResults = results;
-        console.log('Shelter Search Results', requestedSearchResults);
+        console.log("Shelter Search Results", requestedSearchResults);
         res.status(200).json(requestedSearchResults);
       }
     });
@@ -333,7 +331,7 @@ router.get("/api/search", (req, res) => {
         function (err, results) {
           if (err) {
             console.log(err);
-            res.status(500).json(err)
+            res.status(500).json(err);
           } else {
             requestedSearchResults = results;
             console.log("Pet Owner Results: ", requestedSearchResults);

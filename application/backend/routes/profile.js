@@ -2,25 +2,7 @@ const express = require("express");
 const connection = require("../db");
 const router = express.Router();
 
-router.get("/api/get-profile-pic", (req, res) => {
-  connection.query(
-    `SELECT Profile.profile_pic_link
-         FROM Profile
-         JOIN Credentials ON Credentials.acct_id = Profile.account_id
-         WHERE Credentials.username = ?`,
-    [req.session.username],
-    function (err, link) {
-      if (err) {
-      }
-      //console.log(err);
-      else {
-        res.status(200).json(link[0]); //should be only one profile pic
-      }
-    }
-  );
-});
-
-router.get("/api/profile", (req, res) => {
+router.get("/", (req, res) => {
   let selfViewFlag = false;
   let adminViewFlag = false;
   //console.log("GET /api/profile")
@@ -69,30 +51,25 @@ router.get("/api/profile", (req, res) => {
   );
 });
 
-router.get("/api/photo-posts", (req, res) => {
-  //console.log(req.query);
-  //console.log("GET /api/photo-posts")
+router.get("/profile-pic", (req, res) => {
   connection.query(
-    `SELECT *
-         FROM Photo
-         LEFT JOIN Post ON Photo.post_id = Post.post_id
-         JOIN RegisteredUser ON Post.reg_user_id = RegisteredUser.reg_user_id
-         JOIN Account ON RegisteredUser.user_id = Account.user_id
-         JOIN Profile ON Account.account_id = Profile.account_id
-         WHERE Profile.profile_id = ?`,
-    [req.query.profileID],
-    function (err, photoPosts) {
+    `SELECT Profile.profile_pic_link
+         FROM Profile
+         JOIN Credentials ON Credentials.acct_id = Profile.account_id
+         WHERE Credentials.username = ?`,
+    [req.session.username],
+    function (err, link) {
       if (err) {
-        //console.log(err);
-      } else {
-        //console.log("photoPosts: ", photoPosts);
-        res.status(200).json(photoPosts);
+      }
+      //console.log(err);
+      else {
+        res.status(200).json(link[0]); //should be only one profile pic
       }
     }
   );
 });
 
-router.post("/api/profile-pic", (req, res) => {
+router.post("/profile-pic", (req, res) => {
   console.log("POST /api/profile-pic");
   console.log(req.body);
   const { photoLink, profileID, profileType } = req.body; // profileID only used if its a pet profile we want to update
@@ -132,7 +109,7 @@ router.post("/api/profile-pic", (req, res) => {
   }
 });
 
-router.get("/api/profile-display-name", (req, res) => {
+router.get("/display-name", (req, res) => {
   //console.log(req.body);
   //console.log("GET /api/profile-display-name")
   connection.query(
@@ -152,7 +129,7 @@ router.get("/api/profile-display-name", (req, res) => {
   );
 });
 
-router.get("/api/is-following", (req, res) => {
+router.get("/is-following", (req, res) => {
   const { profileID } = req.query;
   //console.log('GET /api/is-following')
   connection.query(
@@ -185,7 +162,7 @@ router.get("/api/is-following", (req, res) => {
   );
 });
 
-router.post("/api/name", (req, res) => {
+router.put("/name", (req, res) => {
   //console.log('POST /api/name')
   const { newFirstName } = req.body;
   //console.log('newFirstName: ', newFirstName)
@@ -242,6 +219,29 @@ router.post("/api/name", (req, res) => {
       );
     });
   });
+});
+
+router.put("/about-me", (req, res) => {
+  console.log("POST /api/edit-about-me");
+  const { newAboutMe, profileID } = req.body;
+  //may need to change this to support pet profile
+  console.log("newAboutMe: ", newAboutMe);
+  console.log("profileID: ", profileID);
+
+  connection.query(
+    `UPDATE Profile
+         SET about_me = ?
+         WHERE profile_id = ?`,
+    [newAboutMe, profileID],
+    function (err, result) {
+      if (err) {
+        //console.log(err);
+        res.status(500).json(err);
+      }
+      //console.log(result)
+      res.status(200).json(result);
+    }
+  );
 });
 
 module.exports = router;

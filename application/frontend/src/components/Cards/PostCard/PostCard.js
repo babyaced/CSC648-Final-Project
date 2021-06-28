@@ -40,7 +40,7 @@ function PostCard({ post, innerRef, openPostModal }) {
     event.cancelBubble = true;
     if (event.stopPropagation) event.stopPropagation();
     axios
-      .post("/api/flag-unflag", {
+      .post("/api/flag", {
         postToFlag: feedPostID,
       })
       .then((response) => {
@@ -76,6 +76,7 @@ function PostCard({ post, innerRef, openPostModal }) {
             className={styles["profile-pic"]}
             src={post.profile_pic_link}
             onClick={(event) => goToProfile(event, post.profile_id)}
+            alt={post.profile_pic_link}
           />
           <div
             className={styles["post-name"]}

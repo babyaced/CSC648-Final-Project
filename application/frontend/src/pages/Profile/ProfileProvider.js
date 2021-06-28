@@ -62,16 +62,16 @@ export const ProfileProvider = ({ appUser, children }) => {
       const getProfile = axios.get("/api/profile", {
         params: { profileID: profileID },
       });
-      const getPhotoPosts = axios.get("/api/photo-posts", {
+      const getPhotoPosts = axios.get("/api/posts/photos", {
         params: { profileID: profileID },
       });
-      const getCurrentUserPets = axios.get("/api/pets", {
+      const getCurrentUserPets = axios.get("/api/pets/profile", {
         params: { profileID: profileID },
       });
-      const getTaggedPosts = axios.get("/api/tagged-posts", {
+      const getTaggedPosts = axios.get("/api/posts/tagged", {
         params: { profileID: profileID },
       });
-      const getIsFollowing = axios.get("/api/is-following", {
+      const getIsFollowing = axios.get("/api/profile/is-following", {
         params: { profileID: profileID },
       });
       let fetchedProfile;
@@ -123,13 +123,13 @@ export const ProfileProvider = ({ appUser, children }) => {
         })
         .then(() => {
           if (fetchedProfile.profileType === "Business") {
-            const getHours = axios.get("/api/hours", {
+            const getHours = axios.get("/api/business/hours", {
               params: { profileID: profileID },
             });
-            const getAddress = axios.get("/api/business-address", {
+            const getAddress = axios.get("/api/business/address", {
               params: { profileID: profileID },
             });
-            const getPhoneNumber = axios.get("/api/business-phone-number", {
+            const getPhoneNumber = axios.get("/api/business/phone-number", {
               params: { profileID: profileID },
             });
 
@@ -151,7 +151,7 @@ export const ProfileProvider = ({ appUser, children }) => {
           } else if (fetchedProfile.petId) {
             //console.log('fetchedProfile.petId: ', fetchedProfile.petId)
             axios
-              .get("/api/pet-details", {
+              .get("/api/pet", {
                 params: {
                   petID: fetchedProfile.petId,
                   typeOptions: typeOptions,

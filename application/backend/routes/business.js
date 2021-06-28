@@ -115,7 +115,7 @@ router.get("/hours", (req, res) => {
   );
 });
 
-router.post("/hours", (req, res) => {
+router.put("/hours", (req, res) => {
   const {
     newSunOpen,
     newSunClose,

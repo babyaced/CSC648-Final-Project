@@ -55,9 +55,7 @@ function SignUpPage({ type }) {
 
   function onSubmitFunction(event) {
     //Conditionals for personal vs business/shelter sign up
-    type === "personal"
-      ? signUp(event)
-      : nextSignUpStep(event);
+    type === "personal" ? signUp(event) : nextSignUpStep(event);
   }
 
   function signUp(event) {
@@ -67,7 +65,7 @@ function SignUpPage({ type }) {
     //console.log("valid form: ", valid);
     if (valid) {
       Axios.post(
-        "/api/sign-up",
+        "/api/signup",
         {
           email: email,
           firstName: firstName,
@@ -79,7 +77,7 @@ function SignUpPage({ type }) {
         { withCredentials: true }
       )
         .then((response) => {
-          if (response.data === 'success') {
+          if (response.data === "success") {
             history.push("/SignUpSuccess");
           }
         })
@@ -109,29 +107,29 @@ function SignUpPage({ type }) {
     let nextPage;
     type === "business"
       ? (nextPage = {
-        pathname: "/business-signup2",
-        state: {
-          email: email,
-          username: uname,
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-          redonePassword: redonePassword,
-        },
-        type: "business",
-      })
+          pathname: "/business-signup2",
+          state: {
+            email: email,
+            username: uname,
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            redonePassword: redonePassword,
+          },
+          type: "business",
+        })
       : (nextPage = {
-        pathname: "/shelter-signup2",
-        state: {
-          email: email,
-          username: uname,
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-          redonePassword: redonePassword,
-        },
-        type: "shelter",
-      });
+          pathname: "/shelter-signup2",
+          state: {
+            email: email,
+            username: uname,
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            redonePassword: redonePassword,
+          },
+          type: "shelter",
+        });
 
     //console.log(nextPage);
 
@@ -140,7 +138,7 @@ function SignUpPage({ type }) {
 
     if (valid) {
       Axios.post(
-        "/api/sign-up/validate",
+        "/api/signup/validate",
         {
           email: email,
           username: uname,

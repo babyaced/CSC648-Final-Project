@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 const connection = require("../db");
 
-router.get("/api/login", (req, res) => {
+router.get("/", (req, res) => {
   //check if user is logged in
   // //console.log(req.session);
   if (req.session.username) {
@@ -18,7 +18,7 @@ router.get("/api/login", (req, res) => {
   }
 });
 
-router.post("/api/login", (req, res) => {
+router.post("/", (req, res) => {
   //login user
   //console.log("/login")
   const username = req.body.username;

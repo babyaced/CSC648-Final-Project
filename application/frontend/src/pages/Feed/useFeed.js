@@ -13,7 +13,7 @@ function useFeed(offset, admin, newPost) {
     let cancel;
     if (admin) {
       axios
-        .get("/api/posts-admin", { params: { offset } })
+        .get("/api/admin/flagged-posts", { params: { offset } })
         .then((res) => {
           setFeedPosts((prevPosts) => {
             return [...new Set([...prevPosts, ...res.data])];
@@ -26,7 +26,7 @@ function useFeed(offset, admin, newPost) {
         });
     } else {
       axios
-        .get("/api/posts", { params: { offset } })
+        .get("/api/feed", { params: { offset } })
         .then((res) => {
           console.log("feedPosts", feedPosts);
           console.log("res.data: ", res.data);

@@ -19,7 +19,7 @@ function BusinessInfo({
 
   function submitPhoneEdit() {
     axios
-      .post("/api/phone-number", {
+      .put("/api/business/phone-number", {
         newPhoneNumber: profile.phoneNumber,
       })
       .then((response) => {

@@ -38,7 +38,7 @@ function AboutMe() {
 
   function submitAboutMeEdit() {
     axios
-      .post("/api/about-me", {
+      .put("/api/profile/about-me", {
         newAboutMe: profile.aboutMe,
         profileID: profileID,
       })
