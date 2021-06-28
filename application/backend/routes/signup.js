@@ -29,157 +29,113 @@ router.post("/", (req, res) => {
   const givenPassword = req.body.password;
   const givenResubmitted = req.body.redonePassword;
 
+  let errorFlag = false;
+
+  let errorResponseObject = {
+    emailTakenError: "",
+    usernameTakenError: "",
+    passwordRequirementsError: "",
+    nonMatchingPasswordError: "",
+  };
+
   connection.getConnection(function (err, conn) {
     if (err) {
       res.status(500).json(err);
     } else {
-      conn.beginTransaction(function (err) {
+      conn.beginTransaction(async function (err) {
         if (err) {
           console.log(err);
           res.status(500).json(err);
         } else {
-          let userEmails;
-          conn.query(
-            "SELECT user_id FROM User WHERE email=?",
-            [givenEmail], //check if email is taken)
-            function (err, result) {
+          try {
+            const email = await conn
+              .promise()
+              .query("SELECT user_id FROM User WHERE email=?", [givenEmail]);
+            console.log("email: ", email);
+
+            if (email[0].length > 0) {
+              errorFlag = true;
+              errorResponseObject.emailTakenError = "Email Already in Use";
+            }
+
+            const username = await conn
+              .promise()
+              .query("SELECT username FROM Credentials WHERE username=?", [
+                givenUsername,
+              ]);
+            console.log("username: ", username);
+
+            if (username[0].length > 0) {
+              errorFlag = true;
+              errorResponseObject.usernameTakenError =
+                "Username Already in Use";
+            }
+
+            if (!passwordValidate(givenPassword)) {
+              errorFlag = true;
+              errorResponseObject.passwordRequirementsError =
+                "Password does not meet requirements";
+            }
+            if (givenPassword !== givenResubmitted) {
+              errorFlag = true;
+              errorResponseObject.nonMatchingPasswordError =
+                "Passwords Not Matching";
+            }
+
+            if (!errorFlag) {
+              const hash = await bcrypt.hash(givenPassword, 10);
+              console.log(hash);
+
+              const insertedUser = await conn
+                .promise()
+                .query(
+                  `INSERT INTO User (email,first_name, last_name) VALUES (?,?,?)`,
+                  [givenEmail, givenFirstName, givenLastName]
+                );
+              console.log("insertedUser: ", insertedUser);
+              const insertedAccount = await conn
+                .promise()
+                .query(
+                  `INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,
+                  [insertedUserID, 1]
+                );
+              console.log("insertedAccount: ", insertedAccount);
+
+              const insertedCredentials = await conn
+                .promise()
+                .query(
+                  `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
+                  [insertedAccountID, givenUsername, hash]
+                );
+              console.log("insertedCredentials: ", insertedCredentials);
+              const updatedProfile = await conn
+                .promise()
+                .query(
+                  `UPDATE Profile SET Profile.display_name = ? , Profile.type = ? WHERE  Profile.account_id = ?`,
+                  [givenFirstName, "PetOwner", insertedAccountID]
+                );
+              console.log("updatedProfile: ", updatedProfile);
+            }
+
+            conn.commit(function (err) {
               if (err) {
                 return conn.rollback(function () {
-                  console.log(err);
                   res.status(500).json(err);
                 });
-              } else {
-                // console.log(result.length);
-                userEmails = result;
-                let userUsernames;
-                if (userEmails.length === 0) {
-                  conn.query(
-                    "SELECT username FROM Credentials WHERE username=?",
-                    [givenUsername],
-                    function (err, result) {
-                      //check if username is taken
-                      if (err) {
-                        return conn.rollback(function () {
-                          console.log(err);
-                          res.status(500).json(err);
-                        });
-                      } else {
-                        userUsernames = result;
-                        let insertedUserID;
-                        if (userUsernames.length === 0) {
-                          if (passwordValidate(givenPassword)) {
-                            //if password is valid
-                            if (givenPassword === givenResubmitted) {
-                              //if password and confirmed password match
-                              const hash = bcrypt.hashSync(givenPassword, 10);
-
-                              conn.query(
-                                `INSERT INTO User (email,first_name, last_name) VALUES (?,?,?)`,
-                                [givenEmail, givenFirstName, givenLastName],
-                                function (err, result) {
-                                  if (err) {
-                                    return conn.rollback(function () {
-                                      console.log(err);
-                                      res.status(500).json(err);
-                                    });
-                                  } else {
-                                    insertedUserID = result.insertId;
-                                    let insertedAccountID;
-                                    conn.query(
-                                      `INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,
-                                      [insertedUserID, 1], //create new account in database with returned user_id  and assign role of pet owner//registered user entry and profile automatically created
-                                      function (err, result) {
-                                        if (err) {
-                                          return conn.rollback(function () {
-                                            console.log(err);
-                                            res.status(500).json(err);
-                                          });
-                                        } else {
-                                          insertedAccountID = result.insertId;
-                                          conn.query(
-                                            `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
-                                            [
-                                              insertedAccountID,
-                                              givenUsername,
-                                              hash,
-                                            ],
-                                            function (err, result) {
-                                              if (err) {
-                                                return conn.rollback(
-                                                  function () {
-                                                    console.log(err);
-                                                    res.status(500).json(err);
-                                                  }
-                                                );
-                                              } else {
-                                                conn.query(
-                                                  `UPDATE Profile SET Profile.display_name = ? , Profile.type = ? WHERE  Profile.account_id = ?`,
-                                                  [
-                                                    givenFirstName,
-                                                    "PetOwner",
-                                                    insertedAccountID,
-                                                  ],
-                                                  function (err, result) {
-                                                    if (err) {
-                                                      return conn.rollback(
-                                                        function () {
-                                                          console.log(err);
-                                                          res
-                                                            .status(500)
-                                                            .json(err);
-                                                        }
-                                                      );
-                                                    } else {
-                                                      conn.commit(function (
-                                                        err
-                                                      ) {
-                                                        if (err) {
-                                                          return conn.rollback(
-                                                            function () {
-                                                              res
-                                                                .status(500)
-                                                                .json(err);
-                                                            }
-                                                          );
-                                                        } else {
-                                                          console.log(
-                                                            "success"
-                                                          );
-                                                          res
-                                                            .status(200)
-                                                            .json("success");
-                                                        }
-                                                      });
-                                                    }
-                                                  }
-                                                );
-                                              }
-                                            }
-                                          );
-                                        }
-                                      }
-                                    );
-                                  }
-                                }
-                              );
-                            } else {
-                              res.status(400).json("passwords not matching");
-                            }
-                          } else {
-                            res.status(400).json("password requirements");
-                          }
-                        } else {
-                          res.status(400).json("exists");
-                        }
-                      }
-                    }
-                  );
-                } else {
-                  res.status(400).json("exists");
-                }
               }
-            }
-          );
+              if (errorFlag) {
+                return conn.rollback(function () {
+                  res.status(400).json(errorResponseObject);
+                });
+              }
+              return res.status(201).json("SUCCESS");
+            });
+          } catch (err) {
+            console.error(err);
+            return conn.rollback(function () {
+              res.status(500).json(err);
+            });
+          }
         }
       });
     }

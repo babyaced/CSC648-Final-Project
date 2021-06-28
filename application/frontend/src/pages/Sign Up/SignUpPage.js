@@ -77,24 +77,27 @@ function SignUpPage({ type }) {
         { withCredentials: true }
       )
         .then((response) => {
-          if (response.data === "success") {
+          console.log(response.data);
+          if (response.data === "SUCCESS") {
+            console.log(response.data);
             history.push("/SignUpSuccess");
           }
         })
         .catch((error) => {
-          if (error.response.data === "exists") {
-            setError("An Account using that Email or Username already exists");
-            //console.log(error);
-          } else if (error.response.data === "passwords not matching") {
-            setError("The Passwords Entered Do Not Match");
-            //console.log(error);
-          } else if (error.response.data === "password requirements") {
-            setError(
-              "Your Password Must Have at least 8 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character"
+          console.error(error);
+          if (error.response.status === 400) {
+            setEmailError(error.response.data.emailTakenError);
+            setUnameError(error.response.data.usernameTakenError);
+            setPasswordError(error.response.data.passwordRequirementsError);
+            setRedonePasswordError(
+              error.response.data.nonMatchingPasswordError
             );
-            //console.log(error);
           }
-          //console.log(error);
+          if (error.response.status === 500) {
+            setTermsError(
+              "An Unexpected Error Occured, Please try Submitting Again"
+            );
+          }
         });
     } else {
       //console.log("invalid form");
@@ -152,13 +155,18 @@ function SignUpPage({ type }) {
           history.push(nextPage);
         })
         .catch((error) => {
-          if (error.response.data === "exists") {
-            setError("An Account using that Email or Username already exists");
-          } else if (error.response.data === "passwords not matching") {
-            setError("The Passwords Entered Do Not Match");
-          } else if (error.response.data === "password requirements") {
-            setError(
-              "Your Password Must Have: 8-50 Characters and Contain: 1 Capital Letter, 1 Number, 1 Special Character"
+          console.error(error);
+          if (error.response.status === 400) {
+            setEmailError(error.response.data.emailTakenError);
+            setUnameError(error.response.data.usernameTakenError);
+            setPasswordError(error.response.data.passwordRequirementsError);
+            setRedonePasswordError(
+              error.response.data.nonMatchingPasswordError
+            );
+          }
+          if (error.response.status === 500) {
+            setTermsError(
+              "An Unexpected Error Occured, Please try Submitting Again"
             );
           }
         });
@@ -166,13 +174,6 @@ function SignUpPage({ type }) {
   }
 
   function validateForm() {
-    //console.log("First Name: ", firstName);
-    //console.log("Last Name: ", lastName);
-    //console.log("Email: ", email);
-    //console.log("uname: ", uname);
-    //console.log("Password: ", password);
-    //console.log("Redone Password: ", redonePassword);
-
     let fNameErr = NameValidation(true, firstName);
     let lNameErr = NameValidation(false, lastName);
     let unameErr = UsernameValidation(uname);
@@ -213,7 +214,7 @@ function SignUpPage({ type }) {
   if (password.length >= 8) {
     lengthRequirementStyle = "met";
   }
-  if (password.toLowerCase() != password) {
+  if (password.toLowerCase() !== password) {
     capitalRequirementStyle = "met";
   }
 
