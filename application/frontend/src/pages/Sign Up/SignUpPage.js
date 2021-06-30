@@ -14,6 +14,8 @@ import UsernameValidation from "../../utils/signupValidation/UsernameValidation"
 import PasswordValidation from "../../utils/signupValidation/PasswordValidation";
 import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
+import ButtonLoader from "../../components/UI/Spinner/ButtonLoader";
+
 function SignUpPage({ type }) {
   ////console.log("type: ", type);
   //form states
@@ -48,15 +50,19 @@ function SignUpPage({ type }) {
 
   const [passwordChecking, setPasswordChecking] = useState(false);
 
+  const [signUpLoading, setSignUpLoading] = useState(false);
+
   const history = useHistory();
 
   function signUp(event) {
+    setSignUpLoading(true);
     event.preventDefault();
 
     const valid = validateForm();
     ////console.log("valid form: ", valid);
-
-    if (valid) {
+    if (!valid) {
+      setSignUpLoading(false);
+    } else if (valid) {
       let signUpObject = {
         email: email,
         firstName: firstName,
@@ -106,6 +112,7 @@ function SignUpPage({ type }) {
           }
         })
         .catch((error) => {
+          setSignUpLoading(false);
           console.error(error);
           if (error.response.status === 400) {
             setEmailError(error.response.data.emailTakenError);
@@ -116,6 +123,7 @@ function SignUpPage({ type }) {
             );
           }
           if (error.response.status === 500) {
+            setSignUpLoading(false);
             setTermsError(
               "An Unexpected Error Occured, Please try Submitting Again"
             );
@@ -213,6 +221,7 @@ function SignUpPage({ type }) {
                 // pattern="[A-Za-z]"
                 maxlength="40"
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -223,6 +232,7 @@ function SignUpPage({ type }) {
                 // pattern="[A-Za-z]"
                 maxlength="40"
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{firstNameError}</span>
@@ -242,6 +252,7 @@ function SignUpPage({ type }) {
                 // pattern="[a-zA-Z]"
                 maxlength="40"
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -252,6 +263,7 @@ function SignUpPage({ type }) {
                 // pattern="[a-zA-Z]"
                 maxlength="40"
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{lastNameError}</span>
@@ -269,6 +281,7 @@ function SignUpPage({ type }) {
                 onChange={(e) => setEmail(e.target.value)}
                 maxlength="320"
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -278,6 +291,7 @@ function SignUpPage({ type }) {
                 onChange={(e) => setEmail(e.target.value)}
                 maxlength="320"
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{emailError}</span>
@@ -294,6 +308,7 @@ function SignUpPage({ type }) {
                 name="uname"
                 onChange={(e) => setUname(e.target.value)}
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -302,6 +317,7 @@ function SignUpPage({ type }) {
                 name="uname"
                 onChange={(e) => setUname(e.target.value)}
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{unameError}</span>
@@ -318,6 +334,7 @@ function SignUpPage({ type }) {
                 name="psw"
                 onChange={(e) => setPassword(e.target.value)}
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -326,6 +343,7 @@ function SignUpPage({ type }) {
                 name="psw"
                 onChange={(e) => setPassword(e.target.value)}
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{passwordError}</span>
@@ -346,6 +364,7 @@ function SignUpPage({ type }) {
                 onChange={(e) => setRedonePassword(e.target.value)}
                 onBlur={() => setPasswordChecking(true)}
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -355,6 +374,7 @@ function SignUpPage({ type }) {
                 onChange={(e) => setRedonePassword(e.target.value)}
                 onBlur={() => setPasswordChecking(true)}
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{redonePasswordError}</span>
@@ -398,6 +418,7 @@ function SignUpPage({ type }) {
                 type="checkbox"
                 name="remember"
                 onChange={(e) => setAcceptTerms(e.target.checked)}
+                disabled={signUpLoading}
               />
             </span>
             <span className={styles["termsError"]}>{termsError}</span>
@@ -405,17 +426,33 @@ function SignUpPage({ type }) {
         </div>
         {type === "personal" && (
           <button className={styles["submit-btn"]} type="submit">
-            Sign Up
+            {signUpLoading ? <ButtonLoader message={"Sign Up"} /> : "Sign Up"}
           </button>
         )}
         {type === "business" && (
-          <button className={styles["next-btn"]} type="submit">
-            Next: Business Info
+          <button
+            className={styles["next-btn"]}
+            type="submit"
+            disabled={signUpLoading}
+          >
+            {signUpLoading ? (
+              <ButtonLoader message={"Next: Business Info"} />
+            ) : (
+              "Next: Business Info"
+            )}
           </button>
         )}
         {type === "shelter" && (
-          <button className={styles["next-btn"]} type="submit">
-            Next: Shelter Info
+          <button
+            className={styles["next-btn"]}
+            type="submit"
+            disabled={signUpLoading}
+          >
+            {signUpLoading ? (
+              <ButtonLoader message={"Next: Shelter Info"} />
+            ) : (
+              "Next: Shelter Info"
+            )}
           </button>
         )}
       </form>

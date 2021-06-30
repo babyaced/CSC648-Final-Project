@@ -1,41 +1,40 @@
-.signup-container{
-    box-shadow: var(--elevation-1);
-    border-radius: 7.5px;
-    margin: 5rem auto auto auto;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
+.signup-container {
+  box-shadow: var(--elevation-1);
+  border-radius: 7.5px;
+  margin: 5rem auto auto auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }
 
-.signup-header{
-    background-color: var(--accent-color-2);
-    text-align: center;
-    color: var(--reversed-txt-clr);
-    line-height: 4rem;
-    border-radius: 7.5px 7.5px 0 0;
-    box-shadow: var(--elevation-1);
-    width: 100%;
+.signup-header {
+  background-color: var(--accent-color-2);
+  text-align: center;
+  color: var(--reversed-txt-clr);
+  line-height: 4rem;
+  border-radius: 7.5px 7.5px 0 0;
+  box-shadow: var(--elevation-1);
+  width: 100%;
 }
 
-
-.signup-fields-container{
-    padding: 2rem 2rem .1rem 2rem;
-    display: flex;
-    flex-flow: row wrap;
-    font-family: var(--ff-primary);
-    justify-content: center;
+.signup-fields-container {
+  padding: 2rem 2rem 0.1rem 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  font-family: var(--ff-primary);
+  justify-content: center;
 }
 
-.signup-fields-container label{
-    display: block;
+.signup-fields-container label {
+  display: block;
 }
 
 .signup-fields-container > div,
 .signup-fields-container > ul,
-.signup-fields-container > span{
-    flex-basis: 48%;
-    border-radius: 7.5px;
-    margin-bottom: 1rem;
+.signup-fields-container > span {
+  flex-basis: 48%;
+  border-radius: 7.5px;
+  margin-bottom: 1rem;
 }
 
 .fname-input-container,
@@ -43,176 +42,179 @@
 .password-input-container,
 .password-requirements-list,
 .name-input-container,
-.address-input-container{
-    margin-right: 4%;
+.address-input-container {
+  margin-right: 4%;
 }
 
-.signup-fields-container input{
-    width: 100%;
-    padding: 0.5rem 0 0.5rem 0.3rem;
-    border-radius: 7.5px;
-    font-size: var(--base-size);
+.signup-fields-container input {
+  width: 100%;
+  padding: 0.5rem 0 0.5rem 0.3rem;
+  border-radius: 7.5px;
+  font-size: var(--base-size);
 }
 
-.checkbox-container{
-    margin-top: 1rem;
-    display: flex;
-    flex-flow: row wrap;
-    text-align: center;
-    padding-bottom: 2rem;
+.checkbox-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+  padding-bottom: 2rem;
 }
 
 .checkbox-container:first-child span,
-.checkbox-container:last-child span{
-    line-height: var(--base-size);
-    font-size: var(--base-size);
-    flex-basis: 100%;
-    font-family: var(--ff-secondary);
+.checkbox-container:last-child span {
+  line-height: var(--base-size);
+  font-size: var(--base-size);
+  flex-basis: 100%;
+  font-family: var(--ff-secondary);
 }
 
 .terms-button,
-.policy-button{
-    text-decoration: underline;
-    cursor: pointer;
-    transition: .15s ease-in-out;
+.policy-button {
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
 }
 
 .terms-button:hover,
-.policy-button:hover{
-    color: var(--color-primary-200);
+.policy-button:hover {
+  color: var(--color-primary-200);
 }
 
 .submit-btn,
-.next-btn{
-    width: 250px;
-    max-width: 60%;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    color: white;
-    background-color: var(--primary-clr);
+.next-btn {
+  width: 250px;
+  max-width: 60%;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: var(--primary-clr);
 
-    font-family: var(--ff-primary);
-    box-shadow: var(--elevation-1);
-    border: none;
+  font-family: var(--ff-primary);
+  box-shadow: var(--elevation-1);
+  border: none;
+  border-radius: 7.5px;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  grid-area: submit-btn;
+  margin-bottom: 2rem;
+}
+
+.submit-btn {
+  font-size: var(--h4);
+}
+
+.next-btn {
+  font-size: var(--h5);
+}
+
+.submit-btn:hover {
+  background-color: var(--color-primary-300);
+}
+
+.password-requirements-list {
+  margin-top: 0.25rem;
+  margin-left: 0;
+  padding-left: 1rem;
+  font-family: var(--ff-secondary);
+  font-size: var(--text-sm);
+}
+
+.password-requirements-list li {
+  padding-left: 0.5rem;
+}
+
+.valid {
+  border: 1px solid var(--inactive-txt-clr);
+}
+
+.invalid {
+  border: 2px solid red;
+  background-image: url(../../assets/icons/thirdparty/icons8-error-24.png);
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  background-size: 18px;
+}
+
+.location {
+  background-image: url(../../assets/icons/thirdparty/ConfirmedLocation.svg);
+  border: 2px solid var(--color-primary-200);
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  background-size: 18px;
+}
+
+.met {
+  color: var(--color-primary-100);
+  list-style-type: "●";
+}
+
+.unmet {
+  color: var(--inactive-txt-clr);
+  list-style-type: "○";
+}
+
+.differing:after {
+  margin-top: 0;
+  content: "Passwords do not match";
+  color: red;
+  font-size: var(--text-sm);
+  font-family: var(--ff-secondary);
+}
+
+.same:after {
+  content: "";
+}
+
+.signup-fields-container > div .termsError {
+  margin-top: 1rem;
+  color: red;
+  font-size: var(--text-sm);
+  font-family: var(--ff-secondary);
+}
+
+.combobox-list {
+  background-color: white;
+  padding: 1rem;
+  list-style: none;
+  box-shadow: var(--elevation-2);
+  font-family: var(--ff-secondary);
+  z-index: 1;
+  border-radius: 7.5px;
+  position: relative;
+}
+
+.combobox-list li {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-container input {
+  width: auto;
+}
+
+@media (max-width: 450px) {
+  .signup-fields-container > div,
+  .signup-fields-container > ul,
+  .signup-fields-container > span {
+    flex-basis: 100%;
     border-radius: 7.5px;
-    cursor: pointer;
-    transition: .15s ease-in-out;
-    grid-area: submit-btn;
-    margin-bottom: 2rem;
-}
+    margin-bottom: 1rem;
+  }
 
-.submit-btn{
-    font-size: var(--h4);
-}
+  .fname-input-container,
+  .email-input-container,
+  .password-input-container,
+  .password-requirements-list {
+    margin-right: 0;
+  }
 
-.next-btn{
-    font-size: var(--h5);
-}
+  .checkbox-container:first-child span {
+    flex-basis: 100%;
+  }
 
-.submit-btn:hover{
-    background-color: var(--color-primary-300);
-}
-
-.password-requirements-list{
-    margin-top: 0.25rem;
-    margin-left: 0;
-    padding-left: 1rem;
-    font-family: var(--ff-secondary);
-    font-size: var(--text-sm);
-}
-
-.password-requirements-list li{
-    padding-left: .5rem;
-}
-
-.valid{
-    border: 1px solid var(--inactive-txt-clr);
-}
-
-.invalid{
-    border: 2px solid red;
-    background-image: url(../../assets/icons/thirdparty/icons8-error-24.png);
-    background-repeat: no-repeat;
-    background-position: 95% 50%;
-    background-size: 18px;
-}
-
-
-
-.met{
-    color: var(--color-primary-100);
-    list-style-type: "●";
-}
-
-.unmet{
-    color: var(--inactive-txt-clr);
-    list-style-type: "○";
-}
-
-
-.differing:after{
-    margin-top: 0;
-    content: 'Passwords do not match';
-    color: red;
-    font-size: var(--text-sm);
-    font-family: var(--ff-secondary);
-}
-
-.same:after{
-    content: ''
-}
-
-.signup-fields-container > div .termsError{
-    margin-top: 1rem;
-    color: red;
-    font-size: var(--text-sm);
-    font-family: var(--ff-secondary);
-}
-
-.combobox-list{
-    background-color: white;
-    padding: 1rem;
-    list-style: none;
-    box-shadow: var(--elevation-2);
-    font-family: var(--ff-secondary);
-    z-index: 1;
-    border-radius: 7.5px;
-    position: relative;
-}
-
-.combobox-list li{
-    cursor:pointer;
-    padding: 5px;
-    border-bottom: 1px solid rgba(0,0,0,0.10);
-}
-
-.checkbox-container input{
-    width: auto;
-}
-
-@media (max-width:450px){
-    .signup-fields-container > div,
-    .signup-fields-container > ul,
-    .signup-fields-container > span{
-        flex-basis: 100%;
-        border-radius: 7.5px;
-        margin-bottom: 1rem;
-    }
-    
-    .fname-input-container,
-    .email-input-container,
-    .password-input-container,
-    .password-requirements-list{
-        margin-right: 0;
-    }
-
-
-    .checkbox-container:first-child span{
-        flex-basis: 100%;
-    }
-    
-    .checkbox-container:last-child span{
-        flex-basis: 100%;
-    }
-    
+  .checkbox-container:last-child span {
+    flex-basis: 100%;
+  }
 }

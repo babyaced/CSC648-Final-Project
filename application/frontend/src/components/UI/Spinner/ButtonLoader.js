@@ -1,17 +1,17 @@
 import React from "react";
 
-function ButtonLoader() {
+function ButtonLoader({ message }) {
   return (
     <span>
       <i
         className="fa fa-circle-o-notch fa-spin"
         style={{
-          marginRight: "5px",
+          marginRight: "1rem",
           paddingRight: "0",
           color: "var(--color-neutral-100)",
         }}
       />
-      Uploading
+      {message}
     </span>
   );
 }

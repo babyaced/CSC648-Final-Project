@@ -82,6 +82,8 @@ function SignUpPage2(props) {
   const [addressError, setAddressError] = useState("");
   const [termsError, setTermsError] = useState("");
 
+  const [locationConfirmed, setLocationConfirmed] = useState(false);
+
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -120,15 +122,9 @@ function SignUpPage2(props) {
   });
 
   function validateForm() {
-    ////console.log("Business Name: ", businessName);
-    ////console.log("Phone Number: ", phoneNumber);
-    ////console.log("Address: ", address);
-    ////console.log("Latitude: ", latitude);
-    ////console.log("Longitude: ", longitude);
-
     let businessNameErr = BusinessNameValidation(businessName);
     let phoneNumberErr = PhoneNumberValidation(phoneNumber);
-    let addressErr = AddressValidation(address);
+    let addressErr = AddressValidation(address, latitude, longitude);
     let termsErr = TermsValidation(acceptTerms);
 
     setBusinessNameError(businessNameErr);
@@ -204,6 +200,12 @@ function SignUpPage2(props) {
               ////console.log(error);
             });
     }
+  }
+  let comboboxInputStyle = "valid";
+  if (addressError) {
+    comboboxInputStyle = "invalid";
+  } else if (latitude && longitude) {
+    comboboxInputStyle = "location";
   }
 
   return (
@@ -286,6 +288,7 @@ function SignUpPage2(props) {
             </label>
             <Combobox
               onSelect={async (address) => {
+                setLocationConfirmed(true);
                 setValue(address, false);
                 clearSuggestions();
                 try {
@@ -293,37 +296,23 @@ function SignUpPage2(props) {
                   const { lat, lng } = await getLatLng(results[0]);
                   setLatitude(lat);
                   setLongitude(lng);
+                  setAddress(address);
                 } catch (error) {
                   ////console.log("error!");
                 }
-                setAddress(address);
               }}
             >
-              {!addressError ? (
-                <ComboboxInput
-                  value={value}
-                  placeholder="Start Typing your Business's Address"
-                  onChange={(e) => {
-                    setValue(e.target.value);
-                    //record lat lng to store in database
-                  }}
-                  // required
-                  disabled={!ready}
-                  className={styles.valid}
-                />
-              ) : (
-                <ComboboxInput
-                  value={value}
-                  placeholder="Start Typing your Business's Address"
-                  onChange={(e) => {
-                    setValue(e.target.value);
-                    //record lat lng to store in database
-                  }}
-                  // required
-                  disabled={!ready}
-                  className={styles.invalid}
-                />
-              )}
+              <ComboboxInput
+                value={value}
+                placeholder="Start Typing an Address"
+                onChange={(e) => {
+                  setValue(e.target.value);
+                  //record lat lng to store in database
+                }}
+                // required
+                disabled={!ready}
+                className={styles[comboboxInputStyle]}
+              />
               <ComboboxPopover>
                 <ComboboxList className={styles["combobox-list"]}>
                   {status === "OK" &&
@@ -336,7 +325,7 @@ function SignUpPage2(props) {
             <span className={styles["termsError"]}>{addressError}</span>
           </div>
           <div className={styles["types-input-container"]}>
-            {type == "business" ? (
+            {type === "business" ? (
               <>
                 <label
                   className={styles["types-input-label"]}

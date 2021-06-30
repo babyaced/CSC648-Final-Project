@@ -105,7 +105,7 @@ router.post("/", (req, res) => {
                 .promise()
                 .query(
                   `INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`,
-                  [insertedUserID, 1]
+                  [insertedUser[0].insertId, 1]
                 );
               console.log("insertedAccount: ", insertedAccount);
 
@@ -113,14 +113,14 @@ router.post("/", (req, res) => {
                 .promise()
                 .query(
                   `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
-                  [insertedAccountID, givenUsername, hash]
+                  [insertedAccount[0].insertId, givenUsername, hash]
                 );
               console.log("insertedCredentials: ", insertedCredentials);
               const updatedProfile = await conn
                 .promise()
                 .query(
                   `UPDATE Profile SET Profile.display_name = ? , Profile.type = ? WHERE  Profile.account_id = ?`,
-                  [givenFirstName, "PetOwner", insertedAccountID]
+                  [givenFirstName, "PetOwner", insertedAccount[0].insertId]
                 );
               console.log("updatedProfile: ", updatedProfile);
             }
@@ -428,6 +428,12 @@ router.post("/shelter", (req, res) => {
               "insertedRegisteredUser ",
               insertedRegisteredUser[0][0].reg_user_id
             );
+
+            if (!givenLatitude || !givenLongitude) {
+              return res
+                .status(400)
+                .json("Please Select an Address from the Autocomplete Box");
+            }
 
             const insertedAddress = await conn
               .promise()
