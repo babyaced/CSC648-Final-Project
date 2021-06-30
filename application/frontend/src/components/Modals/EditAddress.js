@@ -110,6 +110,7 @@ function EditAddress({ display, onClose }) {
         <button
           className={styles["edit-address-submit"]}
           onClick={submitAddressEdit}
+          disabled={awaitingResponse}
         >
           {awaitingResponse ? <ButtonLoader /> : "Submit"}
         </button>

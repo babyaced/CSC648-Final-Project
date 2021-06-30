@@ -101,6 +101,7 @@ function PostModal({ display, onClose, selectedPost }) {
                 required
                 placeholder="Write a Comment..."
                 onChange={(e) => setCreatedCommentBody(e.target.value)}
+                disabled={awaitingResponse}
               />
               <button type="submit">
                 <span>Comment</span>

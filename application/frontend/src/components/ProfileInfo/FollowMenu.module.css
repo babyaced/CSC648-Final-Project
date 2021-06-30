@@ -3,7 +3,7 @@
   padding: 0.5rem 0 0.5rem 1rem;
   min-width: 90px;
   margin-left: 0;
-  font-size: var(--h5);
+  /* font-size: var(--h5); */
   border-right: none;
   border-radius: 7.5px 0 0 7.5px;
 }

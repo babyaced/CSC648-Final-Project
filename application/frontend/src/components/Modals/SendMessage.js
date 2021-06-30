@@ -8,6 +8,8 @@ import styles from "./SendMessage.module.css";
 
 import SelectCustomTheme from "../../mods/SelectCustomTheme.js";
 
+import ButtonLoader from "../UI/Spinner/ButtonLoader";
+
 const { Option } = components;
 
 function SendMessage({
@@ -24,8 +26,11 @@ function SendMessage({
 
   const [recipient, setRecipient] = useState([]);
 
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
   function sendMessage(event) {
     event.preventDefault();
+    setAwaitingResponse(true);
 
     axios
       .post("/api/message/messages-page", {
@@ -34,11 +39,14 @@ function SendMessage({
         recipientProfileID: recipient[0].value, //contains profile id
       })
       .then((response) => {
+        setAwaitingResponse(false);
+
         //console.log(response.data);
         onClose();
         updateSentMessagesState(response.data);
       })
       .catch((err) => {
+        setAwaitingResponse(false);
         ////console.log(err);
         //display Error message e.g: try again
       });
@@ -46,7 +54,11 @@ function SendMessage({
 
   const RecipientOption = (props) => (
     <Option {...props}>
-      <img className={styles["option-recipient-image"]} src={props.data.pic} />
+      <img
+        className={styles["option-recipient-image"]}
+        src={props.data.pic}
+        alt={"Recipient"}
+      />
       <span className={styles["option-recipient-name"]}>
         {props.data.label}
       </span>
@@ -73,6 +85,7 @@ function SendMessage({
             components={{ Option: RecipientOption }}
             placeholder="To"
             isSearchable
+            disabled={awaitingResponse}
           />
           <input
             className={styles["sendAMessage-subject"]}
@@ -81,6 +94,7 @@ function SendMessage({
             placeholder="Subject"
             value={subject}
             onChange={(event) => setSubject(event.target.value)}
+            disabled={awaitingResponse}
           />
           <textarea
             className={styles["sendAMessage-body"]}
@@ -89,9 +103,14 @@ function SendMessage({
             required
             placeholder="Write your message here"
             onChange={(event) => setBody(event.target.value)}
+            disabled={awaitingResponse}
           />
-          <button type="submit" class={styles["sendAMessage-sendButton"]}>
-            Send
+          <button
+            type="submit"
+            class={styles["sendAMessage-sendButton"]}
+            disabled={awaitingResponse}
+          >
+            {awaitingResponse ? <ButtonLoader message={"Send"} /> : "Send"}
           </button>
         </form>
       </>

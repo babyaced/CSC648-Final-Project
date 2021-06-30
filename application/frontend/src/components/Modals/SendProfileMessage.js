@@ -19,13 +19,13 @@ function SendProfileMessage({ display, onClose, profile }) {
     //console.log(profile);
 
     axios
-      .post("/api/profile-page", {
+      .post("/api/message/profile-page", {
         messageSubject: subject,
         messageBody: body,
         recipientAccountID: profile.accountId,
       })
       .then((response) => {
-        setAwaitingResponse(true);
+        setAwaitingResponse(false);
         ////console.log(response);
         onClose();
       })
@@ -63,7 +63,11 @@ function SendProfileMessage({ display, onClose, profile }) {
             onChange={(event) => setBody(event.target.value)}
             disabled={awaitingResponse}
           />
-          <button type="submit" class={styles["sendAMessage-sendButton"]}>
+          <button
+            type="submit"
+            class={styles["sendAMessage-sendButton"]}
+            disabled={awaitingResponse}
+          >
             {awaitingResponse ? <ButtonLoader message={"Send"} /> : "Send"}
           </button>
         </form>

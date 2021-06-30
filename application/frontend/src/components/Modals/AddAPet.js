@@ -193,7 +193,11 @@ function AddAPet({
               />
             </div>
           )}
-          <button className={styles["edit-pet-details-submit"]} type="submit">
+          <button
+            className={styles["edit-pet-details-submit"]}
+            type="submit"
+            disabled={loading}
+          >
             {loading ? <ButtonLoader /> : "Submit"}
           </button>
         </div>

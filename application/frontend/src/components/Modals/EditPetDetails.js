@@ -96,6 +96,7 @@ function EditPetDetails({ display, onClose }) {
             value={localPetName}
             placeholder="Name"
             onChange={(event) => setLocalPetName(event.target.value)}
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-pet-details-type"]}>
@@ -109,6 +110,7 @@ function EditPetDetails({ display, onClose }) {
             value={localPetType}
             placeholder="Select Pet Type"
             isSearchable
+            disabled={awaitingResponse}
           />
         </div>
         {/* <div className={styles["edit-pet-details-breed"]}>
@@ -138,6 +140,7 @@ function EditPetDetails({ display, onClose }) {
             isSearchable
             value={localPetColors}
             isMulti
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-pet-details-age"]}>
@@ -151,6 +154,7 @@ function EditPetDetails({ display, onClose }) {
             value={localPetAge}
             placeholder="Select Pet Age"
             isSearchable
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-pet-details-size"]}>
@@ -164,6 +168,7 @@ function EditPetDetails({ display, onClose }) {
             placeholder="Select Pet Size"
             value={localPetSize}
             isSearchable
+            disabled={awaitingResponse}
           />
         </div>
         {localPetType && localPetType.label === "Dog" && (
@@ -180,6 +185,7 @@ function EditPetDetails({ display, onClose }) {
               isMulti
               value={localDogBreeds}
               components={animatedComponents}
+              disabled={awaitingResponse}
             />
           </div>
         )}
@@ -197,10 +203,15 @@ function EditPetDetails({ display, onClose }) {
               isMulti
               value={localCatBreeds}
               components={animatedComponents}
+              disabled={awaitingResponse}
             />
           </div>
         )}
-        <button className={styles["edit-pet-details-submit"]} type="submit">
+        <button
+          className={styles["edit-pet-details-submit"]}
+          type="submit"
+          disabled={awaitingResponse}
+        >
           {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
         </button>
       </form>
