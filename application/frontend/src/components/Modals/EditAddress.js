@@ -5,6 +5,8 @@ import axios from "axios";
 
 import styles from "./EditAddress.module.css";
 
+import ButtonLoader from "../UI/Spinner/ButtonLoader";
+
 //For address Editing
 import "@reach/combobox";
 import {
@@ -28,7 +30,10 @@ function EditAddress({ display, onClose }) {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
   function submitAddressEdit() {
+    setAwaitingResponse(true);
     axios
       .put("/api/business/address", {
         newAddress: address,
@@ -36,9 +41,11 @@ function EditAddress({ display, onClose }) {
         newLongitude: longitude,
       })
       .then((response) => {
+        setAwaitingResponse(false);
         onClose();
       })
       .catch((err) => {
+        setAwaitingResponse(false);
         //console.log(err);
         //show error message in modal
       });
@@ -89,7 +96,7 @@ function EditAddress({ display, onClose }) {
               //record lat lng to store in database
             }}
             required
-            disabled={!ready}
+            disabled={!ready || awaitingResponse}
           />
           <ComboboxPopover className={styles["combobox-popover"]}>
             <ComboboxList className={styles["combobox-list"]}>
@@ -104,7 +111,7 @@ function EditAddress({ display, onClose }) {
           className={styles["edit-address-submit"]}
           onClick={submitAddressEdit}
         >
-          Submit
+          {awaitingResponse ? <ButtonLoader /> : "Submit"}
         </button>
       </div>
     </Modal>

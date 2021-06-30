@@ -17,10 +17,12 @@ const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 function ProfilePic() {
   ////console.log(apiGatewayURL);
 
+  console.log("s3URL: ", s3URL);
+
   const { profile, editProfilePic } = useContext(ProfileContext);
 
   //states
-  const [loading, setLoading] = useState(false);
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
 
   const onDrop = (acceptedFile) => {
     let config = {
@@ -29,7 +31,7 @@ function ProfilePic() {
       },
     };
     //console.log("apiGatewayURL: ", apiGatewayURL);
-    setLoading(true);
+    setAwaitingResponse(true);
     axios
       .get(
         "https://5gdyytvwb5.execute-api.us-west-2.amazonaws.com/default/getPresignedURL"
@@ -48,14 +50,14 @@ function ProfilePic() {
               })
               .then((res) => {
                 editProfilePic(presignedFileURL);
-                setLoading(false);
+                setAwaitingResponse(false);
               })
               .catch((err) => {
-                setLoading(false);
+                setAwaitingResponse(false);
               });
           })
           .catch((err) => {
-            setLoading(false);
+            setAwaitingResponse(false);
             if (err.response.status === 403) {
               //display error message to user
             }
@@ -63,7 +65,7 @@ function ProfilePic() {
           });
       })
       .catch((err) => {
-        setLoading(false);
+        setAwaitingResponse(false);
       });
   };
 
@@ -83,14 +85,19 @@ function ProfilePic() {
         alt="Profile Pic"
       />
       {profile.selfView && (
-        <div className={styles["editable-profile-pic-overlay"]}>
+        <button
+          className={styles["editable-profile-pic-overlay"]}
+          disabled={awaitingResponse}
+        >
           <section>
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <div>{loading ? <Loader /> : "Edit"}</div>
+              <div>
+                {awaitingResponse ? <Loader message={"Edit"} /> : "Edit"}
+              </div>
             </div>
           </section>
-        </div>
+        </button>
       )}
     </>
   );

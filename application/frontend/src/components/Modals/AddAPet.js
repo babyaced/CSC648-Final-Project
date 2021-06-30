@@ -87,6 +87,7 @@ function AddAPet({
               // onChange={event => props.updateProfile('userName', event.target.value)}
               onChange={(event) => setPetName(event.target.value)}
               placeholder="Name"
+              disabled={loading}
             />
           </div>
           <div className={styles["edit-pet-details-type"]}>
@@ -102,6 +103,7 @@ function AddAPet({
               required
               placeholder="Select Pet Type"
               isSearchable
+              disabled={loading}
             />
           </div>
 
@@ -118,6 +120,7 @@ function AddAPet({
               placeholder="Select Pet Color(s)"
               isSearchable
               isMulti
+              disabled={loading}
             />
           </div>
 
@@ -133,6 +136,7 @@ function AddAPet({
               required
               placeholder="Select Pet Age"
               isSearchable
+              disabled={loading}
             />
           </div>
 
@@ -148,6 +152,7 @@ function AddAPet({
               required
               placeholder="Select Pet Size"
               isSearchable
+              disabled={loading}
             />
           </div>
           {petType && petType.label === "Dog" && (
@@ -165,6 +170,7 @@ function AddAPet({
                 required
                 isMulti
                 components={animatedComponents}
+                disabled={loading}
               />
             </div>
           )}
@@ -183,6 +189,7 @@ function AddAPet({
                 required
                 isMulti
                 components={animatedComponents}
+                disabled={loading}
               />
             </div>
           )}

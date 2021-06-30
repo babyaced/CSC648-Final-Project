@@ -13,6 +13,8 @@ import SelectCustomTheme from "../../mods/SelectCustomTheme";
 
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
+import ButtonLoader from "../UI/Spinner/ButtonLoader";
+
 function EditPetDetails({ display, onClose }) {
   //console.log("editPetDetailsDisplay: ", display);
 
@@ -28,22 +30,22 @@ function EditPetDetails({ display, onClose }) {
     profileID,
   } = useContext(ProfileContext);
 
-  //console.log("editPetDetails Profile: ", profile);
+  //Holds the values that will be edited in the profile context when the form is submitted
+  const [localPetName, setLocalPetName] = useState(profile.displayName);
+  const [localPetType, setLocalPetType] = useState(profile.petType);
+  const [localPetAge, setLocalPetAge] = useState(profile.petAge);
+  const [localPetSize, setLocalPetSize] = useState(profile.petSize);
+  const [localPetColors, setLocalPetColors] = useState(profile.petColors);
+  const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds);
+  const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds);
 
-  //console.log("editPetDetails Profile.petType: ", profile.petType);
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
 
-  //console.log("editPetDetails Profile.petSize: ", profile.petSize);
-
-  //console.log("editPetDetails Profile.petAge: ", profile.petAge);
-
-  //console.log("editPetDetails Profile.petColors: ", profile.petColors);
-
-  //console.log("editPetDetails Profile.dogBreeds: ", profile.dogBreeds);
-
-  //console.log("editPetDetails Profile.catBreeds: ", profile.catBreeds);
+  const animatedComponents = makeAnimated();
 
   function updatePetDetails(event) {
     event.preventDefault();
+    setAwaitingResponse(true);
     //console.log("updating pet details");
     axios
       .put("/api/pet", {
@@ -67,21 +69,13 @@ function EditPetDetails({ display, onClose }) {
           newDogBreeds: localDogBreeds,
           newCatBreeds: localCatBreeds,
         });
+        setAwaitingResponse(false);
         onClose();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setAwaitingResponse(false);
+      });
   }
-
-  //Holds the values that will be edited in the profile context when the form is submitted
-  const [localPetName, setLocalPetName] = useState(profile.displayName);
-  const [localPetType, setLocalPetType] = useState(profile.petType);
-  const [localPetAge, setLocalPetAge] = useState(profile.petAge);
-  const [localPetSize, setLocalPetSize] = useState(profile.petSize);
-  const [localPetColors, setLocalPetColors] = useState(profile.petColors);
-  const [localDogBreeds, setLocalDogBreeds] = useState(profile.dogBreeds);
-  const [localCatBreeds, setLocalCatBreeds] = useState(profile.catBreeds);
-
-  const animatedComponents = makeAnimated();
 
   return (
     <Modal display={display} onClose={onClose}>
@@ -207,7 +201,7 @@ function EditPetDetails({ display, onClose }) {
           </div>
         )}
         <button className={styles["edit-pet-details-submit"]} type="submit">
-          Submit
+          {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
         </button>
       </form>
     </Modal>

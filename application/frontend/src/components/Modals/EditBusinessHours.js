@@ -13,6 +13,8 @@ import SelectCustomTheme from "../../mods/SelectCustomTheme";
 import HourOptions from "../DropdownOptions/hourOptions";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
+import ButtonLoader from "../UI/Spinner/ButtonLoader";
+
 const Select = (props) => (
   <FixRequiredSelect
     {...props}
@@ -43,8 +45,11 @@ function EditBusinessHours({ display, onClose }) {
   const [fridayEnd, setFridayEnd] = useState(profile.hours.fri_close);
   const [saturdayEnd, setSaturdayEnd] = useState(profile.hours.sat_close);
 
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
   function submitHoursEdit(event) {
     event.preventDefault();
+    setAwaitingResponse(true);
     axios
       .put("/api/business/hours", {
         newSunOpen: sundayStart["value"],
@@ -79,9 +84,11 @@ function EditBusinessHours({ display, onClose }) {
           sat_open: saturdayStart,
           sat_close: saturdayEnd,
         });
+        setAwaitingResponse(false);
         onClose();
       })
       .catch((err) => {
+        setAwaitingResponse(false);
         //console.log(err);
         //display error message
       });
@@ -108,6 +115,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={sundayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-sunday-hours-end"]}>
@@ -122,6 +130,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={sundayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-monday-hours-start"]}>
@@ -136,6 +145,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={mondayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-monday-hours-end"]}>
@@ -150,6 +160,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={mondayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-tuesday-hours-start"]}>
@@ -164,6 +175,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={tuesdayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-tuesday-hours-end"]}>
@@ -178,6 +190,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={tuesdayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-wednesday-hours-start"]}>
@@ -192,6 +205,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={wednesdayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-wednesday-hours-end"]}>
@@ -206,6 +220,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={wednesdayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-thursday-hours-start"]}>
@@ -220,6 +235,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={thursdayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-thursday-hours-end"]}>
@@ -234,6 +250,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={thursdayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-friday-hours-start"]}>
@@ -248,6 +265,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={fridayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-friday-hours-end"]}>
@@ -262,6 +280,7 @@ function EditBusinessHours({ display, onClose }) {
             isSearchable
             value={fridayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-saturday-hours-start"]}>
@@ -277,6 +296,7 @@ function EditBusinessHours({ display, onClose }) {
             maxMenuHeight={45}
             value={saturdayStart}
             required
+            disabled={awaitingResponse}
           />
         </div>
         <div className={styles["edit-saturday-hours-end"]}>
@@ -292,10 +312,15 @@ function EditBusinessHours({ display, onClose }) {
             maxMenuHeight={45}
             value={saturdayEnd}
             required
+            disabled={awaitingResponse}
           />
         </div>
-        <button className={styles["edit-business-hours-submit"]} type="submit">
-          Submit
+        <button
+          className={styles["edit-business-hours-submit"]}
+          type="submit"
+          disabled={awaitingResponse}
+        >
+          {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
         </button>
       </form>
     </Modal>

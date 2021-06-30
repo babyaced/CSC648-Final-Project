@@ -6,24 +6,24 @@ import Modal from "./Modal.js";
 import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import CommentCard from "../Cards/CommentCard/CommentCard";
+import ButtonLoader from "../UI/Spinner/ButtonLoader";
 
 function PostModal({ display, onClose, selectedPost }) {
   const [createdCommentBody, setCreatedCommentBody] = useState();
 
   const [loading, setLoading] = useState(false);
 
-  const [comments, setComments] = useState([
-    //Real version will fetch comments associated with post id of post passed in
-  ]);
+  const [comments, setComments] = useState([]);
 
-  //console.log("comments: ", comments);
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
 
   useEffect(() => {
     getComments();
-  }, [display]); //this will refresh if they close the modal and come back!
+  }, [display]); //this will refresh comments if they close the modal and come back!
 
   function submitComment(event) {
     event.preventDefault();
+    setAwaitingResponse(true);
 
     //console.log(createdCommentBody);
 
@@ -36,9 +36,11 @@ function PostModal({ display, onClose, selectedPost }) {
         ////console.log("Response: ", response);
         //console.log(res.data);
         setComments([...comments, res.data]);
+        setAwaitingResponse(false);
       })
       .catch((err) => {
         ////console.log(err);
+        setAwaitingResponse(false);
       });
   }
 
@@ -132,9 +134,14 @@ function PostModal({ display, onClose, selectedPost }) {
                 required
                 placeholder="Write a Comment..."
                 onChange={(e) => setCreatedCommentBody(e.target.value)}
+                disabled={awaitingResponse}
               />
-              <button type="submit">
-                <span>Comment</span>
+              <button type="submit" disabled={awaitingResponse}>
+                {awaitingResponse ? (
+                  <ButtonLoader message={"Comment"} />
+                ) : (
+                  "Comment"
+                )}
               </button>
             </form>
           </div>

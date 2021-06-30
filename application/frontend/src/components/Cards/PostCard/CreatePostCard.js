@@ -38,7 +38,7 @@ function CreatePostCard({
   //image upload array
   const [myFiles, setMyFiles] = useState([]);
 
-  const [loading, setLoading] = useState(false);
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
 
   //storing the pets that are tagged in each post to send to db
   const [taggedPets, setTaggedPets] = useState([]);
@@ -98,13 +98,13 @@ function CreatePostCard({
 
   function submitPost(event) {
     event.preventDefault();
+    setAwaitingResponse(true);
     let config = {
       headers: {
         "Content-type": "image/jpeg", //configure headers for put request to s3 bucket
       },
     };
 
-    setLoading(true);
     if (myFiles.length !== 0) {
       //try to upload photo first
       axios
@@ -129,14 +129,14 @@ function CreatePostCard({
                   setCreatedPostBody("");
                   setTaggedPets([]);
                   updateFeedPostsState(res.data);
-                  setLoading(false);
+                  setAwaitingResponse(false);
                 })
                 .catch((err) => {
-                  setLoading(false);
+                  setAwaitingResponse(false);
                 });
             })
             .catch((err) => {
-              setLoading(false);
+              setAwaitingResponse(false);
               if (err.response.status === 403) {
                 //display error message to user
               }
@@ -144,7 +144,7 @@ function CreatePostCard({
             });
         })
         .catch((err) => {
-          setLoading(false);
+          setAwaitingResponse(false);
         });
 
       //refresh feed after posting
@@ -161,10 +161,10 @@ function CreatePostCard({
           setCreatedPostBody("");
           setTaggedPets([]);
           updateFeedPostsState(res.data);
-          setLoading(false);
+          setAwaitingResponse(false);
         })
         .catch((err) => {
-          setLoading(false);
+          setAwaitingResponse(false);
         });
 
       //refresh feed after posting
@@ -187,6 +187,7 @@ function CreatePostCard({
         className={styles["follower-feed-new-post-body"]}
         placeholder="Update your followers on what's going on with you and your pets"
         onChange={(e) => setCreatedPostBody(e.target.value)}
+        disabled={awaitingResponse}
       />
       <div className={styles["follower-feed-new-post-tag-dropdown"]}>
         <Select
@@ -201,6 +202,7 @@ function CreatePostCard({
           noOptionsMessage={() =>
             "Add a Pet to Your Account on the My Pets Page"
           }
+          disabled={awaitingResponse}
         />
       </div>
       <section className={styles["attach-image-section"]}>
@@ -225,6 +227,7 @@ function CreatePostCard({
               <button
                 className={styles["delete-attached-image-button"]}
                 onClick={removeAll}
+                disabled={awaitingResponse}
               >
                 Remove
               </button>
@@ -232,8 +235,12 @@ function CreatePostCard({
           )}
         </div>
       </section>
-      <button className={styles["submit-post-button"]} type="submit">
-        {loading ? <ButtonLoader /> : "Submit"}
+      <button
+        className={styles["submit-post-button"]}
+        type="submit"
+        disabled={awaitingResponse}
+      >
+        {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
       </button>
     </form>
   );

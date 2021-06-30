@@ -4,14 +4,17 @@ import Modal from "./Modal.js";
 
 import styles from "./SendMessage.module.css";
 
-function SendProfileMessage({ display, onClose, profile }) {
-  const [sendSuccess, setSendSuccess] = useState(false);
+import ButtonLoader from "../UI/Spinner/ButtonLoader.js";
 
+function SendProfileMessage({ display, onClose, profile }) {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
 
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
   function sendMessage(event) {
     event.preventDefault();
+    setAwaitingResponse(true);
 
     //console.log(profile);
 
@@ -22,10 +25,12 @@ function SendProfileMessage({ display, onClose, profile }) {
         recipientAccountID: profile.accountId,
       })
       .then((response) => {
+        setAwaitingResponse(true);
         ////console.log(response);
         onClose();
       })
       .catch((err) => {
+        setAwaitingResponse(false);
         ////console.log(err);
         //display Error message e.g: try again
       });
@@ -47,6 +52,7 @@ function SendProfileMessage({ display, onClose, profile }) {
             placeholder="Subject"
             value={subject}
             onChange={(event) => setSubject(event.target.value)}
+            disabled={awaitingResponse}
           />
           <textarea
             className={styles["sendAMessage-body"]}
@@ -55,9 +61,10 @@ function SendProfileMessage({ display, onClose, profile }) {
             required
             placeholder="Write your message here"
             onChange={(event) => setBody(event.target.value)}
+            disabled={awaitingResponse}
           />
           <button type="submit" class={styles["sendAMessage-sendButton"]}>
-            Send
+            {awaitingResponse ? <ButtonLoader message={"Send"} /> : "Send"}
           </button>
         </form>
       </>
