@@ -77,8 +77,10 @@ function EditPetDetails({ display, onClose }) {
         onClose();
       })
       .catch((err) => {
-        setServerError(true);
-        setAwaitingResponse(false);
+        if (err.response.status === 500) {
+          setServerError(true);
+          setAwaitingResponse(false);
+        }
       });
   }
 

@@ -38,6 +38,7 @@ import useBusinessCategoryOptions from "../../components/DropdownOptions/useBusi
 import SelectCustomTheme from "../../mods/SelectCustomTheme";
 
 import ButtonLoader from "../../components/UI/Spinner/ButtonLoader";
+import ServerErrorMessage from "../../components/InfoMessages/ServerErrorMessage";
 
 let typeOptions = []; //for storing business type options
 
@@ -66,7 +67,7 @@ function SignUpPage2(props) {
     useState(false);
   const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
 
-  const [failedSubmit, setFailedSubmit] = useState(false);
+  const [serverError, setServerError] = useState(false);
 
   const [selectedBusinessType, setSelectedBusinessType] = useState();
   const [selectedPetTypes, setSelectedPetTypes] = useState([]);
@@ -178,6 +179,10 @@ function SignUpPage2(props) {
               }
             })
             .catch((error) => {
+              if (error.response.status === 500) {
+                setSignUpLoading(false);
+                setServerError(true);
+              }
               ////console.log(error);
             })
         : Axios.post(
@@ -204,6 +209,10 @@ function SignUpPage2(props) {
               }
             })
             .catch((error) => {
+              if (error.response.status === 500) {
+                setSignUpLoading(false);
+                setServerError(true);
+              }
               ////console.log(error);
             });
     }
@@ -428,6 +437,7 @@ function SignUpPage2(props) {
         display={privacyPolicyDisplay}
         onClose={() => setTermsAndConditionsDisplay(false)}
       />
+      <ServerErrorMessage serverError={serverError} />
     </>
   );
 }

@@ -6,6 +6,7 @@ import axios from "axios";
 import styles from "./EditAddress.module.css";
 
 import ButtonLoader from "../UI/Spinner/ButtonLoader";
+import ServerErrorMessage from "../InfoMessages/ServerErrorMessage";
 
 //For address Editing
 import "@reach/combobox";
@@ -32,8 +33,11 @@ function EditAddress({ display, onClose }) {
 
   const [awaitingResponse, setAwaitingResponse] = useState(false);
 
+  const [serverError, setServerError] = useState(false);
+
   function submitAddressEdit() {
     setAwaitingResponse(true);
+    setServerError(false);
     axios
       .put("/api/business/address", {
         newAddress: address,
@@ -45,7 +49,10 @@ function EditAddress({ display, onClose }) {
         onClose();
       })
       .catch((err) => {
-        setAwaitingResponse(false);
+        if (err.response.status === 500) {
+          setServerError(true);
+          setAwaitingResponse(false);
+        }
         //console.log(err);
         //show error message in modal
       });
@@ -115,6 +122,7 @@ function EditAddress({ display, onClose }) {
           {awaitingResponse ? <ButtonLoader /> : "Submit"}
         </button>
       </div>
+      <ServerErrorMessage serverError={serverError} />
     </Modal>
   );
 }

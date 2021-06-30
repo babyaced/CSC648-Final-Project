@@ -9,6 +9,7 @@ import styles from "./SendMessage.module.css";
 import SelectCustomTheme from "../../mods/SelectCustomTheme.js";
 
 import ButtonLoader from "../UI/Spinner/ButtonLoader";
+import ServerErrorMessage from "../InfoMessages/ServerErrorMessage";
 
 const { Option } = components;
 
@@ -19,7 +20,7 @@ function SendMessage({
   recipientOptions,
   updateSentMessagesState,
 }) {
-  const [sendSuccess, setSendSuccess] = useState(false);
+  const [serverError, setServerError] = useState(false);
 
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
@@ -30,6 +31,7 @@ function SendMessage({
 
   function sendMessage(event) {
     event.preventDefault();
+    setServerError(false);
     setAwaitingResponse(true);
 
     axios
@@ -46,7 +48,10 @@ function SendMessage({
         updateSentMessagesState(response.data);
       })
       .catch((err) => {
-        setAwaitingResponse(false);
+        if (err.response.status === 500) {
+          setServerError(true);
+          setAwaitingResponse(false);
+        }
         ////console.log(err);
         //display Error message e.g: try again
       });
@@ -68,52 +73,51 @@ function SendMessage({
   if (!display) return null;
   return (
     <Modal display={display} onClose={onClose}>
-      <>
-        <h1 className={styles["sendAMessage-header"]}>Send a Message</h1>
-        <form
-          className={styles["send-a-message-container"]}
-          onSubmit={sendMessage}
+      <h1 className={styles["sendAMessage-header"]}>Send a Message</h1>
+      <form
+        className={styles["send-a-message-container"]}
+        onSubmit={sendMessage}
+      >
+        <Select
+          id="recipient"
+          name="message-recipient"
+          className={styles["sendAMessage-recipient-dropdown"]}
+          onChange={(event) => setRecipient([event])}
+          value={recipient}
+          options={recipientOptions}
+          theme={SelectCustomTheme}
+          components={{ Option: RecipientOption }}
+          placeholder="To"
+          isSearchable
+          disabled={awaitingResponse}
+        />
+        <input
+          className={styles["sendAMessage-subject"]}
+          maxLength={78}
+          required
+          placeholder="Subject"
+          value={subject}
+          onChange={(event) => setSubject(event.target.value)}
+          disabled={awaitingResponse}
+        />
+        <textarea
+          className={styles["sendAMessage-body"]}
+          maxLength={65535}
+          value={body}
+          required
+          placeholder="Write your message here"
+          onChange={(event) => setBody(event.target.value)}
+          disabled={awaitingResponse}
+        />
+        <button
+          type="submit"
+          class={styles["sendAMessage-sendButton"]}
+          disabled={awaitingResponse}
         >
-          <Select
-            id="recipient"
-            name="message-recipient"
-            className={styles["sendAMessage-recipient-dropdown"]}
-            onChange={(event) => setRecipient([event])}
-            value={recipient}
-            options={recipientOptions}
-            theme={SelectCustomTheme}
-            components={{ Option: RecipientOption }}
-            placeholder="To"
-            isSearchable
-            disabled={awaitingResponse}
-          />
-          <input
-            className={styles["sendAMessage-subject"]}
-            maxLength={78}
-            required
-            placeholder="Subject"
-            value={subject}
-            onChange={(event) => setSubject(event.target.value)}
-            disabled={awaitingResponse}
-          />
-          <textarea
-            className={styles["sendAMessage-body"]}
-            maxLength={65535}
-            value={body}
-            required
-            placeholder="Write your message here"
-            onChange={(event) => setBody(event.target.value)}
-            disabled={awaitingResponse}
-          />
-          <button
-            type="submit"
-            class={styles["sendAMessage-sendButton"]}
-            disabled={awaitingResponse}
-          >
-            {awaitingResponse ? <ButtonLoader message={"Send"} /> : "Send"}
-          </button>
-        </form>
-      </>
+          {awaitingResponse ? <ButtonLoader message={"Send"} /> : "Send"}
+        </button>
+      </form>
+      <ServerErrorMessage serverError={serverError} />
     </Modal>
   );
 }

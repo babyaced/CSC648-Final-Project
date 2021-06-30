@@ -14,6 +14,7 @@ import HourOptions from "../DropdownOptions/hourOptions";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 import ButtonLoader from "../UI/Spinner/ButtonLoader";
+import ServerErrorMessage from "../InfoMessages/ServerErrorMessage";
 
 const Select = (props) => (
   <FixRequiredSelect
@@ -47,8 +48,11 @@ function EditBusinessHours({ display, onClose }) {
 
   const [awaitingResponse, setAwaitingResponse] = useState(false);
 
+  const [serverError, setServerError] = useState(false);
+
   function submitHoursEdit(event) {
     event.preventDefault();
+    setServerError(false);
     setAwaitingResponse(true);
     axios
       .put("/api/business/hours", {
@@ -88,7 +92,10 @@ function EditBusinessHours({ display, onClose }) {
         onClose();
       })
       .catch((err) => {
-        setAwaitingResponse(false);
+        if (err.response.status === 500) {
+          setServerError(true);
+          setAwaitingResponse(false);
+        }
         //console.log(err);
         //display error message
       });
@@ -323,6 +330,7 @@ function EditBusinessHours({ display, onClose }) {
           {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
         </button>
       </form>
+      <ServerErrorMessage serverError={serverError} />
     </Modal>
   );
 }

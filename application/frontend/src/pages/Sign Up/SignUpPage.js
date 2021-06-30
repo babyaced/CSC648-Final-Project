@@ -16,6 +16,8 @@ import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 import ButtonLoader from "../../components/UI/Spinner/ButtonLoader";
 
+import ServerErrorMessage from "../../components/InfoMessages/ServerErrorMessage";
+
 function SignUpPage({ type }) {
   ////console.log("type: ", type);
   //form states
@@ -51,6 +53,8 @@ function SignUpPage({ type }) {
   const [passwordChecking, setPasswordChecking] = useState(false);
 
   const [signUpLoading, setSignUpLoading] = useState(false);
+
+  const [serverError, setServerError] = useState(false);
 
   const history = useHistory();
 
@@ -123,10 +127,8 @@ function SignUpPage({ type }) {
             );
           }
           if (error.response.status === 500) {
+            setServerError(true);
             setSignUpLoading(false);
-            setTermsError(
-              "An Unexpected Error Occured, Please try Submitting Again"
-            );
           }
         });
     }
@@ -469,6 +471,7 @@ function SignUpPage({ type }) {
           />
         </>
       )}
+      <ServerErrorMessage serverError={serverError} />
     </>
   );
 }

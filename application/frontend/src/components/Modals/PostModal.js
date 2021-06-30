@@ -7,6 +7,7 @@ import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
 import CommentCard from "../Cards/CommentCard/CommentCard";
 import ButtonLoader from "../UI/Spinner/ButtonLoader";
+import ServerErrorMessage from "../InfoMessages/ServerErrorMessage";
 
 function PostModal({ display, onClose, selectedPost }) {
   const [createdCommentBody, setCreatedCommentBody] = useState();
@@ -16,6 +17,8 @@ function PostModal({ display, onClose, selectedPost }) {
   const [comments, setComments] = useState([]);
 
   const [awaitingResponse, setAwaitingResponse] = useState(false);
+
+  const [serverError, setServerError] = useState(false);
 
   useEffect(() => {
     getComments();

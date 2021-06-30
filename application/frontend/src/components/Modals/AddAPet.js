@@ -13,6 +13,7 @@ import axios from "axios";
 import ButtonLoader from "../UI/Spinner/ButtonLoader";
 
 import SelectCustomTheme from "../../mods/SelectCustomTheme";
+import ServerErrorMessage from "../InfoMessages/ServerErrorMessage";
 
 function AddAPet({
   display,
@@ -36,8 +37,11 @@ function AddAPet({
   //Loading UI
   const [loading, setLoading] = useState(false);
 
+  const [serverError, setServerError] = useState(false);
+
   function createPetProfile(event) {
     event.preventDefault();
+    setServerError(false);
     setLoading(true);
 
     axios
@@ -57,7 +61,11 @@ function AddAPet({
         updatePetsState(res.data);
       })
       .catch((err) => {
-        setLoading(false);
+        if (err.response.status === 500) {
+          setServerError(true);
+          setLoading(false);
+        }
+
         // update()
         //display error to user
       });
@@ -202,6 +210,7 @@ function AddAPet({
           </button>
         </div>
       </form>
+      <ServerErrorMessage serverError={serverError} />
     </Modal>
   );
 }

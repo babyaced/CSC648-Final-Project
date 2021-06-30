@@ -1,61 +1,66 @@
-.edit-address-header{
-    margin: 3rem;
-    font-size: var(--h1);
-    font-family: var(--ff-primary);
+.edit-address-header {
+  margin: 3rem;
+  font-size: var(--h1);
+  font-family: var(--ff-primary);
 }
 
-.edit-address-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 400px;
-    max-width: 100%;
+.edit-address-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
-.edit-address-submit{
-    margin: 1rem auto;
-    background-color: var(--primary-clr);
-    font-size: var(--h3);
-    padding: .5rem 1rem;
-    color: white;
-    border: none;
-    border-radius: 7.5px;
-    box-shadow: var(--elevation-1);
-    cursor: pointer;
-    width: 90%;
+.edit-address-input {
+  border-radius: 7.5px;
+  border: 1px solid var(--color-neutral-300);
+  padding: 0.5rem 0.5rem;
 }
 
-.combobox-popover{
-    background-color: white;
-    padding: 5px;
-    box-shadow: var(--elevation-1);
-    font-family: var(--ff-primary);
-    border-radius: 7.5px;
-    z-index: 999;
+.edit-address-submit {
+  margin: 1rem auto;
+  background-color: var(--primary-clr);
+  font-size: var(--h3);
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 7.5px;
+  box-shadow: var(--elevation-1);
+  cursor: pointer;
+  width: 90%;
 }
 
-.combobox-list{
-    list-style: none;
-    padding-left: 0;
-    margin-left: 0;
+.combobox-popover {
+  background-color: white;
+  padding: 5px;
+  box-shadow: var(--elevation-1);
+  font-family: var(--ff-primary);
+  border-radius: 7.5px;
+  z-index: 999;
 }
 
-.combobox-list li{
-    cursor:pointer;
-    padding: .25rem .25rem .25rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.10);
+.combobox-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
 }
 
-.combobox-popover li:hover{
-    color: var(--primary-clr)
+.combobox-list li {
+  cursor: pointer;
+  padding: 0.25rem 0.25rem 0.25rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.edit-address-input-container{
-    width: 90%;
+.combobox-popover li:hover {
+  color: var(--primary-clr);
 }
 
-.edit-address-input{
-    font-size: var(--h5);
-    width: 100%;
+.edit-address-input-container {
+  width: 90%;
+}
+
+.edit-address-input {
+  font-size: var(--h5);
+  width: 100%;
 }
