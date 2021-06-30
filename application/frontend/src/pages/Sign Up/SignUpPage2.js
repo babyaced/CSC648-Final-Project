@@ -427,6 +427,7 @@ function SignUpPage2(props) {
         <button type="submit" className={styles["submit-btn"]}>
           {signUpLoading ? <ButtonLoader message={"Sign Up"} /> : "Sign Up"}
         </button>
+        <ServerErrorMessage serverError={serverError} />
       </form>
       {/* Modals */}
       <TermsAndConditions
@@ -437,7 +438,6 @@ function SignUpPage2(props) {
         display={privacyPolicyDisplay}
         onClose={() => setTermsAndConditionsDisplay(false)}
       />
-      <ServerErrorMessage serverError={serverError} />
     </>
   );
 }

@@ -457,6 +457,7 @@ function SignUpPage({ type }) {
             )}
           </button>
         )}
+        <ServerErrorMessage serverError={serverError} />
       </form>
       {/* Modals */}
       {type === "personal" && (
@@ -471,7 +472,6 @@ function SignUpPage({ type }) {
           />
         </>
       )}
-      <ServerErrorMessage serverError={serverError} />
     </>
   );
 }
