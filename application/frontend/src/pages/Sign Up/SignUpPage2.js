@@ -170,7 +170,7 @@ function SignUpPage2(props) {
             { withCredentials: true }
           )
             .then((response) => {
-              if (response.data === "success") {
+              if (response.data === "SUCCESS") {
                 history.push("/SignUpSuccess");
               }
             })

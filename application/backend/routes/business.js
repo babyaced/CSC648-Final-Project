@@ -200,16 +200,18 @@ router.get("/address", (req, res) => {
 
 router.put("/address", (req, res) => {
   const { newAddress, newLatitude, newLongitude } = req.body;
-  // //console.log('POST /api/address')
+  console.log("PUT /api/address");
+  console.log(req.body);
+  console.log("req.session.reg_user_id: ", req.session.reg_user_id);
   connection.query(
     `UPDATE Address
            SET address = ?, latitude= ?,longitude = ?
-           WHERE address.reg_user_id = ?
+           WHERE Address.reg_user_id = ?
           `,
     [newAddress, newLatitude, newLongitude, req.session.reg_user_id],
     function (err, result) {
       if (err) {
-        // //console.log(err)
+        console.error(err);
         res.status(500).json(err);
       } else {
         // //console.log("result: ", result)
