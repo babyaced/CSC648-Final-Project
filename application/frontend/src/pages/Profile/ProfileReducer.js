@@ -62,6 +62,7 @@ const reducer = (state, action) => {
 
   if (action.type === PET_DETAILS_EDIT) {
     return Object.assign({}, state, {
+      displayName: action.payload.displayName,
       petType: action.payload.newPetType,
       petAge: action.payload.newPetAge,
       petSize: action.payload.newPetSize,

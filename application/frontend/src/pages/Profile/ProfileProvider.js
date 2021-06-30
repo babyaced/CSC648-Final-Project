@@ -284,10 +284,11 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editPetDetails = useCallback(
     (newPetDetails) => {
-      //console.log("newPetDetails", newPetDetails);
+      console.log("newPetDetails", newPetDetails);
       dispatch({
         type: PET_DETAILS_EDIT,
         payload: {
+          displayName: newPetDetails.newName,
           newPetType: newPetDetails.newType,
           newPetAge: newPetDetails.newAge,
           newPetSize: newPetDetails.newSize,

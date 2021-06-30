@@ -14,6 +14,7 @@ import SelectCustomTheme from "../../mods/SelectCustomTheme";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 import ButtonLoader from "../UI/Spinner/ButtonLoader";
+import ServerErrorMessage from "../InfoMessages/ServerErrorMessage";
 
 function EditPetDetails({ display, onClose }) {
   //console.log("editPetDetailsDisplay: ", display);
@@ -41,10 +42,13 @@ function EditPetDetails({ display, onClose }) {
 
   const [awaitingResponse, setAwaitingResponse] = useState(false);
 
+  const [serverError, setServerError] = useState(false);
+
   const animatedComponents = makeAnimated();
 
   function updatePetDetails(event) {
     event.preventDefault();
+    setServerError(false);
     setAwaitingResponse(true);
     //console.log("updating pet details");
     axios
@@ -73,6 +77,7 @@ function EditPetDetails({ display, onClose }) {
         onClose();
       })
       .catch((err) => {
+        setServerError(true);
         setAwaitingResponse(false);
       });
   }
@@ -113,21 +118,6 @@ function EditPetDetails({ display, onClose }) {
             disabled={awaitingResponse}
           />
         </div>
-        {/* <div className={styles["edit-pet-details-breed"]}>
-          <label for="breed">Breed</label>
-          <Select
-            id="breed"
-            name="pet_breed"
-            onChange={updatePetBreed}
-            options={dogBreedOptions}
-            theme={SelectCustomTheme}
-            placeholder="Select Dog Breed"
-            isSearchable
-            isMulti
-            // value = {petBreed}
-            components={animatedComponents}
-          />
-        </div> */}
         <div className={styles["edit-pet-details-color"]}>
           <label for="color">Color(s)</label>
           <Select
@@ -215,6 +205,7 @@ function EditPetDetails({ display, onClose }) {
           {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
         </button>
       </form>
+      <ServerErrorMessage serverError={serverError} />
     </Modal>
   );
 }

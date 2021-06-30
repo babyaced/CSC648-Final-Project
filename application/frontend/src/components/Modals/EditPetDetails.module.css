@@ -1,25 +1,25 @@
-.edit-pet-details-header{
-    padding: 1rem;
-    font-weight: 600;
-    font-family: var(--ff-primary);
+.edit-pet-details-header {
+  padding: 1rem;
+  font-weight: 600;
+  font-family: var(--ff-primary);
 }
 
-.edit-pet-details-container{
-    padding: 1rem;
-    display: grid;
-    grid-template-areas: 'name  type'
-                        'color  age'
-                        'size   breed'
-                        'submit submit';
-    grid-template-columns: repeat(2,1fr);
-    gap: 1rem;
-    justify-items: center;
-    overflow: hidden;
-    width: 750px;
-    max-width: 100%;
-    margin: 0 auto;
+.edit-pet-details-container {
+  padding: 1rem;
+  display: grid;
+  grid-template-areas:
+    "name  type"
+    "color  age"
+    "size   breed"
+    "submit submit";
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  overflow: hidden;
+  width: 750px;
+  max-width: 100%;
+  margin: 0 auto;
 }
-
 
 .edit-pet-details-name,
 .edit-pet-details-type,
@@ -27,62 +27,62 @@
 .edit-pet-details-color,
 .edit-pet-details-submit,
 .edit-pet-details-age,
-.edit-pet-details-size{
-    width: 100%;
-    margin: 1rem;
+.edit-pet-details-size {
+  width: 100%;
+  margin: 1rem;
 }
 
-.edit-pet-details-name input{
-    display: block;
-    border: solid #ccc 1px;
-    border-radius: 5px;
-    width: 100%;
-    padding: .5rem;
+.edit-pet-details-name input {
+  display: block;
+  border: solid #ccc 1px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 0.5rem;
 }
 
-.edit-pet-details-size{
-    grid-area: size;
+.edit-pet-details-size {
+  grid-area: size;
 }
 
-.edit-pet-details-color{
-    grid-area: color;
+.edit-pet-details-color {
+  grid-area: color;
 }
 
-.edit-pet-details-type{
-    grid-area: type;
+.edit-pet-details-type {
+  grid-area: type;
 }
 
-.edit-pet-details-breed{
-    grid-area: breed;
+.edit-pet-details-breed {
+  grid-area: breed;
 }
 
-.edit-pet-details-age{
-    grid-area: age;
+.edit-pet-details-age {
+  grid-area: age;
 }
 
-
-.edit-pet-details-submit{
-    background-color: var(--primary-clr);
-    font-size: var(--h3);
-    padding: 0.5rem 1rem;
-    color: white;
-    border: none;
-    border-radius: 7.5px;
-    box-shadow: var(--elevation-1);
-    cursor: pointer;
-    grid-area: submit;
+.edit-pet-details-submit {
+  background-color: var(--primary-clr);
+  font-size: var(--h3);
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 7.5px;
+  box-shadow: var(--elevation-1);
+  cursor: pointer;
+  grid-area: submit;
+  margin-bottom: 0;
 }
 
-@media (max-width: 450px){
-    .edit-pet-details-container{
-        grid-template-areas: 
-        'name'  
-        'type'
-        'color'  
-        'age'
-        'size'   
-        'breed'
-        'submit';
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 450px) {
+  .edit-pet-details-container {
+    grid-template-areas:
+      "name"
+      "type"
+      "color"
+      "age"
+      "size"
+      "breed"
+      "submit";
+    grid-template-columns: 1fr;
+  }
 }

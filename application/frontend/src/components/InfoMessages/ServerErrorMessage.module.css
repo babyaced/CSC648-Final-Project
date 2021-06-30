@@ -1,0 +1,8 @@
+.ServerErrorMessage {
+  background-color: red;
+  width: 100%;
+  text-align: center;
+  color: var(--color-text-inverted);
+  font-size: var(--h5);
+  padding: 0.25rem 1rem;
+}
