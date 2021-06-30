@@ -9,7 +9,7 @@ import styles from "./PostCard.module.css";
 //Import UI Components
 
 function PostCard({ post, innerRef, openPostModal }) {
-  //console.log("innerRef: ", innerRef);
+  ////console.log("innerRef: ", innerRef);
   const history = useHistory();
 
   // function likePost(event,feedPostID,index){
@@ -31,7 +31,7 @@ function PostCard({ post, innerRef, openPostModal }) {
   //         }
   //     })
   //     .catch((err)=>{
-  //         //console.log(err);
+  //         ////console.log(err);
   //     })
   // }
 
@@ -44,10 +44,10 @@ function PostCard({ post, innerRef, openPostModal }) {
         postToFlag: feedPostID,
       })
       .then((response) => {
-        //console.log(response);
+        ////console.log(response);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 

@@ -18,8 +18,8 @@ const petOwnerProfileTabs = ["About"]; //, "Recent Posts"]
 
 function AboutMe() {
   const { profile, profileID, editAboutMe } = useContext(ProfileContext);
-  //console.log('profile', profile)
-  //console.log('profileID', profileID)
+  ////console.log('profile', profile)
+  ////console.log('profileID', profileID)
 
   const [selected, setSelected] = useState("About");
   const [changing, setChanging] = useState(false);
@@ -43,10 +43,10 @@ function AboutMe() {
         profileID: profileID,
       })
       .then((response) => {
-        //console.log(response);
+        ////console.log(response);
       })
       .catch((err) => {
-        console.log(err);
+        ////console.log(err);
       });
   }
 

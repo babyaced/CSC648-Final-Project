@@ -26,7 +26,7 @@ function CreatePostCard({
   tagOptions,
   updateFeedPostsState,
 }) {
-  //console.log(apiGatewayURL);
+  ////console.log(apiGatewayURL);
   const history = useHistory();
 
   const windowSize = useWindowSize();
@@ -124,7 +124,7 @@ function CreatePostCard({
                   taggedPets: taggedPets,
                 })
                 .then((res) => {
-                  console.log("res.data: ", res.data);
+                  //console.log("res.data: ", res.data);
                   removeAll();
                   setCreatedPostBody("");
                   setTaggedPets([]);
@@ -157,7 +157,7 @@ function CreatePostCard({
           taggedPets: taggedPets,
         })
         .then((res) => {
-          console.log("res.data: ", res.data);
+          //console.log("res.data: ", res.data);
           setCreatedPostBody("");
           setTaggedPets([]);
           updateFeedPostsState(res.data);

@@ -10,10 +10,10 @@ function useBusinessCategoryOptions() {
 
   useEffect(() => {
     if (!localCache.length) {
-      //console.log("fetching BusinessCategory options from db");
+      ////console.log("fetching BusinessCategory options from db");
       requestBusinessCategoryOptions();
     } else {
-      //console.log("using BusinessCategory options from cache");
+      ////console.log("using BusinessCategory options from cache");
       setBusinessCategoryOptions(localCache);
     }
   }, []);
@@ -24,13 +24,13 @@ function useBusinessCategoryOptions() {
     axios
       .get("/api/dropdowns/business-types") //get pet BusinessCategorys from database
       .then((response) => {
-        ////console.log(response);
+        //////console.log(response);
         localCache = response.data;
         setBusinessCategoryOptions(localCache);
         setStatus("loaded");
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
   return [businessCategoryOptions, status];

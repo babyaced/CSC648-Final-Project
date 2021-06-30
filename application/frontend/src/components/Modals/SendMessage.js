@@ -34,12 +34,12 @@ function SendMessage({
         recipientProfileID: recipient[0].value, //contains profile id
       })
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         onClose();
         updateSentMessagesState(response.data);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         //display Error message e.g: try again
       });
   }

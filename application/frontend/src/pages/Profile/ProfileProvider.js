@@ -41,11 +41,11 @@ export const ProfileProvider = ({ appUser, children }) => {
   const [catBreedOptions] = useCatBreedOptions();
 
   const { profileID } = useParams();
-  //console.log('profileID: ', profileID)
+  ////console.log('profileID: ', profileID)
 
   const [loading, setLoading] = useState(true);
 
-  //console.log('profile id from profile provider', profileID)
+  ////console.log('profile id from profile provider', profileID)
   const history = useHistory();
 
   //Get initial profile state from database here
@@ -115,7 +115,7 @@ export const ProfileProvider = ({ appUser, children }) => {
             phoneNumber: "",
           };
 
-          //console.log('fetchedProfile: ', fetchedProfile)
+          ////console.log('fetchedProfile: ', fetchedProfile)
           dispatch({
             type: INIT_PROFILE,
             payload: { fetchedProfile },
@@ -149,10 +149,10 @@ export const ProfileProvider = ({ appUser, children }) => {
               })
               .then(() => setLoading(false))
               .catch((err) => {
-                console.log(err);
+                //console.log(err);
               });
           } else if (fetchedProfile.petId) {
-            //console.log('fetchedProfile.petId: ', fetchedProfile.petId)
+            ////console.log('fetchedProfile.petId: ', fetchedProfile.petId)
             axios
               .get("/api/pet", {
                 params: {
@@ -166,7 +166,7 @@ export const ProfileProvider = ({ appUser, children }) => {
                 },
               })
               .then((res) => {
-                //console.log('res.data: ', res.data)
+                ////console.log('res.data: ', res.data)
                 dispatch({
                   type: INIT_PET_DETAILS,
                   payload: {
@@ -181,7 +181,7 @@ export const ProfileProvider = ({ appUser, children }) => {
               })
               .then(() => setLoading(false))
               .catch((err) => {
-                console.log(err);
+                //console.log(err);
               });
           } else {
             setLoading(false);
@@ -204,7 +204,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const [profile, dispatch] = useReducer(reducer, null);
 
-  //console.log('profile: ', profile)
+  ////console.log('profile: ', profile)
 
   const editPetType = useCallback(
     (newPetType) => {
@@ -218,7 +218,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editName = useCallback(
     (newName) => {
-      //console.log('newName', newName)
+      ////console.log('newName', newName)
       dispatch({
         type: NAME_EDIT,
         payload: { newName },
@@ -229,7 +229,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editProfilePic = useCallback(
     (newURL) => {
-      //console.log('newURL', newURL)
+      ////console.log('newURL', newURL)
       dispatch({
         type: PIC_EDIT,
         payload: { newURL },
@@ -240,7 +240,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editHours = useCallback(
     (newHours) => {
-      console.log("newHours", newHours);
+      //console.log("newHours", newHours);
       dispatch({
         type: HOURS_EDIT,
         payload: { newHours },
@@ -251,7 +251,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editAddress = useCallback(
     (newAddress) => {
-      console.log("newAddress", newAddress);
+      //console.log("newAddress", newAddress);
       dispatch({
         type: ADDRESS_EDIT,
         payload: { newAddress },
@@ -273,7 +273,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editAboutMe = useCallback(
     (newAboutMe) => {
-      //console.log('newHours', newAboutMe)
+      ////console.log('newHours', newAboutMe)
       dispatch({
         type: ABOUT_ME_EDIT,
         payload: { newAboutMe },
@@ -284,7 +284,7 @@ export const ProfileProvider = ({ appUser, children }) => {
 
   const editPetDetails = useCallback(
     (newPetDetails) => {
-      console.log("newPetDetails", newPetDetails);
+      //console.log("newPetDetails", newPetDetails);
       dispatch({
         type: PET_DETAILS_EDIT,
         payload: {

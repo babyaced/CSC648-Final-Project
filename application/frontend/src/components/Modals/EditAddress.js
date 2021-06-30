@@ -39,7 +39,7 @@ function EditAddress({ display, onClose }) {
         onClose();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         //show error message in modal
       });
     editAddress(address);
@@ -75,7 +75,7 @@ function EditAddress({ display, onClose }) {
               setLatitude(lat);
               setLongitude(lng);
             } catch (error) {
-              //console.log("error!");
+              ////console.log("error!");
             }
             setAddress(address);
           }}

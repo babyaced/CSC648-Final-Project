@@ -15,7 +15,7 @@ const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
 
 function ProfilePic() {
-  //console.log(apiGatewayURL);
+  ////console.log(apiGatewayURL);
 
   const { profile, editProfilePic } = useContext(ProfileContext);
 
@@ -28,7 +28,7 @@ function ProfilePic() {
         "Content-type": "image/jpeg", //configure headers for put request to s3 bucket
       },
     };
-    console.log("apiGatewayURL: ", apiGatewayURL);
+    //console.log("apiGatewayURL: ", apiGatewayURL);
     setLoading(true);
     axios
       .get(

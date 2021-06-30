@@ -14,7 +14,7 @@ import SelectCustomTheme from "../../mods/SelectCustomTheme";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 function EditPetDetails({ display, onClose }) {
-  console.log("editPetDetailsDisplay: ", display);
+  //console.log("editPetDetailsDisplay: ", display);
 
   const {
     profile,
@@ -28,23 +28,23 @@ function EditPetDetails({ display, onClose }) {
     profileID,
   } = useContext(ProfileContext);
 
-  console.log("editPetDetails Profile: ", profile);
+  //console.log("editPetDetails Profile: ", profile);
 
-  console.log("editPetDetails Profile.petType: ", profile.petType);
+  //console.log("editPetDetails Profile.petType: ", profile.petType);
 
-  console.log("editPetDetails Profile.petSize: ", profile.petSize);
+  //console.log("editPetDetails Profile.petSize: ", profile.petSize);
 
-  console.log("editPetDetails Profile.petAge: ", profile.petAge);
+  //console.log("editPetDetails Profile.petAge: ", profile.petAge);
 
-  console.log("editPetDetails Profile.petColors: ", profile.petColors);
+  //console.log("editPetDetails Profile.petColors: ", profile.petColors);
 
-  console.log("editPetDetails Profile.dogBreeds: ", profile.dogBreeds);
+  //console.log("editPetDetails Profile.dogBreeds: ", profile.dogBreeds);
 
-  console.log("editPetDetails Profile.catBreeds: ", profile.catBreeds);
+  //console.log("editPetDetails Profile.catBreeds: ", profile.catBreeds);
 
   function updatePetDetails(event) {
     event.preventDefault();
-    console.log("updating pet details");
+    //console.log("updating pet details");
     axios
       .put("/api/pet", {
         newName: localPetName,

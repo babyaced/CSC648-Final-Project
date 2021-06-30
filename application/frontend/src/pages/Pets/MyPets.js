@@ -58,10 +58,10 @@ function MyPets() {
       .then((responses) => {
         setMyPets(responses[0].data);
         setLoading(false);
-        console.log("myPets: ", myPets);
+        //console.log("myPets: ", myPets);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }, []);
 
@@ -72,7 +72,7 @@ function MyPets() {
         setDeletionModalDisplay(false);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 

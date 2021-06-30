@@ -51,7 +51,7 @@ function AddAPet({
         size: petSize,
       })
       .then((res) => {
-        console.log("res.data: ", res.data);
+        //console.log("res.data: ", res.data);
         setLoading(false);
         onClose();
         updatePetsState(res.data);

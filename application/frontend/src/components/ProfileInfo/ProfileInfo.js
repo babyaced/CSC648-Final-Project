@@ -19,7 +19,7 @@ import EditButton from "../Buttons/EditButton";
 
 function ProfileInfo() {
   const { profile, appUser, editName } = useContext(ProfileContext);
-  console.log("profile in profileInfo", profile);
+  //console.log("profile in profileInfo", profile);
 
   const [editing, setEditing] = useState(false);
 
@@ -34,8 +34,8 @@ function ProfileInfo() {
   const location = useLocation();
 
   function editHandler() {
-    console.log(profile.profileType);
-    console.log("clicked");
+    //console.log(profile.profileType);
+    //console.log("clicked");
     profile.profileType === "Pet"
       ? setEditPetDetailsDisplay(true)
       : setEditing(true);
@@ -69,7 +69,7 @@ function ProfileInfo() {
         history.push("/Feed");
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 

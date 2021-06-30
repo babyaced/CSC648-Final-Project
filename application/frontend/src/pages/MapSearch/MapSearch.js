@@ -57,7 +57,7 @@ const distanceOptions = [
 ];
 
 function MapSearch(props) {
-  //console.log('rerendering')
+  ////console.log('rerendering')
   let state = props.location.state;
 
   const [typeOptions] = useTypeOptions();
@@ -311,7 +311,7 @@ function MapSearch(props) {
           // setOverlayDisplay(true);
         })
         .catch((err) => {
-          //console.log(err);
+          ////console.log(err);
         });
     }
   }

@@ -40,10 +40,10 @@ function SearchBar({ cssClass, closeMobileSearchBar }) {
   let [dogBreedOptions] = useDogBreedOptions();
   let [catBreedOptions] = useCatBreedOptions();
 
-  // //console.log("TypeOptions: ", typeOptions);
-  // //console.log("BusinessCategoryOptions: ", businessCategoryOptions);
-  // //console.log("dogBreedOptions: ", dogBreedOptions);
-  // //console.log("catBreedOptions: ", catBreedOptions);
+  // ////console.log("TypeOptions: ", typeOptions);
+  // ////console.log("BusinessCategoryOptions: ", businessCategoryOptions);
+  // ////console.log("dogBreedOptions: ", dogBreedOptions);
+  // ////console.log("catBreedOptions: ", catBreedOptions);
 
   const history = useHistory();
   const windowSize = useWindowSize();
@@ -72,11 +72,14 @@ function SearchBar({ cssClass, closeMobileSearchBar }) {
   });
 
   function search() {
-    //console.log("searching");
-    //console.log(searchCategory)
+    ////console.log("searching");
+    ////console.log(searchCategory)
 
-    if ((searchLocationLat == null || searchLocationLng == null) && searchCategory !== 'Pet Owners') {
-      //console.log('searching with current location')
+    if (
+      (searchLocationLat == null || searchLocationLng == null) &&
+      searchCategory !== "Pet Owners"
+    ) {
+      ////console.log('searching with current location')
       navigator.geolocation.getCurrentPosition((position) => {
         const location = {
           pathname: "/MapSearch",
@@ -91,7 +94,7 @@ function SearchBar({ cssClass, closeMobileSearchBar }) {
         history.push(location);
       });
     } else {
-      //console.log('searching with address')
+      ////console.log('searching with address')
       const location = {
         pathname: "/MapSearch",
         state: {
@@ -128,8 +131,8 @@ function SearchBar({ cssClass, closeMobileSearchBar }) {
         searchTerm.trim() === ""
           ? null
           : matchSorter(filters, searchTerm, {
-            keys: [(filter) => `${filter.label}`],
-          }),
+              keys: [(filter) => `${filter.label}`],
+            }),
       [throttledTerm]
     );
   }
@@ -200,7 +203,7 @@ function SearchBar({ cssClass, closeMobileSearchBar }) {
               setSearchLocationLat(lat);
               setSearchLocationLng(lng);
             } catch (error) {
-              //console.log("error!");
+              ////console.log("error!");
             }
           }}
         >

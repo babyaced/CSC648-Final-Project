@@ -18,6 +18,8 @@ function BusinessInfo({
   const { profile, editPhoneNumber } = useContext(ProfileContext);
 
   function submitPhoneEdit() {
+    console.log(profile);
+    console.log("profile.phoneNumber", profile.phoneNumber);
     axios
       .put("/api/business/phone-number", {
         newPhoneNumber: profile.phoneNumber,
@@ -73,8 +75,8 @@ function BusinessInfo({
           <EditButton
             save
             clicked={() => {
-              cancelEditingHandler();
               submitPhoneEdit();
+              cancelEditingHandler();
             }}
           >
             Save

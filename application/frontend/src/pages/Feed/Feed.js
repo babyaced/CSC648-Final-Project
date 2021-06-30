@@ -54,8 +54,8 @@ function Feed({ appUser }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          console.log("entries[0].isIntersecting");
-          console.log("offset", offset);
+          //console.log("entries[0].isIntersecting");
+          //console.log("offset", offset);
           if (hasMore) {
             setOffset((prevOffset) => prevOffset + 10);
           }
@@ -67,7 +67,7 @@ function Feed({ appUser }) {
   );
 
   function updateFeedPostsState(createdPost) {
-    console.log("createdPost: ", createdPost);
+    //console.log("createdPost: ", createdPost);
     setNewPost(createdPost);
   }
   //runs on refresh
@@ -96,7 +96,7 @@ function Feed({ appUser }) {
       })
       .catch((err) => {
         redirectContext.updateLoading(false);
-        //console.log(err);
+        ////console.log(err);
         //display error message to the user
       });
   }, []);
@@ -114,7 +114,7 @@ function Feed({ appUser }) {
     setPostModalDisplay(false);
   }
 
-  // console.log(feedPosts);
+  // //console.log(feedPosts);
   return (
     <>
       {redirectContext.loading ? (

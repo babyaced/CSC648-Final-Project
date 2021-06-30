@@ -14,7 +14,7 @@ import useWindowSize from "../../components/Hooks/useWindowSize";
 function Profile({ appUser }) {
   const { profile } = useContext(ProfileContext);
 
-  console.log("profile:", profile);
+  //console.log("profile:", profile);
 
   // switch profile type by changing the userProfile Ex: shelterProfile, businessProfile, newBusinessProfile and petOwnerProfile
 

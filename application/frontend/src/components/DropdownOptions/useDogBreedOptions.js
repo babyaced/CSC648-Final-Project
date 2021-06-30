@@ -10,10 +10,10 @@ function useDogBreedOptions() {
 
   useEffect(() => {
     if (!localCache.length) {
-      //console.log("fetching DogBreed options from db");
+      ////console.log("fetching DogBreed options from db");
       requestDogBreedOptions();
     } else {
-      //console.log("using DogBreed options from cache");
+      ////console.log("using DogBreed options from cache");
       setDogBreedOptions(localCache);
     }
   }, []);
@@ -24,13 +24,13 @@ function useDogBreedOptions() {
     axios
       .get("/api/dropdowns/dog-breeds") //get pet DogBreeds from database
       .then((response) => {
-        ////console.log(response);
+        //////console.log(response);
         localCache = response.data;
         setDogBreedOptions(localCache);
         setStatus("loaded");
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
   return [dogBreedOptions, status];

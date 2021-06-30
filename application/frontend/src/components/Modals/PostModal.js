@@ -16,7 +16,7 @@ function PostModal({ display, onClose, selectedPost }) {
     //Real version will fetch comments associated with post id of post passed in
   ]);
 
-  console.log("comments: ", comments);
+  //console.log("comments: ", comments);
 
   useEffect(() => {
     getComments();
@@ -25,7 +25,7 @@ function PostModal({ display, onClose, selectedPost }) {
   function submitComment(event) {
     event.preventDefault();
 
-    console.log(createdCommentBody);
+    //console.log(createdCommentBody);
 
     axios
       .post("/api/comment", {
@@ -33,12 +33,12 @@ function PostModal({ display, onClose, selectedPost }) {
         postId: selectedPost.post_id,
       })
       .then((res) => {
-        //console.log("Response: ", response);
-        console.log(res.data);
+        ////console.log("Response: ", response);
+        //console.log(res.data);
         setComments([...comments, res.data]);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 

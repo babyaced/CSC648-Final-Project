@@ -13,7 +13,7 @@ function SendProfileMessage({ display, onClose, profile }) {
   function sendMessage(event) {
     event.preventDefault();
 
-    console.log(profile);
+    //console.log(profile);
 
     axios
       .post("/api/profile-page", {
@@ -22,11 +22,11 @@ function SendProfileMessage({ display, onClose, profile }) {
         recipientAccountID: profile.accountId,
       })
       .then((response) => {
-        //console.log(response);
+        ////console.log(response);
         onClose();
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         //display Error message e.g: try again
       });
   }

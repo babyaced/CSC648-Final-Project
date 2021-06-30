@@ -10,10 +10,10 @@ function useTypeOptions() {
 
   useEffect(() => {
     if (!localCache.length) {
-      //console.log("fetching type options from db");
+      ////console.log("fetching type options from db");
       requestTypeOptions();
     } else {
-      //console.log("using type options from cache");
+      ////console.log("using type options from cache");
       setTypeOptions(localCache);
     }
   }, []);
@@ -24,13 +24,13 @@ function useTypeOptions() {
     axios
       .get("/api/dropdowns/pet-types") //get pet types from database
       .then((response) => {
-        ////console.log(response);
+        //////console.log(response);
         localCache = response.data;
         setTypeOptions(localCache);
         setStatus("loaded");
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
   return [typeOptions, status];

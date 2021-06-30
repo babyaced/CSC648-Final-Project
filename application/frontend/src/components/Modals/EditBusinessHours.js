@@ -24,7 +24,7 @@ const Select = (props) => (
 function EditBusinessHours({ display, onClose }) {
   const { profile, editHours } = useContext(ProfileContext);
 
-  console.log(profile.hours);
+  //console.log(profile.hours);
 
   //convert hours into hour options usable as values for react-select
   const [sundayStart, setSundayStart] = useState(profile.hours.sun_open);
@@ -82,7 +82,7 @@ function EditBusinessHours({ display, onClose }) {
         onClose();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         //display error message
       });
   }

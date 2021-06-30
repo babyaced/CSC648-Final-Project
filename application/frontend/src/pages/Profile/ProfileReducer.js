@@ -11,7 +11,7 @@ import {
   ADDRESS_EDIT,
 } from "./ProfileActions";
 const reducer = (state, action) => {
-  //console.log('state: ', state, 'action: ', action)
+  ////console.log('state: ', state, 'action: ', action)
 
   if (action.type === INIT_PROFILE) {
     return Object.assign({}, state, action.payload.fetchedProfile);
@@ -22,19 +22,19 @@ const reducer = (state, action) => {
   }
 
   if (action.type === NAME_EDIT) {
-    //console.log('action', action)
+    ////console.log('action', action)
     return Object.assign({}, state, { displayName: action.payload.newName });
   }
 
   if (action.type === ABOUT_ME_EDIT) {
-    //console.log('action', action)
+    ////console.log('action', action)
     return Object.assign({}, state, { aboutMe: action.payload.newAboutMe });
   }
 
   if (action.type === INIT_PET_DETAILS) {
-    console.log("action.payload.petColors", action.payload.petColors);
-    console.log("action.payload.catBreeds", action.payload.catBreeds);
-    console.log("action.payload.dogBreeds", action.payload.dogBreeds);
+    //console.log("action.payload.petColors", action.payload.petColors);
+    //console.log("action.payload.catBreeds", action.payload.catBreeds);
+    //console.log("action.payload.dogBreeds", action.payload.dogBreeds);
     let colorsArray = [];
     let i;
     for (i = 0; i < action.payload.petColors.length; i++) {
@@ -44,7 +44,7 @@ const reducer = (state, action) => {
     for (i = 0; i < action.payload.catBreeds.length; i++) {
       catBreedsArray.push(JSON.parse(action.payload.catBreeds[i]));
     }
-    //console.log('action', action)
+    ////console.log('action', action)
     let dogBreedsArray = [];
     for (i = 0; i < action.payload.dogBreeds.length; i++) {
       dogBreedsArray.push(JSON.parse(action.payload.dogBreeds[i]));
@@ -81,7 +81,7 @@ const reducer = (state, action) => {
 
   if (action.type === PHONE_NUM_EDIT) {
     return Object.assign({}, state, {
-      phoneNumber: action.payload.phoneNumber,
+      phoneNumber: action.payload.newPhoneNumber,
     });
   }
 

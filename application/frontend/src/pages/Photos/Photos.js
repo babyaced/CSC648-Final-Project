@@ -41,7 +41,7 @@ function Photos() {
       })
       .catch((err) => {
         redirectContext.updateLoading(false);
-        //console.log(err);
+        ////console.log(err);
         //display error message to the user
       });
   }, [profileID]);

@@ -15,7 +15,7 @@ import PasswordValidation from "../../utils/signupValidation/PasswordValidation"
 import TermsValidation from "../../utils/signupValidation/TermsValidation";
 
 function SignUpPage({ type }) {
-  //console.log("type: ", type);
+  ////console.log("type: ", type);
   //form states
   const [email, setEmail] = useState("");
   const [uname, setUname] = useState("");
@@ -54,7 +54,7 @@ function SignUpPage({ type }) {
     event.preventDefault();
 
     const valid = validateForm();
-    //console.log("valid form: ", valid);
+    ////console.log("valid form: ", valid);
 
     if (valid) {
       let signUpObject = {
@@ -72,7 +72,7 @@ function SignUpPage({ type }) {
       }
       Axios.post("/api/signup", signUpObject, { withCredentials: true })
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           if (response.status === 201) {
             history.push("/SignUpSuccess");
           } else if (response.status === 200) {
@@ -153,7 +153,7 @@ function SignUpPage({ type }) {
       return false;
     }
 
-    //console.log("no errors");
+    ////console.log("no errors");
     return true;
   }
 
@@ -180,9 +180,9 @@ function SignUpPage({ type }) {
   //Decide if password not matching message is displayed
   let passwordMatchStyle = "same";
   if (passwordChecking && password !== redonePassword) {
-    //console.log("Password Checking on");
+    ////console.log("Password Checking on");
     if (redonePassword.length === 0 || password.length == 0) {
-      //console.log("but password length is 0");
+      ////console.log("but password length is 0");
       passwordMatchStyle = "same";
       setPasswordChecking(false);
     } else {

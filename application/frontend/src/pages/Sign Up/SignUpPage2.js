@@ -120,11 +120,11 @@ function SignUpPage2(props) {
   });
 
   function validateForm() {
-    //console.log("Business Name: ", businessName);
-    //console.log("Phone Number: ", phoneNumber);
-    //console.log("Address: ", address);
-    //console.log("Latitude: ", latitude);
-    //console.log("Longitude: ", longitude);
+    ////console.log("Business Name: ", businessName);
+    ////console.log("Phone Number: ", phoneNumber);
+    ////console.log("Address: ", address);
+    ////console.log("Latitude: ", latitude);
+    ////console.log("Longitude: ", longitude);
 
     let businessNameErr = BusinessNameValidation(businessName);
     let phoneNumberErr = PhoneNumberValidation(phoneNumber);
@@ -140,7 +140,7 @@ function SignUpPage2(props) {
       return false;
     }
 
-    //console.log("no errors");
+    ////console.log("no errors");
     return true;
   }
 
@@ -175,7 +175,7 @@ function SignUpPage2(props) {
               }
             })
             .catch((error) => {
-              //console.log(error);
+              ////console.log(error);
             })
         : Axios.post(
             "/api/signup/shelter",
@@ -201,7 +201,7 @@ function SignUpPage2(props) {
               }
             })
             .catch((error) => {
-              //console.log(error);
+              ////console.log(error);
             });
     }
   }
@@ -226,7 +226,7 @@ function SignUpPage2(props) {
                 placeholder="Enter Business Name"
                 name="business-name"
                 oninvalid={() => {
-                  //console.log("");
+                  ////console.log("");
                 }}
                 onChange={(e) => setBusinessName(e.target.value)}
                 className={styles.valid}
@@ -237,7 +237,7 @@ function SignUpPage2(props) {
                 placeholder="Enter Business Name"
                 name="business-name"
                 oninvalid={() => {
-                  //console.log("");
+                  ////console.log("");
                 }}
                 onChange={(e) => setBusinessName(e.target.value)}
                 className={styles.invalid}
@@ -294,7 +294,7 @@ function SignUpPage2(props) {
                   setLatitude(lat);
                   setLongitude(lng);
                 } catch (error) {
-                  //console.log("error!");
+                  ////console.log("error!");
                 }
                 setAddress(address);
               }}

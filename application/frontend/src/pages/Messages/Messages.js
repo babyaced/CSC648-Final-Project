@@ -53,7 +53,7 @@ function Messages() {
         setSentMessages(responses[1].data);
         setLoading(false);
 
-        console.log(responses[1].data);
+        //console.log(responses[1].data);
       })
       .catch((err) => {
         setLoading(false);

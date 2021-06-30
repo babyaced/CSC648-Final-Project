@@ -5,7 +5,7 @@ function AddressValidation(address) {
     addressErr = "Please enter a valid address";
   }
 
-  //console.log("addressErr: ", addressErr);
+  ////console.log("addressErr: ", addressErr);
   return addressErr;
 }
 
