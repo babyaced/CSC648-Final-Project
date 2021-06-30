@@ -196,7 +196,7 @@ function SignUpPage2(props) {
             { withCredentials: true }
           )
             .then((response) => {
-              if (response.data === "success") {
+              if (response.data === "SUCCESS") {
                 history.push("/SignUpSuccess");
               }
             })
@@ -213,7 +213,7 @@ function SignUpPage2(props) {
         onSubmit={signUpBusiness}
       >
         <div className={styles["signup-header"]}>
-          {type == "business" ? <h2>Business Info</h2> : <h2>Shelter Info</h2>}
+          {type === "business" ? <h2>Business Info</h2> : <h2>Shelter Info</h2>}
         </div>
         <div className={styles["signup-fields-container"]}>
           <div className={styles["name-input-container"]}>

@@ -246,6 +246,8 @@ router.get("/phone-number", (req, res) => {
 
 router.put("/phone-number", (req, res) => {
   const { newPhoneNumber } = req.body;
+
+  console.log(req.body);
   connection.query(
     `UPDATE Business
            SET phone_num= ?

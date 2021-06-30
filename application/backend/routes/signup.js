@@ -334,7 +334,14 @@ router.post("/shelter", (req, res) => {
   const givenLongitude = req.body.longitude;
   const givenPetTypes = req.body.petTypes;
 
-  var userId;
+  let errorFlag = false;
+
+  let errorResponseObject = {
+    emailTakenError: "",
+    usernameTakenError: "",
+    passwordRequirementsError: "",
+    nonMatchingPasswordError: "",
+  };
 
   connection.getConnection(function (err, conn) {
     if (err) {
@@ -383,6 +390,7 @@ router.post("/shelter", (req, res) => {
             if (errorFlag) {
               return res.status(400).json(errorResponseObject);
             }
+
             const insertedUser = await conn
               .promise()
               .query(
@@ -393,48 +401,74 @@ router.post("/shelter", (req, res) => {
             const insertedAccount = await conn
               .promise()
               .query(`INSERT INTO Account (user_id, role_id)  VALUES  (?,?)`, [
-                insertedUser.insertId,
+                insertedUser[0].insertId,
                 1,
               ]);
             console.log("insertedAccount: ", insertedAccount);
+
+            const hash = await bcrypt.hash(givenPassword, 10);
+            console.log(hash);
 
             const insertedCredentials = await conn
               .promise()
               .query(
                 `INSERT INTO Credentials (acct_id, username, password) VALUES (?,?,?)`,
-                [insertedAccount.insertId, givenUsername, hash]
+                [insertedAccount[0].insertId, givenUsername, hash]
               );
             console.log("insertedCredentials: ", insertedCredentials);
+
+            const insertedRegisteredUser = await conn
+              .promise()
+              .query(
+                `SELECT RegisteredUser.reg_user_id FROM RegisteredUser WHERE RegisteredUser.user_id = ?`,
+                [insertedUser[0].insertId]
+              );
+
+            console.log(
+              "insertedRegisteredUser ",
+              insertedRegisteredUser[0][0].reg_user_id
+            );
+
             const insertedAddress = await conn
               .promise()
               .query(
-                `INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES (?, ?, ?,(SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`,
+                `INSERT INTO Address (address, latitude, longitude, reg_user_id) VALUES (?, ?, ?,?)`,
                 [
                   givenAddress,
                   givenLatitude,
                   givenLongitude,
-                  insertedUser.insertId,
+                  insertedRegisteredUser[0][0].reg_user_id,
                 ]
               );
+
+            console.log("insertedAddress ", insertedAddress);
             const insertedBusiness = await conn
               .promise()
               .query(
-                `INSERT INTO Business (name, phone_num, reg_user_id) VALUES (?, ?, (SELECT reg_user_id FROM RegisteredUser WHERE user_id= ?))`,
-                [givenBusinessName, givenPhoneNumber, insertedUser.insertId]
+                `INSERT INTO Business (name, phone_num, reg_user_id) VALUES (?, ?, ?)`,
+                [
+                  givenBusinessName,
+                  givenPhoneNumber,
+                  insertedRegisteredUser[0][0].reg_user_id,
+                ]
               );
+
+            console.log("insertedBusiness ", insertedBusiness);
 
             const insertedShelter = await conn
               .promise()
               .query(`INSERT INTO Shelter (business_id) VALUES (?)`, [
-                insertedBusiness.insertId,
+                insertedBusiness[0].insertId,
               ]);
+
+            console.log("insertedShelter ", insertedShelter);
 
             for (let i = 0; i < givenPetTypes.length; i++) {
               const insertedShelterType = await conn
                 .promise()
                 .query(
                   `INSERT INTO ShelterTypes (shelter_id, type_id) VALUES (?, ?)`,
-                  [insertedShelter.insertId, givenPetTypes[i].value]
+                  [insertedShelter[0].insertId, givenPetTypes[i].value]
                 );
               console.log(insertedShelterType);
             }
@@ -443,7 +477,7 @@ router.post("/shelter", (req, res) => {
               .promise()
               .query(
                 `UPDATE Profile SET Profile.display_name = ?, Profile.type = 'Shelter' WHERE  Profile.account_id = ?`,
-                [givenBusinessName, insertedAccount.insertId]
+                [givenBusinessName, insertedAccount[0].insertId]
               );
 
             conn.commit(function (err) {

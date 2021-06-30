@@ -122,7 +122,10 @@ export const ProfileProvider = ({ appUser, children }) => {
           });
         })
         .then(() => {
-          if (fetchedProfile.profileType === "Business") {
+          if (
+            fetchedProfile.profileType === "Business" ||
+            fetchedProfile.profileType === "Shelter"
+          ) {
             const getHours = axios.get("/api/business/hours", {
               params: { profileID: profileID },
             });
