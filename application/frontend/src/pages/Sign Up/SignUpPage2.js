@@ -37,6 +37,8 @@ import useBusinessCategoryOptions from "../../components/DropdownOptions/useBusi
 
 import SelectCustomTheme from "../../mods/SelectCustomTheme";
 
+import ButtonLoader from "../../components/UI/Spinner/ButtonLoader";
+
 let typeOptions = []; //for storing business type options
 
 //use select with required attribute
@@ -83,6 +85,8 @@ function SignUpPage2(props) {
   const [termsError, setTermsError] = useState("");
 
   const [locationConfirmed, setLocationConfirmed] = useState(false);
+
+  const [signUpLoading, setSignUpLoading] = useState(false);
 
   const customStyles = {
     control: (base, state) => ({
@@ -142,10 +146,13 @@ function SignUpPage2(props) {
 
   function signUpBusiness(event) {
     event.preventDefault();
+    setSignUpLoading(true);
 
     const valid = validateForm();
 
-    if (valid) {
+    if (!valid) {
+      setSignUpLoading(false);
+    } else if (valid) {
       type === "business"
         ? Axios.post(
             "/api/signup/business",
@@ -232,6 +239,7 @@ function SignUpPage2(props) {
                 }}
                 onChange={(e) => setBusinessName(e.target.value)}
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -243,6 +251,7 @@ function SignUpPage2(props) {
                 }}
                 onChange={(e) => setBusinessName(e.target.value)}
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{businessNameError}</span>
@@ -264,6 +273,7 @@ function SignUpPage2(props) {
                 maxLength={10}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 className={styles.valid}
+                disabled={signUpLoading}
               />
             ) : (
               <input
@@ -274,6 +284,7 @@ function SignUpPage2(props) {
                 maxLength={10}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 className={styles.invalid}
+                disabled={signUpLoading}
               />
             )}
             <span className={styles["termsError"]}>{phoneNumberError}</span>
@@ -310,7 +321,7 @@ function SignUpPage2(props) {
                   //record lat lng to store in database
                 }}
                 // required
-                disabled={!ready}
+                disabled={!ready || signUpLoading}
                 className={styles[comboboxInputStyle]}
               />
               <ComboboxPopover>
@@ -345,6 +356,7 @@ function SignUpPage2(props) {
                   isSearchable
                   // isMulti
                   components={animatedComponents}
+                  disabled={signUpLoading}
                   // required
                 />
               </>
@@ -368,6 +380,7 @@ function SignUpPage2(props) {
                   isSearchable
                   isMulti
                   components={animatedComponents}
+                  disabled={signUpLoading}
                   // required
                 />
               </>
@@ -396,13 +409,14 @@ function SignUpPage2(props) {
                 type="checkbox"
                 name="remember"
                 onChange={(e) => setAcceptTerms(e.target.checked)}
+                disabled={signUpLoading}
               />
             </span>
             <span className={styles["termsError"]}>{termsError}</span>
           </div>
         </div>
         <button type="submit" className={styles["submit-btn"]}>
-          Sign Up
+          {signUpLoading ? <ButtonLoader message={"Sign Up"} /> : "Sign Up"}
         </button>
       </form>
       {/* Modals */}
