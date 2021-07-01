@@ -1,8 +1,11 @@
 import React from "react";
+
 import styles from "./PrimaryButton.module.css";
 
-function PrimaryButton() {
-  return <button className={styles.PrimaryButton}></button>;
+function PrimaryButton({ children }) {
+  return (
+    <button className={styles["call-to-action-button"]}>{children}</button>
+  );
 }
 
 export default PrimaryButton;

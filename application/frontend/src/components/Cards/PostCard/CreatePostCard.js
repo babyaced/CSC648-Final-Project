@@ -5,6 +5,8 @@ import Select from "react-select";
 import { useHistory } from "react-router";
 import { useDropzone } from "react-dropzone";
 
+import ServerErrorMessage from "../../InfoMessages/ServerErrorMessage";
+
 //import CSS
 import styles from "./CreatePostCard.module.css";
 
@@ -16,6 +18,7 @@ import SelectCustomTheme from "../../../mods/SelectCustomTheme";
 
 //Import Custom Hooks
 import useWindowSize from "../../Hooks/useWindowSize";
+import ServerErrorModal from "../../Modals/ServerErrorModal";
 
 const apiGatewayURL = process.env.REACT_APP_API_GATEWAY;
 const s3URL = process.env.REACT_APP_IMAGE_STORAGE;
@@ -42,6 +45,10 @@ function CreatePostCard({
 
   //storing the pets that are tagged in each post to send to db
   const [taggedPets, setTaggedPets] = useState([]);
+
+  const [serverError, setServerError] = useState(false);
+
+  const [serverErrorModalDisplay, setServerErrorModalDisplay] = useState(false);
 
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -133,6 +140,9 @@ function CreatePostCard({
                 })
                 .catch((err) => {
                   setAwaitingResponse(false);
+                  if (err.response.status === 500) {
+                    setServerErrorModalDisplay(true);
+                  }
                 });
             })
             .catch((err) => {
@@ -140,6 +150,8 @@ function CreatePostCard({
               if (err.response.status === 403) {
                 //display error message to user
               }
+
+              return;
               //break out of this function //presigned s3 url will automatically expire so no harm done
             });
         })
@@ -173,76 +185,85 @@ function CreatePostCard({
   }
 
   return (
-    <form className={styles["create-post-card"]} onSubmit={submitPost}>
-      <img
-        className={styles["new-post-profile-pic"]}
-        src={profilePic}
-        alt="Created Post User"
-      />
-      <div className={styles["new-post-name"]}>{displayName}</div>
-      <textarea
-        value={createdPostBody}
-        maxLength="255"
-        required
-        className={styles["follower-feed-new-post-body"]}
-        placeholder="Update your followers on what's going on with you and your pets"
-        onChange={(e) => setCreatedPostBody(e.target.value)}
-        disabled={awaitingResponse}
-      />
-      <div className={styles["follower-feed-new-post-tag-dropdown"]}>
-        <Select
-          onChange={setTaggedPets}
-          options={tagOptions}
-          placeholder="Tag a Pet in your Post"
-          theme={SelectCustomTheme}
-          styles={customStyles}
-          isSearchable
-          isMulti
-          value={taggedPets}
-          noOptionsMessage={() =>
-            "Add a Pet to Your Account on the My Pets Page"
-          }
+    <>
+      <form className={styles["create-post-card"]} onSubmit={submitPost}>
+        <img
+          className={styles["new-post-profile-pic"]}
+          src={profilePic}
+          alt="Created Post User"
+        />
+        <div className={styles["new-post-name"]}>{displayName}</div>
+        <textarea
+          value={createdPostBody}
+          maxLength="255"
+          required
+          className={styles["follower-feed-new-post-body"]}
+          placeholder="Update your followers on what's going on with you and your pets"
+          onChange={(e) => setCreatedPostBody(e.target.value)}
           disabled={awaitingResponse}
         />
-      </div>
-      <section className={styles["attach-image-section"]}>
-        <div className={styles["attach-image-container"]} {...getRootProps()}>
-          <input {...getInputProps()} />
-          {myFiles.length === 0 && (
-            <div className={styles["attach-image-info"]}>
-              {windowSize.width > 768 && (
-                <>Drag and Drop or Click to Select Image</>
-              )}
-              {windowSize.width <= 768 && <>Attach Image</>}
-            </div>
-          )}
-          {myFiles.length > 0 && (
-            <>
-              <img
-                className={styles["attach-image-preview"]}
-                src={myFiles[0].preview}
-                onClick={removeAll}
-                alt="attach"
-              />
-              <button
-                className={styles["delete-attached-image-button"]}
-                onClick={removeAll}
-                disabled={awaitingResponse}
-              >
-                Remove
-              </button>
-            </>
-          )}
+        <div className={styles["follower-feed-new-post-tag-dropdown"]}>
+          <Select
+            onChange={setTaggedPets}
+            options={tagOptions}
+            placeholder="Tag a Pet in your Post"
+            theme={SelectCustomTheme}
+            styles={customStyles}
+            isSearchable
+            isMulti
+            value={taggedPets}
+            noOptionsMessage={() =>
+              "Add a Pet to Your Account on the My Pets Page"
+            }
+            disabled={awaitingResponse}
+          />
         </div>
-      </section>
-      <button
-        className={styles["submit-post-button"]}
-        type="submit"
-        disabled={awaitingResponse}
+        <section className={styles["attach-image-section"]}>
+          <div className={styles["attach-image-container"]} {...getRootProps()}>
+            <input {...getInputProps()} />
+            {myFiles.length === 0 && (
+              <div className={styles["attach-image-info"]}>
+                {windowSize.width > 768 && (
+                  <>Drag and Drop or Click to Select Image</>
+                )}
+                {windowSize.width <= 768 && <>Attach Image</>}
+              </div>
+            )}
+            {myFiles.length > 0 && (
+              <>
+                <img
+                  className={styles["attach-image-preview"]}
+                  src={myFiles[0].preview}
+                  onClick={removeAll}
+                  alt="attach"
+                />
+                <button
+                  className={styles["delete-attached-image-button"]}
+                  onClick={removeAll}
+                  disabled={awaitingResponse}
+                >
+                  Remove
+                </button>
+              </>
+            )}
+          </div>
+        </section>
+        <button
+          className={styles["submit-post-button"]}
+          type="submit"
+          disabled={awaitingResponse}
+        >
+          {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
+        </button>
+        <div className={styles.ServerErrorMessage}>{serverError}</div>
+      </form>
+      <ServerErrorModal
+        display={serverErrorModalDisplay}
+        onClose={() => setServerErrorModalDisplay(false)}
       >
-        {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
-      </button>
-    </form>
+        Please try submitting your post again
+      </ServerErrorModal>
+    </>
   );
 }
 

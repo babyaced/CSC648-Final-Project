@@ -1,3 +1,8 @@
-.PrimaryButton{
-    box-shadow: var(--elevation-1);
+.PrimaryButton {
+  background-color: var(--color-primary-200);
+  color: var(--reversed-txt-clr);
+  box-shadow: var(--elevation-1);
+  border: none;
+  border-radius: 7.5px;
+  padding: 0.25rem 1rem;
 }

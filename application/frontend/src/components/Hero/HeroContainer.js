@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import styles from "./HeroContainer.module.css";
 
 //Import components
-import CallToActionButton from "../Buttons/CallToActionButton";
 
 //Import Images
 import DogOwnerImage from "../../assets/images/thirdparty/undraw_Modern_woman_lxh7.svg";
-import CatOwnerImage from "../../assets/images/thirdparty/undraw_chilling_8tii 1.svg";
 
 function HeroContainer() {
   const history = useHistory();

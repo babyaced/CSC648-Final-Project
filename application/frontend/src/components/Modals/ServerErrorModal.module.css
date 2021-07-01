@@ -1,0 +1,19 @@
+.ServerErrorModalContent {
+  padding: 4rem 4rem 2rem 2rem;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.ServerErrorModalContent button {
+  margin-top: 1rem;
+  align-self: center;
+  padding: 0.5rem 2rem;
+  font-size: var(--h5);
+  margin-left: 2rem;
+  background-color: var(--color-primary-200);
+  border: none;
+  border-radius: 7.5px;
+  box-shadow: var(--elevation-1);
+  color: var(--reversed-txt-clr);
+  cursor: pointer;
+}

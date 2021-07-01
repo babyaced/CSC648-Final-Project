@@ -1,8 +1,0 @@
-.call-to-action-button{
-    background-color: var(--primary-clr, red);
-    color: var(--reversed-txt-clr);
-    box-shadow: var(--elevation-1);
-    border:none;
-    border-radius: 7.5px;
-    padding: 0 15px 0 15px;
-}
