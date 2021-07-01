@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Modal from "./Modal";
 
@@ -206,7 +206,7 @@ function AddAPet({
             type="submit"
             disabled={loading}
           >
-            {loading ? <ButtonLoader /> : "Submit"}
+            {loading ? <ButtonLoader message={"Submit"} /> : "Submit"}
           </button>
         </div>
       </form>

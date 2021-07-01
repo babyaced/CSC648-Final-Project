@@ -238,31 +238,17 @@ function SignUpPage2(props) {
             <label className={styles["name-input-label"]} for="business-name">
               Business Name
             </label>
-            {!businessNameError ? (
-              <input
-                type="text"
-                placeholder="Enter Business Name"
-                name="business-name"
-                oninvalid={() => {
-                  ////console.log("");
-                }}
-                onChange={(e) => setBusinessName(e.target.value)}
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="text"
-                placeholder="Enter Business Name"
-                name="business-name"
-                oninvalid={() => {
-                  ////console.log("");
-                }}
-                onChange={(e) => setBusinessName(e.target.value)}
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="text"
+              placeholder="Enter Business Name"
+              name="business-name"
+              oninvalid={() => {
+                ////console.log("");
+              }}
+              onChange={(e) => setBusinessName(e.target.value)}
+              className={!businessNameError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{businessNameError}</span>
           </div>
 
@@ -273,29 +259,16 @@ function SignUpPage2(props) {
             >
               Phone Number
             </label>
-            {!phoneNumberError ? (
-              <input
-                type="text"
-                placeholder="(000) 000-0000"
-                name="business-phone-number"
-                pattern="[0-9]*"
-                maxLength={10}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="text"
-                placeholder="(000) 000-0000"
-                name="business-phone-number"
-                pattern="[0-9]*"
-                maxLength={10}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="text"
+              placeholder="(000) 000-0000"
+              name="business-phone-number"
+              pattern="[0-9]*"
+              maxLength={10}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className={!phoneNumberError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{phoneNumberError}</span>
           </div>
 

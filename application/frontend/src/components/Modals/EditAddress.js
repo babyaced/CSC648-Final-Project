@@ -119,7 +119,7 @@ function EditAddress({ display, onClose }) {
           onClick={submitAddressEdit}
           disabled={awaitingResponse}
         >
-          {awaitingResponse ? <ButtonLoader /> : "Submit"}
+          {awaitingResponse ? <ButtonLoader message={"Submit"} /> : "Submit"}
         </button>
       </div>
       <ServerErrorMessage serverError={serverError} />

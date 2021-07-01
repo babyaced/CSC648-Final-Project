@@ -214,29 +214,16 @@ function SignUpPage({ type }) {
             <label className={styles["fname-input-label"]} for="fname">
               First Name
             </label>
-            {!firstNameError ? (
-              <input
-                type="text"
-                placeholder="First name"
-                name="fname"
-                onChange={(e) => setFirstName(e.target.value)}
-                // pattern="[A-Za-z]"
-                maxlength="40"
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="text"
-                placeholder="First name"
-                name="fname"
-                onChange={(e) => setFirstName(e.target.value)}
-                // pattern="[A-Za-z]"
-                maxlength="40"
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="text"
+              placeholder="First name"
+              name="fname"
+              onChange={(e) => setFirstName(e.target.value)}
+              // pattern="[A-Za-z]"
+              maxlength="40"
+              className={!firstNameError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{firstNameError}</span>
           </div>
 
@@ -244,30 +231,16 @@ function SignUpPage({ type }) {
             <label className={styles["lname-input-label"]} for="lname">
               Last Name
             </label>
-
-            {!lastNameError ? (
-              <input
-                type="text"
-                placeholder="Last name"
-                name="lname"
-                onChange={(e) => setLastName(e.target.value)}
-                // pattern="[a-zA-Z]"
-                maxlength="40"
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="text"
-                placeholder="Last name"
-                name="lname"
-                onChange={(e) => setLastName(e.target.value)}
-                // pattern="[a-zA-Z]"
-                maxlength="40"
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="text"
+              placeholder="Last name"
+              name="lname"
+              onChange={(e) => setLastName(e.target.value)}
+              // pattern="[a-zA-Z]"
+              maxlength="40"
+              className={!lastNameError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{lastNameError}</span>
           </div>
 
@@ -275,27 +248,15 @@ function SignUpPage({ type }) {
             <label className={styles["email-input-label"]} for="email">
               Email
             </label>
-            {!emailError ? (
-              <input
-                type="email"
-                placeholder="Enter email"
-                name="email"
-                onChange={(e) => setEmail(e.target.value)}
-                maxlength="320"
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="email"
-                placeholder="Enter email"
-                name="email"
-                onChange={(e) => setEmail(e.target.value)}
-                maxlength="320"
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="email"
+              placeholder="Enter email"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              maxlength="320"
+              className={!emailError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{emailError}</span>
           </div>
 
@@ -303,25 +264,14 @@ function SignUpPage({ type }) {
             <label className={styles["username-input-label"]} for="uname">
               Username
             </label>
-            {!unameError ? (
-              <input
-                type="username"
-                placeholder="Enter username"
-                name="uname"
-                onChange={(e) => setUname(e.target.value)}
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="username"
-                placeholder="Enter username"
-                name="uname"
-                onChange={(e) => setUname(e.target.value)}
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="username"
+              placeholder="Enter username"
+              name="uname"
+              onChange={(e) => setUname(e.target.value)}
+              className={!unameError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{unameError}</span>
           </div>
 
@@ -329,25 +279,14 @@ function SignUpPage({ type }) {
             <label className={styles["password-input-label"]} for="psw">
               Password
             </label>
-            {!passwordError ? (
-              <input
-                type="password"
-                placeholder="Enter password"
-                name="psw"
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="password"
-                placeholder="Enter password"
-                name="psw"
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="password"
+              placeholder="Enter password"
+              name="psw"
+              onChange={(e) => setPassword(e.target.value)}
+              className={!passwordError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{passwordError}</span>
           </div>
 
@@ -358,27 +297,15 @@ function SignUpPage({ type }) {
             >
               Confirm Password
             </label>
-            {!redonePasswordError ? (
-              <input
-                type="password"
-                placeholder="Confirm password"
-                name="psw-repeat"
-                onChange={(e) => setRedonePassword(e.target.value)}
-                onBlur={() => setPasswordChecking(true)}
-                className={styles.valid}
-                disabled={signUpLoading}
-              />
-            ) : (
-              <input
-                type="password"
-                placeholder="Confirm password"
-                name="psw-repeat"
-                onChange={(e) => setRedonePassword(e.target.value)}
-                onBlur={() => setPasswordChecking(true)}
-                className={styles.invalid}
-                disabled={signUpLoading}
-              />
-            )}
+            <input
+              type="password"
+              placeholder="Confirm password"
+              name="psw-repeat"
+              onChange={(e) => setRedonePassword(e.target.value)}
+              onBlur={() => setPasswordChecking(true)}
+              className={!redonePasswordError ? styles.valid : styles.invalid}
+              disabled={signUpLoading}
+            />
             <span className={styles["termsError"]}>{redonePasswordError}</span>
           </div>
           <ul className={styles["password-requirements-list"]}>

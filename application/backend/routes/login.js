@@ -56,11 +56,11 @@ router.post("/", (req, res) => {
             //console.log("Logged in.");
           } else {
             //console.log("Password is incorrect");
-            res.status(400).json("no match");
+            res.status(400).json({ passwordError: "Password is Incorrect" });
           }
         } else {
           //console.log("Username is incorrect");
-          res.status(400).json("no match");
+          res.status(400).json({ usernameError: "That User does Not Exist" });
           // res.send("Username or password is incorrect");
         }
         // res.end();
