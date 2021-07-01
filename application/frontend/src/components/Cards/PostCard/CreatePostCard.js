@@ -152,16 +152,11 @@ function CreatePostCard({
               }
 
               return;
-              //break out of this function //presigned s3 url will automatically expire so no harm done
             });
         })
         .catch((err) => {
           setAwaitingResponse(false);
         });
-
-      //refresh feed after posting
-      // getPosts();
-      // setFeedPosts([...feedPosts, ])
     } else {
       axios
         .post("/api/post", {
@@ -169,7 +164,6 @@ function CreatePostCard({
           taggedPets: taggedPets,
         })
         .then((res) => {
-          //console.log("res.data: ", res.data);
           setCreatedPostBody("");
           setTaggedPets([]);
           updateFeedPostsState(res.data);
@@ -178,9 +172,6 @@ function CreatePostCard({
         .catch((err) => {
           setAwaitingResponse(false);
         });
-
-      //refresh feed after posting
-      //getPosts();
     }
   }
 

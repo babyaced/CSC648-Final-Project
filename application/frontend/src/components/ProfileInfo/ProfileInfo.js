@@ -16,6 +16,7 @@ import FollowMenu from "./FollowMenu";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
 import EditButton from "../Buttons/EditButton";
+import ServerErrorModal from "../Modals/ServerErrorModal";
 
 function ProfileInfo() {
   const { profile, appUser, editName } = useContext(ProfileContext);
@@ -29,6 +30,8 @@ function ProfileInfo() {
   const [editPetDetailsDisplay, setEditPetDetailsDisplay] = useState(false);
   const [loginRequiredDisplay, setLoginRequiredDisplay] = useState(false);
   const [deletionModalDisplay, setDeletionModalDisplay] = useState(false);
+
+  const [serverErrorModalDisplay, setServerErrorModalDisplay] = useState(true);
 
   const history = useHistory();
   const location = useLocation();
@@ -46,7 +49,12 @@ function ProfileInfo() {
       .put("/api/profile/name", {
         newFirstName: profile.displayName,
       })
-      .then((res) => {});
+      .then((res) => {})
+      .catch((err) => {
+        if (err.response.status === 500) {
+          setServerErrorModalDisplay(true);
+        }
+      });
 
     setEditing(false);
   }
@@ -253,6 +261,12 @@ function ProfileInfo() {
           deleteAction={banUser}
         />
       </div>
+      <ServerErrorModal
+        display={serverErrorModalDisplay}
+        onClose={() => setServerErrorModalDisplay(false)}
+      >
+        Please try submitting your Edit Again
+      </ServerErrorModal>
     </>
   );
 }

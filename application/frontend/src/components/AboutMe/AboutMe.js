@@ -12,6 +12,8 @@ import axios from "axios";
 import BusinessInfo from "./BusinessInfo";
 import { ProfileContext } from "../../pages/Profile/ProfileProvider";
 
+import ServerErrorModal from "../Modals/ServerErrorModal";
+
 const shelterProfileTabs = ["About", "Contact Info"]; //, "Recent Posts"]
 const businessProfileTabs = ["About", "Business Info"]; //, "Recent Posts"]
 const petOwnerProfileTabs = ["About"]; //, "Recent Posts"]
@@ -28,6 +30,10 @@ function AboutMe() {
   const [editHoursDisplay, setEditHoursDisplay] = useState(false);
   const [editAddressDisplay, setEditAddressDisplay] = useState(false);
 
+  const [awaitingResponse, setAwaitingResponse] = useState(false);
+
+  const [serverErrorModalDisplay, setServerErrorModalDisplay] = useState(false);
+
   function displayEditHoursModal() {
     setEditHoursDisplay(true);
   }
@@ -43,9 +49,14 @@ function AboutMe() {
         profileID: profileID,
       })
       .then((response) => {
+        setAwaitingResponse(false);
         ////console.log(response);
       })
       .catch((err) => {
+        setAwaitingResponse(false);
+        if (err.response.status === 500) {
+          setServerErrorModalDisplay(true);
+        }
         ////console.log(err);
       });
   }
@@ -164,6 +175,12 @@ function AboutMe() {
         display={editAddressDisplay}
         onClose={() => setEditAddressDisplay(false)}
       />
+      <ServerErrorModal
+        display={serverErrorModalDisplay}
+        onClose={() => setServerErrorModalDisplay(false)}
+      >
+        Please try submitting your edit Again
+      </ServerErrorModal>
     </>
   );
 }
